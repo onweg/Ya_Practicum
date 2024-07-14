@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Не худший случай</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Не худший случай</h1>
+
+<p>Чтобы оценить, сколько примерно времени будет работать ваш алгоритм, ориентируйтесь на правило: ядро процессора выполняет около миллиарда действий в секунду. Оценка грубая, но в некоторых случаях она полезна. Количество действий можно посчитать теоретически. Разберёмся, всегда ли теория верна.</p>
+
+<p>В начале темы мы рассмотрели функцию, которая определяет, одинаковые ли элементы в двух векторах. Вспомним код:</p>
+
+<pre><code class="language-cpp">// O(n²)
+bool TestPermut(const vector&lt;int&gt;&amp; v1, const vector&lt;int&gt;&amp; v2) {
+    // если они разной длины, элементы заведомо разные
+    if (v1.size() != v2.size()) {
+        return false;
+    }
+
+    for (int i : v1) {
+        // проверяем, что каждый элемент первого вектора
+        // содержится одинаковое количество раз в обоих векторах
+        if (count(v1.begin(), v1.end(), i) != count(v2.begin(), v2.end(), i)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// O(n log n)
+bool TestPermut2(const vector&lt;int&gt;&amp; v1, const vector&lt;int&gt;&amp; v2) {
+    auto v1_copy = v1;
+    auto v2_copy = v2;
+
+    std::sort(v1_copy.begin(), v1_copy.end());
+    std::sort(v2_copy.begin(), v2_copy.end());
+
+    return v1_copy == v2_copy;
+}
+</code></pre>
+
+<p>Возможно, вы обратили внимание на странный момент: наивный квадратичный алгоритм из условия быстро завершался при первом запуске, но для ответа <code>true</code> ему нужно было много времени. А второй алгоритм всегда работает примерно одинаково быстро. Сравним алгоритмы на сильно различающихся векторах из 500 000 элементов:</p>
+
+<pre><code>O(n²): 2 ms
+O(n log n): 181 ms
+</code></pre>
+
+<p>Может показаться, что теория обманывает. Сделаем векторы похожими:</p>
+
+<pre><code class="language-cpp">int main() {
+    std::mt19937 g;
+
+    // ...
+
+    v2 = v1;
+    shuffle(v2.begin(), v2.end(), g);
+    v2[rand() % v2.size()]++;
+
+    // ...
+}
+</code></pre>
+
+<p>Различие только в одном элементе со случайным индексом. Результаты работы:</p>
+
+<pre><code>O(n²): 2286 ms
+O(n log n): 178 ms
+</code></pre>
+
+<p>На этот раз всё как и должно быть.</p>
+
+<hr>
+
+<p>Почему так происходит?</p>
+
+<ul>
+<li><p>Мы делали заполнение случайными числами, поэтому первый алгоритм работает случайное время — то быстро, то медленно.</p></li>
+
+<li><p>Приведённые оценки сложности — это оценки худшего случая. Но не любой случай худший: для первого алгоритма различие между худшим и лучшим прослеживается более ярко, чем для второго.</p></li>
+
+<li><p>O(N^2) будет хуже O(N\log N) уже при не очень больших N, порядка сотен. А в нашем случае векторы были по 500 000 элементов.</p></li>
+</ul>
+
+<p>Если векторы существенно отличаются, первый алгоритм быстро найдёт элемент, который есть в первом векторе, но отсутствует во втором. После этого алгоритм сразу завершится. Но для ответа <code>true</code> ему понадобится много времени. А второй, быстрый алгоритм будет в любом случае выполнять две сортировки — в этом смысле он более стабильный.</p>
+
+<hr>
+
+<p>Подобный эффект можно наблюдать и с <code>upper_bound</code>. В уроке о логарифме вы увидели, что этот алгоритм сильно выигрывает у <code>find_if</code>. Посмотрим, всегда ли. Вернёмся к тому примеру, но теперь вместо 500 000 000 будем искать число, превышающее 100:</p>
+
+<pre><code class="language-cpp">...
+int result_number;
+{
+    LOG_DURATION(&quot;std::upper_bound&quot;s);
+    for (int i = 0; i &lt; SEARCHES; ++i) {
+        auto iter = upper_bound(nums.begin(), nums.end(), 100);
+        result_number = *iter;
+    }
+}
+cout &lt;&lt; result_number &lt;&lt; endl;
+
+{
+    LOG_DURATION(&quot;std::find_if&quot;s);
+    for (int i = 0; i &lt; SEARCHES; ++i) {
+        auto iter = find_if(nums.begin(), nums.end(), [](int x) {
+            return x &gt; 100;
+        });
+        result_number = *iter;
+    }
+}
+cout &lt;&lt; result_number &lt;&lt; endl;
+...
+</code></pre>
+
+<p>Результат может быть таким:</p>
+
+<pre><code class="language-cpp">std::upper_bound: 58 ms
+352
+std::find_if: 0 ms
+352
+</code></pre>
+
+<p>Оба алгоритма выдали одинаковый результат, но <code>find_if</code> сделал это гораздо быстрее вопреки теории.</p>
+
+<hr>
+
+<p>Как вы думаете, почему в этом случае <code>find_if</code> оказался быстрее, несмотря на то, что его сложность больше?</p>
+
+<ul>
+<li><p>Теория гарантирует преимущество меньшей сложности только при больших N, здесь оно недостаточно велико.</p></li>
+
+<li><p>Сложность <code>upper_bound</code> — это O(\log N), а логарифм сложная вещь — алгоритм будет работать то быстро, то медленно.</p></li>
+
+<li><p>Сложность <code>find_if</code> — это O(N) в худшем случае. Но тут повезло: случай оказался далеко не самым худшим для этого алгоритма.</p></li>
+</ul>
+
+<p>Проходя вектор, <code>find_if</code> быстро находит нужное число, в то время как <code>upper_bound</code> в любом случае будет сходиться к нему бинарным поиском. Однако это не значит, что нужно всегда использовать <code>find_if</code> — в среднем <code>upper_bound</code> гораздо быстрее.</p>
+
+<hr>
+
+<p>Из этих примеров можно сделать важный вывод: теоретическая оценка даёт верхнюю границу сложности, но иногда она слишком груба. Надо принимать во внимание специфику задачи.</p>
+
+</body>
+</html>

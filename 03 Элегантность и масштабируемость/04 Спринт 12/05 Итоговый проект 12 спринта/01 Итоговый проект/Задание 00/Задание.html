@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание</h2>
+
+<p>Задание посвящено переводу приложения на ввод-вывод в формате JSON.</p>
+
+<h3>Изменения формата ввода</h3>
+
+<p><strong>Новая секция — <code>routing_settings</code></strong></p>
+
+<p>Во входной JSON добавляется ключ <code>routing_settings</code>, значение которого — словарь с двумя ключами:</p>
+
+<ul>
+<li><code>bus_wait_time</code> — время ожидания автобуса на остановке, в минутах. Считайте, что когда бы человек ни пришёл на остановку и какой бы ни была эта остановка, он будет ждать любой автобус в точности указанное количество минут. Значение — целое число от 1 до 1000.</li>
+<li><code>bus_velocity</code> — скорость автобуса, в км/ч. Считайте, что скорость любого автобуса постоянна и в точности равна указанному числу. Время стоянки на остановках не учитывается, время разгона и торможения тоже. Значение — вещественное число от 1 до 1000.</li>
+</ul>
+
+<p><strong>Пример</strong></p>
+
+<pre><code class="language-json">&quot;routing_settings&quot;: {
+	  &quot;bus_wait_time&quot;: 6,
+	  &quot;bus_velocity&quot;: 40
+}
+</code></pre>
+
+<p>Данная конфигурация задаёт время ожидания, равным 6 минутам, и скорость автобусов, равной 40 километрам в час.</p>
+
+<p><strong>Новый тип запросов к базе — <code>Route</code></strong></p>
+
+<p>В список stat_requests добавляются элементы с <code>&quot;type&quot;: &quot;Route&quot;</code> — это запросы на построение маршрута между двумя остановками. Помимо стандартных свойств <code>id</code> и <code>type</code>, они содержат ещё два:</p>
+
+<ul>
+<li><code>from</code> — остановка, где нужно начать маршрут.</li>
+<li><code>to</code> — остановка, где нужно закончить маршрут.</li>
+</ul>
+
+<p>Оба значения — названия существующих в базе остановок. Однако они, возможно, не принадлежат ни одному автобусному маршруту.</p>
+
+<p><strong>Пример</strong></p>
+
+<pre><code class="language-json">{
+	  &quot;type&quot;: &quot;Route&quot;,
+	  &quot;from&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+	  &quot;to&quot;: &quot;Universam&quot;,
+	  &quot;id&quot;: 4
+}
+</code></pre>
+
+<p>Данный запрос означает построение маршрута от остановки “Biryulyovo Zapadnoye” до остановки “Universam”.</p>
+
+<p>На маршруте человек может использовать несколько автобусов. Один автобус даже можно использовать несколько раз, если на некоторых участках он делает большой крюк и проще срезать на другом автобусе.</p>
+
+<p>Маршрут должен быть наиболее оптимален по времени. Если маршрутов с минимально возможным суммарным временем несколько, допускается вывести любой из них: тестирующая система проверяет лишь совпадение времени маршрута с оптимальным и корректность самого маршрута.</p>
+
+<p>При прохождении маршрута время расходуется на два типа активностей:</p>
+
+<ul>
+<li>Ожидание автобуса. Всегда длится <code>bus_wait_time</code> минут.</li>
+<li>Поездка на автобусе. Всегда длится ровно такое количество времени, которое требуется для преодоления данного расстояния со скоростью <code>bus_velocity</code>. Расстояние между остановками вычисляется по дорогам, то есть с использованием <code>road_distances</code>.</li>
+</ul>
+
+<p>Ходить пешком, выпрыгивать из автобуса между остановками и использовать другие виды транспорта запрещается. На конечных остановках все автобусы высаживают пассажиров и уезжают в парк. Даже если человек едет на кольцевом — <code>&quot;is_roundtrip&quot;: true</code> — маршруте и хочет проехать мимо конечной, он будет вынужден выйти и подождать <em>тот же самый автобус</em> ровно <code>bus_wait_time</code> минут. Этот и другие случаи разобраны в примерах.</p>
+
+<p>Ответ на запрос <code>Route</code> устроен следующим образом:</p>
+
+<pre><code class="language-json">{
+    &quot;request_id&quot;: &lt;id запроса&gt;,
+    &quot;total_time&quot;: &lt;суммарное время&gt;,
+    &quot;items&quot;: [
+        &lt;элементы маршрута&gt;
+    ]
+}
+</code></pre>
+
+<p><code>total_time</code> — суммарное время в минутах, которое требуется для прохождения маршрута, выведенное в виде вещественного числа.</p>
+
+<p><em>Обратите внимание, что расстояние от остановки A до остановки B может быть не равно расстоянию от B до A!</em></p>
+
+<p><code>items</code> — список элементов маршрута, каждый из которых описывает непрерывную активность пассажира, требующую временных затрат. А именно элементы маршрута бывают двух типов.</p>
+
+<ol>
+<li><code>Wait</code> — подождать нужное количество минут (в нашем случае всегда <code>bus_wait_time</code>) на указанной остановке:</li>
+</ol>
+
+<pre><code class="language-json">{
+    &quot;type&quot;: &quot;Wait&quot;,
+    &quot;stop_name&quot;: &quot;Biryulyovo&quot;,
+    &quot;time&quot;: 6
+}
+</code></pre>
+
+<ol>
+<li><code>Bus</code> — проехать <code>span_count</code> остановок (перегонов между остановками) на автобусе <code>bus</code>, потратив указанное количество минут:</li>
+</ol>
+
+<pre><code class="language-json">{
+    &quot;type&quot;: &quot;Bus&quot;,
+    &quot;bus&quot;: &quot;297&quot;,
+    &quot;span_count&quot;: 2,
+    &quot;time&quot;: 5.235
+}
+</code></pre>
+
+<p>Если маршрута между указанными остановками нет, выведите результат в следующем формате:</p>
+
+<pre><code class="language-json">{
+    &quot;request_id&quot;: &lt;id запроса&gt;,
+    &quot;error_message&quot;: &quot;not found&quot;
+}
+</code></pre>
+
+<h3>Реализация</h3>
+
+<p>Задача поиска оптимального маршрута данного вида сводится к задаче поиска кратчайшего пути во взвешенном ориентированном графе.</p>
+
+<p>Вам предоставляются две небольшие библиотеки:</p>
+
+<ul>
+<li>graph.h — класс, реализующий взвешенный ориентированный граф,</li>
+<li>router.h — класс, реализующий поиск кратчайшего пути во взвешенном ориентированном графе.</li>
+</ul>
+
+<p>Эти библиотеки <strong>не нуждаются в модификации.</strong> С другой стороны, вы можете не использовать их вовсе или модифицировать произвольным образом.</p>
+
+<p>Как часто бывает в реальной жизни разработчиков, обе эти библиотеки даны без документации, но с самодокументируемым кодом: интерфейсы представленных классов легко читаются по заголовкам публичных методов.</p>
+
+<p>О классах дополнительно известно следующее:</p>
+
+<ul>
+<li>Вершины и рёбра графа нумеруются автоинкрементно беззнаковыми целыми числами, хранящимися в типах <code>VertexId</code> и <code>EdgeId</code>: вершины нумеруются от нуля до количества вершин минус один в соответствии с пользовательской логикой. Номер очередного ребра выдаётся методом <code>AddEdge</code>; он равен нулю для первого вызова метода и при каждом следующем вызове увеличивается на единицу.</li>
+<li>Память, нужная для хранения графа, линейна относительно суммы количеств вершин и рёбер.</li>
+<li>Конструктор и деструктор графа имеют линейную сложность, а остальные методы константны или амортизированно константны.</li>
+<li>Маршрутизатор — класс <code>Router</code> — требует квадратичного относительно количества вершин объёма памяти, не считая памяти, требуемой для хранения кэша маршрутов.</li>
+<li>Конструктор маршрутизатора имеет сложность O(V^3 + E), где V — количество вершин графа, E — количество рёбер.</li>
+<li>Маршрутизатор не работает с графами, имеющими рёбра отрицательного веса.</li>
+<li>Построение маршрута на готовом маршрутизаторе линейно относительно <strong>количества рёбер в маршруте</strong>. Таким образом, основная нагрузка построения оптимальных путей ложится на конструктор.</li>
+</ul>
+
+<p>Нужно:</p>
+
+<ul>
+<li>самостоятельно разобраться с понятиями графов и путями в них;</li>
+<li>придумать, как по транспортному справочнику построить граф, в котором путь наименьшего веса соответствует оптимальному маршруту на автобусах. Но сначала надо определиться, что в этом графе будет вершинами, а что — рёбрами;</li>
+<li>написать код построения графа и описания маршрута по пути, полученному от маршрутизатора.</li>
+</ul>
+
+<p>Вершины графа в той или иной степени должны соответствовать остановкам. Поразмышляйте над двумя вариантами, каждый из которых может привести к правильному решению:</p>
+
+<ul>
+<li>Если ограничиться одной вершиной на остановку, нужно заложить время ожидания автобуса в веса ребёр, соединяющие остановки.</li>
+<li>Можно использовать две вершины для каждой из остановок. Первая соответствует состоянию «начал ждать автобус на остановке S», вторая — «садится в автобус на остановке S». Время ожидания автобуса учитывается благодаря ребру веса <code>bus_wait_time</code> из первой вершины во вторую.</li>
+</ul>
+
+<p>Подумайте, как именно должны быть организованы рёбра графа в каждом из случаев.</p>
+
+<h3>Ограничения</h3>
+
+<ul>
+<li>Количество запросов на создание автобусов и остановок — не более 100.</li>
+<li>Количество запросов к уже созданной базе — не более 2000, из них запросов на отрисовку — не более двух.</li>
+<li>Не более 100 остановок в маршруте.</li>
+<li>Ограничение по времени — 3 секунды на тест, по памяти — 512 МБ.</li>
+</ul>
+
+<p><em>В реальном маршрутизаторе допустимое время на предварительную подготовку данных вполне могло бы занимать минуты, что позволило бы увеличить ограничение на количество объектов.</em></p>
+
+<h3>Пример 1</h3>
+
+<p>e1_map.pdf</p>
+
+<ul>
+<li><p><strong>Ввод</strong></p>
+
+<pre><code class="language-json">{
+    &quot;base_requests&quot;: [
+        {
+            &quot;is_roundtrip&quot;: true,
+            &quot;name&quot;: &quot;297&quot;,
+            &quot;stops&quot;: [
+                &quot;Biryulyovo Zapadnoye&quot;,
+                &quot;Biryulyovo Tovarnaya&quot;,
+                &quot;Universam&quot;,
+                &quot;Biryulyovo Zapadnoye&quot;
+            ],
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;is_roundtrip&quot;: false,
+            &quot;name&quot;: &quot;635&quot;,
+            &quot;stops&quot;: [
+                &quot;Biryulyovo Tovarnaya&quot;,
+                &quot;Universam&quot;,
+                &quot;Prazhskaya&quot;
+            ],
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.574371,
+            &quot;longitude&quot;: 37.6517,
+            &quot;name&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Biryulyovo Tovarnaya&quot;: 2600
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.587655,
+            &quot;longitude&quot;: 37.645687,
+            &quot;name&quot;: &quot;Universam&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Biryulyovo Tovarnaya&quot;: 1380,
+                &quot;Biryulyovo Zapadnoye&quot;: 2500,
+                &quot;Prazhskaya&quot;: 4650
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.592028,
+            &quot;longitude&quot;: 37.653656,
+            &quot;name&quot;: &quot;Biryulyovo Tovarnaya&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Universam&quot;: 890
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.611717,
+            &quot;longitude&quot;: 37.603938,
+            &quot;name&quot;: &quot;Prazhskaya&quot;,
+            &quot;road_distances&quot;: {},
+            &quot;type&quot;: &quot;Stop&quot;
+        }
+    ],
+    &quot;render_settings&quot;: {
+        &quot;bus_label_font_size&quot;: 20,
+        &quot;bus_label_offset&quot;: [
+            7,
+            15
+        ],
+        &quot;color_palette&quot;: [
+            &quot;green&quot;,
+            [
+                255,
+                160,
+                0
+            ],
+            &quot;red&quot;
+        ],
+        &quot;height&quot;: 200,
+        &quot;line_width&quot;: 14,
+        &quot;padding&quot;: 30,
+        &quot;stop_label_font_size&quot;: 20,
+        &quot;stop_label_offset&quot;: [
+            7,
+            -3
+        ],
+        &quot;stop_radius&quot;: 5,
+        &quot;underlayer_color&quot;: [
+            255,
+            255,
+            255,
+            0.85
+        ],
+        &quot;underlayer_width&quot;: 3,
+        &quot;width&quot;: 200
+    },
+    &quot;routing_settings&quot;: {
+        &quot;bus_velocity&quot;: 40,
+        &quot;bus_wait_time&quot;: 6
+    },
+    &quot;stat_requests&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;297&quot;,
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;635&quot;,
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;Universam&quot;,
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;from&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+            &quot;id&quot;: 4,
+            &quot;to&quot;: &quot;Universam&quot;,
+            &quot;type&quot;: &quot;Route&quot;
+        },
+        {
+            &quot;from&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+            &quot;id&quot;: 5,
+            &quot;to&quot;: &quot;Prazhskaya&quot;,
+            &quot;type&quot;: &quot;Route&quot;
+        }
+    ]
+}
+</code></pre></li>
+
+<li><p><strong>Вывод</strong></p>
+
+<pre><code class="language-json">[
+    {
+        &quot;curvature&quot;: 1.42963,
+        &quot;request_id&quot;: 1,
+        &quot;route_length&quot;: 5990,
+        &quot;stop_count&quot;: 4,
+        &quot;unique_stop_count&quot;: 3
+    },
+    {
+        &quot;curvature&quot;: 1.30156,
+        &quot;request_id&quot;: 2,
+        &quot;route_length&quot;: 11570,
+        &quot;stop_count&quot;: 5,
+        &quot;unique_stop_count&quot;: 3
+    },
+    {
+        &quot;buses&quot;: [
+            &quot;297&quot;,
+            &quot;635&quot;
+        ],
+        &quot;request_id&quot;: 3
+    },
+    {
+        &quot;items&quot;: [
+            {
+                &quot;stop_name&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+                &quot;time&quot;: 6,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;297&quot;,
+                &quot;span_count&quot;: 2,
+                &quot;time&quot;: 5.235,
+                &quot;type&quot;: &quot;Bus&quot;
+            }
+        ],
+        &quot;request_id&quot;: 4,
+        &quot;total_time&quot;: 11.235
+    },
+    {
+        &quot;items&quot;: [
+            {
+                &quot;stop_name&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+                &quot;time&quot;: 6,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;297&quot;,
+                &quot;span_count&quot;: 2,
+                &quot;time&quot;: 5.235,
+                &quot;type&quot;: &quot;Bus&quot;
+            },
+            {
+                &quot;stop_name&quot;: &quot;Universam&quot;,
+                &quot;time&quot;: 6,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;635&quot;,
+                &quot;span_count&quot;: 1,
+                &quot;time&quot;: 6.975,
+                &quot;type&quot;: &quot;Bus&quot;
+            }
+        ],
+        &quot;request_id&quot;: 5,
+        &quot;total_time&quot;: 24.21
+    }
+]
+</code></pre></li>
+</ul>
+
+<h3>Пример 2</h3>
+
+<p>e2_map.pdf</p>
+
+<ul>
+<li><p><strong>Ввод</strong></p>
+
+<pre><code class="language-json">{
+    &quot;base_requests&quot;: [
+        {
+            &quot;is_roundtrip&quot;: true,
+            &quot;name&quot;: &quot;297&quot;,
+            &quot;stops&quot;: [
+                &quot;Biryulyovo Zapadnoye&quot;,
+                &quot;Biryulyovo Tovarnaya&quot;,
+                &quot;Universam&quot;,
+                &quot;Biryusinka&quot;,
+                &quot;Apteka&quot;,
+                &quot;Biryulyovo Zapadnoye&quot;
+            ],
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;is_roundtrip&quot;: false,
+            &quot;name&quot;: &quot;635&quot;,
+            &quot;stops&quot;: [
+                &quot;Biryulyovo Tovarnaya&quot;,
+                &quot;Universam&quot;,
+                &quot;Biryusinka&quot;,
+                &quot;TETs 26&quot;,
+                &quot;Pokrovskaya&quot;,
+                &quot;Prazhskaya&quot;
+            ],
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;is_roundtrip&quot;: false,
+            &quot;name&quot;: &quot;828&quot;,
+            &quot;stops&quot;: [
+                &quot;Biryulyovo Zapadnoye&quot;,
+                &quot;TETs 26&quot;,
+                &quot;Biryusinka&quot;,
+                &quot;Universam&quot;,
+                &quot;Pokrovskaya&quot;,
+                &quot;Rossoshanskaya ulitsa&quot;
+            ],
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.574371,
+            &quot;longitude&quot;: 37.6517,
+            &quot;name&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Biryulyovo Tovarnaya&quot;: 2600,
+                &quot;TETs 26&quot;: 1100
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.587655,
+            &quot;longitude&quot;: 37.645687,
+            &quot;name&quot;: &quot;Universam&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Biryulyovo Tovarnaya&quot;: 1380,
+                &quot;Biryusinka&quot;: 760,
+                &quot;Pokrovskaya&quot;: 2460
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.592028,
+            &quot;longitude&quot;: 37.653656,
+            &quot;name&quot;: &quot;Biryulyovo Tovarnaya&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Universam&quot;: 890
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.581065,
+            &quot;longitude&quot;: 37.64839,
+            &quot;name&quot;: &quot;Biryusinka&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Apteka&quot;: 210,
+                &quot;TETs 26&quot;: 400
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.580023,
+            &quot;longitude&quot;: 37.652296,
+            &quot;name&quot;: &quot;Apteka&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Biryulyovo Zapadnoye&quot;: 1420
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.580685,
+            &quot;longitude&quot;: 37.642258,
+            &quot;name&quot;: &quot;TETs 26&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Pokrovskaya&quot;: 2850
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.603601,
+            &quot;longitude&quot;: 37.635517,
+            &quot;name&quot;: &quot;Pokrovskaya&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Rossoshanskaya ulitsa&quot;: 3140
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.595579,
+            &quot;longitude&quot;: 37.605757,
+            &quot;name&quot;: &quot;Rossoshanskaya ulitsa&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Pokrovskaya&quot;: 3210
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.611717,
+            &quot;longitude&quot;: 37.603938,
+            &quot;name&quot;: &quot;Prazhskaya&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Pokrovskaya&quot;: 2260
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;is_roundtrip&quot;: false,
+            &quot;name&quot;: &quot;750&quot;,
+            &quot;stops&quot;: [
+                &quot;Tolstopaltsevo&quot;,
+                &quot;Rasskazovka&quot;
+            ],
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.611087,
+            &quot;longitude&quot;: 37.20829,
+            &quot;name&quot;: &quot;Tolstopaltsevo&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Rasskazovka&quot;: 13800
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.632761,
+            &quot;longitude&quot;: 37.333324,
+            &quot;name&quot;: &quot;Rasskazovka&quot;,
+            &quot;road_distances&quot;: {},
+            &quot;type&quot;: &quot;Stop&quot;
+        }
+    ],
+    &quot;render_settings&quot;: {
+        &quot;bus_label_font_size&quot;: 20,
+        &quot;bus_label_offset&quot;: [
+            7,
+            15
+        ],
+        &quot;color_palette&quot;: [
+            &quot;green&quot;,
+            [
+                255,
+                160,
+                0
+            ],
+            &quot;red&quot;
+        ],
+        &quot;height&quot;: 200,
+        &quot;line_width&quot;: 14,
+        &quot;padding&quot;: 30,
+        &quot;stop_label_font_size&quot;: 20,
+        &quot;stop_label_offset&quot;: [
+            7,
+            -3
+        ],
+        &quot;stop_radius&quot;: 5,
+        &quot;underlayer_color&quot;: [
+            255,
+            255,
+            255,
+            0.85
+        ],
+        &quot;underlayer_width&quot;: 3,
+        &quot;width&quot;: 200
+    },
+    &quot;routing_settings&quot;: {
+        &quot;bus_velocity&quot;: 30,
+        &quot;bus_wait_time&quot;: 2
+    },
+    &quot;stat_requests&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;297&quot;,
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;635&quot;,
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;828&quot;,
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;id&quot;: 4,
+            &quot;name&quot;: &quot;Universam&quot;,
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;from&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+            &quot;id&quot;: 5,
+            &quot;to&quot;: &quot;Apteka&quot;,
+            &quot;type&quot;: &quot;Route&quot;
+        },
+        {
+            &quot;from&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+            &quot;id&quot;: 6,
+            &quot;to&quot;: &quot;Pokrovskaya&quot;,
+            &quot;type&quot;: &quot;Route&quot;
+        },
+        {
+            &quot;from&quot;: &quot;Biryulyovo Tovarnaya&quot;,
+            &quot;id&quot;: 7,
+            &quot;to&quot;: &quot;Pokrovskaya&quot;,
+            &quot;type&quot;: &quot;Route&quot;
+        },
+        {
+            &quot;from&quot;: &quot;Biryulyovo Tovarnaya&quot;,
+            &quot;id&quot;: 8,
+            &quot;to&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+            &quot;type&quot;: &quot;Route&quot;
+        },
+        {
+            &quot;from&quot;: &quot;Biryulyovo Tovarnaya&quot;,
+            &quot;id&quot;: 9,
+            &quot;to&quot;: &quot;Prazhskaya&quot;,
+            &quot;type&quot;: &quot;Route&quot;
+        },
+        {
+            &quot;from&quot;: &quot;Apteka&quot;,
+            &quot;id&quot;: 10,
+            &quot;to&quot;: &quot;Biryulyovo Tovarnaya&quot;,
+            &quot;type&quot;: &quot;Route&quot;
+        },
+        {
+            &quot;from&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+            &quot;id&quot;: 11,
+            &quot;to&quot;: &quot;Tolstopaltsevo&quot;,
+            &quot;type&quot;: &quot;Route&quot;
+        }
+    ]
+}
+</code></pre></li>
+
+<li><p><strong>Вывод</strong></p>
+
+<pre><code class="language-json">[
+    {
+        &quot;curvature&quot;: 1.36159,
+        &quot;request_id&quot;: 1,
+        &quot;route_length&quot;: 5880,
+        &quot;stop_count&quot;: 6,
+        &quot;unique_stop_count&quot;: 5
+    },
+    {
+        &quot;curvature&quot;: 1.12195,
+        &quot;request_id&quot;: 2,
+        &quot;route_length&quot;: 14810,
+        &quot;stop_count&quot;: 11,
+        &quot;unique_stop_count&quot;: 6
+    },
+    {
+        &quot;curvature&quot;: 1.31245,
+        &quot;request_id&quot;: 3,
+        &quot;route_length&quot;: 15790,
+        &quot;stop_count&quot;: 11,
+        &quot;unique_stop_count&quot;: 6
+    },
+    {
+        &quot;buses&quot;: [
+            &quot;297&quot;,
+            &quot;635&quot;,
+            &quot;828&quot;
+        ],
+        &quot;request_id&quot;: 4
+    },
+    {
+        &quot;items&quot;: [
+            {
+                &quot;stop_name&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;828&quot;,
+                &quot;span_count&quot;: 2,
+                &quot;time&quot;: 3,
+                &quot;type&quot;: &quot;Bus&quot;
+            },
+            {
+                &quot;stop_name&quot;: &quot;Biryusinka&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;297&quot;,
+                &quot;span_count&quot;: 1,
+                &quot;time&quot;: 0.42,
+                &quot;type&quot;: &quot;Bus&quot;
+            }
+        ],
+        &quot;request_id&quot;: 5,
+        &quot;total_time&quot;: 7.42
+    },
+    {
+        &quot;items&quot;: [
+            {
+                &quot;stop_name&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;828&quot;,
+                &quot;span_count&quot;: 4,
+                &quot;time&quot;: 9.44,
+                &quot;type&quot;: &quot;Bus&quot;
+            }
+        ],
+        &quot;request_id&quot;: 6,
+        &quot;total_time&quot;: 11.44
+    },
+    {
+        &quot;items&quot;: [
+            {
+                &quot;stop_name&quot;: &quot;Biryulyovo Tovarnaya&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;297&quot;,
+                &quot;span_count&quot;: 1,
+                &quot;time&quot;: 1.78,
+                &quot;type&quot;: &quot;Bus&quot;
+            },
+            {
+                &quot;stop_name&quot;: &quot;Universam&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;828&quot;,
+                &quot;span_count&quot;: 1,
+                &quot;time&quot;: 4.92,
+                &quot;type&quot;: &quot;Bus&quot;
+            }
+        ],
+        &quot;request_id&quot;: 7,
+        &quot;total_time&quot;: 10.7
+    },
+    {
+        &quot;items&quot;: [
+            {
+                &quot;stop_name&quot;: &quot;Biryulyovo Tovarnaya&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;297&quot;,
+                &quot;span_count&quot;: 4,
+                &quot;time&quot;: 6.56,
+                &quot;type&quot;: &quot;Bus&quot;
+            }
+        ],
+        &quot;request_id&quot;: 8,
+        &quot;total_time&quot;: 8.56
+    },
+    {
+        &quot;items&quot;: [
+            {
+                &quot;stop_name&quot;: &quot;Biryulyovo Tovarnaya&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;635&quot;,
+                &quot;span_count&quot;: 5,
+                &quot;time&quot;: 14.32,
+                &quot;type&quot;: &quot;Bus&quot;
+            }
+        ],
+        &quot;request_id&quot;: 9,
+        &quot;total_time&quot;: 16.32
+    },
+    {
+        &quot;items&quot;: [
+            {
+                &quot;stop_name&quot;: &quot;Apteka&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;297&quot;,
+                &quot;span_count&quot;: 1,
+                &quot;time&quot;: 2.84,
+                &quot;type&quot;: &quot;Bus&quot;
+            },
+            {
+                &quot;stop_name&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;297&quot;,
+                &quot;span_count&quot;: 1,
+                &quot;time&quot;: 5.2,
+                &quot;type&quot;: &quot;Bus&quot;
+            }
+        ],
+        &quot;request_id&quot;: 10,
+        &quot;total_time&quot;: 12.04
+    },
+    {
+        &quot;error_message&quot;: &quot;not found&quot;,
+        &quot;request_id&quot;: 11
+    }
+]
+</code></pre></li>
+</ul>
+
+<h3>Пример 3</h3>
+
+<p>e3_map.pdf</p>
+
+<ul>
+<li><p><strong>Ввод</strong></p>
+
+<pre><code class="language-json">{
+    &quot;base_requests&quot;: [
+        {
+            &quot;is_roundtrip&quot;: true,
+            &quot;name&quot;: &quot;289&quot;,
+            &quot;stops&quot;: [
+                &quot;Zagorye&quot;,
+                &quot;Lipetskaya ulitsa 46&quot;,
+                &quot;Lipetskaya ulitsa 40&quot;,
+                &quot;Lipetskaya ulitsa 40&quot;,
+                &quot;Lipetskaya ulitsa 46&quot;,
+                &quot;Moskvorechye&quot;,
+                &quot;Zagorye&quot;
+            ],
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.579909,
+            &quot;longitude&quot;: 37.68372,
+            &quot;name&quot;: &quot;Zagorye&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Lipetskaya ulitsa 46&quot;: 230
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.581441,
+            &quot;longitude&quot;: 37.682205,
+            &quot;name&quot;: &quot;Lipetskaya ulitsa 46&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Lipetskaya ulitsa 40&quot;: 390,
+                &quot;Moskvorechye&quot;: 12400
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.584496,
+            &quot;longitude&quot;: 37.679133,
+            &quot;name&quot;: &quot;Lipetskaya ulitsa 40&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Lipetskaya ulitsa 40&quot;: 1090,
+                &quot;Lipetskaya ulitsa 46&quot;: 380
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.638433,
+            &quot;longitude&quot;: 37.638433,
+            &quot;name&quot;: &quot;Moskvorechye&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Zagorye&quot;: 10000
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        }
+    ],
+    &quot;render_settings&quot;: {
+        &quot;bus_label_font_size&quot;: 20,
+        &quot;bus_label_offset&quot;: [
+            7,
+            15
+        ],
+        &quot;color_palette&quot;: [
+            &quot;green&quot;,
+            [
+                255,
+                160,
+                0
+            ],
+            &quot;red&quot;
+        ],
+        &quot;height&quot;: 200,
+        &quot;line_width&quot;: 14,
+        &quot;padding&quot;: 30,
+        &quot;stop_label_font_size&quot;: 20,
+        &quot;stop_label_offset&quot;: [
+            7,
+            -3
+        ],
+        &quot;stop_radius&quot;: 5,
+        &quot;underlayer_color&quot;: [
+            255,
+            255,
+            255,
+            0.85
+        ],
+        &quot;underlayer_width&quot;: 3,
+        &quot;width&quot;: 200
+    },
+    &quot;routing_settings&quot;: {
+        &quot;bus_velocity&quot;: 30,
+        &quot;bus_wait_time&quot;: 2
+    },
+    &quot;stat_requests&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;289&quot;,
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;from&quot;: &quot;Zagorye&quot;,
+            &quot;id&quot;: 2,
+            &quot;to&quot;: &quot;Moskvorechye&quot;,
+            &quot;type&quot;: &quot;Route&quot;
+        },
+        {
+            &quot;from&quot;: &quot;Moskvorechye&quot;,
+            &quot;id&quot;: 3,
+            &quot;to&quot;: &quot;Zagorye&quot;,
+            &quot;type&quot;: &quot;Route&quot;
+        },
+        {
+            &quot;from&quot;: &quot;Lipetskaya ulitsa 40&quot;,
+            &quot;id&quot;: 4,
+            &quot;to&quot;: &quot;Lipetskaya ulitsa 40&quot;,
+            &quot;type&quot;: &quot;Route&quot;
+        }
+    ]
+}
+</code></pre></li>
+
+<li><p><strong>Вывод</strong></p>
+
+<pre><code class="language-json">[
+    {
+        &quot;curvature&quot;: 1.63413,
+        &quot;request_id&quot;: 1,
+        &quot;route_length&quot;: 24490,
+        &quot;stop_count&quot;: 7,
+        &quot;unique_stop_count&quot;: 4
+    },
+    {
+        &quot;items&quot;: [
+            {
+                &quot;stop_name&quot;: &quot;Zagorye&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;289&quot;,
+                &quot;span_count&quot;: 1,
+                &quot;time&quot;: 0.46,
+                &quot;type&quot;: &quot;Bus&quot;
+            },
+            {
+                &quot;stop_name&quot;: &quot;Lipetskaya ulitsa 46&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;289&quot;,
+                &quot;span_count&quot;: 1,
+                &quot;time&quot;: 24.8,
+                &quot;type&quot;: &quot;Bus&quot;
+            }
+        ],
+        &quot;request_id&quot;: 2,
+        &quot;total_time&quot;: 29.26
+    },
+    {
+        &quot;items&quot;: [
+            {
+                &quot;stop_name&quot;: &quot;Moskvorechye&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;289&quot;,
+                &quot;span_count&quot;: 1,
+                &quot;time&quot;: 20,
+                &quot;type&quot;: &quot;Bus&quot;
+            }
+        ],
+        &quot;request_id&quot;: 3,
+        &quot;total_time&quot;: 22
+    },
+    {
+        &quot;items&quot;: [
+
+
+        ],
+        &quot;request_id&quot;: 4,
+        &quot;total_time&quot;: 0
+    }
+]
+</code></pre></li>
+</ul>
+
+<h3>Пример 4</h3>
+
+<p>e4_input.json</p>
+
+<p>e4_output.json</p>
+
+<p>В файле ниже - примеры случайно сгенерированных входных файлов и корректных выводов для них.</p>
+
+<p>s12_final_opentest.zip</p>
+
+<h3>Как будет тестироваться ваш код</h3>
+
+<p>Программа будет получать на <code>stdin</code> валидные JSON-документы с описанием маршрутов и запросов к справочнику. Выводимые в <code>stdout</code> данные будут сравниваться с ожидаемым значением. Вывод вещественных чисел должен осуществляться стандартно — без модификаторов вывода.</p>
+
+<p>Маршруты, выводимые в ответ на запрос <code>Route</code>, должны быть оптимальны по времени. Если маршрутов с минимальным возможным суммарным временем несколько, допускается вывести любой из них: тестирующая система проверяет лишь совпадение времени маршрута с оптимальным и корректность самого маршрута.</p>
+
+<h3>Подсказка</h3>
+
+<ol>
+<li>Решение с двумя вершинами на каждую остановку удобно тем, что можно построить граф, нарисовав по ребру на каждый возможный элемент итогового маршрута: <code>Wait</code> — это ребро от <strong>начала ожидания</strong> на некоторой остановке до <strong>окончания ожидания</strong> на ней же, <code>Bus</code> — это ребро от <strong>окончания ожидания</strong> на некоторой остановке автобусного маршрута до <strong>начала ожидания</strong> на другой остановке этого же маршрута.</li>
+<li>В решении с одной вершиной на каждую остановку мы не можем позволить себе проводить рёбра лишь между соседними остановками, потому что в каждое из рёбер
+будет заложено время ожидания автобуса. Таким образом, рёбра должны проводиться для каждой пары остановок на каждом маршруте, аналогично решению с двумя вершинами на каждую остановку.</li>
+<li>В решении с одной вершиной на остановку каждому ребру построенного маршрута соответствуют два элемента: <code>Wait</code> — ожидание нужного автобуса, <code>Bus</code> — проезд на этом автобусе между соответствующими остановками.</li>
+<li>В любом варианте решения нужно проектировать структуры данных с учётом того, что автобус может проходить через одну остановку несколько раз: см. пример 3.</li>
+</ol>
+
+</body>
+</html>

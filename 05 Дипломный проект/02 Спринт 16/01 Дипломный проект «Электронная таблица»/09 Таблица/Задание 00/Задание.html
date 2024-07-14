@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h3>Задание</h3>
+
+<p>Реализуйте структуру данных «Электронная таблица». Интерфейс таблицы <code>SheetInterface</code> вы найдёте в файле common.h.</p>
+
+<p>common.h содержит интерфейсы классов <code>FormulaInterface</code>, <code>CellInterface</code>, объявление структур <code>Size</code> и <code>Position</code>, описание исключений и ошибок. Интерфейс <code>SheetInterface</code> не содержит методов удаления и вставки. Реализовывать их не нужно.</p>
+
+<p>Для размера минимальной печатной области в файле common.h определена структура <code>Size</code>. В файле  structures.cpp из решения первой задачи реализуйте <code>operator=</code> для этой структуры.</p>
+
+<h3>Ограничения</h3>
+
+<p>Вносите изменения только в файлы sheet.h, sheet.cpp и structures.cpp. В файле structures.cpp реализуйте <code>Size::operator=()</code>.</p>
+
+<h3>Как будет тестироваться ваш код</h3>
+
+<p>Протестируем только файлы sheet.h и sheet.cpp. Мы не будем тестировать остальные файлы. Примеры тестов вы найдёте в файле main.cpp.</p>
+
+<p>Мы будем проводить нагрузочные тесты: создавать/удалять большое количество ячеек много раз и проверять время работы и использование памяти.</p>
+
+<p>Проверим, что минимальная видимая область находится корректно.</p>
+
+<p>Также будем проверять все функции интерфейса <code>SheetInterface</code>.</p>
+
+<ul>
+<li><p>main.cpp</p>
+
+<pre><code class="language-cpp">#include &quot;common.h&quot;
+#include &quot;test_runner_p.h&quot;
+
+
+inline std::ostream&amp; operator&lt;&lt;(std::ostream&amp; output, Position pos) {
+    return output &lt;&lt; &quot;(&quot; &lt;&lt; pos.row &lt;&lt; &quot;, &quot; &lt;&lt; pos.col &lt;&lt; &quot;)&quot;;
+}
+
+
+inline Position operator&quot;&quot; _pos(const char* str, std::size_t) {
+    return Position::FromString(str);
+}
+
+
+inline std::ostream&amp; operator&lt;&lt;(std::ostream&amp; output, Size size) {
+    return output &lt;&lt; &quot;(&quot; &lt;&lt; size.rows &lt;&lt; &quot;, &quot; &lt;&lt; size.cols &lt;&lt; &quot;)&quot;;
+}
+
+
+inline std::ostream&amp; operator&lt;&lt;(std::ostream&amp; output, const CellInterface::Value&amp; value) {
+    std::visit(
+        [&amp;](const auto&amp; x) {
+            output &lt;&lt; x;
+        },
+        value);
+    return output;
+}
+
+
+namespace {
+
+
+void TestEmpty() {
+    auto sheet = CreateSheet();
+    ASSERT_EQUAL(sheet-&gt;GetPrintableSize(), (Size{0, 0}));
+}
+
+
+void TestInvalidPosition() {
+    auto sheet = CreateSheet();
+    try {
+        sheet-&gt;SetCell(Position{-1, 0}, &quot;&quot;);
+    } catch (const InvalidPositionException&amp;) {
+    }
+    try {
+        sheet-&gt;GetCell(Position{0, -2});
+    } catch (const InvalidPositionException&amp;) {
+    }
+    try {
+        sheet-&gt;ClearCell(Position{Position::MAX_ROWS, 0});
+    } catch (const InvalidPositionException&amp;) {
+    }
+}
+
+
+void TestSetCellPlainText() {
+    auto sheet = CreateSheet();
+
+
+    auto checkCell = [&amp;](Position pos, std::string text) {
+        sheet-&gt;SetCell(pos, text);
+        CellInterface* cell = sheet-&gt;GetCell(pos);
+        ASSERT(cell != nullptr);
+        ASSERT_EQUAL(cell-&gt;GetText(), text);
+        ASSERT_EQUAL(std::get&lt;std::string&gt;(cell-&gt;GetValue()), text);
+    };
+
+
+    checkCell(&quot;A1&quot;_pos, &quot;Hello&quot;);
+    checkCell(&quot;A1&quot;_pos, &quot;World&quot;);
+    checkCell(&quot;B2&quot;_pos, &quot;Purr&quot;);
+    checkCell(&quot;A3&quot;_pos, &quot;Meow&quot;);
+
+
+    const SheetInterface&amp; constSheet = *sheet;
+    ASSERT_EQUAL(constSheet.GetCell(&quot;B2&quot;_pos)-&gt;GetText(), &quot;Purr&quot;);
+
+
+    sheet-&gt;SetCell(&quot;A3&quot;_pos, &quot;'=escaped&quot;);
+    CellInterface* cell = sheet-&gt;GetCell(&quot;A3&quot;_pos);
+    ASSERT_EQUAL(cell-&gt;GetText(), &quot;'=escaped&quot;);
+    ASSERT_EQUAL(std::get&lt;std::string&gt;(cell-&gt;GetValue()), &quot;=escaped&quot;);
+}
+
+
+void TestClearCell() {
+    auto sheet = CreateSheet();
+
+
+    sheet-&gt;SetCell(&quot;C2&quot;_pos, &quot;Me gusta&quot;);
+    sheet-&gt;ClearCell(&quot;C2&quot;_pos);
+    ASSERT(sheet-&gt;GetCell(&quot;C2&quot;_pos) == nullptr);
+
+
+    sheet-&gt;ClearCell(&quot;A1&quot;_pos);
+    sheet-&gt;ClearCell(&quot;J10&quot;_pos);
+}
+void TestPrint() {
+    auto sheet = CreateSheet();
+    sheet-&gt;SetCell(&quot;A2&quot;_pos, &quot;meow&quot;);
+    sheet-&gt;SetCell(&quot;B2&quot;_pos, &quot;=1+2&quot;);
+    sheet-&gt;SetCell(&quot;A1&quot;_pos, &quot;=1/0&quot;);
+
+
+    ASSERT_EQUAL(sheet-&gt;GetPrintableSize(), (Size{2, 2}));
+
+
+    std::ostringstream texts;
+    sheet-&gt;PrintTexts(texts);
+    ASSERT_EQUAL(texts.str(), &quot;=1/0\t\nmeow\t=1+2\n&quot;);
+
+
+    std::ostringstream values;
+    sheet-&gt;PrintValues(values);
+    ASSERT_EQUAL(values.str(), &quot;#DIV/0!\t\nmeow\t3\n&quot;);
+
+
+    sheet-&gt;ClearCell(&quot;B2&quot;_pos);
+    ASSERT_EQUAL(sheet-&gt;GetPrintableSize(), (Size{2, 1}));
+}
+
+
+}  // namespace
+
+
+int main() {
+    TestRunner tr;
+    RUN_TEST(tr, TestEmpty);
+    RUN_TEST(tr, TestInvalidPosition);
+    RUN_TEST(tr, TestSetCellPlainText);
+    RUN_TEST(tr, TestClearCell);
+    RUN_TEST(tr, TestPrint);
+    return 0;
+}
+</code></pre>
+<pre><code>- common.h
+</code></pre>
+<pre><code class="language-cpp">#pragma once
+
+
+#include &lt;iosfwd&gt;
+#include &lt;memory&gt;
+#include &lt;stdexcept&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;variant&gt;
+#include &lt;vector&gt;
+
+
+// Позиция ячейки. Индексация с нуля.
+struct Position {
+    int row = 0;
+    int col = 0;
+
+
+    bool operator==(Position rhs) const;
+    bool operator&lt;(Position rhs) const;
+
+
+    bool IsValid() const;
+    std::string ToString() const;
+
+
+    static Position FromString(std::string_view str);
+
+
+    static const int MAX_ROWS = 16384;
+    static const int MAX_COLS = 16384;
+    static const Position NONE;
+};
+
+
+struct Size {
+    int rows = 0;
+    int cols = 0;
+
+
+    bool operator==(Size rhs) const;
+};
+
+
+// Описывает ошибки, которые могут возникнуть при вычислении формулы.
+class FormulaError : public std::runtime_error {
+public:
+    using std::runtime_error::runtime_error;
+};
+
+
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; output, FormulaError fe);
+
+
+// Исключение, выбрасываемое при попытке задать синтаксически некорректную
+// формулу
+class FormulaException : public std::runtime_error {
+public:
+    using std::runtime_error::runtime_error;
+};
+
+
+// Исключение, выбрасываемое при попытке передать в метод некорректную позицию
+class InvalidPositionException : public std::out_of_range {
+public:
+    using std::out_of_range::out_of_range;
+};
+
+
+// Исключение, выбрасываемое, если вставка строк/столбцов в таблицу приведёт к
+// ячейке с позицией больше максимально допустимой
+class TableTooBigException : public std::runtime_error {
+public:
+    using std::runtime_error::runtime_error;
+};
+
+
+inline constexpr char FORMULA_SIGN = '=';
+inline constexpr char ESCAPE_SIGN = '\'';
+
+
+class CellInterface {
+public:
+    // Либо текст ячейки, либо значение формулы, либо сообщение об ошибке из
+    // формулы
+    using Value = std::variant&lt;std::string, double, FormulaError&gt;;
+
+
+    virtual ~CellInterface() = default;
+
+
+    // Задаёт содержимое ячейки. Если текст начинается со знака &quot;=&quot;, то он
+    // интерпретируется как формула. Уточнения по записи формулы:
+    // * Если текст содержит только символ &quot;=&quot; и больше ничего, то он не считается
+    // формулой
+    // * Если текст начинается с символа &quot;'&quot; (апостроф), то при выводе значения
+    // ячейки методом GetValue() он опускается. Можно использовать, если нужно
+    // начать текст со знака &quot;=&quot;, но чтобы он не интерпретировался как формула.
+    virtual void Set(std::string text) = 0;
+
+
+    // Возвращает видимое значение ячейки.
+    // В случае текстовой ячейки это её текст (без экранирующих символов). В
+    // случае формулы - числовое значение формулы или сообщение об ошибке.
+    virtual Value GetValue() const = 0;
+    // Возвращает внутренний текст ячейки, как если бы мы начали её
+    // редактирование. В случае текстовой ячейки это её текст (возможно,
+    // содержащий экранирующие символы). В случае формулы - её выражение.
+    virtual std::string GetText() const = 0;
+};
+
+
+// Интерфейс таблицы
+class SheetInterface {
+public:
+    virtual ~SheetInterface() = default;
+
+
+    // Задаёт содержимое ячейки.
+    // * Если текст начинается с символа &quot;'&quot; (апостроф), то при выводе значения
+    // ячейки методом GetValue() он опускается. Можно использовать, если нужно
+    // начать текст со знака &quot;=&quot;, но чтобы он не интерпретировался как формула.
+    virtual void SetCell(Position pos, std::string text) = 0;
+
+
+    // Возвращает значение ячейки.
+    // Если ячейка пуста, может вернуть nullptr.
+    virtual const CellInterface* GetCell(Position pos) const = 0;
+    virtual CellInterface* GetCell(Position pos) = 0;
+
+
+    // Очищает ячейку.
+    // Последующий вызов GetCell() для этой ячейки вернёт либо nullptr, либо
+    // объект с пустым текстом.
+    virtual void ClearCell(Position pos) = 0;
+
+
+    // Вычисляет размер области, которая участвует в печати.
+    // Определяется как ограничивающий прямоугольник всех ячеек с непустым
+    // текстом.
+    virtual Size GetPrintableSize() const = 0;
+
+
+    // Выводит всю таблицу в переданный поток. Столбцы разделяются знаком
+    // табуляции. После каждой строки выводится символ перевода строки. Для
+    // преобразования ячеек в строку используются методы GetValue() или GetText()
+    // соответственно. Пустая ячейка представляется пустой строкой в любом случае.
+    virtual void PrintValues(std::ostream&amp; output) const = 0;
+    virtual void PrintTexts(std::ostream&amp; output) const = 0;
+};
+
+
+// Создаёт готовую к работе пустую таблицу.
+std::unique_ptr&lt;SheetInterface&gt; CreateSheet();
+</code></pre></li>
+</ul>
+
+<h3>Подсказка</h3>
+
+<p>Разберёмся с ограничениями на производительность. Метод <code>GetCell()</code> должен отрабатывать за константное время, в то время как ограничения на время работы для вставки и удаления столбцов/строк самые либеральные. Значит, операции произвольного доступа будут вызываться чаще, чем операции вставки.</p>
+
+<p>Наверно, имеет смысл использовать простую структуру данных вроде вектора векторов.</p>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Исключения как способ возврата</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Исключения как способ возврата</h1>
+
+<p>В первом уроке вы увидели, как <code>variant</code> помогает возвратить объект или ошибку:</p>
+
+<pre><code class="language-cpp">enum class GraduateFailReason {
+    NOT_ALL_SPRINTS_PASSED,    // не все спринты пройдены
+    FINAL_TASK_NOT_APPROVED,   // финальное задание не прошло ревью
+    INCOMPLETE_FUNDING,        // неполная оплата
+    DIPLOMA_ALREADY_RECEIVED   // диплом уже получен
+};
+
+std::variant&lt;Diploma, GraduateFailReason&gt; Graduate(int student_id);
+</code></pre>
+
+<p>Вы могли подумать, что в таком случае можно использовать исключения для сообщения об ошибке.</p>
+
+<hr>
+
+<p>Какая сигнатура функции более внятная?</p>
+
+<ul>
+<li><p>В случае ошибки через возврат:
+<code>std::variant&lt;Diploma, GraduateFailReason&gt; Graduate(int student_id);</code></p></li>
+
+<li><p>В случае ошибки через исключение. При ошибке функция выбрасывает исключение типа <code>GraduateFailReason</code>:
+<code>Diploma Graduate(int student_id);</code></p></li>
+</ul>
+
+<p>Исключения дают некоторую гибкость при их обработке, но из сигнатуры не ясно, какие исключения выбрасывает метод. Без текстового описания узнать о выбрасываемых исключениях можно, только изучив код функции. Однако и этого недостаточно — исключения могут срабатывать в других вызываемых функциях.</p>
+
+<p>Невнятность сигнатуры неприятна не только программисту, но и компилятору. Вы можете забыть обработать все исключения, а компилятор не напомнит вам это сделать. Такая ошибка типична.</p>
+
+<p>В других языках, например в Java, в сигнатурах содержатся списки возможных исключений. В C++ комитету по стандартизации так и не удалось сделать это, и единственная стандартная спецификация исключений — <code>noexcept</code>.</p>
+
+<p>Но сравним эти функции по производительности, ведь невнятность сигнатуры может в какой-то мере компенсироваться скоростью исполнения. Для простоты <code>Diploma</code> будет состоять из одного поля типа <code>int</code>:</p>
+
+<pre><code class="language-cpp">enum class GraduateFailReason {
+    NOT_ALL_SPRINTS_PASSED   = 0, // не все спринты пройдены
+    FINAL_TASK_NOT_APPROVED  = 1, // финальное задание не прошло ревью
+    INCOMPLETE_FUNDING       = 2, // неполная оплата
+    DIPLOMA_ALREADY_RECEIVED = 3  // диплом уже получен
+};
+
+struct Diploma {
+    int x;
+};
+
+std::variant&lt;Diploma, GraduateFailReason&gt; GraduateReturn(int student_id) {
+    if (student_id % 10 == 0) {
+        return Diploma{student_id * 100};
+    }
+
+    // возьмём номер ошибки от 0 до 3
+    int fail_reason_id = (student_id / 10) % 4;
+    return static_cast&lt;GraduateFailReason&gt;(fail_reason_id);
+}
+
+Diploma GraduateExcept(int student_id) {
+    if (student_id % 10 == 0) {
+        return {student_id * 100};
+    }
+
+    // возьмём номер ошибки от 0 до 3
+    int fail_reason_id = (student_id / 10) % 4;
+    throw static_cast&lt;GraduateFailReason&gt;(fail_reason_id);
+}
+</code></pre>
+
+<p>Создадим бенчмарк, который 1000 раз запустит эти функции и подведёт статистику (сколько раз встречалась каждая причина ошибки), а также посчитает сумму всех дипломов:</p>
+
+<pre><code class="language-cpp">static void TestReturn(benchmark::State&amp; state) {
+    for (auto _ : state) {
+        array stat = {0, 0, 0, 0, 0};
+        for (int i = 0; i &lt; ITER_COUNT; ++i) {
+            const auto result = GraduateReturn(++i);
+            if (holds_alternative&lt;Diploma&gt;(result)) {
+                const auto diploma = get&lt;Diploma&gt;(result);
+                stat[4] += diploma.x;
+            } else {
+                const auto reason = get&lt;GraduateFailReason&gt;(result);
+                ++stat[static_cast&lt;int&gt;(reason)];
+            }
+        }
+        benchmark::DoNotOptimize(stat);
+    }
+}
+BENCHMARK(TestReturn);
+
+static void TestExcept(benchmark::State&amp; state) {
+    for (auto _ : state) {
+        array stat = {0, 0, 0, 0, 0};
+        for (int i = 0; i &lt; ITER_COUNT; ++i) {
+            try {
+                Diploma ans = GraduateExcept(++i);
+                stat[4] += ans.x;
+            }
+            catch (GraduateFailReason reason) {
+                ++stat[static_cast&lt;int&gt;(reason)];
+            }
+        }
+        benchmark::DoNotOptimize(stat);
+    }
+}
+BENCHMARK(TestExcept);
+</code></pre>
+
+<p>Результаты <a href="https://quick-bench.com/q/4nfSMr2kTDVIWJTNEZqPt2qO5kk">бенчмарка</a> говорят сами за себя — разница настолько большая, что столбик <code>TestReturn</code> даже не виден:</p>
+
+<p><img src="data:image/png;base64,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" alt="image" /></p>
+
+<p>Добавление атрибута <code>noinline</code> не спасает ситуацию, хотя немного уравнивает результаты функций.</p>
+
+<p>Выходит, исключения — это способ сделать медленную функцию с невнятной сигнатурой.</p>
+
+<hr>
+
+<p>Значит ли этот бенчмарк, что исключениями никогда не нужно пользоваться?</p>
+
+<ul>
+<li><p>Да, такая производительность неприемлема.</p></li>
+
+<li><p>Нет, этот бенчмарк специально подобран, чтобы исключения оказались медленными.</p></li>
+
+<li><p>Нет, в определённых ситуациях даже такое замедление может оказаться некритичным.</p></li>
+</ul>
+
+<p>Большая разница объясняется тем, что вызываемая функция очень простая. По сравнению с её кодом, издержки на исключения занимают много времени. Если бы это была настоящая функция, формирующая PDF-документ диплома и обращающаяся к базам данных, замедления от исключений никто бы не заметил.</p>
+
+<p>Код обработчика проще читать и писать в случае исключений. Это их преимущество. Можно сформулировать правило: исключение действительно должно быть неожиданной, исключительной ситуацией, которая может внезапно произойти и нарушить всю логику выполнения программы. Ожидаемая ошибка при работе одной определённой функции к исключительным ситуациям не относится, и лучше обрабатывать этот случай через распаковку или <code>variant</code>.</p>
+
+</body>
+</html>

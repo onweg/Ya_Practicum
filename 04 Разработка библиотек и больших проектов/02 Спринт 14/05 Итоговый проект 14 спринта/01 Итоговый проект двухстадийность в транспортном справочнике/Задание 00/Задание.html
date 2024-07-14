@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание 1</h2>
+
+<p>В этом и последующих заданиях нужно разделить программу, которая отвечает за наполнение транспортного справочника и обработку запросов к нему, на две:</p>
+
+<ol>
+<li>Программа make_base: создание базы транспортного справочника по запросам <code>base_requests</code> и её сериализация в файл.</li>
+<li>Программа process_requests: десериализация базы из файла и использование её для ответов на запросы <code>stat_requests</code>.</li>
+</ol>
+
+<p>Полная функциональность справочника будет поддержана поэтапно. В этой задаче требуется сериализация лишь той части базы, которая нужна для ответа на запросы Bus и Stop. Сама функциональность должна соответствовать той, что была в девятом спринте. Рисовать карту и строить кратчайшие маршруты здесь не требуется.</p>
+
+<h3>Программа make_base</h3>
+
+<p>На вход программе make_base через стандартный поток ввода подаётся JSON со следующими ключами:</p>
+
+<ol>
+<li><code>base_requests</code>: запросы Bus и Stop на создание базы. Формат этих данных остаётся прежним.</li>
+<li><code>routing_settings</code>: настройки маршрутизации. Не используются в этой задаче, так как нет запросов на построение маршрута, но будут использоваться в следующих. Формат — прежний.</li>
+<li><code>render_settings</code>: настройки отрисовки. Не используются в этой задаче, так как нет запросов на построение маршрута и рисование карты, но будут использоваться в следующих. Формат — прежний.</li>
+<li><code>serialization_settings</code>: настройки сериализации. На текущий момент это словарь с единственным ключом <code>file</code>, которому соответствует строка — название файла. Именно в этот файл нужно сохранить сериализованную базу.</li>
+</ol>
+
+<p>Задача программы make_base — построить базу и сериализовать её в файл с указанным именем. Выводить что-либо в стандартный поток вывода не требуется.</p>
+
+<h3>Программа process_requests</h3>
+
+<p>На вход программе process_requests подаётся файл с сериализованной базой (результат работы make_base), а также — через стандартный поток ввода — JSON со следующими ключами:</p>
+
+<ol>
+<li><code>stat_requests</code>: запросы Bus и Stop к готовой базе. Формат этих данных аналогичен предыдущим частям.</li>
+<li><code>serialization_settings</code>: настройки сериализации в формате, аналогичном этой же секции на входе make_base. А именно, в ключе <code>file</code> указывается название файла, из которого нужно считать сериализованную базу.</li>
+</ol>
+
+<p>Программа process_requests должна вывести JSON с ответами на запросы — в том же формате, что и в предыдущих частях.</p>
+
+<h3>Пример 1</h3>
+
+<ul>
+<li><p>Ввод make_base</p>
+
+<pre><code class="language-json">{
+    &quot;serialization_settings&quot;: {
+        &quot;file&quot;: &quot;transport_catalogue.db&quot;
+    },
+    &quot;base_requests&quot;: [
+        {
+            &quot;is_roundtrip&quot;: true,
+            &quot;name&quot;: &quot;297&quot;,
+            &quot;stops&quot;: [
+                &quot;Biryulyovo Zapadnoye&quot;,
+                &quot;Biryulyovo Tovarnaya&quot;,
+                &quot;Universam&quot;,
+                &quot;Biryulyovo Zapadnoye&quot;
+            ],
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;is_roundtrip&quot;: false,
+            &quot;name&quot;: &quot;635&quot;,
+            &quot;stops&quot;: [
+                &quot;Biryulyovo Tovarnaya&quot;,
+                &quot;Universam&quot;,
+                &quot;Prazhskaya&quot;
+            ],
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.574371,
+            &quot;longitude&quot;: 37.6517,
+            &quot;name&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Biryulyovo Tovarnaya&quot;: 2600
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.587655,
+            &quot;longitude&quot;: 37.645687,
+            &quot;name&quot;: &quot;Universam&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Biryulyovo Tovarnaya&quot;: 1380,
+                &quot;Biryulyovo Zapadnoye&quot;: 2500,
+                &quot;Prazhskaya&quot;: 4650
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.592028,
+            &quot;longitude&quot;: 37.653656,
+            &quot;name&quot;: &quot;Biryulyovo Tovarnaya&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Universam&quot;: 890
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.611717,
+            &quot;longitude&quot;: 37.603938,
+            &quot;name&quot;: &quot;Prazhskaya&quot;,
+            &quot;road_distances&quot;: {},
+            &quot;type&quot;: &quot;Stop&quot;
+        }
+    ],
+    &quot;render_settings&quot;: {
+        &quot;bus_label_font_size&quot;: 20,
+        &quot;bus_label_offset&quot;: [
+            7,
+            15
+        ],
+        &quot;color_palette&quot;: [
+            &quot;green&quot;,
+            [
+                255,
+                160,
+                0
+            ],
+            &quot;red&quot;
+        ],
+        &quot;height&quot;: 200,
+        &quot;line_width&quot;: 14,
+        &quot;padding&quot;: 30,
+        &quot;stop_label_font_size&quot;: 20,
+        &quot;stop_label_offset&quot;: [
+            7,
+            -3
+        ],
+        &quot;stop_radius&quot;: 5,
+        &quot;underlayer_color&quot;: [
+            255,
+            255,
+            255,
+            0.85
+        ],
+        &quot;underlayer_width&quot;: 3,
+        &quot;width&quot;: 200
+    },
+    &quot;routing_settings&quot;: {
+        &quot;bus_velocity&quot;: 40,
+        &quot;bus_wait_time&quot;: 6
+    }
+}
+</code></pre></li>
+
+<li><p>Ввод process_requests</p>
+
+<pre><code class="language-json">{
+    &quot;serialization_settings&quot;: {
+        &quot;file&quot;: &quot;transport_catalogue.db&quot;
+    },
+    &quot;stat_requests&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;297&quot;,
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;635&quot;,
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;Universam&quot;,
+            &quot;type&quot;: &quot;Stop&quot;
+        }
+    ]
+}
+</code></pre></li>
+
+<li><p>Вывод process_requests</p>
+
+<pre><code class="language-json">[
+    {
+        &quot;curvature&quot;: 1.42963,
+        &quot;request_id&quot;: 1,
+        &quot;route_length&quot;: 5990,
+        &quot;stop_count&quot;: 4,
+        &quot;unique_stop_count&quot;: 3
+    },
+    {
+        &quot;curvature&quot;: 1.30156,
+        &quot;request_id&quot;: 2,
+        &quot;route_length&quot;: 11570,
+        &quot;stop_count&quot;: 5,
+        &quot;unique_stop_count&quot;: 3
+    },
+    {
+        &quot;buses&quot;: [
+            &quot;297&quot;,
+            &quot;635&quot;
+        ],
+        &quot;request_id&quot;: 3
+    }
+]
+</code></pre>
+<pre><code>### Пример 2
+</code></pre></li>
+
+<li><p>Ввод make_base</p>
+
+<pre><code class="language-json">{
+    &quot;serialization_settings&quot;: {
+        &quot;file&quot;: &quot;transport_catalogue.db&quot;
+    },
+    &quot;base_requests&quot;: [
+        {
+            &quot;is_roundtrip&quot;: true,
+            &quot;name&quot;: &quot;297&quot;,
+            &quot;stops&quot;: [
+                &quot;Biryulyovo Zapadnoye&quot;,
+                &quot;Biryulyovo Tovarnaya&quot;,
+                &quot;Universam&quot;,
+                &quot;Biryusinka&quot;,
+                &quot;Apteka&quot;,
+                &quot;Biryulyovo Zapadnoye&quot;
+            ],
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;is_roundtrip&quot;: false,
+            &quot;name&quot;: &quot;635&quot;,
+            &quot;stops&quot;: [
+                &quot;Biryulyovo Tovarnaya&quot;,
+                &quot;Universam&quot;,
+                &quot;Biryusinka&quot;,
+                &quot;TETs 26&quot;,
+                &quot;Pokrovskaya&quot;,
+                &quot;Prazhskaya&quot;
+            ],
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;is_roundtrip&quot;: false,
+            &quot;name&quot;: &quot;828&quot;,
+            &quot;stops&quot;: [
+                &quot;Biryulyovo Zapadnoye&quot;,
+                &quot;TETs 26&quot;,
+                &quot;Biryusinka&quot;,
+                &quot;Universam&quot;,
+                &quot;Pokrovskaya&quot;,
+                &quot;Rossoshanskaya ulitsa&quot;
+            ],
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.574371,
+            &quot;longitude&quot;: 37.6517,
+            &quot;name&quot;: &quot;Biryulyovo Zapadnoye&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Biryulyovo Tovarnaya&quot;: 2600,
+                &quot;TETs 26&quot;: 1100
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.587655,
+            &quot;longitude&quot;: 37.645687,
+            &quot;name&quot;: &quot;Universam&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Biryulyovo Tovarnaya&quot;: 1380,
+                &quot;Biryusinka&quot;: 760,
+                &quot;Pokrovskaya&quot;: 2460
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.592028,
+            &quot;longitude&quot;: 37.653656,
+            &quot;name&quot;: &quot;Biryulyovo Tovarnaya&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Universam&quot;: 890
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.581065,
+            &quot;longitude&quot;: 37.64839,
+            &quot;name&quot;: &quot;Biryusinka&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Apteka&quot;: 210,
+                &quot;TETs 26&quot;: 400
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.580023,
+            &quot;longitude&quot;: 37.652296,
+            &quot;name&quot;: &quot;Apteka&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Biryulyovo Zapadnoye&quot;: 1420
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.580685,
+            &quot;longitude&quot;: 37.642258,
+            &quot;name&quot;: &quot;TETs 26&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Pokrovskaya&quot;: 2850
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.603601,
+            &quot;longitude&quot;: 37.635517,
+            &quot;name&quot;: &quot;Pokrovskaya&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Rossoshanskaya ulitsa&quot;: 3140
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.595579,
+            &quot;longitude&quot;: 37.605757,
+            &quot;name&quot;: &quot;Rossoshanskaya ulitsa&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Pokrovskaya&quot;: 3210
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.611717,
+            &quot;longitude&quot;: 37.603938,
+            &quot;name&quot;: &quot;Prazhskaya&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Pokrovskaya&quot;: 2260
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;is_roundtrip&quot;: false,
+            &quot;name&quot;: &quot;750&quot;,
+            &quot;stops&quot;: [
+                &quot;Tolstopaltsevo&quot;,
+                &quot;Rasskazovka&quot;
+            ],
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.611087,
+            &quot;longitude&quot;: 37.20829,
+            &quot;name&quot;: &quot;Tolstopaltsevo&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Rasskazovka&quot;: 13800
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.632761,
+            &quot;longitude&quot;: 37.333324,
+            &quot;name&quot;: &quot;Rasskazovka&quot;,
+            &quot;road_distances&quot;: {},
+            &quot;type&quot;: &quot;Stop&quot;
+        }
+    ],
+    &quot;render_settings&quot;: {
+        &quot;bus_label_font_size&quot;: 20,
+        &quot;bus_label_offset&quot;: [
+            7,
+            15
+        ],
+        &quot;color_palette&quot;: [
+            &quot;green&quot;,
+            [
+                255,
+                160,
+                0
+            ],
+            &quot;red&quot;
+        ],
+        &quot;height&quot;: 200,
+        &quot;line_width&quot;: 14,
+        &quot;padding&quot;: 30,
+        &quot;stop_label_font_size&quot;: 20,
+        &quot;stop_label_offset&quot;: [
+            7,
+            -3
+        ],
+        &quot;stop_radius&quot;: 5,
+        &quot;underlayer_color&quot;: [
+            255,
+            255,
+            255,
+            0.85
+        ],
+        &quot;underlayer_width&quot;: 3,
+        &quot;width&quot;: 200
+    },
+    &quot;routing_settings&quot;: {
+        &quot;bus_velocity&quot;: 30,
+        &quot;bus_wait_time&quot;: 2
+    }
+}
+</code></pre></li>
+
+<li><p>Ввод process_requests</p>
+
+<pre><code class="language-json">{
+    &quot;serialization_settings&quot;: {
+        &quot;file&quot;: &quot;transport_catalogue.db&quot;
+    },
+    &quot;stat_requests&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;297&quot;,
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;635&quot;,
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;828&quot;,
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;id&quot;: 4,
+            &quot;name&quot;: &quot;Universam&quot;,
+            &quot;type&quot;: &quot;Stop&quot;
+        }
+    ]
+}
+</code></pre></li>
+
+<li><p>Вывод process_requests</p>
+
+<pre><code class="language-json">[
+    {
+        &quot;curvature&quot;: 1.36159,
+        &quot;request_id&quot;: 1,
+        &quot;route_length&quot;: 5880,
+        &quot;stop_count&quot;: 6,
+        &quot;unique_stop_count&quot;: 5
+    },
+    {
+        &quot;curvature&quot;: 1.12195,
+        &quot;request_id&quot;: 2,
+        &quot;route_length&quot;: 14810,
+        &quot;stop_count&quot;: 11,
+        &quot;unique_stop_count&quot;: 6
+    },
+    {
+        &quot;curvature&quot;: 1.31245,
+        &quot;request_id&quot;: 3,
+        &quot;route_length&quot;: 15790,
+        &quot;stop_count&quot;: 11,
+        &quot;unique_stop_count&quot;: 6
+    },
+    {
+        &quot;buses&quot;: [
+            &quot;297&quot;,
+            &quot;635&quot;,
+            &quot;828&quot;
+        ],
+        &quot;request_id&quot;: 4
+    }
+]
+</code></pre></li>
+</ul>
+
+<h3>Пример 3</h3>
+
+<ul>
+<li>Ввод make_base</li>
+</ul>
+
+<pre><code class="language-json">{
+    &quot;serialization_settings&quot;: {
+        &quot;file&quot;: &quot;transport_catalogue.db&quot;
+    },
+    &quot;base_requests&quot;: [
+        {
+            &quot;is_roundtrip&quot;: true,
+            &quot;name&quot;: &quot;289&quot;,
+            &quot;stops&quot;: [
+                &quot;Zagorye&quot;,
+                &quot;Lipetskaya ulitsa 46&quot;,
+                &quot;Lipetskaya ulitsa 40&quot;,
+                &quot;Lipetskaya ulitsa 40&quot;,
+                &quot;Lipetskaya ulitsa 46&quot;,
+                &quot;Moskvorechye&quot;,
+                &quot;Zagorye&quot;
+            ],
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.579909,
+            &quot;longitude&quot;: 37.68372,
+            &quot;name&quot;: &quot;Zagorye&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Lipetskaya ulitsa 46&quot;: 230
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.581441,
+            &quot;longitude&quot;: 37.682205,
+            &quot;name&quot;: &quot;Lipetskaya ulitsa 46&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Lipetskaya ulitsa 40&quot;: 390,
+                &quot;Moskvorechye&quot;: 12400
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.584496,
+            &quot;longitude&quot;: 37.679133,
+            &quot;name&quot;: &quot;Lipetskaya ulitsa 40&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Lipetskaya ulitsa 40&quot;: 1090,
+                &quot;Lipetskaya ulitsa 46&quot;: 380
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.638433,
+            &quot;longitude&quot;: 37.638433,
+            &quot;name&quot;: &quot;Moskvorechye&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Zagorye&quot;: 10000
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        }
+    ],
+    &quot;render_settings&quot;: {
+        &quot;bus_label_font_size&quot;: 20,
+        &quot;bus_label_offset&quot;: [
+            7,
+            15
+        ],
+        &quot;color_palette&quot;: [
+            &quot;green&quot;,
+            [
+                255,
+                160,
+                0
+            ],
+            &quot;red&quot;
+        ],
+        &quot;height&quot;: 200,
+        &quot;line_width&quot;: 14,
+        &quot;padding&quot;: 30,
+        &quot;stop_label_font_size&quot;: 20,
+        &quot;stop_label_offset&quot;: [
+            7,
+            -3
+        ],
+        &quot;stop_radius&quot;: 5,
+        &quot;underlayer_color&quot;: [
+            255,
+            255,
+            255,
+            0.85
+        ],
+        &quot;underlayer_width&quot;: 3,
+        &quot;width&quot;: 200
+    },
+    &quot;routing_settings&quot;: {
+        &quot;bus_velocity&quot;: 30,
+        &quot;bus_wait_time&quot;: 2
+    }
+}
+</code></pre>
+
+<ul>
+<li><p>Ввод process_requests</p>
+
+<pre><code class="language-json">{
+    &quot;serialization_settings&quot;: {
+        &quot;file&quot;: &quot;transport_catalogue.db&quot;
+    },
+    &quot;stat_requests&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;289&quot;,
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Lipetskaya ulitsa 46&quot;,
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;Lipetskaya ulitsa 40&quot;,
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;id&quot;: 4,
+            &quot;name&quot;: &quot;Moskvorechye&quot;,
+            &quot;type&quot;: &quot;Stop&quot;
+        }
+    ]
+}
+</code></pre></li>
+
+<li><p>Вывод process_requests</p>
+
+<pre><code class="language-json">[
+    {
+        &quot;curvature&quot;: 1.63413,
+        &quot;request_id&quot;: 1,
+        &quot;route_length&quot;: 24490,
+        &quot;stop_count&quot;: 7,
+        &quot;unique_stop_count&quot;: 4
+    },
+    {
+        &quot;buses&quot;: [
+            &quot;289&quot;
+        ],
+        &quot;request_id&quot;: 2
+    },
+    {
+        &quot;buses&quot;: [
+            &quot;289&quot;
+        ],
+        &quot;request_id&quot;: 3
+    },
+    {
+        &quot;buses&quot;: [
+            &quot;289&quot;
+        ],
+        &quot;request_id&quot;: 4
+    }
+]
+</code></pre>
+<pre><code>- Ввод make_base
+</code></pre>
+<pre><code class="language-json">{
+    &quot;serialization_settings&quot;: {
+        &quot;file&quot;: &quot;transport_catalogue.db&quot;
+    },
+    &quot;base_requests&quot;: [
+        {
+            &quot;is_roundtrip&quot;: true,
+            &quot;name&quot;: &quot;289&quot;,
+            &quot;stops&quot;: [
+                &quot;Zagorye&quot;,
+                &quot;Lipetskaya ulitsa 46&quot;,
+                &quot;Lipetskaya ulitsa 40&quot;,
+                &quot;Lipetskaya ulitsa 40&quot;,
+                &quot;Lipetskaya ulitsa 46&quot;,
+                &quot;Moskvorechye&quot;,
+                &quot;Zagorye&quot;
+            ],
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.579909,
+            &quot;longitude&quot;: 37.68372,
+            &quot;name&quot;: &quot;Zagorye&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Lipetskaya ulitsa 46&quot;: 230
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.581441,
+            &quot;longitude&quot;: 37.682205,
+            &quot;name&quot;: &quot;Lipetskaya ulitsa 46&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Lipetskaya ulitsa 40&quot;: 390,
+                &quot;Moskvorechye&quot;: 12400
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.584496,
+            &quot;longitude&quot;: 37.679133,
+            &quot;name&quot;: &quot;Lipetskaya ulitsa 40&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Lipetskaya ulitsa 40&quot;: 1090,
+                &quot;Lipetskaya ulitsa 46&quot;: 380
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;latitude&quot;: 55.638433,
+            &quot;longitude&quot;: 37.638433,
+            &quot;name&quot;: &quot;Moskvorechye&quot;,
+            &quot;road_distances&quot;: {
+                &quot;Zagorye&quot;: 10000
+            },
+            &quot;type&quot;: &quot;Stop&quot;
+        }
+    ],
+    &quot;render_settings&quot;: {
+        &quot;bus_label_font_size&quot;: 20,
+        &quot;bus_label_offset&quot;: [
+            7,
+            15
+        ],
+        &quot;color_palette&quot;: [
+            &quot;green&quot;,
+            [
+                255,
+                160,
+                0
+            ],
+            &quot;red&quot;
+        ],
+        &quot;height&quot;: 200,
+        &quot;line_width&quot;: 14,
+        &quot;padding&quot;: 30,
+        &quot;stop_label_font_size&quot;: 20,
+        &quot;stop_label_offset&quot;: [
+            7,
+            -3
+        ],
+        &quot;stop_radius&quot;: 5,
+        &quot;underlayer_color&quot;: [
+            255,
+            255,
+            255,
+            0.85
+        ],
+        &quot;underlayer_width&quot;: 3,
+        &quot;width&quot;: 200
+    },
+    &quot;routing_settings&quot;: {
+        &quot;bus_velocity&quot;: 30,
+        &quot;bus_wait_time&quot;: 2
+    }
+}
+</code></pre></li>
+
+<li><p>Ввод process_requests</p>
+
+<pre><code class="language-json">{
+    &quot;serialization_settings&quot;: {
+        &quot;file&quot;: &quot;transport_catalogue.db&quot;
+    },
+    &quot;stat_requests&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;289&quot;,
+            &quot;type&quot;: &quot;Bus&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Lipetskaya ulitsa 46&quot;,
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;id&quot;: 3,
+            &quot;name&quot;: &quot;Lipetskaya ulitsa 40&quot;,
+            &quot;type&quot;: &quot;Stop&quot;
+        },
+        {
+            &quot;id&quot;: 4,
+            &quot;name&quot;: &quot;Moskvorechye&quot;,
+            &quot;type&quot;: &quot;Stop&quot;
+        }
+    ]
+}
+</code></pre></li>
+
+<li><p>Вывод process_requests</p>
+
+<pre><code class="language-json">[
+    {
+        &quot;curvature&quot;: 1.63413,
+        &quot;request_id&quot;: 1,
+        &quot;route_length&quot;: 24490,
+        &quot;stop_count&quot;: 7,
+        &quot;unique_stop_count&quot;: 4
+    },
+    {
+        &quot;buses&quot;: [
+            &quot;289&quot;
+        ],
+        &quot;request_id&quot;: 2
+    },
+    {
+        &quot;buses&quot;: [
+            &quot;289&quot;
+        ],
+        &quot;request_id&quot;: 3
+    },
+    {
+        &quot;buses&quot;: [
+            &quot;289&quot;
+        ],
+        &quot;request_id&quot;: 4
+    }
+]
+</code></pre></li>
+</ul>
+
+<p>В файле ниже - примеры случайно сгенерированных входных файлов и корректных выводов для них.</p>
+
+<p>s14_part1_opentest.zip</p>
+
+<h3>Что отправлять на проверку</h3>
+
+<ul>
+<li>main.cpp: единственный файл с функцией main. В зависимости от переданного при запуске режима работает либо как make_base, либо как process_requests (см. заготовку кода).</li>
+<li>Файл transport_catalogue.proto содержит message <code>TransportCatalogue</code>. Этот message может находиться в любом package на ваше усмотрение. <code>TransportCatalogue</code> описывает proto-схему для сериализуемой базы. transport_catalogue.proto может содержать и другие proto-сообщения, а также импортировать их из других proto-файлов.</li>
+<li>CMakeLIsts.txt должен собирать бинарный файл transport_catalogue.</li>
+<li>Прочие файлы .h и .cpp.</li>
+</ul>
+
+<h3>Как будет тестироваться ваш код</h3>
+
+<p>Схема проверки предыдущих версий транспортного справочника была следующей:</p>
+
+<ol>
+<li>Запускается единственная программа, на вход подаётся большой JSON.</li>
+<li>Проверяется, что вывод этой программы соответствует ожидаемому.</li>
+</ol>
+
+<p>Теперь же происходит взаимодействие двух программ, что приводит к следующей схеме:</p>
+
+<ol>
+<li>Запускается программа make_base (основной исполняемый файл с параметром <code>make_base</code>), на вход подаётся JSON с <code>base_requests</code> и общими настройками.</li>
+<li>Проверяется полученный файл с сериализованной базой. А именно, проверяется возможность его десериализации с использованием proto-сообщения <code>TransportCatalogue</code> из transport_catalogue.proto, а также проверяется его размер: он не может превышать размер авторской версии сериализованной базы той же структуры более чем на 50 %. При превышении размера сериализованного файла вы получите соответствующий фидбэк.</li>
+<li>Запускается программа process_requests (основной исполняемый файл с параметром <code>process_requests</code>), на вход подаётся JSON с <code>stat_requests</code> и <code>serialization_settings</code>. В указанном файле находится сериализованная база, полученная в п. 1 и проверенная в п. 2.</li>
+<li>Проверяется, что вывод программы process_requests из п. 3 соответствует ожидаемому.</li>
+</ol>
+
+<h3>Ограничения</h3>
+
+<ul>
+<li>Не более 2000 запросов к make_base.</li>
+<li>Не более 2000 запросов к process_requests.</li>
+<li>Не более 100 остановок в маршруте.</li>
+<li>20 секунд на работу make_base и 1 секунда на работу process_requests.</li>
+</ul>
+
+<h3>Подсказка</h3>
+
+<p>Разработайте proto-схему базы так, чтобы она исчерпывающе описывала автобусы и остановки, но при этом не хранила строковые названия дважды.</p>
+
+</body>
+</html>

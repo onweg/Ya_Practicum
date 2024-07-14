@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Инициализация переменных</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr{border:0 none;color:#ccc;height:4px;padding:0}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}</style></head>
+<body>
+
+<h1>Инициализация переменных</h1>
+
+<p>Вы уже сталкивались с опасностью неинициализированных числовых переменных. Разберём на примере. Объявим переменную <code>x</code>, прибавим к ней восемь и выведем:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+    // другие операции
+    int x;  // не задали начальное значение
+    x += 8;
+    cout &lt;&lt; x &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Если это первые команды в программе, она, скорее всего, выведет <code>8</code>. Если нет, можем получить произвольное число — например <code>21889</code>. При этом компилятор видит проблему и даёт предупреждение:</p>
+
+<pre><code>test.cpp: In function ‘int main()’:
+test.cpp:14:7: warning: ‘x’ is used uninitialized in this function [-Wuninitialized]
+   14 |     x += 8;
+      |     ~~^~~~
+</code></pre>
+
+<p>Это наглядная демонстрация одного из базовых принципов C++: не плати за то, что не используешь. Переменная не инициализирована. Автор кода написал: хочу переменную. Переменная появилась, а тратить лишнюю операцию на её зануление нет причин. В мультфильме «Вовка в Тридевятом царстве» двое из ларца получили от Вовки размытые инструкции. И сделали совсем не то, чего он ожидал. С++ тоже требует чётких инструкций: хотите нулевой <code>x</code> — так и напишите.</p>
+
+<p>Инициализируйте все переменные, которые так или иначе относятся к числовым:</p>
+
+<ul>
+<li>целочисленные — <code>int</code>, <code>size_t</code>, <code>int64_t</code> и пр.;</li>
+<li>вещественные — <code>float</code>, <code>double</code> и пр.;</li>
+<li><code>char</code>;</li>
+<li><code>bool</code>;</li>
+<li><code>enum</code>.</li>
+</ul>
+
+<p>Создание таких локальных переменных — просто резервирование области памяти нужного размера. С точки зрения времени выполнения программы это бесплатно. С более сложными объектами — строками, векторами, словарями — дела обстоят иначе. Создавая их без дополнительной информации, вы гарантированно получите пустой объект.</p>
+
+<p>Та же история с вашими собственными структурами и классами: по умолчанию их поля инициализируются подобно локальным переменным. Как правильно задавать начальные значения полей, вы узнаете в теме о конструкторах.</p>
+
+<p>При этом стандартные классы заботятся о пользователе: созданная по умолчанию пара чисел <code>pair&lt;int, int&gt; x;</code> или вектор, длина которого равна пяти — <code>vector&lt;int&gt; v(5);</code>, — будут содержать нули.</p>
+
+<p>Редкий пример ситуации, когда явная инициализация переменной избыточна:</p>
+
+<pre><code class="language-cpp">int document_count;
+cin &gt;&gt; document_count;
+</code></pre>
+
+<p>Переменная заполнилась конкретным значением сразу после объявления. Но в таком случае мы не можем объявить переменную константной. Отчасти поэтому, а отчасти из-за более сложного считывания в коде поисковой системы мы инициализировали количество документов по-другому:</p>
+
+<pre><code class="language-cpp">const int document_count = ReadLineWithNumber();
+</code></pre>
+
+<p>Применим похожий приём, чтобы заполнить переменную разными значениями в зависимости от условия:</p>
+
+<pre><code class="language-cpp">int result_temperature;
+if (mode == Mode::MIN) {
+    result_temperature = min(temperature_today, temperature_yesterday);
+} else {
+    result_temperature = max(temperature_today, temperature_yesterday);
+}
+</code></pre>
+
+<p>Такой код опасен: если добавить команды перед <code>if</code> или заменить последний <code>else</code> на <code>else if</code> и добавить в <code>Mode</code> третье значение, в переменной <code>result_temperature</code> может появиться мусор. Исправить получится даже без функции. Применим так называемый тернарный оператор:</p>
+
+<pre><code class="language-cpp">const int result_temperature =
+    mode == Mode::MIN
+    ? min(temperature_today, temperature_yesterday)
+    : max(temperature_today, temperature_yesterday);
+</code></pre>
+
+<p>Выражение после символа <code>=</code> состоит из трёх частей:</p>
+
+<ul>
+<li>до <code>?</code> записано условие, как в <code>if</code>;</li>
+<li>между <code>?</code> и <code>:</code> записано значение, которое будет результатом выражения, если условие истинно;</li>
+<li>после <code>:</code> записано значение, которое будет результатом выражения, если условие ложно.</li>
+</ul>
+
+<p>Возьмите себе за правило всегда инициализировать переменные и поля числовых типов. И не забывайте включать предупреждения компилятора.</p>
+
+</body>
+</html>

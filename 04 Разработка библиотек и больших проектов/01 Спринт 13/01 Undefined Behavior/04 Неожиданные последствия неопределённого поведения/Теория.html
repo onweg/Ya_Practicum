@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Неожиданные последствия неопределённого поведения</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Неожиданные последствия неопределённого поведения</h1>
+
+<p>В предыдущем уроке вы познакомились с положительными аспектами неопределённого поведения и с тем, как оно помогает компилятору генерировать оптимальный код. В этом уроке вы узнаете, как неопределённое поведение осложняет жизнь программистам.</p>
+
+<p>Рассмотрим программу, которая определяет, считается ли небесное тело планетой:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string_view&gt;
+
+using namespace std;
+
+const int NUM_PLANETS = 9;
+const string_view PLANETS[] = {
+    &quot;Mercury&quot;sv, &quot;Venus&quot;sv, &quot;Earth&quot;sv,
+    &quot;Mars&quot;sv, &quot;Jupiter&quot;sv, &quot;Saturn&quot;sv,
+    &quot;Uranus&quot;sv, &quot;Neptune&quot;sv, &quot;Pluto&quot;sv,
+};
+
+bool IsPlanet(string_view name) {
+    for (int i = 0; i &lt; NUM_PLANETS; ++i) {
+        if (PLANETS[i] == name) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void Test(string_view name) {
+    cout &lt;&lt; name &lt;&lt; &quot; is &quot; &lt;&lt; (IsPlanet(name) ? &quot;&quot;sv : &quot;NOT &quot;sv) &lt;&lt; &quot;a planet&quot;sv &lt;&lt; endl;
+}
+
+int main() {
+    Test(&quot;Earth&quot;sv);
+    Test(&quot;Jupiter&quot;sv);
+    Test(&quot;Pluto&quot;sv);
+    Test(&quot;Moon&quot;sv);
+}
+</code></pre>
+
+<p>Запустим программу и увидим, что Земля, Юпитер и Плутон — планеты, а Луна — нет:</p>
+
+<pre><code>Earth is a planet
+Jupiter is a planet
+Pluto is a planet
+Moon is NOT a planet
+</code></pre>
+
+<p>Показав программу своим друзьям, узнаём, что Плутон с 2006 исключён из списка планет и теперь считается карликовой планетой. Недолго думая, исправим ошибку:</p>
+
+<pre><code class="language-cpp">const string_view PLANETS[] = {
+    &quot;Mercury&quot;sv, &quot;Venus&quot;sv, &quot;Earth&quot;sv,
+    &quot;Mars&quot;sv, &quot;Jupiter&quot;sv, &quot;Saturn&quot;sv,
+    &quot;Uranus&quot;sv, &quot;Neptune&quot;sv,
+};
+</code></pre>
+
+<p>Запустим программу и убедимся, что программа по-прежнему работает:</p>
+
+<pre><code>Earth is a planet
+Jupiter is a planet
+Pluto is NOT a planet
+Moon is NOT a planet
+</code></pre>
+
+<p>Довольные собой, опубликуем код программы на GitHub, чтобы поделиться ей с сообществом. Вскоре один из пользователей сообщает, что программа работает неверно. Более того, она считает планетой не только Плутон, но и Луну:</p>
+
+<pre><code class="language-cpp">Earth is a planet
+Jupiter is a planet
+Pluto is a planet
+Moon is a planet
+</code></pre>
+
+<p>Несколько раз проверяем на своём компьютере — программа работает как часы. Тратим  много времени на переписку с пользователем и выясняем, что проблема проявляется при сборке компилятором gcc 10.1 с ключом оптимизации <code>-O2</code> и не проявляется при сборке компиляторами Visual Studio 2019 и Clang 10.0.</p>
+
+<hr>
+
+<p>Как следует поступить в этой ситуации?</p>
+
+<ul>
+<li><p>Посоветовать пользователю скомпилировать программу компилятором Clang или Visual C++, где всё верно работает.</p></li>
+
+<li><p>Немедленно отправить баг разработчикам компилятора gcc.</p></li>
+
+<li><p>Поискать проблему с похожим описанием в баг-трекере gcc. Вероятно, с ней сталкивался кто-нибудь ещё. Если похожая проблема не будет найдена — отправить баг разработчикам gcc.</p></li>
+
+<li><p>Внимательно посмотреть на код программы. Возможно, причина не в компиляторе.</p></li>
+</ul>
+
+<p>Проблема в том, что в программе появилось неопределённое поведение. Взглянем ещё раз на код, где внесены изменения:</p>
+
+<pre><code class="language-cpp">const int NUM_PLANETS = 9;
+const string_view PLANETS[] = {
+    &quot;Mercury&quot;sv, &quot;Venus&quot;sv, &quot;Earth&quot;sv,
+    &quot;Mars&quot;sv, &quot;Jupiter&quot;sv, &quot;Saturn&quot;sv,
+    &quot;Uranus&quot;sv, &quot;Neptune&quot;sv,
+};
+
+bool IsPlanet(string_view name) {
+    for (int i = 0; i &lt; NUM_PLANETS; ++i) {
+        if (PLANETS[i] == name) {
+            return true;
+        }
+    }
+    return false;
+}
+</code></pre>
+
+<p>Из массива планет убран Плутон, однако константа <code>NUM_PLANETS</code> по-прежнему равна девяти.</p>
+
+<p>Компилятор gcc анализирует поток выполнения программы и видит, что переменная <code>i</code> принимает значения от 0 до 8 включительно. Эта же переменная использована, чтобы обратиться к элементам массива <code>PLANETS</code>. В нём 8 элементов.</p>
+
+<p>Компилятор видит, что функция <code>IsPlanet</code> возвращает <code>true</code> при значениях <code>i</code>, находящихся в диапазоне от 0 до 7. Когда значении <code>i</code> равно 8, возникает неопределённое поведение. В итоге функция <code>IsPlanet</code> либо возвращает <code>true</code>, либо в ней происходит неопределённое поведение.</p>
+
+<p>При оптимизации компилятор может исключить второй вариант развития событий и генерирует код, всегда возвращающий <code>true</code>. Проверьте на сервисе Compiler Explorer по ссылке: <a href="https://godbolt.org/z/5qxTbe">https://godbolt.org/z/5qxTbe</a></p>
+
+<pre><code>IsPlanet(std::basic_string_view&lt;char, std::char_traits&lt;char&gt; &gt;):
+        movl    $1, %eax // В регистре eax — результат функции 1, соответствующий значению true
+        ret
+</code></pre>
+
+<p>Компилятор в ходе оптимизации функции исключил цикл поиска названия планеты и оставил возврат значения <code>true</code>.</p>
+
+<p>Можно было бы ожидать, что программа, дойдя до элемента с индексом 8, попытается обратиться к элементу за пределами массива. Мусор в этой области памяти программа интерпретирует как объект <code>string_view</code>. Сравнив его с параметром <code>name</code>, программа, вероятно, вернёт <code>false</code>. Если судить по коду, <a href="https://godbolt.org/z/Ks3G5G">сгенерированному компилятором clang</a>, так и происходит. Создаётся иллюзия, что программа работает правильно.</p>
+
+<p>Действительно, за неопределённым поведением может скрываться всё что угодно. Даже такие, казалось бы, неочевидные вещи, как выкидывание всего кода функции.</p>
+
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Три способа передачи функций</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Три способа передачи функций</h1>
+
+<p>Функциональное программирование — отдельный мир со своими законами. На нашей императивной планете, где находится C++, функция — это одно, а объект — другое. Но порой требуется совместить два понятия и посмотреть на функцию не как на кусочек кода в исходном файле, а как на нечто существующее во время выполнения программы. Нечто, что можно записать в переменную, передать параметром и в любой момент вызвать, заранее не зная, что именно запустится.</p>
+
+<h3>Первый способ — шаблонный параметр</h3>
+
+<p>Иногда параметром одного действия бывает другое действие. В программировании это выражается функциональным параметром. Вы видели подобные параметры в алгоритмах. Например, алгоритм <code>sort</code> допускает компаратор:</p>
+
+<pre><code class="language-cpp">template &lt;typename RandomIt, typename Compare&gt;
+void sort(RandomIt first, RandomIt last, Compare comp);
+</code></pre>
+
+<p>Компаратор может быть любым объектом, допускающим вызов с двумя аргументами нужного типа. Например, стандартным компаратором <code>less</code>, лямбда-функцией или объектом класса с переопределённой операцией <code>operator()</code>.</p>
+
+<hr>
+
+<p>Почему компаратор принимается по значению, а не по ссылке?</p>
+
+<ul>
+<li><p><code>sort</code> принимает владение компаратором.</p></li>
+
+<li><p>Часто компаратор вообще ничего не весит, передавать даже одну ссылку избыточно.</p></li>
+
+<li><p>Это недостаток стандарта, Forwarding-ссылка — наиболее универсальный способ передачи.</p></li>
+</ul>
+
+<p>Многие компараторы — например, <code>std::less</code> — не имеют полей. Хотя по стандарту <code>sizeof</code> объекта не может быть ноль, он всё равно меньше размера ссылки. Если требуется передать компаратор по ссылке, это можно сделать, обернув его функцией <code>std::ref</code>.</p>
+
+<hr>
+
+<p>В следующей программе один и тот же компаратор записан шестью разными способами:</p>
+
+<pre><code class="language-cpp">#include &lt;algorithm&gt;
+#include &lt;cassert&gt;
+#include &lt;functional&gt;
+#include &lt;iostream&gt;
+#include &lt;string_view&gt;
+
+using namespace std;
+
+template &lt;typename T&gt;
+void TestComparator(T comp, std::string_view name) {
+    vector v1{3, 1, 4, 555, 3, 4, 6, 3, 345, 53, 5, 345, 3};
+    vector v2 = v1;
+    
+    sort(v1.begin(), v1.end());
+    sort(v2.begin(), v2.end(), comp);
+    
+    cout &lt;&lt; &quot;Компаратор &quot;sv &lt;&lt; name &lt;&lt; &quot;: &quot;sv &lt;&lt; (v1 == v2 ? &quot;OK&quot;sv : &quot;Fail&quot;sv) &lt;&lt; endl;
+}
+
+bool CmpFunction(int x, int y) {
+    return x &lt; y;
+}
+
+struct CmpObject {
+    bool operator()(int x, int y) const {
+        return x &lt; y;   
+    }
+};
+
+int main() {
+    auto cmp_lambda = [](int x, int y) {
+        return x &lt; y;  
+    };
+    
+    TestComparator(CmpFunction, &quot;функция&quot;sv);
+    TestComparator(CmpObject(), &quot;объект&quot;sv);
+    TestComparator(std::less&lt;&gt;(), &quot;std::less&quot;sv);
+    TestComparator(cmp_lambda, &quot;лямбда-функция&quot;sv);
+    TestComparator(std::ref(cmp_lambda), &quot;лямбда-функция по ссылке&quot;sv);
+    TestComparator(std::function(CmpFunction), &quot;std::function&quot;sv);
+}
+</code></pre>
+
+<p>Проверяем результат:</p>
+
+<pre><code class="language-cpp">Компаратор функция: OK
+Компаратор объект: OK
+Компаратор std::less: OK
+Компаратор лямбда-функция: OK
+Компаратор лямбда-функция по ссылке: OK
+Компаратор std::function: OK
+</code></pre>
+
+<hr>
+
+<p>Как видно, этот способ универсален — можно передать функцию сравнения в любом виде. Но в чём основной минус такой сигнатуры?</p>
+
+<pre><code class="language-cpp">template &lt;typename RandomIt, typename Compare&gt;
+void sort(RandomIt first, RandomIt last, Compare comp);
+</code></pre>
+
+<ul>
+<li><p>Из типа параметра <code>comp</code> не ясно, какие параметры каких типов должен принимать компаратор.</p></li>
+
+<li><p>Передача диапазона парой итераторов нежелательна.</p></li>
+
+<li><p>Компаратор передаётся по значению, а не по ссылке.</p></li>
+</ul>
+
+<h3>Второй способ — указатель на функцию</h3>
+
+<p>Невнятная сигнатура — большой минус кода, хотя для стандартной библиотеки это не так страшно — понимание сигнатур её функций входит в умение программировать на C++. Можно сделать сигнатуру более внятной и прибегнуть к способу, который использовали задолго до появления шаблонов, в языке C, — указатели на функции. Например, функция, сортирующая <code>int</code>, будет выглядеть так:</p>
+
+<pre><code class="language-cpp">template &lt;typename RandomIt&gt;
+void SortInt(RandomIt begin, RandomIt end, bool (*comp)(int x, int y));
+</code></pre>
+
+<p>Название параметра <code>comp</code>, вопреки обыкновению, записывается не после типа, а внутри. У этого параметра будет тип указателя на функцию, возвращающую <code>bool</code> и принимающую два параметра <code>int</code>. Запись получится более естественной, если создать для типа этого компаратора псевдоним: <code>bool (*)(int x, int y)</code>:</p>
+
+<pre><code class="language-cpp">using IntComparator = bool (*)(int x, int y);
+
+template &lt;typename RandomIt&gt;
+void SortInt(RandomIt begin, RandomIt end, IntComparator comp);
+</code></pre>
+
+<p>Сейчас сортировка ограничена значениями типа <code>int</code>. Можно сделать псевдоним для функции сравнения произвольных типов, убрав это ограничение:</p>
+
+<pre><code class="language-cpp">// псевдоним для типа элемента по итератору.
+// iterator_traits — структура, дающая доступ к информации об итераторе.
+// iterator_traits::value_type — тип, на который указывает итератор.
+// typename — ключевое слово, указывающее, что зависимое от шаблонного параметра имя
+// является типом.
+template &lt;typename Iterator&gt;
+using IterValType = typename iterator_traits&lt;Iterator&gt;::value_type;
+
+// псевдоним для компаратора по типу
+template &lt;typename T&gt;
+using ComparatorByType = bool (const T&amp; x, const T&amp; y);
+
+// псевдоним для компаратора по итератору
+template &lt;typename Iterator&gt;
+using ComparatorByIterator = ComparatorByType&lt;IterValType&lt;Iterator&gt;&gt;;
+
+template &lt;typename RandomIt&gt;
+void SortFuncPtr(RandomIt first, RandomIt last, ComparatorByIterator&lt;RandomIt&gt;* comp) {
+    sort(first, last, comp);
+}
+</code></pre>
+
+<p>Однако, улучшив сигнатуру, мы пожертвовали универсальностью — из шести компараторов, которые можно использовать при шаблонной передаче, остался только один — <code>CmpFunction</code>:</p>
+
+<pre><code class="language-cpp">#include &lt;algorithm&gt;
+#include &lt;cassert&gt;
+#include &lt;functional&gt;
+#include &lt;iostream&gt;
+#include &lt;string_view&gt;
+
+using namespace std;
+
+// псевдоним для типа по итератору
+template &lt;typename Iterator&gt;
+using IterValType = decay_t&lt;decltype(*declval&lt;Iterator&gt;())&gt;;
+
+// псевдоним для компаратора по типу
+template &lt;typename T&gt;
+using ComparatorByType = bool (const T&amp; x, const T&amp; y);
+
+// псевдоним для компаратора по итератору
+template &lt;typename Iterator&gt;
+using ComparatorByIterator = ComparatorByType&lt;IterValType&lt;Iterator&gt;&gt;;
+
+template &lt;typename RandomIt&gt;
+void SortFuncPtr(RandomIt first, RandomIt last, ComparatorByIterator&lt;RandomIt&gt;* comp) {
+    sort(first, last, comp);
+}
+
+template &lt;typename T&gt;
+void TestComparatorFuncPtr(T comp, std::string_view name) {
+    vector v1{3, 1, 4, 555, 3, 4, 6, 3, 345, 53, 5, 345, 3};
+    vector v2 = v1;
+    
+    sort(v1.begin(), v1.end());
+    SortFuncPtr(v2.begin(), v2.end(), comp);
+    
+    cout &lt;&lt; &quot;Компаратор &quot;sv &lt;&lt; name &lt;&lt; &quot;: &quot;sv &lt;&lt; (v1 == v2 ? &quot;OK&quot;sv : &quot;Fail&quot;sv) &lt;&lt; endl;
+}
+
+bool CmpFunctionRef(const int&amp; x, const int&amp; y) {
+    return x &lt; y;
+}
+
+int main() {
+    // осталась только одна возможность
+    TestComparatorFuncPtr(CmpFunctionRef, &quot;функция&quot;sv);
+}
+</code></pre>
+
+<p>Причём аргументы функции пришлось сделать константными ссылками: обычные <code>int</code> уже не сгодятся, так как функция должна строго соответствовать типу, в который её собираются передать.</p>
+
+<p>Применение указателя на функцию имеет существенный недостаток — функция не может использовать никаких внешних данных — только свои аргументы. Представьте, что хотите снять жильё поближе к месту работы. У вас есть список координат свободных квартир в виде <code>vector&lt;pair&lt;float, float&gt;&gt;</code>. Его нужно отсортировать по удалённости от офиса, координаты которого тоже известны. Отсортировав по удалённости, можно будет начать рассматривать квартиры с самой близкой.</p>
+
+<p>Для сортировки по удалённости напишем функцию <code>SortByDistance</code>:</p>
+
+<pre><code class="language-cpp">#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+using Coordinates = pair&lt;float,float&gt;;
+
+float Distance(Coordinates c1, Coordinates c2) {
+    return hypot(c1.first - c2.first, c1.second - c2.second);
+}
+
+void SortByDistance(vector&lt;Coordinates&gt;&amp; places, Coordinates origin) {
+    sort(places.begin(), places.end(), [origin](Coordinates p1, Coordinates p2){
+        return Distance(p1, origin) &lt; Distance(p2, origin);
+    });
+}
+</code></pre>
+
+<p>Использовать для этой же цели <code>SortFuncPtr</code> не получится — она никак не сможет получить доступ к значению <code>origin</code>.</p>
+
+<h3>Третий способ — std::function</h3>
+
+<p>Выше разобраны два способа передачи функции в функцию:</p>
+
+<ul>
+<li>через шаблонный параметр, обладающий поразительной универсальностью, но невнятной сигнатурой;</li>
+<li>через указатель на функцию, обладающий хорошей выразительностью, но совершенно не универсальный.</li>
+</ul>
+
+<p>Есть третий способ — такой же универсальный, как шаблонный параметр, и такой же выразительный, как указатель на функцию. Может быть, даже более выразительный. Он заключается в использовании шаблонного класса <code>std::function</code> из файла <code>&lt;functional&gt;</code>. Этот класс позволяет сделать указатель на функцию универсальным, способным принять любые компараторы и функциональные объекты. Единственный шаблонный параметр класса <code>std::function</code> — тип указателя на функцию.</p>
+
+<p>С <code>std::function</code> сигнатура универсальной функции, сортирующей диапазон чисел, выглядит так:</p>
+
+<pre><code class="language-cpp">template &lt;typename RandomIt&gt;
+void SortInt(RandomIt begin, RandomIt end, const function&lt;bool(int, int)&gt;&amp; comp);
+</code></pre>
+
+<p>Из неё сразу видно, что третий параметр должен быть функциональным объектом, принимающим два значения <code>int</code> и возвращающим <code>bool</code>. Такая сигнатура очень выразительна.</p>
+
+<p>Можно сделать определённую выше функцию <code>SortFuncPtr</code> универсальной, добавив в неё <code>function</code>:</p>
+
+<pre><code class="language-cpp">template &lt;typename RandomIt&gt;
+void SortFunction(RandomIt first, RandomIt last, const function&lt;ComparatorByIterator&lt;RandomIt&gt;&gt;&amp; comp) {
+    sort(first, last, ref(comp));
+}
+</code></pre>
+
+<p>Проверим, что ни один компаратор не пострадал:</p>
+
+<pre><code class="language-cpp">#include &lt;algorithm&gt;
+#include &lt;cassert&gt;
+#include &lt;functional&gt;
+#include &lt;iostream&gt;
+#include &lt;iterator&gt;
+#include &lt;string_view&gt;
+
+using namespace std;
+
+// value_type из iterator_traits позволяет получить
+// тип элемента по итератору
+template &lt;typename Iterator&gt;
+using IterValType = typename iterator_traits&lt;Iterator&gt;::value_type;
+
+template &lt;typename T&gt;
+using ComparatorByType = bool (const T&amp; x, const T&amp; y);
+
+template &lt;typename Iterator&gt;
+using ComparatorByIterator = ComparatorByType&lt;IterValType&lt;Iterator&gt;&gt;;
+
+template &lt;typename RandomIt&gt;
+void SortFunction(RandomIt first, RandomIt last, const function&lt;ComparatorByIterator&lt;RandomIt&gt;&gt;&amp; comp) {
+    sort(first, last, ref(comp));
+}
+
+template &lt;typename T&gt;
+void TestComparatorFunction(T comp, std::string_view name) {
+    vector v1{3, 1, 4, 555, 3, 4, 6, 3, 345, 53, 5, 345, 3};
+    vector v2 = v1;
+    
+    sort(v1.begin(), v1.end());
+    SortFunction(v2.begin(), v2.end(), comp);
+    
+    cout &lt;&lt; &quot;Компаратор &quot;sv &lt;&lt; name &lt;&lt; &quot;: &quot;sv &lt;&lt; (v1 == v2 ? &quot;OK&quot;sv : &quot;Fail&quot;sv) &lt;&lt; endl;
+}
+
+bool CmpFunction(int x, int y) {
+    return x &lt; y;
+}
+
+struct CmpObject {
+    bool operator()(int x, int y) const {
+        return x &lt; y;   
+    }
+};
+
+int main() {
+    auto cmp_lambda = [](int x, int y) {
+        return x &lt; y;  
+    };
+    
+    TestComparatorFunction(CmpFunction, &quot;функция&quot;sv);
+    TestComparatorFunction(CmpObject(), &quot;объект&quot;sv);
+    TestComparatorFunction(std::less&lt;&gt;(), &quot;std::less&quot;sv);
+    TestComparatorFunction(cmp_lambda, &quot;лямбда-функция&quot;sv);
+    TestComparatorFunction(std::ref(cmp_lambda), &quot;лямбда-функция по ссылке&quot;sv);
+    TestComparatorFunction(std::function(CmpFunction), &quot;std::function&quot;sv);
+}
+</code></pre>
+
+<p>Проверяем результат:</p>
+
+<pre><code>Компаратор функция: OK
+Компаратор объект: OK
+Компаратор std::less: OK
+Компаратор лямбда-функция: OK
+Компаратор лямбда-функция по ссылке: OK
+Компаратор std::function: OK
+</code></pre>
+
+<hr>
+
+<p>Почему мы передавали функцию по ссылке в <code>SortFunction</code>, а в <code>SortFuncPtr</code> — по значению?</p>
+
+<ul>
+<li><p><code>function</code> — тяжёлый объект, а указатель на функцию — лёгкий.</p></li>
+
+<li><p><code>function</code> нельзя копировать, можно только перемещать.</p></li>
+
+<li><p>Мы очень невнимательные: в <code>SortFuncPtr</code> забыли <code>move</code>.</p></li>
+</ul>
+
+<p>Значение <code>function</code> может содержать, например, связанные значения лямбды и поэтому быть тяжёлым объектом. Лучше не копировать <code>function</code> лишний раз. Кроме того, желательно принимать его по константной ссылке. Чтобы и <code>sort</code> принимал его по ссылке, используйте функцию <code>std::ref</code>. Это увеличивает эффективность <code>function</code>.</p>
+
+<p>Выходит, <code>function</code> хорош всем. Но в стандартной библиотеке почему-то предпочли невнятную сигнатуру шаблонного типа. Разберёмся почему. Запустим <a href="https://quick-bench.com/q/_6zA8VXTG4gcYhUSdK_3n-AiBkA">бенчмарк</a>, в котором сравним все три способа по производительности.</p>
+
+<p>Его результаты наглядно объясняют выбор стандартной библиотеки:</p>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAp8AAAGACAYAAADrgAnbAAAgAElEQVR4Ae2dz2ss2Zmm62/zzjvvPKtZamUQ9KKlTYNWDdrZFwy2wN4UNDOU3SNQG2OqoQbaBQ2DLm67sT2eQran5k5OlXus7rYHtV1djuFN3Vf3y+9G5kkp45z4oScgK/LEOfF9J55zMs5zIyXVOx0bBCAAAQhAAAIQgAAEGhF4p1Ee0kAAAhCAAAQgAAEIQKBDPpkEEIAABCAAAQhAAALNCCCfzVCTCAIQgAAEIAABCEAA+WQOQAACEIAABCAAAQg0I4B8NkNNIghAAAIQgAAEIAAB5JM5AAEIQAACEIAABCDQjMCj5PPf/vDH7v/85rfdLz9edTf/83/z2sJAfMRJvNggAAEIQAACEIAABN4Q2Fs+JVISzn/53f/rPv/Tn95E4N1bBMRHnCShCOhbeDgAAQhAAAIQgMAzJrC3fOpJnoSKbX8C4iVubBCAAAQgAAEIQAAC9wT2lk89xeOJ5+OmjXiJGxsEIAABCEAAAhCAwD2BveVTX7mzPZ4A3B7PjDMgAAEIQAACEFguAeSz8tgin5UBEx4CEIAABCAAgVkRQD4rDxfyWRkw4SEAAQhAAAIQmBUB5LPycCGflQETHgIQgAAEIACBWRFAPisPF/JZGTDhIQABCEAAAhCYFQHks/JwIZ+VARMeAhCAAAQgAIFZEUA+Kw8X8lkZMOEhAAEIQAACEJgVAeSz8nAhn5UBEx4CEIAABCAAgVkRQD4rDxfyWRkw4SEAAQhAAAIQmBUB5LPycCGflQETHgIQgAAEIACBWRFAPisPF/JZGTDhIQABCEAAAhCYFYHJyuePvvHl7ovf+MdZwezrLPLZdS+/99XuC98rjOXPvtt94Zvf7V72QeQYBCAAAQhAAAKLITCifP5j9/Uvfbn74sbrW92PXqNFPnfPsbXQzUTWkM/dY0ktBCAAAQhA4DkRGEU+V3/zF90Xv/QX3dUnm6h/9I03x2rK5zr/n/+gW22mr1Kq8uTz0w+6r3zz291X/uqr3dd+VqXbgwZFPgfFSTAIQAACEIDArAm0l88ffav74pfePOHcRg/53Eam61Yffnv9NfZ6/1cfNJHo7b0p1yCfZUa0gAAEIAABCDwXAo3l85Pu6s+/3P3Z36RHnj20LZ/3T0n99XyW1vzV/Wa9Y6z3X1Len67zb3zV7yegn/yg+7P4IwA+3tO3xxwa/snnp93lwxPPf+y+9s1vd5ef5h7dt/nCN7/a3b9Cm/VTUx//aveFJK/3X+e7PpynFP65zPX+dZvX569F2Pn6YupnPuN5ud+OHfOky5qLbKduU4QABCAAAQhAIBBoK59rwXvz1Xrox1tv3wijRfVeXOMvIa3+5lsbX92vzwnS6Bhf9w+Svs7y9tfu9xL7pt0n3dU3hvlafnD5jJLW9f8yT37SuPrwu68FVbIav6r/tLv83psnp/m8e1kMAmp5fPjloft4a8FNx77y4RsjfhDahzavn95GAd24rtxPDdy9UMe4b00aDkAAAhCAAAQgMHkCI8jn5tPJbYSySK7blb6yT/W9Mbque0s+HyHF2/q77fjQ8tkviPG3xHdI2uufFX37SancTj9HGuPoilKsDUG8v+L7J56b5+UnlOs+p6ehpdjrGEFW+/u3jTrHIQABCEAAAhCYKoER5PMRTz7zn1pKcimom1/L6+v5N3K7ls8cw+eEJ6SK46ek8cnqEIM2rHz2fc3e85TQTyjfksnXT0r19XgUO13owzn+yv3N/uFp4zb5TGLZK585X35qm2MnGX5LRocYHGJAAAIQgAAEINCcQFv57PLX29uvt1ccN+Tz9c97RoncqH8tlHvK531PXn+1r5/97Dlve2+31wwpn2sB889V5n0SQPXoTfvNJ5N+6rjxdbnkryfGxpVlQXSOdN4g8vn6qev9b/PrCWz4+n+jUxQgAAEIQAACEJgTgcby+VoIozBuoVWUzySa6zDpWG+MLU8+N7qR4mzUPbIwnHymr8BjP9ZSuE3Oep6M+twok7u+ku9r//pYFk0dzsfe+lGB9bmpX7EvMZ+emKpvSXDdhD0EIAABCEAAAvMi0Fw+u85PF998PW5kxb/zGaXwrZ/T9G++v4m7TT67GEfJP/lB9/X4G/i53h18wn4w+dwph1FMN3+JqOuC5H36Qfe18ItAD7+9vr6u+xj56efL74Wnpj2CmEVTofIx/8LRw9f3/so9/lhAT+z7vn+3u/zw21089wnDwCkQgAAEIAABCEyEwAjyeX/lb/+s5uZX3b3imKRwM8a3uh+l+t4Y6/QW4C93X9RT2PxnlsLPjR46TkPJZ/8v7bzp3Vr41jL3WiLD1/IPf4h+LbBvfpbz7f+d5dvnbkhfjyBm0VSP8jE/+bSE3v/5pyC1Oqkntg7fn5Pavrls3kEAAhCAAAQgMDMCo8nnzDg9ubtDyeeTOzDzEy2uM78Mug8BCEAAAhCAwGsCyGflqYB8HgI4/MjAIWE4FwIQgAAEIACByRBAPisPBfL5dMD56/unR+JMCEAAAhCAAASmQgD5rDwSyOcTAD/8bCo/6/kEepwCAQhAAAIQmDQB5LPy8CCflQETHgIQgAAEIACBWRFAPisPF/JZGTDhIQABCEAAAhCYFQHks/JwIZ+VARMeAhCAAAQgAIFZEUA+Kw8X8lkZMOEhAAEIQAACEJgVAeSz8nAhn5UBEx4CEIAABCAAgVkRQD4rDxfyWRkw4SEAAQhAAAIQmBUB5LPycCGflQETHgIQgAAEIACBWRFAPisPF/JZGTDhIQABCEAAAhCYFQHks/JwIZ+VARMeAhCAAAQgAIFZEUA+Kw8X8lkZMOEhAAEIQAACEJgVgb3l859++y+zurCpdFbcJKC8YMAcYA4wB5gDzAHmwHOYAyUH21s+S4GohwAEIAABCEAAAhCAQIkA8lkiRD0EIAABCEAAAhCAwGAEkM/BUBIIAhCAAAQgAAEIQKBEAPksEaIeAhCAAAQgAAEIQGAwAsjnYCgJBAEIQAACEIAABCBQIoB8lghRDwEIQAACEIAABCAwGAHkczCUBIIABCAAAQhAAAIQKBFAPkuEqIcABCAAAQhAAAIQGIzAo+TzD3/4Q/fJJ590v/rVr7pf/vKXvGDAHGAOMAeYA8wB5gBz4JnPAXmh/FCeuM+2t3wq4Mcff9z97ne/6/793/99n9i0gQAEIAABCEAAAhBYOAF5ofxQnriPgO4tnzLa3//+9wvHx+VBAAIQgAAEIAABCDyFgDxRvlja9pZPPVL9/PPPS/GohwAEIAABCEAAAhB4hgTkifLF0ra3fOpnPNkgAAEIQAACEIAABCCwjcA+voh8bqPHcQhAAAIQgAAEIACBRxFAPh+Fi8YQgAAEIAABCEAAAocQQD4Poce5EIAABCAAAQhAAAKPIoB8PgoXjSEAAQhAAAIQgAAEDiGAfB5Cj3MhAAEIQAACEIAABB5FAPl8FC4aQwACEIAABCAAAQgcQgD5PIQe50IAAhCAAAQgAAEIPIoA8vkoXDSGAAQgAAEIQAACEDiEAPJ5CD3OhQAEIAABCEAAAhB4FAHk81G4aAwBCEAAAhCAAAQgcAgB5PMQepwLAQhAAAIQgAAEIPAoAsjno3DRGAIQgAAEIAABCEDgEALI5yH0OBcCEIAABCAAAQhA4FEEkM9H4aIxBCAAAQhAAAIQgMAhBJDPQ+hxLgQgAAEIQAACEIDAowggn4/CRWMIQAACEIAABCAAgUMIIJ+H0ONcCEAAAhCAAAQgAIFHEUA+H4WLxhCAAAQgAAEIQAAChxBYhHxeXFx0V1dXvRx0/Pz8vLu7u1vX397edqenp93R0dHGcVXe3Nx0x8fH6zrFjJvi6By9rq+vY1WntjqucxWDDQIQgAAEIAABCECgn8Ds5dPi1yeflknLpwRU791W51oyLaUSy9xOxySsaqOYJycnD5IZ5Ta268fNUQhAAAIQgAAEIPC8CcxWPi2IFkgLpYdT9S9evFi/LJ+Sx7OzswdxjLIoqVSd2miLUqn3llTndT4d9/sosO4HewhAAAIQgAAEIACBNwRmK59vLqFbi6EF0MctjNpbPrNgxqeYElG3U4woplEwVWfhtYiqrTaXc1/WlfwHAhCAAAQgAAEIQKBbpHzqCaREUvson1EoNfZRPmM71bntarXa+KpedZbP/KQT+eQTBQEIQAACEIAABHYTWKR8Sg79NDJKZasnn5eXl92rV6+Kr+9///vFNvvEoU2ZNYzaM/rxj3/M/N7jPsDcbD83h2DO/J7nuA0x9s8lxqeffrrbIA+oXZx8+mmkfzPdez0J1VPMKf3M53e+850Dho5TITBtArpBs0FgqQSY30sdWa7LBGrO8cXJp6F5H5985q/F/fW52lpa9cQ0t/NX8GoTv6rXeTF+bOf8u/bI5y461M2dQM0b19zZ0P/5E2B+z38MuYLdBGrO8Wcln8JsydQT0fgLRqqTWLb8O5/I5+6JT+28CdS8cc2bDL1fAgHm9xJGkWvYRaDmHF+EfO6CN+U65HPKo0PfDiVQ88Z1aN84HwKHEmB+H0qQ86dOoOYcRz5HHH3kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAgHmdwEQ1bMnUHOOI58jTg/kc0T4pK5OoOaNq3rnSQCBAoFW8/tPn/+x4wWDPAcK03OQ6ppzHPkcZIieFgT5fBo3zpoHgZo3rnkQoJdLJtBqfv/hn667//tf/wMvGDzMgc/++edNPlo15zjy2WQI+5Mgn/1cOLoMAjVvXMsgxFXMmUCr+Y18It75Hx/IZ7pz7GOy6ZRnXUQ+n/XwL/7iWy3OiwfJBU6SQKv5jXwin8hn4RYwlnxeXFx0V1dXD727ubnpjo+Pu6Ojo/Ur1t3e3nanp6fr4+fn593d3V3veYoZN8VwvOvr61jVqa3qlFO5992Qz31J0W6OBFotznNkQ5/nT6DV/EY+kU/ks3C/GEM+LX4WTMnkixcvHiRQMnhycrIuq07C6bY615JpKZVY5nY6JmFVmxhPOBTLEhvbFVCtq5HPfSjRZq4EWi3Oc+VDv+dNoNX8Rj6RT+SzcK9oKZ8WRAukhTJ30e1UL3k8Ozt7ENMoi5JK1amNtiiVem9JjfHUTsedOwps7kdfGfnso8KxpRBotTgvhRfXMS8CreY38ol8Ip+Fe0NL+YxdiQIYj+t9FMIsmPEppkTUTzB1XhTTHF9lvSyiaqvNZcvo+uCO/yCfO+BQNXsCrRbn2YPiAmZJoNX8Rj6RT+SzcIuYonxaFNX1KJQqR/mMTzpj29VqtfFVveocM4qtjiOfosAGgXsCrRZneENgDAKt5jfyiXwin4VP+NTkU5IYn2a2evJ5eXnZ6cZUeunJZ6kN9WWOMJomo5cvXzK/97gPMH+nOX9L49Jqfq9+8f7D33fMEkL5eYrp6qMfNru3FrTvydX7+OI7+0bfJ9i+sR7TTpIZv+r2E0gdj5ueVPIzn5EI7yFQj4AWbzYILJVAq/nNk8/nKZi7/mHB3/lMd5WpyKe/Fk/de+tr8dgufoVuebXQxq/r41f1ih+/ro/tcu6+Mj/z2UeFY0sh0GpxXgovrmNeBFrNb+QT+cwiinyme8UU5NMS6b/J6b1FMtbHr+R1KRJL/33Q/NRU5zuWf8HIl6+2/J1P02APgXsCrRZneENgDAKt5jfyiXwin4VP+FjyWejWZKt58jnZoaFjAxBotTgP0FVCQODRBFrNb+QT+UQ+Cx9P5LMAKFUjnwkIxUURaLU4LwoaFzMbAq3mN/KJfCKfhdsC8lkAlKqRzwSE4qIItFqcFwWNi5kNgVbzG/lEPpHPwm0B+SwAStXIZwJCcVEEWi3Oi4LGxcyGQKv5jXwin8hn4baAfBYApWrkMwGhuCgCrRbnRUHjYmZDoNX8Rj6RT+SzcFtAPguAUjXymYBQXBSBVovzoqBxMbMh0Gp+I5/IJ/JZuC0gnwVAqRr5TEAoLopAq8V5UdC4mNkQaDW/kU/kE/ks3BaQzwKgVI18JiAUF0Wg1eK8KGhczGwItJrfyCfyiXwWbgvIZwFQqkY+ExCKiyLQanFeFDQuZjYEWs1v5BP5RD4LtwXkswAoVSOfCQjFRRFotTjfffxZ9y//7d94weBhDnz2r59X/yy1mt/IJ/KJfBY+zshnAVCqRj4TEIqLItBqcZZ8fnr1e14weJgDyCfCloVtSWX+3+5pqUQ+E5BCEfksAKJ61gSQT4R4rH8UIJ/I55JkM18L8pmWRuQzASkUkc8CIKpnTQD5RD6Rz8M/wnztjkgjn4XPEfJZAJSqkc8EhOKiCCCfyCfyefhHGvlEPpHPwucI+SwAStXIZwJCcVEEkE/kE/k8/CONfCKfyGfhc4R8FgClauQzAaG4KALIJ/KJfB7+kUY+kU/ks/A5Qj4LgFI18pmAUFwUAeQT+UQ+D/9II5/IJ/JZ+BwhnwVAqRr5TEAoLooA8ol8Ip+Hf6SRT+QT+Sx8jpDPAqBUjXwmIBQXRQD5RD6Rz8M/0sgn8ol8Fj5HyGcBUKpGPhMQiosigHwin8jn4R9p5BP5RD4LnyPkswAoVSOfCQjFRRFAPpFP5PPwjzTyiXwin4XPEfJZAJSqkc8EhOKiCCCfyCfyefhHGvlEPpHPwudoLPm8uLjorq6uNnqn8tHR0fp1fX39UHd7e9udnp6uj5+fn3d3d3cPdTc3N93x8fG6TjHjti2e2qitculcxdh3Qz73JUW7ORJAPpFP5PPwTy7yiXwin4XP0RjyafGL8inZlGBKNCWDJycn671EU8LptjrXkmkp1bm53bZ4wqFYltjYroBqXY187kOJNnMlgHwin8jn4Z9e5BP5RD4Ln6OW8mlBtEBaKNVFvbdUup2OSTDPzs4enk5GWZSkqk5tHMNSuS2e2imPc0eBXQcp/Af5LACietYEkE/kE/k8/COMfCKfyGfhc9RSPmNXogDqeF9Zx7JgxqeiElHLpmJEMd0Wz2KrttpctoyuD+74D/K5Aw5VsyeAfCKfyOfhH2PkE/lEPgufoynIZ58ASh71ikKpS4nyKWHsk8/VarXxVb3Oc7z8pLMv9y5kyOcuOtTNnQDyiXwin4d/ipFP5BP5LHyOpiCf6uK2J5WtnnxeXl52WnhLL8lnqQ31ZY4wmiajly9fNpnfq5/8phtLcsg7TcF+9dGq+txrNr9/8X6X5YPy8xbS1Uc/rD6/va4WtO/J1fv44jv7Rt8n2L6xHtMuy+a2n9HkZz4fQ5W2EDiMgG5eLba7jz9DPq+mKYFjyfln//p59anXan7z5PN5i2bfPzQ+++efV5/fSlBzju/ji7OTz/j1evxqPX8t7q/PBTl+hZ7bbYun8+LX9bHdPjODr933oUSbuRKoeeOKTJBPxDNLLvKJsPVJ21KOIZ9xBei6bh+TTacMUsxPPhVUUsjf+RwEL0Eg8CQCyCdSmKWwVRn5RD6XIpp914F8piVpLPlM3ZhNkSefsxkqOvoEAsgn8tlKNnMe5BP57JO2pRxDPtOChHwmIIUi8lkARPWsCSCfyGeWwlZl5BP5XIpo9l0H8pmWRuQzASkUkc8CIKpnTQD5RD5byWbOg3win33StpRjyGdaGpHPBKRQRD4LgKieNQHkE/nMUtiqjHwin0sRzb7rQD7T0oh8JiCFIvJZAET1rAkgn8hnK9nMeZBP5LNP2pZyDPlMSyPymYAUishnARDVsyaAfCKfWQpblZFP5HMpotl3HchnWhqRzwSkUEQ+C4ConjUB5BP5bCWbOQ/yiXz2SdtSjiGfaWlEPhOQQhH5LACietYEkE/kM0thqzLyiXwuRTT7rgP5TEsj8pmAFIrIZwEQ1bMmgHwin61kM+dBPpHPPmlbyjHkMy2NyGcCUiginwVAVM+aAPKJfGYpbFVGPpHPpYhm33Ugn2lpRD4TkEIR+SwAonrWBJBP5LOVbOY8yCfy2SdtSzmGfKalEflMQApF5LMAiOpZE0A+kc8sha3KyCfyuRTR7LsO5DMtjchnAlIoIp8FQFTPmgDyiXy2ks2cB/lEPvukbSnHkM+0NCKfCUihiHwWAFE9awLIJ/KZpbBVGflEPpcimn3XgXympRH5TEAKReSzAIjqWRNAPpHPVrKZ8yCfyGeftC3lGPKZlkbkMwEpFJHPAiCqZ00A+UQ+sxS2KiOfyOdSRLPvOpDPtDQinwlIoYh8FgBRPWsCyCfy2Uo2cx7kE/nsk7alHEM+09KIfCYghSLyWQBE9awJIJ/IZ5bCVmXkE/lcimj2XQfymZZG5DMBKRSRzwIgqmdNAPlEPlvJZs6DfCKffdK2lGPIZ1oakc8EpFBEPguAqJ41AeQT+cxS2KqMfCKfSxHNvutAPtPSiHwmIIUi8lkARPWsCSCfyGcr2cx5kE/ks0/alnIM+UxLI/KZgBSKyGcBENWzJoB8Ip9ZCluVkU/kcymi2XcdyGdaGqcknxcXF93R0dH6dX19/dDT29vb7vT0dH38/Py8u7u7e6i7ubnpjo+P13U6P25XV1e98dTGuXSuYuy7IZ/7kqLdHAkgn8hnK9nMeZBP5LNP2pZyDPlMK+JU5FOiaLGUDJ6cnKylUKKp46rXJmm0ZFpKJaq5nY5JWNUmxlOMmCu2S2h6i8hnLxYOLoQA8ol8ZilsVUY+kc+liGbfdSCfaZGcinxuk0rJ49nZ2cPTySiLkkrVqY22KJV6b0nNYqrjltkosAlNbxH57MXCwYUQQD6Rz1aymfMgn8hnn7Qt5RjymRbJqchnlko/+cyCGZ9i6hw/LdVlxRhRMFVnubWIqq02ly2j64M7/oN87oBD1ewJIJ/IZ5bCVmXkE/lcimj2XQfymZbHqcinuiUh1M98+utyH4vlKJ/xSWdsu1qtNr6qV53lMz/pRD5Fhw0C9wSQT+SzlWzmPMgn8tknbUs5hnymVXYq8mk5VPeiILZ68nl5edlp4S299OSz1Ib6MkcYTZPRy5cvm8zv1U9+02X5oPy8xffVR6vqc6/Z/P7F+91SpInrGOYfBauPflh9fntdTZo3WHEfX3xn32z7BNs31lPbRdl0DMuo6viZT1NhD4G6BHTzarHdffwZ8nn1vGUz/2ODJ5/DSA6yOE2OPPlMK8sU5FNdsmzqvWVUX6vnr8X72unr+twu/vxn/Kpe8ePX9bFdQtNb5Gc+e7FwcCEEkE+EMEthqzLyOU1pQmaHGRfkMy2SU5FPy6P/zqck05tlVHXxF4xUL7Hk73yaFHsIHEYA+UQ+W8lmzoN8DiM5yOI0OSKfaW2ainymbk22yJPPyQ4NHRuAAPKJfGYpbFVGPqcpTcjsMOOCfKYFCvlMQApF5LMAiOpZE0A+kc9WspnzIJ/DSA6yOE2OyGdaGpHPBKRQRD4LgKieNQHkE/nMUtiqjHxOU5qQ2WHGBflMSyPymYAUishnARDVsyaAfCKfrWQz50E+h5EcZHGaHJHPtDQinwlIoYh8FgBRPWsCyCfymaWwVRn5nKY0IbPDjAvymZZG5DMBKRSRzwIgqmdNAPlEPlvJZs6DfA4jOcjiNDkin2lpRD4TkEIR+SwAonrWBJBP5DNLYasy8jlNaUJmhxkX5DMtjchnAlIoIp8FQFTPmgDyiXy2ks2cB/kcRnKQxWlyRD7T0oh8JiCFIvJZAET1rAkgn8hnlsJWZeRzmtKEzA4zLshnWhqRzwSkUEQ+C4ConjUB5BP5bCWbOQ/yOYzkIIvT5Ih8pqUR+UxACkXkswCI6lkTQD6RzyyFrcrI5zSlCZkdZlyQz7Q0Ip8JSKGIfBYAUT1rAsgn8tlKNnMe5HMYyUEWp8kR+UxLI/KZgBSKyGcBENWzJoB8Ip9ZCluVkc9pShMyO8y4IJ9paUQ+E5BCEfksAKJ61gSQT+SzlWzmPMjnMJKDLE6TI/KZlkbkMwEpFJHPAiCqZ00A+UQ+sxS2KiOf05QmZHaYcUE+09KIfCYghSLyWQBE9awJIJ/IZyvZzHmQz2EkB1mcJkfkMy2NyGcCUiginwVAVM+aAPKJfGYpbFVGPqcpTcjsMOOCfKalEflMQApF5LMAiOpZE0A+kc9WspnzIJ/DSA6yOE2OyGdaGpHPBKRQRD4LgKieNQHkE/nMUtiqjHxOU5qQ2WHGBflMSyPymYAUishnARDVsyaAfCKfrWQz50E+h5EcZHGaHJHPtDQinwlIoYh8FgBRPWsCyCfymaWwVRn5nKY0IbPDjAvymZZG5DMBKRSRzwIgqmdNAPlEPlvJZs6DfA4jOcjiNDkin2lpRD4TkEIR+SwAonrWBJBP5DNLYRkzyaEAACAASURBVKsy8jlNaUJmhxkX5DMtjVOSz6urq+7o6Gj9uri4eOjp7e1td3p6uj5+fn7e3d3dPdTd3Nx0x8fHb52jBjHe9fX1wzl6o/jKpXMVY98N+dyXFO3mSAD5RD5byWbOg3wOIznI4jQ5Ip9pRZyKfEoOJZgSTcmlJFPH/F4iqU3SaDG1lPa1i/EklycnJw+SqViW2NguoektIp+9WDi4EALIJ/KZpbBVGfmcpjQhs8OMC/KZFsmpyKeEUiKYNwnm2dnZgzhGWZRUqk5ttEWp1HtLap/AWmajwObcfWXks48Kx5ZCAPlEPlvJZs6DfA4jOcjiNDkin2mVnIJ8Sg5fvHjRvffee+uvwvV1uMUxC2Z8iikR9RNMXVYUU51vwVSdynpZRC26Lse2CdFGEfncwEFhYQSQT+QzS2GrMvI5TWlCZocZF+QzLZZTkU9JpEUyPo2MQqmuR/mUMPoc1bntarVaH49CafmMsXUO8pkmBMVnTQD5RD5byWbOg3wOIznI4jQ5Ip9paZ2SfPpppLpoWWz15PPy8rLTwlt66clnqQ31ZY4wmiajly9fNpnfq5/8psvyQfl5i++rj1bV516z+f2L9zskcJoSONa4rD76YfX57XU1ad5gxX188Z19s+0TbN9Yh7STbG57UsnPfB5ClnMhsD8B3bxabHcff4Z8Xj1v2cz/2ODJJ7I2lhi2yMuTz7SyTEU+9dTTX6Hraaf+BJKO5a/F/URUlxG/Qs/t/BW82sSv6nVe/Lo+tktoeov8zGcvFg4uhADyiRBmKWxVRj6RzxYSOFYO5DMtklORT3VLUui/8xmfgloyVWdB9WVYVOMvKbkuxpNkxk0Sq3P4O5+RCu+fOwHkE/lsJZs5D/KJfI4lhi3yIp9pdZ2SfKauTbLIk89JDgudGogA8ol8ZilsVUY+kc8WEjhWDuQzLVLIZwJSKCKfBUBUz5oA8ol8tpLNnAf5RD7HEsMWeZHPtDQinwlIoYh8FgBRPWsCyCfymaWwVRn5RD5bSOBYOZDPtDQinwlIoYh8FgBRPWsCyCfy2Uo2cx7kE/kcSwxb5EU+09KIfCYghSLyWQBE9awJIJ/IZ5bCVmXkE/lsIYFj5UA+09KIfCYghSLyWQBE9awJIJ/IZyvZzHmQT+RzLDFskRf5TEsj8pmAFIrIZwEQ1bMmgHwin1kKW5WRT+SzhQSOlQP5TEsj8pmAFIrIZwEQ1bMmgHwin61kM+dBPpHPscSwRV7kMy2NyGcCUiginwVAVM+aAPKJfGYpbFVGPpHPFhI4Vg7kMy2NyGcCUiginwVAVM+aAPKJfLaSzZwH+UQ+xxLDFnmRz7Q0Ip8JSKGIfBYAUT1rAsgn8pmlsFUZ+UQ+W0jgWDmQz7Q0Ip8JSKGIfBYAUT1rAsgn8tlKNnMe5BP5HEsMW+RFPtPSiHwmIIUi8lkARPWsCSCfyGeWwlZl5BP5bCGBY+VAPtPSiHwmIIUi8lkARPWsCSCfyGcr2cx5kE/kcywxbJEX+UxLI/KZgBSKyGcBENWzJoB8Ip9ZCluVkU/ks4UEjpUD+UxLI/KZgBSKyGcBENWzJoB8Ip+tZDPnQT6Rz7HEsEVe5DMtjchnAlIoIp8FQFTPmgDyiXxmKWxVRj6RzxYSOFYO5DMtjchnAlIoIp8FQFTPmgDyiXy2ks2cB/lEPscSwxZ5kc+0NCKfCUihiHwWAFE9awLIJ/KZpbBVGflEPltI4Fg5kM+0NCKfCUihiHwWAFE9awLIJ/LZSjZzHuQT+RxLDFvkRT7T0oh8JiCFIvJZAET1rAkgn8hnlsJWZeQT+WwhgWPlQD7T0oh8JiCFIvJZAET1rAkgn8hnK9nMeZBP5HMsMWyRF/lMS+MU5fPq6qo7Pz/v7u7u1r29vb3tTk9Pu6Ojo43jqry5uemOj4/XdRcXFxtXpzg6R6/r6+uNOrXVcZ2rGPtuyOe+pGg3RwLIJ/KZpbBVGflEPltI4Fg5kM+0Ik5NPi2Tlk8JqN5LJLVJGi2ZllKJZW6nYxJWtVHMk5OTB8mMchvbJTS9ReSzFwsHF0IA+UQ+W8lmzoN8Ip9jiWGLvMhnWiSnJJ8SyBcvXqxflk/J49nZ2YM4RlmUVKpObbRFqdR7S2oWUx23zEaBTWh6i8hnLxYOLoQA8ol8ZilsVUY+kc8WEjhWDuQzLZJTkk8LY5TILJjxKaZE1JKqy4piGgVTdSrrZRFVW20uW0bXB3f8B/ncAYeq2RNAPpHPVrKZ8yCfyOdYYtgiL/KZlsepyKeeQEoktY/yGYVSXY/yGdupzm1Xq9XGV/Wqs3zmJ53IZ5oQFJ81AeQT+cxS2KqMfCKfLSRwrBzIZ1papyKfkkM/jYxS2erJ5+XlZaeFt/TSk89SG+rLHGE0TUYvX75sMr9XP/lN10pqyDMPoX710ar63Gs2v3/xfjeW5JB3mhK/+uiH1ee319WkeYMV9/HFd/bNtk+wfWM9tZ2fRvo3073Xk1A9xeRnPp9KlvMg8DgCunm12O4+/gz5vJqHFLaSd558TlOakNlhxoUnn2llmYJ8pi5tfO2evxb31+c6x9KqJ6a5nb+CV5v4Vb3Oi09WY7vcj74yP/PZR4VjSyGAfCKErWQz50E+h5EcZHGaHJHPtEpOXT7VXUumnojGXzBSncSSv/OZBpUiBJ5IAPlEPrMUtiojn9OUJmR2mHFBPtOiNEX5TF2cVJEnn5MaDjozMAHkE/lsJZs5D/I5jOQgi9PkiHymxQr5TEAKReSzAIjqWRNAPpHPLIWtysjnNKUJmR1mXJDPtDQinwlIoYh8FgBRPWsCyCfy2Uo2cx7kcxjJQRanyRH5TEsj8pmAFIrIZwEQ1bMmgHwin1kKW5WRz2lKEzI7zLggn2lpRD4TkEIR+SwAonrWBJBP5LOVbOY8yOcwkoMsTpMj8pmWRuQzASkUkc8CIKpnTQD5RD6zFLYqI5/TlCZkdphxQT7T0oh8JiCFIvJZAET1rAkgn8hnK9nMeZDPYSQHWZwmR+QzLY3IZwJSKCKfBUBUz5oA8ol8ZilsVUY+pylNyOww44J8pqUR+UxACkXkswCI6lkTQD6Rz1aymfMgn8NIDrI4TY7IZ1oakc8EpFBEPguAqJ41AeQT+cxS2KqMfE5TmpDZYcYF+UxLI/KZgBSKyGcBENWzJoB8Ip+tZDPnQT6HkRxkcZockc+0NCKfCUih2Eo+f/DbT7qzX/+cFwwe5sDtZ38szM7Dq5FP5DNLYasy8jlNaUJmhxkX5DOtT8hnAlIotpTP//jfrzteMPAcQD4Rw1YiOEYe5HMYyUEWp8kR+UxyhXwmIIUi8okMWgZb75FP5HMMKWyVE/mcpjQhs8OMC/KZ5Ar5TEAKReQT+Wwtnc6HfCKfrURwjDzI5zCSgyxOkyPymeQK+UxACkXkE/m0DLbeI5/I5xhS2Con8jlNaUJmhxkX5DPJFfKZgBSKyCfy2Vo6nQ/5RD5bieAYeZDPYSQHWZwmR+QzyRXymYAUisgn8mkZbL1HPpHPMaSwVU7kc5rShMwOMy7IZ5Ir5DMBKRSRT+SztXQ6H/KJfLYSwTHyIJ/DSA6yOE2OyGeSK+QzASkUkU/k0zLYeo98Ip9jSGGrnMjnNKUJmR1mXJDPJFfIZwJSKCKfyGdr6XQ+5BP5bCWCY+RBPoeRHGRxmhyRzyRXyGcCUigin8inZbD1HvlEPseQwlY5kc9pShMyO8y4IJ9JrqYinzc3N93x8XF3dHS0fl1dXT309Pb2tjs9PV0fPz8/7+7u7h7q4nkXFxcPx/VGMRzv+vp6o05tVaecirHvhnwin62l0/mQT+SzlQiOkQf5HEZykMVpckQ+k2VNQT4lky9evHiQQMngycnJuqw6CadlVNJoybSUSixzOx2TsKpNjKfLVyxLbGyX0PQWkU/k0zLYeo98Ip9jSGGrnMjnNKUJmR1mXJDPpFRTkM/UpQ2RlDyenZ09iGmURUml6tRGW5RKvbekZjHVcctsFNjcj74y8ol8tpZO50M+kc9WIjhGHuRzGMlBFqfJEflMRjVF+YxCmAUzPsWUiPoJpi4rimkUTNWprJdFVG21uWwZXR/c8R/kE/m0DLbeI5/I5xhS2Con8jlNaUJmhxkX5DOJ1RTl06KorkahVDnKZ3zSGduuVquNr+pV55hRbHUc+UQmW0vkU/Mhn8hnKxEcIw/yOYzkIIvT5Ih8yrjCNjX5lCTGp5mtnnxeXl52r169Kr705HOfdoe2ee9X/6N7qqRw3jKF+uf/6+Pqc+/ly5fVc+izsfrJb7oxBIec0xX4Vx+tqs+9ZvP7F+93SOA0JXCscVl99MPq89veERRv0Lf7+OI7+2bcJ9i+sQ5p5yeQks+46UklP/O5TJlCkh83rjz5nK44IbWHjw1PPpG1scSwRV6efEaz67puKvLpr8VT9976Wjy2i1+hW179s5vx6/r4Vb3ix6/rY7ucu6/Mz3w+TpgQzOF4IZ+HCw6SOF2GyCfy2UICx8qBfCajmoJ8WiL9Nzm9t0jG+viVvC5FYum/D5qfmup8x/IvGPny1Za/8zmcGCGZ9Vkin9MVJ6T28LFBPpHPscSwRV7k0/b1ej8F+UxdmnSRJ5/1JQuR7WeMfB4uOEjidBkin8hnCwkcKwfymdQO+UxACkXks1+MEMb6XJDP6YoTUnv42CCfyOdYYtgiL/KZ5Ar5TEAKReSzvmQhsv2Mkc/DBQdJnC5D5BP5bCGBY+VAPpNcIZ8JSKGIfPaLEcJYnwvyOV1xQmoPHxvkE/kcSwxb5EU+k1whnwlIoYh81pcsRLafMfJ5uOAgidNliHwiny0kcKwcyGeSK+QzASkUkc9+MUIY63NBPqcrTkjt4WODfCKfY4lhi7zIZ5Ir5DMBKRSRz/qShcj2M0Y+DxccJHG6DJFP5LOFBI6VA/lMcoV8JiCFIvLZL0YIY30uyOd0xQmpPXxskE/kcywxbJEX+UxyhXwmIIUi8llfshDZfsbI5+GCgyROlyHyiXy2kMCxciCfSa6QzwSkUEQ++8UIYazPBfmcrjghtYePDfKJfI4lhi3yIp9JrpDPBKRQRD7rSxYi288Y+TxccJDE6TJEPpHPFhI4Vg7kM8kV8pmAFIrIZ78YIYz1uSCf0xUnpPbwsUE+kc+xxLBFXuQzyRXymYAUishnfclCZPsZI5+HCw6SOF2GyCfy2UICx8qBfCa5Qj4TkEIR+ewXI4SxPhfkc7rihNQePjbIJ/I5lhi2yIt8JrlCPhOQQhH5rC9ZiGw/Y+TzcMFBEqfLEPlEPltI4Fg5kM8kV8hnAlIoIp/9YoQw1ueCfE5XnJDaw8cG+UQ+xxLDFnmRzyRXyGcCUigin/UlC5HtZ4x8Hi44SOJ0GSKfyGcLCRwrB/KZ5Ar5TEAKReSzX4wQxvpckM/pihNSe/jYIJ/I51hi2CIv8pnkCvlMQApF5LO+ZCGy/YyRz8MFB0mcLkPkE/lsIYFj5UA+k1whnwlIoYh89osRwlifC/I5XXFCag8fG+QT+RxLDFvkRT6TXCGfCUihiHzWlyxEtp8x8nm44CCJ02WIfCKfLSRwrBzIZ5Ir5DMBKRSRz34xQhjrc0E+pytOSO3hY4N8Ip9jiWGLvMhnkqvnKp8XFxfd0dFRd3x83N3c3CQq24vIZ33JQmT7GSOfhwsOkjhdhsgn8tlCAsfKgXwmr3qO8nl1ddWdn593d3d33fX1dXd6etrd3t4mMv1F5LNfjBDG+lyQz+mKE1J7+Nggn8jnWGLYIi/ymZzqOcqnnnpKQLVJOiWfktB9NuSzvmQhsv2Mkc/DBQdJnC5D5BP5bCGBY+VAPpNhPTf51NNOPfW0bLpsGU143ioin/1ihDDW54J8TleckNrDxwb5RD7HEsMWeZHPpFPPTT7zk07ks740IabDMEY+DxccJHG6DJFP5LOFBI6VA/l85vJp2eTJ5zBChFi244h8TleckNrDxwb5RD7HEsMWeZHPZy6fuvy+n/n88MMPuw8++KD4evnyZaev3mu//vN3v9vxgkGeA7XnXav4f/2d/9LxgkGeA63mX+08f/2d/9TxgkGeA7XnneK/evUqWd5wxX2+KX9n33T7BNs31lzaHfLb7hJUNggslUDNG9dSmXFd8yHA/J7PWNHTpxGoOcf38UXkszBuT/07n8hnASzVsyZQ88Y1azB0fhEEmN+LGEYuYgeBmnMc+dwBvnYV8lmbMPHHJFDzxjXmdZEbAiLA/GYeLJ1AzTmOfI44e5DPEeGTujqBmjeu6p0nAQQKBJjfBUBUz55AzTmOfI44PZDPEeGTujqBmjeu6p0nAQQKBJjfBUBUz55AzTmOfI44PZDPEeGTujqBmjeu6p0nAQQKBJjfBUBUz55AzTmOfI44PZDPEeGTujqBmjeu6p0nAQQKBJjfBUBUz55AzTmOfI44PZDPEeGTujqBmjeu6p0nAQQKBJjfBUBUz55AzTmOfI44PZDPEeGTujqBmjeu6p0nAQQKBJjfBUBUz55AzTmOfI44PT7//PMRs5MaAnUJ/OlPf6qbgOgQGJEA83tE+KRuQqDmHEc+mwwhSSAAAQhAAAIQgAAERAD5ZB48msDNzU13fHzcHR0dvfXS/270sZv+D1HxPL2PsWPdY2I77tD93bcP19fX3fn5eXd3d7fzFPdzZyMqRyPg/4NZnJN6f3p62t3e3j6qX5rLiudN5yuOYz8lpmLFuDmmY+8zF92vfff5s6pcujfoM5f7tW9M2rUhMId5rXl0dna2/py1nNcxb3zfZmSeRxbk83mMc7Wr1OJz6KIW5Uvx4gLsG46OP3aLcX3uEP11rNIe+SwRmle956LG9amb5p/l0/Hi3Nb7OP/3zdMX95B+PiZv/vzHeR/7tW9M2rUl4Hl4yHyJ4+x4OuZN758yr6P4Oe4h/XR/SvuYt9SW+qcRQD6fxo2zXhPQTSUvPvFf1PEGpJuGn8L4RqR6H9N7nevF2ZBzjr74erqofuhfyYrX10bxciwd62vreO+9997DU173T/Hd/23tFDcuwm7nazUzxfQxvd/Wn3UF/xmVQN/ip0XK3wJ4TqiT8bifBMb5rzmnNicnJw9PCXVezhHjxPg6v2+u63iOEaF5HnoBV1vFUR699F5z03PS7RSjb67qmOey8zjO3/3d3z3Eidera47X4vPYj0Ogb75sm3fxeI15rfmm+aHYf/mXf7l+7/vtr3/96/W8iXPSxA6Z1/GaNJdXq9U6j/P++Mc/Xn8uxEmb8vvz4bnv/JrnrtN7tu0EkM/tbKjZg0BefGLZH2p9WOMip7Bqp5c2fUj93h9sf6hzF9TOC1eMHz/8PifG9TGdH2PHcl88t3W/1N654vvYJwuFzvH56otvRvlmH/u5rT/uP/vxCORxy2WNo8Zbx7XX+GvT3mOv8fV7zyMtVm4br87xdY42x9d58b3qYlyf1xfTOV2ntlE+tej35VN7z+V4jtr6uPsej8V+xc+X27Ifn0CeL7nsuabjtee15pmlVmQ0ZzQ/lTv3K5J76rxWTM9/xdO1as7GvPm9+qd+OqfO8Xt/FvJ1xL7y/p4A8slMOIhAXGj8AdQxb/4w5w+567V3Gx9zHP8L0h/ovrY6N374+3I7rvb79td9cLx4A4r9yO1iXVywYx98jupjex93zlgXz+f9OATy4qfx8z861CPPET05iYt07K3GVvM1borjuR5F1PGUV5vK/oeN573jxLjuZ4zpfnqOee7Fz2WMr7hq48+e8sV5GfPGPHrvXGoT+5XjOwb7cQl4vnhOaB/H0POwxbzellt9dD/jfHM/nzqv4xyPo+BrVs74Prd3f83GnxGdF6U2xub9PQHkk5lwEAF92LxA+QYQbw5678VWH2L9q1HHfI6Sb1vY3DEvtI7vD7jqvbi5TjcDb31x9+1vjhdvQIrv2LldrIs3qnjt5uO+5liu9171bOMT8OLncdPeY+S9n9q4rY57gdQVeL5uuxrNEwum4sdz44LmOeM4Ma5zu59uo32erzFmnuM6X59TtdFeOfIWP0+5TuXYrxy/rz3H2hPI82XMee05p3mqLc6Z3M9I6inzWudsm78xb3yf27vO8unPXPxcxX7y/g0B5PMNC949gUD8MOYbwK5wcVHyQqrzX7x4sb7hxHPjDcltXa+yXn25c1uds29/czzfZHRT0ebYbqe42mLZ/dY5cfF2G9+ociwfXwfkP5MhkBc/j6/Gc9cW28V5r+Ma+7jFuZHnnMoWU88Znxvj5n66jfYxvsoxZs4X+53zOWb8PPlY3Md+5fixHe/HI5DnSxz3Xb2K7eI4HzKvY0zljnMm9zP27anzOudzzJg3vs/tVdY/EJFPk9t/j3zuz4qWPQTy4hPLvlnoWPwAK4yO6aUtLmzxfNX5puJFWvV+GqSY+edvdDPwFuP6WI4fy7G/zut4uf+O7XZ+kqt2FgTfqBQ3yqeO64mYYzuW+ritP+4/+/EIeH543HLZc1O/GBG/clP7OH/9Pp+vK1Pb/PRUcbXpPM+zOGdUpza74q4DbPk8OV+e4+qL8/XNS9XH484R97FfOX5sx/vxCOR5mMsaQ91zW8zrOOdEJM6Z3K9IzPdhfwbU533mdbxfK57O1yvmze/zmqP2zq/+a1Nf4z0g9pX39wSQT2bCQQT6Fh99GP01pN57U1sf96KmOh/XPpbdNsZQfYzvc/KHP8ZxGx+LuXM858rx4g3I5yiu28U++QYUb6R6H69H7d0v7VXncozl/ign27gE+hY/zQstRho/L3bqZRxv/2MpHve4OqbnRoyh9jF+jBPnT47rmJ6Hqo9bjPnuu+8+LJJ5jsf5q/PjvPRc1T5/nmIuc9C5OX5sx/vxCPTNlzhH4pz0eGq+xvno44fO6zzn3DfLr/Zq07fFPj9mXrvvuibP5Zj3Mb/t7r7pfOSzb5TeHEM+37DgHQQeTcDy6ZvOowNwAgQgAAEIQOCZEUA+n9mAc7nDEkA+h+VJNAhAAAIQWD4B5HP5Y8wVQgACEIAABCAAgckQQD4nMxR0BAIQgAAEIAABCCyfAPK5/DHmCiEAAQhAAAIQgMBkCCCfkxkKOgIBCEAAAhCAAASWTwD5XP4Yc4UQgAAEIAABCEBgMgSQz8kMBR2BAAQgAAEIQAACyyeAfC5/jLlCCEAAAhCAAAQgMBkCyOdkhoKOQAACEIAABCAAgeUTQD6XP8ZcIQQgAAEIQAACEJgMAeRzMkNBRyAAAQhAAAIQgMDyCSCfyx9jrhACEIAABCAAAQhMhgDyOZmhoCMQgAAEIAABCEBg+QSQz+WPMVcIAQhAAAIQgAAEJkMA+ZzMUNARCEAAAhCAAAQgsHwCyOfyx5grhAAEIAABCEAAApMhgHxOZijoCAQgAAEIQAACEFg+AeRz+WPMFUIAAhCAAAQgAIHJEEA+JzMUdAQCEIAABCAAAQgsnwDyufwx5gohAAEIQAACEIDAZAggn5MZCjoCgeUQuLu76y4uLrrb29tO78/Pz9cvvX/spjh6ebu5uemOj4+7o6Oj9ev09HSdR/W5zm2ur6/Xp7v+6urK4R7OicceKruu07mu03vFdLzYbqj3YiZe2sdNfVBu90V1ei8Wuq6W27vvvvuQU2MTx+DQfui6Fa8m40P7yPkQgMBhBJDPw/hxNgQg0ENgKCGxLFpELH9RwJTLAub2rrf4Wo5yvbred8yXtKvObYbeK+eLFy/W0h5j65okn74W1Y0hny1yakwl4E/5x0pkxnsIQGCaBJDPaY4LvYLApAhY+iQFEiDt/YRKZR9Tpy1JOiYp/NnPfvbWk8/YJspUvmjlcb1FcpeU9Mmi+659X33fMfWj7/piLNdLFNUnXa/6+rd/+7fr9yrrOr3Fa951DWoXz+s7X1y0qZ3F2+08Rsqf88Q+mKvO83XFc53DcWM7xdZL56mdY7k/77333gMDvY98xE2bx9Ox4jW7P9qzQQACyyOAfC5vTLkiCAxOwDIQhUTvLQyWGstCFBJLhkXIgiLpy3Wx465zzm2SGM/pa+O+a99X33fMMXNdjGX5tHi5ztepflsMXae9z/N1OZf3Oq52eTO3k5OTh7g+pn5q07nuT84T25qt++r+uU9qa7nc1o++nD5Pe+dwHLN0jthX5/d1u++KwwYBCCyPAPK5vDHliiAwOIEsB05gSfDTK8tDFAtLiERH7bW39ChOKbZlxfKyS0hyG+e2kOV65e875uvLdbGvvvZt/VM/LZ+Rh2KrHBk4n/qrJ6nKmzfH05NVxVUMH1P73B+d7/q+p8/xWuJ7ndcXy/1xTPcxXtuuuhgzvo/5dH4sKzYbBCCwPALI5/LGlCuCwOAEspxY6vxUK9dHIXFbydZqtVo/mYtSkc915y1+buuyBcXt4t5tLMPaWwDVzvUxRt8xx8x1sa9ZoHJbi5jFL/ZJ7y3EzuX+9f28p+ocT3n0XjHOzs4eri/nj+f8wz/8w07u8bp0Xr42HfMW+6Fjcax31cWY7mtm4rF22z5Bdz/YQwAC8yWAfM537Og5BJoRyHJieZBsaMv1UUiifEoqJBRRKvK5vigLiIUkxtH7vi33K7dxTPdb9bvOyXWxr47l/uW2UcQij9ynWFZ8x4vH9T7Gc27Jm+Xax+L5PscCvI17vC7l6ovl/jimrldbvLZddTFmfO+4cV+qj215DwEIzI8A8jm/MaPHEGhOYJecWAolQmqnLQqJ6y0+UVByXbywvjr3QzG8KZcFLAug23jvmPGpY+yP23mf4zm/9lmQctsYd9d5zqW9riVeW6yL8XRc5SifPt/XlvsXzzcHj4n757Jj63jeYpycc1dd7k+cI87vfG6reGwQgMDyCCCfyxtTrggCgxPIcqAEFhQJkH8JxrLg9qr7+7//+7eedsZzLTx9nY6C4npLnmJn+XKd++Fz4t5i4/O1t/TEdnpvSVMb9VPX4vaOoz5qy7nVB0ux6kvXrFzbft7T58d47ls8NDprkQAABIFJREFUpnbqj6/NfdNxbdv64PHSb6Yrns7fxtDX6TZxjPI1x7rMy/13X2M+92fbuLy+HHYQgMBMCSCfMx04ug2B50BAoiOx1Z6tHoGpyZ5EdNc/SuqRIDIEINCCAPLZgjI5IACBJxPQ07P8BO/JwTixl8CU5NNPSHnq2TtUHITAIgggn4sYRi4CAhCAAAQgAAEIzIMA8jmPcaKXEIAABCAAAQhAYBEEkM9FDCMXAQEIQAACEIAABOZBAPmcxzjRSwhAoIdA/G3qnurRDj31Zyh9nn4D/JCfc3333Xf5Ja3RRp/EEIBAiQDyWSJEPQQgMFkCU5XPpwLT9eQ/nfTYWPnPHT32fNpDAAIQqE0A+axNmPgQgEA1AiX5lIj570hu++PrftroJ40ua+/fvHYMHdPmNjqn7yml690+/m1MtffxCCb21W3yeWrjzbnV1n+WyHl1zDG2/T1NH9f/ojP+bzodnz0EIACBWgSQz1pkiQsBCFQnsEs+4xNAi5YlLZ5n6XOdyhJV/X/odSwe91NJS57i9G2u135X7nyu4jmHz1MMbbEuxregWkzjdfs8i3c8z/GdL/eFMgQgAIFaBJDPWmSJCwEIVCcQJTIms1hZHFUXxUvvLV2KoaeEKv/0pz9dy6aOZalzWefGWDGv38d69yU+oXS7vI+C6TrndR9Vdnw/3XRb7aN8+smt4mpzWW3cr8goxuE9BCAAgVoEkM9aZIkLAQhUJyCp8lO9mMySZelSnYVNewudfjFH53vv/72k5MztJXjxFevUpm/zua532XG2CV+UT1+DJTlKpcXR8bR3rtjO1xnb6b3yOMa2vvRdF8cgAAEIDEEA+RyCIjEgAIFRCGyTzz6xsgBq73r9rzv18hNPiZllz+ImmctbjJXrVN5Wb6FUnr64UT5zjCiVMaeOK54lPLZzPsXNmxkgn5kMZQhAoDYB5LM2YeJDAALVCGyTTyWMEtYnWn3SJomzjOVzYrwshvkCY30WwFiXz4vyGeXXMSzGsS+7+qn4kVHMnc/LfaEMAQhAoBYB5LMWWeJCAALVCUisJIzxZUFTcgtmlEp3ynKnGNosZi7rmKXP8dUmtnV5fTD8x7Fc71yOE3OE0zZ+qUjH4/XpN9J1vmPGunjNMZeu35Lp3Dqmzcct27EfvIcABCBQkwDyWZMusSEAAQhAAAIQgAAENgggnxs4KEAAAhCAAAQgAAEI1CSAfNakS2wIQAACEIAABCAAgQ0CyOcGDgoQgAAEIAABCEAAAjUJIJ816RIbAhCAAAQgAAEIQGCDAPK5gYMCBCAAAQhAAAIQgEBNAshnTbrEhgAEIAABCEAAAhDYIIB8buCgAAEIQAACEIAABCBQkwDyWZMusSEAAQhAAAIQgAAENgggnxs4KEAAAhCAAAQgAAEI1CSAfNakS2wIQAACEIAABCAAgQ0CyOcGDgoQgAAEIAABCEAAAjUJIJ816RIbAhCAAAQgAAEIQGCDAPK5gYMCBCAAAQhAAAIQgEBNAshnTbrEhgAEIAABCEAAAhDYILCPfP5/bqt0RmYTYLEAAAAASUVORK5CYII=" alt="image" /></p>
+
+<p>Вариант с шаблонным параметром примерно в четыре раза обходит версию с <code>function</code>.</p>
+
+<hr>
+
+<p>Почему так происходит?</p>
+
+<ul>
+<li><p>С шаблоном лучше работает оптимизатор.</p></li>
+
+<li><p>Потрачено время на конструирование и копирование объекта <code>function</code>.</p></li>
+
+<li><p>Ошибка в способах передачи аргумента.</p></li>
+
+<li><p>Так случайно произошло — ведь в бенчмарке используется случайный вектор.</p></li>
+</ul>
+
+<p>Только шаблонный вариант позволяет встроить функцию-компаратор в код сортировки.  Полученный после оптимизации алгоритм эквивалентен сортировке, где явно указан способ сравнения — без вызова функции сравнения каждой пары чисел. Полученная реализация очень быстрая.</p>
+
+<p>В стандартной библиотеке на первом месте стоят производительность и универсальность и только потом внятность сигнатуры. Но стандарт C++20 может исправить ситуацию, введя концепты, которые улучшат понятность сигнатур шаблонных функций.</p>
+
+</body>
+</html>

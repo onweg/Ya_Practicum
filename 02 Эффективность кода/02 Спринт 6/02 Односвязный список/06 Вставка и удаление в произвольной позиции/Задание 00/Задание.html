@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание</h2>
+
+<p>Это задание — итоговый проект шестого спринта. Вы будете сдавать его на проверку через репозиторий на GitHub. А пока сохраните решение в своей IDE.</p>
+
+<p>Реализуйте в классе односвязного списка следующие операции:</p>
+
+<ul>
+<li>Метод <code>PopFront</code>. Удаляет первый элемента непустого списка за время O(1). Не выбрасывает исключений.</li>
+<li>Метод <code>InsertAfter</code>. За время O(1) вставляет в список новое значение следом за элементом, на который ссылается переданный в <code>InsertAfter</code> итератор. Метод должен обеспечивать строгую гарантию безопасности исключений.</li>
+<li>Метод <code>EraseAfter</code>. За время O(1) удаляет из списка элемент, следующий за элементом, на который ссылается переданный в <code>InsertAfter</code> итератор. Не выбрасывает исключений.</li>
+<li>Методы <code>before_begin</code> и <code>cbefore_begin</code>. Возвращают итераторы, ссылающиеся на фиктивную позицию перед первым элементом списка. Такой итератор используется как параметр для методов <code>InsertAfter</code> и <code>EraseAfter</code>, когда нужно вставить или удалить элемент в начале списка. Разыменовывать этот итератор нельзя.</li>
+</ul>
+
+<p>Сигнатуры новых методов:</p>
+
+<pre><code class="language-cpp">template &lt;typename Type&gt;
+class SingleLinkedList {
+public:
+    // Возвращает итератор, указывающий на позицию перед первым элементом односвязного списка.
+    // Разыменовывать этот итератор нельзя - попытка разыменования приведёт к неопределённому поведению
+    [[nodiscard]] Iterator before_begin() noexcept {
+        // Реализуйте самостоятельно
+        return {};
+    }
+
+    // Возвращает константный итератор, указывающий на позицию перед первым элементом односвязного списка.
+    // Разыменовывать этот итератор нельзя - попытка разыменования приведёт к неопределённому поведению
+    [[nodiscard]] ConstIterator cbefore_begin() const noexcept {
+        // Реализуйте самостоятельно
+        return {};
+    }
+
+    // Возвращает константный итератор, указывающий на позицию перед первым элементом односвязного списка.
+    // Разыменовывать этот итератор нельзя - попытка разыменования приведёт к неопределённому поведению
+    [[nodiscard]] ConstIterator before_begin() const noexcept {
+        // Реализуйте самостоятельно
+        return {};
+    }
+
+    /*
+     * Вставляет элемент value после элемента, на который указывает pos.
+     * Возвращает итератор на вставленный элемент
+     * Если при создании элемента будет выброшено исключение, список останется в прежнем состоянии
+     */
+    Iterator InsertAfter(ConstIterator pos, const Type&amp; value) {
+        // Заглушка. Реализуйте метод самостоятельно
+        return {};
+    }
+
+    void PopFront() noexcept {
+        // Реализуйте метод самостоятельно
+    }
+
+    /*
+     * Удаляет элемент, следующий за pos.
+     * Возвращает итератор на элемент, следующий за удалённым
+     */
+    Iterator EraseAfter(ConstIterator pos) noexcept {
+        // Заглушка. Реализуйте метод самостоятельно
+        return {};
+    }
+    ...
+};
+</code></pre>
+
+<p>Пример использования и тесты:</p>
+
+<pre><code class="language-cpp">#include &lt;cassert&gt;
+#include &lt;cstddef&gt;
+#include &lt;iterator&gt;
+#include &lt;string&gt;
+#include &lt;utility&gt;
+
+template &lt;typename Type&gt;
+class SingleLinkedList {...};
+
+// Эта функция проверяет работу класса SingleLinkedList
+void Test4() {
+    struct DeletionSpy {
+        ~DeletionSpy() {
+            if (deletion_counter_ptr) {
+                ++(*deletion_counter_ptr);
+            }
+        }
+        int* deletion_counter_ptr = nullptr;
+    };
+
+    // Проверка PopFront
+    {
+        SingleLinkedList&lt;int&gt; numbers{3, 14, 15, 92, 6};
+        numbers.PopFront();
+        assert((numbers == SingleLinkedList&lt;int&gt;{14, 15, 92, 6}));
+
+        SingleLinkedList&lt;DeletionSpy&gt; list;
+        list.PushFront(DeletionSpy{});
+        int deletion_counter = 0;
+        list.begin()-&gt;deletion_counter_ptr = &amp;deletion_counter;
+        assert(deletion_counter == 0);
+        list.PopFront();
+        assert(deletion_counter == 1);
+    }
+
+    // Доступ к позиции, предшествующей begin
+    {
+        SingleLinkedList&lt;int&gt; empty_list;
+        const auto&amp; const_empty_list = empty_list;
+        assert(empty_list.before_begin() == empty_list.cbefore_begin());
+        assert(++empty_list.before_begin() == empty_list.begin());
+        assert(++empty_list.cbefore_begin() == const_empty_list.begin());
+
+        SingleLinkedList&lt;int&gt; numbers{1, 2, 3, 4};
+        const auto&amp; const_numbers = numbers;
+        assert(numbers.before_begin() == numbers.cbefore_begin());
+        assert(++numbers.before_begin() == numbers.begin());
+        assert(++numbers.cbefore_begin() == const_numbers.begin());
+    }
+
+    // Вставка элемента после указанной позиции
+    {  // Вставка в пустой список
+        {
+            SingleLinkedList&lt;int&gt; lst;
+            const auto inserted_item_pos = lst.InsertAfter(lst.before_begin(), 123);
+            assert((lst == SingleLinkedList&lt;int&gt;{123}));
+            assert(inserted_item_pos == lst.begin());
+            assert(*inserted_item_pos == 123);
+        }
+
+        // Вставка в непустой список
+        {
+            SingleLinkedList&lt;int&gt; lst{1, 2, 3};
+            auto inserted_item_pos = lst.InsertAfter(lst.before_begin(), 123);
+
+            assert(inserted_item_pos == lst.begin());
+            assert(inserted_item_pos != lst.end());
+            assert(*inserted_item_pos == 123);
+            assert((lst == SingleLinkedList&lt;int&gt;{123, 1, 2, 3}));
+
+            inserted_item_pos = lst.InsertAfter(lst.begin(), 555);
+            assert(++SingleLinkedList&lt;int&gt;::Iterator(lst.begin()) == inserted_item_pos);
+            assert(*inserted_item_pos == 555);
+            assert((lst == SingleLinkedList&lt;int&gt;{123, 555, 1, 2, 3}));
+        };
+    }
+
+    // Вспомогательный класс, бросающий исключение после создания N-копии
+    struct ThrowOnCopy {
+        ThrowOnCopy() = default;
+        explicit ThrowOnCopy(int&amp; copy_counter) noexcept
+            : countdown_ptr(&amp;copy_counter) {
+        }
+        ThrowOnCopy(const ThrowOnCopy&amp; other)
+            : countdown_ptr(other.countdown_ptr)  //
+        {
+            if (countdown_ptr) {
+                if (*countdown_ptr == 0) {
+                    throw std::bad_alloc();
+                } else {
+                    --(*countdown_ptr);
+                }
+            }
+        }
+        // Присваивание элементов этого типа не требуется
+        ThrowOnCopy&amp; operator=(const ThrowOnCopy&amp; rhs) = delete;
+        // Адрес счётчика обратного отсчёта. Если не равен nullptr, то уменьшается при каждом копировании.
+        // Как только обнулится, конструктор копирования выбросит исключение
+        int* countdown_ptr = nullptr;
+    };
+
+    // Проверка обеспечения строгой гарантии безопасности исключений
+    {
+        bool exception_was_thrown = false;
+        for (int max_copy_counter = 10; max_copy_counter &gt;= 0; --max_copy_counter) {
+            SingleLinkedList&lt;ThrowOnCopy&gt; list{ThrowOnCopy{}, ThrowOnCopy{}, ThrowOnCopy{}};
+            try {
+                int copy_counter = max_copy_counter;
+                list.InsertAfter(list.cbegin(), ThrowOnCopy(copy_counter));
+                assert(list.GetSize() == 4u);
+            } catch (const std::bad_alloc&amp;) {
+                exception_was_thrown = true;
+                assert(list.GetSize() == 3u);
+                break;
+            }
+        }
+        assert(exception_was_thrown);
+    }
+
+    // Удаление элементов после указанной позиции
+    {
+        {
+            SingleLinkedList&lt;int&gt; lst{1, 2, 3, 4};
+            const auto&amp; const_lst = lst;
+            const auto item_after_erased = lst.EraseAfter(const_lst.cbefore_begin());
+            assert((lst == SingleLinkedList&lt;int&gt;{2, 3, 4}));
+            assert(item_after_erased == lst.begin());
+        }
+        {
+            SingleLinkedList&lt;int&gt; lst{1, 2, 3, 4};
+            const auto item_after_erased = lst.EraseAfter(lst.cbegin());
+            assert((lst == SingleLinkedList&lt;int&gt;{1, 3, 4}));
+            assert(item_after_erased == (++lst.begin()));
+        }
+        {
+            SingleLinkedList&lt;int&gt; lst{1, 2, 3, 4};
+            const auto item_after_erased = lst.EraseAfter(++(++lst.cbegin()));
+            assert((lst == SingleLinkedList&lt;int&gt;{1, 2, 3}));
+            assert(item_after_erased == lst.end());
+        }
+        {
+            SingleLinkedList&lt;DeletionSpy&gt; list{DeletionSpy{}, DeletionSpy{}, DeletionSpy{}};
+            auto after_begin = ++list.begin();
+            int deletion_counter = 0;
+            after_begin-&gt;deletion_counter_ptr = &amp;deletion_counter;
+            assert(deletion_counter == 0u);
+            list.EraseAfter(list.cbegin());
+            assert(deletion_counter == 1u);
+        }
+    }
+}
+
+int main() {
+    Test4();
+}
+</code></pre>
+
+<h3>Прекод</h3>
+
+<p>В качестве заготовки кода используйте своё решение из предыдущего урока.</p>
+
+<h3>Ограничения</h3>
+
+<p>Не меняйте сигнатуры всех публичных методов класса <code>SingleLinkedList</code>, его итераторов и операций, чтобы код скомпилировался без ошибок.</p>
+
+<p>Считайте, что тип <code>Type</code> удовлетворяет следующим ограничениям:</p>
+
+<ul>
+<li>Имеет конструктор без параметров.</li>
+<li>Имеет копирующий конструктор.</li>
+<li>Деструктор не выбрасывает исключений.</li>
+</ul>
+
+<h3>Что отправлять на проверку</h3>
+
+<p>В решении должна быть реализация класса <code>SingleLinkedList</code> с перегруженными операциями, функцией <code>swap</code> и нужными для их работы директивами <code>#include</code>. Функция <code>main</code> учитываться при проверке не будет.</p>
+
+<h3>Как будет тестироваться ваш код</h3>
+
+<p>При тестировании не будут происходить следующие операции:</p>
+
+<ul>
+<li>Удаление элемента в начале пустого списка.</li>
+<li>Передача в методы <code>InsertAfter</code> и <code>EraseAfter</code> end-итератора текущего списка, невалидного итератора либо итератора, ссылающегося на элемент другого списка.</li>
+</ul>
+
+<p>Не усложняйте класс списка и итератора, чтобы выявить ситуации некорректного использования итераторов.</p>
+
+<h3>Подсказка</h3>
+
+<p>Пример использования и тесты из условия — лучшая подсказка.</p>
+
+</body>
+</html>

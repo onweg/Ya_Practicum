@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>C++ Protobuf API</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>C++ Protobuf API</h1>
+
+<p>Вы уже много узнали о Protobuf:</p>
+
+<ul>
+<li>как собрать библиотеку;</li>
+<li>как написать proto-файл;</li>
+<li>как включить proto-файл в свой проект;</li>
+<li>как использовать классы Protobuf.</li>
+</ul>
+
+<p>Но пока от всего этого мало пользы, потому что мы не разобрали главное — как сериализовать и десериализовать данные. В этом уроке, наконец, затронем этот вопрос. Но для начала остановимся на некоторых других аспектах библиотеки. Детали вы можете найти в <a href="https://developers.google.com/protocol-buffers/docs/cpptutorial">гайде</a> или <a href="https://developers.google.com/protocol-buffers/docs/reference/cpp-generated">описании API</a> в официальной документации.</p>
+
+<h3>Структурирование</h3>
+
+<p>Для каждого сообщения, которое вы описали в proto-файле, Protobuf создаёт класс. Размещает этот класс он в глобальном пространстве имён. Но засорять глобальное пространство классами с простыми именами — плохо, это может приводить к конфликтам.</p>
+
+<hr>
+
+<p>Какое ключевое слово позволяет структурировать имена в C++?</p>
+
+<hr>
+
+<p>Можно усложнить имена сообщений, добавив к ним определённый префикс. Но это некрасиво и неудобно. Гораздо лучше было бы, если бы Protobuf помещал имена в отдельный namespace. И такая возможность есть.</p>
+
+<p>Изменим proto-файл в проекте прошлого урока, добавив в него строку <code>package person;</code>:</p>
+
+<pre><code class="language-cpp">syntax = &quot;proto3&quot;;
+
+package person;
+
+import &quot;address.proto&quot;;
+
+message Person {
+    string name = 1;
+    int32 age = 2;
+    Address address = 3;
+    repeated string phone_number = 4;
+}
+</code></pre>
+
+<p>Такую же строку добавим в <code>address.proto</code>.</p>
+
+<p>Попробуем пересобрать программу и увидим ошибку компиляции:</p>
+
+<pre><code class="language-cpp">error C2065: 'Address': undeclared identifier
+</code></pre>
+
+<p>Теперь класс <code>Address</code> находится в <code>namespace person</code>. Изменим main.cpp:</p>
+
+<pre><code class="language-cpp">#include &lt;person.pb.h&gt;
+
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    person::Address addr;
+    addr.set_building(15);
+    cout &lt;&lt; addr.building() &lt;&lt; endl;
+}
+</code></pre>
+
+<p>После этого всё собирается. Получается соответствие сущностей кода Protobuf и C++:</p>
+
+<ul>
+<li>message → class,</li>
+<li>package → namespace.</li>
+</ul>
+
+<p>Так можно и нужно структурировать имена при использовании Protobuf.</p>
+
+<h3>Генерируемые методы</h3>
+
+<p>Сообщения Protobuf могут содержать поля разных типов. Возьмём сообщение из примера:</p>
+
+<pre><code class="language-cpp">message Person {
+    string name = 1;
+    int32 age = 2;
+    Address address = 3;
+    repeated string phone_number = 4;
+}
+</code></pre>
+
+<p>Оно содержит строковое поле <code>name</code>, скалярное <code>age</code>, поле пользовательского типа <code>address</code> и массив <code>phone_number</code>.</p>
+
+<p>Разберём подробнее, какие методы генерируются в классе сообщения для каждого типа полей.</p>
+
+<p><strong>Скалярные типы</strong></p>
+
+<p>К ним относятся:</p>
+
+<ul>
+<li>с плавающей точкой — <code>double</code>, <code>float</code>,</li>
+<li>знаковые целые — <code>int32</code>, <code>int64</code>,</li>
+<li>беззнаковые целые — <code>uint32</code>, <code>uint64</code>,</li>
+<li>логический — <code>bool</code>.</li>
+</ul>
+
+<p>При хранении маленьких целых чисел возникает много ведущих нулевых байтов. Protobuf учитывает это и, чтобы сэкономить место, использует специальный способ хранения, при котором избыточные нули не записываются. Приходится, правда, идти на некоторый оверхед — запоминать полезную длину числа. Но когда числа небольшие, этот оверхед с лихвой компенсируется. Получается реальная экономия. Если вероятны большие числа, можно использовать фиксированные целочисленные типы <code>sfixed32</code>, <code>sfixed64</code>, <code>fixed32</code>, <code>fixed64</code>.</p>
+
+<p>При добавлении поля <code>X</code> скалярного типа <code>T</code> генерируются такие методы:</p>
+
+<ul>
+<li>геттер: <code>T X() const</code>,</li>
+<li>сеттер: <code>void set_X(T value)</code>,</li>
+<li>очистка: <code>void clear_X()</code>.</li>
+</ul>
+
+<p>Очистка устанавливает значение по умолчанию — 0 для чисел и <code>false</code> для <code>bool</code>.</p>
+
+<p><strong>Строковый тип</strong></p>
+
+<p>Тип <code>string</code> предназначен для хранения текста в кодировке UTF-8. Для произвольного набора байт предусмотрен тип <code>bytes</code>. Оба этих типа полей в C++ будут соответствовать значению <code>std::string</code>.</p>
+
+<p>Для поля <code>X</code> будут сгенерированы следующие методы:</p>
+
+<ul>
+<li>геттер: <code>const std::string&amp; X() const</code>,</li>
+<li>копирующий сеттер: <code>void set_X(const std::string&amp; value)</code>,</li>
+<li>перемещающий сеттер: <code>void set_X(std::string&amp;&amp; value)</code>,</li>
+<li>ещё два сеттера: <code>void set_X(const char* value)</code>, <code>void set_X(const void* value, size_t size)</code>,</li>
+<li>получение неконстантного объекта: <code>std::string* mutable_X()</code>,</li>
+<li>очистка: <code>void clear_X()</code>.</li>
+</ul>
+
+<p>Очистка установит значение по умолчанию — пустую строку. Кроме того, генерируются ещё два метода, использовать которые не рекомендуется. Они элегантно заменяются перемещением:</p>
+
+<ul>
+<li><code>std::string* release_X()</code>, <code>void set_allocated_X(std::string* X)</code>.</li>
+</ul>
+
+<p><strong>Пользовательский тип</strong></p>
+
+<p>Если тип поля — это название другого сообщения, он считается пользовательским. Тут есть важное отличие от всех предыдущих: пользовательский тип подобен <code>std::optional</code>, он может хранить пустое значение. И оно же будет значением по умолчанию. В связи в этим поля <code>X</code> пользовательского типа имеет метод, которого нет у полей других типов:</p>
+
+<ul>
+<li>проверка на пустоту<code>bool has_X() const</code>.</li>
+</ul>
+
+<p>Аналоги остальных методов уже знакомы вам:</p>
+
+<ul>
+<li>очистка <code>void clear_X()</code>,</li>
+<li>геттер <code>const T&amp; X() const</code>,</li>
+<li>получение неконстантного объекта <code>T* mutable_X()</code>.</li>
+</ul>
+
+<hr>
+
+<p>Как видите, для пользовательского типа не создаётся сеттер. Как же установить значение такому полю? Считайте, что мы хотим установить значение <code>value</code> полю <code>X</code> объекта <code>object</code>.</p>
+
+<ul>
+<li><p>Через геттер: <code>object.X() = value</code>.</p></li>
+
+<li><p>Через получение неконстантного объекта: <code>object.mutable_X() = &amp;value</code>.</p></li>
+
+<li><p>Через получение неконстантного объекта и разыменование: <code>*object.mutable_X() = value</code>.</p></li>
+</ul>
+
+<p>Ряд методов использовать не рекомендуется, разбирать их не будем:</p>
+
+<ul>
+<li><code>T* release_X()</code>,</li>
+<li><code>void set_allocated_X(T* X)</code>,</li>
+<li><code>void unsafe_arena_set_allocated_X(T* X);</code>,</li>
+<li><code>T* unsafe_arena_release_X();</code>.</li>
+</ul>
+
+<p><strong>Массив</strong></p>
+
+<p>Поле, помеченное словом <code>repeated</code>, обозначает массив. Методы, генерируемые для него, различаются в зависимости от того, какой тип идёт после <code>repeated</code>. Для поля <code>repeated T X</code> будут сгенерированы следующие методы:</p>
+
+<ul>
+<li>получение размера массива: <code>int X_size() const</code>,</li>
+<li>очистка: <code>void clear_X()</code>.</li>
+</ul>
+
+<p>Как и раньше, очистка устанавливает значение по умолчанию — пустой массив.</p>
+
+<p>Получать и менять элементы массива можно через геттеры и сеттеры по индексу:</p>
+
+<ul>
+<li>геттер элемента по индексу: <code>const T&amp; X(int index) const</code>,</li>
+<li>получение неконстантного элемента: <code>T* mutable_X(int index)</code>,</li>
+<li>сеттер элемента по индексу: <code>void set_X(int index, ??? value)</code>, где на месте вопросов может быть тип, участвующий в сеттере поля типа <code>X</code>,</li>
+</ul>
+
+<p>Добавление осуществляется методом <code>add_X</code>:</p>
+
+<ul>
+<li>добавление значения по умолчанию: <code>T* add_X()</code>,</li>
+<li>добавление определённого элемента: <code>void add_X(??? value)</code>, где на месте вопросов может быть тип, участвующий в сеттере поля типа <code>X</code>.</li>
+</ul>
+
+<p>Кроме того, есть методы для работы с массивом как с единым объектом:</p>
+
+<ul>
+<li>геттер: <code>const google::protobuf::RepeatedPtrField&lt;std::string&gt;&amp; phone_number() const</code>,</li>
+<li>получение неконстантного объекта: <code>google::protobuf::RepeatedPtrField&lt;std::string&gt;* mutable_phone_number()</code>.</li>
+</ul>
+
+<p>На этом описание различных типов полей заканчивается. Перейдём к самому важному — сериализации и десериализации.</p>
+
+<h3>Сериализация и десериализация сообщений</h3>
+
+<p>Завершим теорию разбором того, для чего понадобился Protobuf. Мы рассмотрели методы, относящиеся к полям. Теперь взглянем на общие методы, которые есть у всех сгенерированных классов. Эти методы наследуются от общего предка — <code>google::protobuf::Message</code>.</p>
+
+<p>Для начала подготовим данные для тестирования. Напишем функцию заполнения объекта:</p>
+
+<pre><code class="language-cpp">person::Person CreatePerson() {
+    person::Person p;
+
+    // Зададим имя
+    p.set_name(&quot;Человек&quot;s);
+    *p.mutable_name() += &quot; Рассеяный&quot;sv;
+
+    // Добавим пару номеров телефона
+    p.add_phone_number(&quot;33-22-22-33-22&quot;);
+    p.add_phone_number(&quot;+7-123-456-789&quot;);
+
+    // Создадим объект адреса
+    person::Address addr;
+    addr.set_street(&quot;Бассейная&quot;s);
+    addr.set_building(1);
+
+    // Установим адрес
+    *p.mutable_address() = move(addr);
+
+    return p;
+}
+</code></pre>
+
+<p>Добавим <code>main</code> и заготовки для функций сериализации и десериализации:</p>
+
+<pre><code class="language-cpp">void Serialize(const std::filesystem::path&amp; path, 
+               const person::Person&amp; object);
+
+optional&lt;person::Person&gt; DeserializePerson(const std::filesystem::path&amp; path);
+
+int main() {
+    const filesystem::path path = &quot;test_file.bin&quot;sv;
+
+    Serialize(path, CreatePerson());
+
+    optional&lt;person::Person&gt; deserialized = DeserializePerson(path);
+
+    if (!deserialized) {
+        cout &lt;&lt; &quot;Не получилось прочитать сообщение&quot;sv &lt;&lt; endl;
+    }
+    else {
+        cout &lt;&lt; deserialized-&gt;name();
+        if (deserialized-&gt;has_address()) {
+             cout &lt;&lt; &quot; с улицы &quot;sv 
+                  &lt;&lt; deserialized-&gt;address().street();
+        }
+        cout &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Функция <code>Serialize</code> будет использовать метод <code>SerializeToOstream</code> класса <code>google::protobuf::Message</code>. Он принимает указатель на поток вывода:</p>
+
+<pre><code class="language-cpp">void Serialize(const filesystem::path&amp; path, 
+               const person::Person&amp; object) {    
+    ofstream out_file(path, ios::binary);
+    object.SerializeToOstream(&amp;out_file);
+}
+</code></pre>
+
+<p>Файл нужно открывать с флагом <code>ios::binary</code>, так как Protobuf сохраняет данные в бинарном виде.</p>
+
+<p>Для десериализации воспользуемся методом <code>ParseFromIstream</code>. Он возвращает <code>false</code>, если объект не удалось прочитать:</p>
+
+<pre><code class="language-cpp">optional&lt;person::Person&gt; DeserializePerson(const filesystem::path&amp; path) {
+    ifstream in_file(path, ios::binary);
+    person::Person object;
+    if (!object.ParseFromIstream(&amp;in_file)) {
+        return nullopt;
+    }
+
+    // тут нужен move, поскольку возвращается другой тип
+    return {move(object)};
+}
+</code></pre>
+
+<p>Открывать поток также нужно с флагом <code>ios::binary</code>. Целиком программа выглядит так:</p>
+
+<pre><code class="language-cpp">#include &lt;person.pb.h&gt;
+
+#include &lt;fstream&gt;
+#include &lt;iostream&gt;
+#include &lt;filesystem&gt;
+#include &lt;string_view&gt;
+#include &lt;optional&gt;
+
+using namespace std;
+
+person::Person CreatePerson() {
+    person::Person p;
+
+    // Зададим имя
+    p.set_name(&quot;Человек&quot;s);
+    *p.mutable_name() += &quot; Рассеяный&quot;sv;
+
+    // Добавим пару номеров телефона
+    p.add_phone_number(&quot;33-22-22-33-22&quot;);
+    p.add_phone_number(&quot;+7-123-456-789&quot;);
+
+    // Создадим объект адреса
+    person::Address addr;
+    addr.set_street(&quot;Бассейная&quot;s);
+    addr.set_building(1);
+
+    // Установим адрес
+    *p.mutable_address() = move(addr);
+
+    return p;
+}
+
+void Serialize(const filesystem::path&amp; path, 
+               const person::Person&amp; object) {    
+    ofstream out_file(path, ios::binary);
+    object.SerializeToOstream(&amp;out_file);
+}
+
+optional&lt;person::Person&gt; DeserializePerson(const filesystem::path&amp; path) {
+    ifstream in_file(path, ios::binary);
+    person::Person object;
+    if (!object.ParseFromIstream(&amp;in_file)) {
+        return nullopt;
+    }
+
+    // тут нужен move, поскольку возвращается другой тип
+    return {move(object)};
+}
+
+int main() {
+    const filesystem::path path = &quot;test_file.bin&quot;sv;
+
+    Serialize(path, CreatePerson());
+
+    optional&lt;person::Person&gt; deserialized = DeserializePerson(path);
+
+    if (!deserialized) {
+        cout &lt;&lt; &quot;Не получилось прочитать сообщение&quot;sv &lt;&lt; endl;
+    }
+    else {
+        cout &lt;&lt; deserialized-&gt;name();
+        if (deserialized-&gt;has_address()) {
+             cout &lt;&lt; &quot; с улицы &quot;sv 
+                  &lt;&lt; deserialized-&gt;address().street();
+        }
+        cout &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Пересобираем её и запускаем:</p>
+
+<pre><code class="language-cpp">Человек Рассеяный с улицы Бассейная
+</code></pre>
+
+<p>То, что мы ожидали! Можно изучить файл <code>test_file.bin</code> в редакторе бинарных файлов. Для наглядности заменим предварительно все литералы латиницей:</p>
+
+<pre><code class="language-cpp">person::Person CreatePerson() {
+    person::Person p;
+
+    // Зададим имя
+    p.set_name(&quot;Chelovek&quot;s);
+    *p.mutable_name() += &quot; Rasseyaniy&quot;sv;
+
+    // Добавим пару номеров телефона
+    p.add_phone_number(&quot;33-22-22-33-22&quot;);
+    p.add_phone_number(&quot;+7-123-456-789&quot;);
+
+    // Создадим объект адреса
+    person::Address addr;
+    addr.set_street(&quot;Basseynaya&quot;s);
+    addr.set_building(1);
+
+    // Установим адрес
+    *p.mutable_address() = move(addr);
+
+    return p;
+}
+</code></pre>
+
+<p>Содержимое <code>test_file.bin</code> выглядит так:</p>
+
+<p><img src="data:image/png;base64,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" alt="image" /></p>
+
+<p>В нём можно увидеть сохранённые литералы и служебную информацию. Как и утверждалось, файл сохраняется в бинарном виде. В файле нет нулевых байт. Это значит, что номер дома, в бинарном виде выглядящий как 0x00000001, записался компактно.</p>
+
+<p>На этом теория темы о Protobuf завершена. Для закрепления материала решите задачу.</p>
+
+</body>
+</html>

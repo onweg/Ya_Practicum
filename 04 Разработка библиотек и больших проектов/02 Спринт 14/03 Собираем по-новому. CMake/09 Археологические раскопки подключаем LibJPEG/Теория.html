@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Археологические раскопки: подключаем LibJPEG</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Археологические раскопки: подключаем LibJPEG</h1>
+
+<p>CMake — хорошая система сборки, поддерживающая самые разные компиляторы, IDE и инструменты, но она была не всегда. Разработчикам на C++ часто приходится сталкиваться с библиотеками без CMakeLists.txt.</p>
+
+<h3>О make и Autotools</h3>
+
+<hr>
+
+<p>Разберёмся, зачем нужна система сборки помимо поддержки различных IDE. Почему бы просто не записать команды компиляции в файл скрипта? Выберите основную причину.</p>
+
+<ul>
+<li><p>Команды зависят от операционной системы и компилятора.</p></li>
+
+<li><p>Скриптом нельзя или сложно собирать только те файлы, которые действительно нужно пересобрать при повторных сборках.</p></li>
+
+<li><p>Нет возможности выбрать между конфигурациями Release и Debug.</p></li>
+</ul>
+
+<p>Системы сборки смотрят, какие файлы изменились, и на основе этого принимают решение, что именно перекомпилировать. Если итогового файла нет или дата его изменения предшествует дате изменения исходного файла, нужно выполнить компиляцию. Так поступает утилита <code>make</code>, которая часто используется для сборки C++-программ. Она читает текстовый файл Makefile. В нём задаются:</p>
+
+<ul>
+<li>цели — итоговые файлы, которые нужно собрать,</li>
+<li>зависимости — от каких файлов и целей зависит каждая цель.</li>
+</ul>
+
+<p>CMake поддерживает <code>make</code> как один из генераторов. Мы пользовались этим генератором в предыдущих уроках, когда собирали библиотеки под MinGW.</p>
+
+<hr>
+
+<p>В каком случае требуется перекомпилировать cpp-файл, чтобы получить объектный файл? Отметьте один или несколько вариантов.</p>
+
+<ul>
+<li><p>Если он изменился после того, как был создан объектный файл.</p></li>
+
+<li><p>Если он изменился до того, как был создан объектный файл.</p></li>
+
+<li><p>Если объектный файл отсутствует.</p></li>
+
+<li><p>Если другой cpp-файл, который использует те же h-файлы, изменился после того, как был создан объектный файл.</p></li>
+
+<li><p>Если один из h-файлов, от которых он зависит, изменился после того, как был создан объектный файл.</p></li>
+</ul>
+
+<p>Писать Makefile собственноручно для больших программ довольно сложно. Поэтому издавна существуют утилиты для его генерации. Самая популярная из них — <a href="https://www.gnu.org/software/autoconf/">Autoconf</a>. Это даже не утилита, а целый набор утилит. Узнать об Autoconf больше и найти схему его работы можно в <a href="https://ru.wikipedia.org/wiki/Autoconf">Википедии</a>. Если вы не собираетесь использовать Autoconf для своих проектов, подробности его устройства и даже сами утилиты вам не понадобятся. Библиотеки, использующие Autoconf, распространяются с уже готовым Bash-скриптом <code>configure</code>.</p>
+
+<h3>Собираем LibJPEG</h3>
+
+<p>В качестве примера возьмём библиотеку LibJPEG. Она позволит читать не только тривиальный формат PPM, но и настоящие изображения — JPEG. Под Linux-системами можно установить уже готовый пакет с библиотекой, а под Windows — скачать готовый бинарный файл DLL или Lib.</p>
+
+<p>Но мы не ищем лёгких путей, поэтому соберём библиотеку самостоятельно. Это позволит лучше настроить сборку и познакомиться с пакетом, созданным Autoconf. Кроме того, её можно собрать под все операционные системы, даже те, где нет готовой сборки.</p>
+
+<p>Возьмём исходный код LibJPEG с <a href="https://www.ijg.org/">официального сайта</a>: скачаем jpegsr<em>.zip для сборки под Windows или jpegsr</em>.tar.gz для остальных систем. Распакуем архив. В архиве должен быть файл <code>configure</code> — это скрипт для генерации Makefile. Перейдём в папку с <code>configure</code>:</p>
+
+<ul>
+<li>под Windows — через MinGW,</li>
+<li>под Linux — через обычное окно консоли.</li>
+</ul>
+
+<p>Первым делом запустим команду <code>./configure --help</code>, чтобы увидеть все параметры конфигурации. Среди прочих флагов там есть такие:</p>
+
+<pre><code>--enable-shared[=PKGS]  build shared libraries [default=yes]
+--enable-static[=PKGS]  build static libraries [default=yes]
+</code></pre>
+
+<p>Они позволяют включать и выключать сборку динамической и статической библиотеки. По умолчанию собираются обе версии. Понадобится только статическая библиотека, поэтому выполним такие команды:</p>
+
+<pre><code class="language-bash">mkdir debug
+cd debug
+../configure --enable-shared=no CPPFLAGS=&quot;-DDEBUG -g -O0&quot; CFLAGS=&quot;-g -O0&quot;
+</code></pre>
+
+<p>Запускать скрипт конфигурации лучше в другой папке, чтобы не мешать исходные и сборочные файлы. Мы создали папку debug и перешли в неё. Своего понимания о том, что такое отладочная конфигурация, у Autotools нет, поэтому пришлось явно указать нужные флаги:</p>
+
+<ul>
+<li><code>-DDEBUG</code> — включение проверок стандартной библиотеки,</li>
+<li><code>-O0</code> — отключение оптимизации,</li>
+<li><code>-g</code> — включение отладочных символов.</li>
+</ul>
+
+<p>Некоторые Autoconf-скрипты configure поддерживают параметр <code>--enable-debug</code>, который активирует эти параметры автоматически.</p>
+
+<p>Скрипт выполнит множество проверок системы. Если все пройдут успешно, он отчитается о создании нескольких файлов:</p>
+
+<pre><code>checking build system type... x86_64-w64-mingw32
+checking host system type... x86_64-w64-mingw32
+checking target system type... x86_64-w64-mingw32
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /usr/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether make supports nested variables... (cached) yes
+checking whether to enable maintainer-specific portions of Makefiles... no
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.exe
+...
+checking whether to build shared libraries... no
+checking whether to build static libraries... yes
+checking libjpeg version number... 9.4.0
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating libjpeg.pc
+config.status: creating jconfig.h
+config.status: executing depfiles commands
+config.status: executing libtool commands
+</code></pre>
+
+<p>После этого в папке должен появиться файл <code>Makefile</code>. Значит, можно запускать утилиту <code>make</code>:</p>
+
+<pre><code class="language-bash">make
+</code></pre>
+
+<p>Эта команда выполнит сборку библиотеки. По завершении сборки можно будет найти файл libjpeg.a в папке .libs. Обычно собранную библиотеку устанавливают командой <code>make install</code>, после чего она становится автоматически доступна без указания путей include-файлов и поиска зависимостей компоновки. Но устанавливать отладочную версию — плохая идея. Поэтому пропустим этот шаг и будем компоновать LibJPEG напрямую.</p>
+
+<p>Аналогично выполним Release-сборку, указывая при конфигурировании флаг максимальной оптимизации <code>-O3</code> вместо <code>-DDEBUG</code>, <code>-O0</code> и <code>-g</code>. Создадим пакет LibJPEG, как мы делали это с другими библиотеками:</p>
+
+<ul>
+<li>libjpeg
+
+<ul>
+<li>include
+
+<ul>
+<li>jerror.h</li>
+<li>jmorecfg.h</li>
+<li>jpeglib.h</li>
+<li>jconfig.h — этот файл должен сгенерироваться автоматически во время работы <code>configure</code>. В отличие от остальных файлов папки include, он располагается в папке сборки, а не папке исходников. Если <code>configure</code> завершился, а <code>jconfig.h</code> не был сгенерирован, он вам не нужен.</li>
+</ul></li>
+<li>lib
+
+<ul>
+<li>Debug
+
+<ul>
+<li>libjpeg.a</li>
+</ul></li>
+<li>Release
+
+<ul>
+<li>libjpeg.a</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>Используем LibJPEG</h3>
+
+<pre><code class="language-cpp">#pragma once
+#include &quot;img_lib.h&quot;
+
+#include &lt;filesystem&gt;
+
+namespace img_lib {
+using Path = std::filesystem::path;
+
+bool SaveJPEG(const Path&amp; file, const Image&amp; image);
+Image LoadJPEG(const Path&amp; file);
+
+} // of namespace img_lib
+</code></pre>
+
+<p>Как и многие старые библиотеки, LibJPEG написана на чистом C, а не на C++. Попробуем создать декодировщик изображений JPEG, основываясь на примере <code>example.c</code> из исходного кода LibJPEG. Кодировщик вам предстоит написать самостоятельно.</p>
+
+<p>Чтение файла JPEG в этом примере выполняет такая функция:</p>
+
+<pre><code class="language-c">GLOBAL(int)
+read_JPEG_file (char * filename)
+{
+  /* This struct contains the JPEG decompression parameters and pointers to
+   * working space (which is allocated as needed by the JPEG library).
+   */
+  struct jpeg_decompress_struct cinfo;
+  /* We use our private extension JPEG error handler.
+   * Note that this struct must live as long as the main JPEG parameter
+   * struct, to avoid dangling-pointer problems.
+   */
+  struct my_error_mgr jerr;
+  /* More stuff */
+  FILE * infile;		/* source file */
+  JSAMPARRAY buffer;		/* Output row buffer */
+  int row_stride;		/* physical row width in output buffer */
+
+  /* In this example we want to open the input file before doing anything else,
+   * so that the setjmp() error recovery below can assume the file is open.
+   * VERY IMPORTANT: use &quot;b&quot; option to fopen() if you are on a machine that
+   * requires it in order to read binary files.
+   */
+
+  if ((infile = fopen(filename, &quot;rb&quot;)) == NULL) {
+    fprintf(stderr, &quot;can't open %s\n&quot;, filename);
+    return 0;
+  }
+
+  /* Step 1: allocate and initialize JPEG decompression object */
+
+  /* We set up the normal JPEG error routines, then override error_exit. */
+  cinfo.err = jpeg_std_error(&amp;jerr.pub);
+  jerr.pub.error_exit = my_error_exit;
+  /* Establish the setjmp return context for my_error_exit to use. */
+  if (setjmp(jerr.setjmp_buffer)) {
+    /* If we get here, the JPEG code has signaled an error.
+     * We need to clean up the JPEG object, close the input file, and return.
+     */
+    jpeg_destroy_decompress(&amp;cinfo);
+    fclose(infile);
+    return 0;
+  }
+  /* Now we can initialize the JPEG decompression object. */
+  jpeg_create_decompress(&amp;cinfo);
+
+  /* Step 2: specify data source (eg, a file) */
+
+  jpeg_stdio_src(&amp;cinfo, infile);
+
+  /* Step 3: read file parameters with jpeg_read_header() */
+
+  (void) jpeg_read_header(&amp;cinfo, TRUE);
+  /* We can ignore the return value from jpeg_read_header since
+   *   (a) suspension is not possible with the stdio data source, and
+   *   (b) we passed TRUE to reject a tables-only JPEG file as an error.
+   * See libjpeg.txt for more info.
+   */
+
+  /* Step 4: set parameters for decompression */
+
+  /* In this example, we don't need to change any of the defaults set by
+   * jpeg_read_header(), so we do nothing here.
+   */
+
+  /* Step 5: Start decompressor */
+
+  (void) jpeg_start_decompress(&amp;cinfo);
+  /* We can ignore the return value since suspension is not possible
+   * with the stdio data source.
+   */
+
+  /* We may need to do some setup of our own at this point before reading
+   * the data.  After jpeg_start_decompress() we have the correct scaled
+   * output image dimensions available, as well as the output colormap
+   * if we asked for color quantization.
+   * In this example, we need to make an output work buffer of the right size.
+   */ 
+  /* JSAMPLEs per row in output buffer */
+  row_stride = cinfo.output_width * cinfo.output_components;
+  /* Make a one-row-high sample array that will go away when done with image */
+  buffer = (*cinfo.mem-&gt;alloc_sarray)
+		((j_common_ptr) &amp;cinfo, JPOOL_IMAGE, row_stride, 1);
+
+  /* Step 6: while (scan lines remain to be read) */
+  /*           jpeg_read_scanlines(...); */
+
+  /* Here we use the library's state variable cinfo.output_scanline as the
+   * loop counter, so that we don't have to keep track ourselves.
+   */
+  while (cinfo.output_scanline &lt; cinfo.output_height) {
+    /* jpeg_read_scanlines expects an array of pointers to scanlines.
+     * Here the array is only one element long, but you could ask for
+     * more than one scanline at a time if that's more convenient.
+     */
+    (void) jpeg_read_scanlines(&amp;cinfo, buffer, 1);
+    /* Assume put_scanline_someplace wants a pointer and sample count. */
+    put_scanline_someplace(buffer[0], row_stride);
+  }
+
+  /* Step 7: Finish decompression */
+
+  (void) jpeg_finish_decompress(&amp;cinfo);
+  /* We can ignore the return value since suspension is not possible
+   * with the stdio data source.
+   */
+
+  /* Step 8: Release JPEG decompression object */
+
+  /* This is an important step since it will release a good deal of memory. */
+  jpeg_destroy_decompress(&amp;cinfo);
+
+  /* After finish_decompress, we can close the input file.
+   * Here we postpone it until after no more JPEG errors are possible,
+   * so as to simplify the setjmp error logic above.  (Actually, I don't
+   * think that jpeg_destroy can do an error exit, but why assume anything...)
+   */
+  fclose(infile);
+
+  /* At this point you may want to check to see whether any corrupt-data
+   * warnings occurred (test whether jerr.pub.num_warnings is nonzero).
+   */
+
+  /* And we're done! */
+  return 1;
+}
+</code></pre>
+
+<p>Досконально понимать написанный тут код необязательно. Главное — вызов <code>put_scanline_someplace</code>. Очевидно, эта функция должна выдавать прочитанные данные. Также нужно получить метаданные изображения: width — ширину, height — высоту. Они хранятся в полях <code>output_width</code> и <code>output_height</code> структуры <code>jpeg_decompress_struct</code>. Эти поля заполняются после вызова функции <code>jpeg_start_decompress</code>.</p>
+
+<p>Изменим эту функцию, адаптировав её под чтение изображения <code>img_lib::Image</code>. libjpeg читает изображение по одной строке, получая набор значений типа <code>JSAMPLE</code>. Поскольку каждый пиксель задаётся тремя значениями — R, G и B, — количество элементов <code>JSAMPLE</code> в одной строке будет в три раза больше, чем ширина изображения. Используем вспомогательную функцию:</p>
+
+<pre><code class="language-cpp">// тип JSAMPLE фактически псевдоним для unsigned char
+void SaveScanlineToImage(const JSAMPLE* row, int y, Image&amp; out_image) {
+    Color* line = out_image.GetLine(y);
+    for (int x = 0; x &lt; out_image.GetWidth(); ++x) {
+        const JSAMPLE* pixel = row + x * 3;
+        line[x] = Color{byte{pixel[0]}, byte{pixel[1]}, byte{pixel[2]}, byte{255}};
+    }
+}
+</code></pre>
+
+<p>Её назначение — записать строку изображения, полученную от libjpeg, в объект <code>out_image</code>.</p>
+
+<p>После адаптирования функция загрузки изображения станет выглядеть так:</p>
+
+<pre><code class="language-c">Image LoadJPEG(const Path&amp; file) {
+    jpeg_decompress_struct cinfo;
+    my_error_mgr jerr;
+    
+    FILE* infile;
+    JSAMPARRAY buffer;
+    int row_stride;
+
+    // Тут не избежать функции открытия файла из языка C,
+    // поэтому приходится использовать конвертацию пути к string.
+    // Под Visual Studio это может быть опасно, и нужно применить
+    // нестандартную функцию _wfopen
+#ifdef _MSC_VER
+    if ((infile = _wfopen(file.wstring().c_str(), &quot;rb&quot;)) == NULL) {
+#else
+    if ((infile = fopen(file.string().c_str(), &quot;rb&quot;)) == NULL) {
+#endif
+        return {};
+    }
+
+    /* Шаг 1: выделяем память и инициализируем объект декодирования JPEG */
+
+    cinfo.err = jpeg_std_error(&amp;jerr.pub);
+    jerr.pub.error_exit = my_error_exit;
+
+    if (setjmp(jerr.setjmp_buffer)) {
+        jpeg_destroy_decompress(&amp;cinfo);
+        fclose(infile);
+        return {};
+    }
+
+    jpeg_create_decompress(&amp;cinfo);
+
+    /* Шаг 2: устанавливаем источник данных */
+
+    jpeg_stdio_src(&amp;cinfo, infile);
+
+    /* Шаг 3: читаем параметры изображения через jpeg_read_header() */
+
+    (void) jpeg_read_header(&amp;cinfo, TRUE);
+
+    /* Шаг 4: устанавливаем параметры декодирования */
+
+    // установим желаемый формат изображения
+    cinfo.out_color_space = JCS_RGB;
+
+    /* Шаг 5: начинаем декодирование */
+
+    (void) jpeg_start_decompress(&amp;cinfo);
+    
+    row_stride = cinfo.output_width * cinfo.output_components;
+    
+    buffer = (*cinfo.mem-&gt;alloc_sarray)
+                ((j_common_ptr) &amp;cinfo, JPOOL_IMAGE, row_stride, 1);
+
+    /* Шаг 5a: выделим изображение ImgLib */
+    Image result(cinfo.output_width, cinfo.output_height, Color::Black());
+
+    /* Шаг 6: while (остаются строки изображения) */
+    /*                     jpeg_read_scanlines(...); */
+
+    while (cinfo.output_scanline &lt; cinfo.output_height) {
+        int y = cinfo.output_scanline;
+        (void) jpeg_read_scanlines(&amp;cinfo, buffer, 1);
+
+        SaveSanlineToImage(buffer[0], y, result);
+    }
+
+    /* Шаг 7: Останавливаем декодирование */
+
+    (void) jpeg_finish_decompress(&amp;cinfo);
+
+    /* Шаг 8: Освобождаем объект декодирования */
+
+    jpeg_destroy_decompress(&amp;cinfo);
+    fclose(infile);
+
+    return result;
+}
+</code></pre>
+
+<p>Тут мы отошли от принятых в курсе стандартов написания кода, так как используем чужой код с минимальными изменениями, не вдаваясь в его суть.</p>
+
+<p>Теперь ImgLib сама зависит от другой библиотеки. Эту зависимость нужно прописать в CMakeLists.txt:</p>
+
+<pre><code class="language-makefile">cmake_minimum_required(VERSION 3.11)
+
+project(ImgLib CXX)
+set(CMAKE_CXX_STANDARD 17)
+
+# добавляем новую переменную - путь к LibJPEG
+set(LIBJPEG_DIR CACHE STRING &quot;LibJPEG static library directory&quot;)
+if(NOT LIBJPEG_DIR)
+    message(FATAL_ERROR &quot;Please, specify LibJPEG directory via -DLIBJPEG_DIR=&lt;dir&gt;&quot;)
+endif()
+message(STATUS &quot;LibJPEG dir is ${LIBJPEG_DIR}, change via -DLIBJPEG_DIR=&lt;dir&gt;&quot;)
+
+set(IMGLIB_MAIN_FILES img_lib.h img_lib.cpp)
+
+# к файлам форматов добавим JPEG
+set(IMGLIB_FORMAT_FILES 
+    ppm_image.h ppm_image.cpp 
+    jpeg_image.h jpeg_image.cpp)
+
+add_library(ImgLib STATIC ${IMGLIB_MAIN_FILES} 
+            ${IMGLIB_FORMAT_FILES})
+
+# Include-директории теперь включают LibJPEG
+target_include_directories(ImgLib PUBLIC &quot;${LIBJPEG_DIR}/include&quot;)
+
+# Флаг INTERFACE обозначает видимость параметра - только для зависимых целей.
+# Для самой ImgLib не нужно указывать зависимости компоновки, поскольку
+# статическая библиотека не компонуется, а просто архивируется
+target_link_directories(ImgLib INTERFACE
+    &quot;${LIBJPEG_DIR}/lib/$&lt;IF:$&lt;CONFIG:Debug&gt;,Debug,Release&gt;&quot;
+    )
+
+# В качестве зависимости указано jpeg. Компоновщик будет искать
+# файл libjpeg.a
+target_link_libraries(ImgLib INTERFACE jpeg)
+</code></pre>
+
+<p>Напишем теперь простую программу для конвертации JPEG в PPM:</p>
+
+<pre><code class="language-cpp">#include &lt;img_lib.h&gt;
+#include &lt;jpeg_image.h&gt;
+#include &lt;ppm_image.h&gt;
+
+#include &lt;filesystem&gt;
+#include &lt;string_view&gt;
+#include &lt;iostream&gt;
+
+using namespace std;
+
+int main(int argc, const char** argv) {
+    if (argc != 3) {
+        cerr &lt;&lt; &quot;Usage: &quot;sv &lt;&lt; argv[0] &lt;&lt; &quot; &lt;in_file&gt; &lt;out_file&gt;&quot;sv &lt;&lt; endl;
+        return 1;
+    }
+
+    img_lib::Path in_path = argv[1];
+    img_lib::Path out_path = argv[2];
+
+    img_lib::Image image = img_lib::LoadPPM(in_path);
+    if (!image) {
+        cerr &lt;&lt; &quot;Loading failed&quot;sv &lt;&lt; endl;
+        return 4;
+    }
+
+    if (!img_lib::SaveJPEG(out_path, image)) {
+        cerr &lt;&lt; &quot;Saving failed&quot;sv &lt;&lt; endl;
+        return 5;
+    }
+
+    cout &lt;&lt; &quot;Successfully converted&quot;sv &lt;&lt; endl;
+}
+</code></pre>
+
+<p>В задании нужно будет расширить её и сделать более универсальной. Сохраним программу в файл main.cpp папки ImgConv и напишем там CMakeLists.txt с таким содержанием:</p>
+
+<pre><code class="language-makefile">cmake_minimum_required(VERSION 3.11)
+
+project(Negate CXX)
+set(CMAKE_CXX_STANDARD 17)
+
+add_subdirectory(../ImgLib ImgLibBuildDir)
+
+if (CMAKE_SYSTEM_NAME MATCHES &quot;^MINGW&quot;)
+    set(SYSTEM_LIBS -lstdc++)
+else()
+    set(SYSTEM_LIBS)
+endif()
+
+add_executable(imgconv main.cpp)
+target_include_directories(imgconv PUBLIC &quot;${CMAKE_CURRENT_SOURCE_DIR}/../ImgLib&quot;)
+target_link_libraries(imgconv ImgLib ${SYSTEM_LIBS})
+</code></pre>
+
+<p>Создадим папку ImgConverterDebug и запустим в ней следующие команды для генерации и сборки:</p>
+
+<pre><code class="language-cpp">cmake ../ImgConverter -DCMAKE_BUILD_TYPE=Debug -DLIBJPEG_DIR=&lt;путь к пакету libjpeg&gt;
+cmake --build .
+</code></pre>
+
+<p>Если всё прошло успешно, можно запустить и проверить программу:</p>
+
+<pre><code class="language-cpp">imgconv kitty.jpg kitty.ppm
+</code></pre>
+
+<p>Если вы всё сделали правильно, изображение сконвертируется без потерь. Использование в C++ чужих библиотек, особенно написанных давно, может показаться сложным, но это обязательная часть работы каждого программиста. Прежде чем разрабатывать что-нибудь новое, нужно убедиться, что это не хорошо забытое старое. Люби́те библиотеки. Может быть, вашу задачу решает хорошо написанный и проверенный временем код. Его разработчики уже наступили на все грабли, на которые предстоит наступить вам, если будете разрабатывать то же самое самостоятельно.</p>
+
+<p>Рассказ о библиотеках на этом закончен, начинается самое интересное — практика. В заданиях нужно будет:</p>
+
+<ul>
+<li>залезть внутрь libjpeg и написать функцию кодирования изображений — как вы ранее делали с PPM, только веселей,</li>
+<li>сделать универсальную программу конвертации форматов.</li>
+</ul>
+
+</body>
+</html>

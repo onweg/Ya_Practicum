@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание 2</h2>
+
+<p>Победить в производительности стандартный алгоритм, пусть и в не совсем честной борьбе — большое достижение. Но чтобы вашу функцию можно было использовать в самых разных сценариях, хочется сделать её умнее. Пусть ваша версия вызывается только тогда, когда пользователь передал <code>execution::par</code> и контейнер без произвольного доступа. В остальных случаях нужно вызвать стандартный алгоритм.</p>
+
+<p>Это непростая задача, и ничему подобному мы вас не учили. Но в жизни случается всякое. Поэтому поэкспериментируйте и попробуйте найти ответ сами. А если не выйдёт, в подсказке вас ждёт описание самой короткой дороги к успеху. После сдачи задания вы сможете посмотреть на решение с использованием самых свежих возможностей C++20.</p>
+
+<h3>Пример</h3>
+
+<pre><code class="language-cpp">#include &lt;algorithm&gt;
+#include &lt;iostream&gt;
+#include &lt;list&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+template &lt;typename Strings&gt;
+void PrintStrings(const Strings&amp; strings) {
+    for (string_view s : strings) {
+        cout &lt;&lt; s &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+}
+
+int main() {
+    auto reverser = [](string&amp; s) { reverse(s.begin(), s.end()); };
+
+    list&lt;string&gt; strings_list = {&quot;cat&quot;, &quot;dog&quot;, &quot;code&quot;};
+
+    ForEach(strings_list, reverser);
+    PrintStrings(strings_list);
+    // tac god edoc
+
+    ForEach(execution::seq, strings_list, reverser);
+    PrintStrings(strings_list);
+    // cat dog code
+
+    // единственный из вызовов, где должна работать ваша версия
+    // из предыдущего задания
+    ForEach(execution::par, strings_list, reverser);
+    PrintStrings(strings_list);
+    // tac god edoc
+
+    vector&lt;string&gt; strings_vector = {&quot;cat&quot;, &quot;dog&quot;, &quot;code&quot;};
+
+    ForEach(strings_vector, reverser);
+    PrintStrings(strings_vector);
+    // tac god edoc
+
+    ForEach(execution::seq, strings_vector, reverser);
+    PrintStrings(strings_vector);
+    // cat dog code
+
+    ForEach(execution::par, strings_vector, reverser);
+    PrintStrings(strings_vector);
+    // tac god edoc
+
+    return 0;
+}
+</code></pre>
+
+<h3>Ограничения</h3>
+
+<p>Гарантируется, что тип итератора передаваемого в функцию контейнера типа <code>C</code> можно получить, используя выражение <code>typename C::iterator</code>. В вашу функцию не будут передаваться контейнеры, итераторы которых не однонаправленные. И без этого непросто.</p>
+
+<h3>Что отправлять на проверку</h3>
+
+<p>cpp-файл, содержащий функцию <code>ForEach</code>, а также необходимые для её работы подключения библиотек, другие классы и функции. Функция <code>main</code> будет проигнорирована при тестировании.</p>
+
+<h3>Как будет тестироваться ваш код</h3>
+
+<p>В тестах ваша функция будет вызвана с различными контейнерами и с различными значениями <code>execution_policy</code> — см. пример выше. Для каждой комбинации параметров будет измерено время работы вашей функции, а также время работы «стандартной» версии на основе <code>std::for_each</code>.</p>
+
+<p>При работе с контейнером без произвольного доступа к элементам и с политикой <code>execution::par</code> ваша версия должна быть эффективнее стандартной минимум на 40%.</p>
+
+<p>Во всех остальных случаях проверяется, что по времени выполнения ваша функция не отличается от стандартной более чем на 10% в любую сторону.</p>
+
+<p>Также в каждом из тестов результаты работы вашей и стандартной функции проверяются на совпадение.</p>
+
+<h3>Подсказка</h3>
+
+<p>Начните с написания шаблонной функции <code>ForEach</code>, принимающей произвольные ExecutionPolicy, контейнер и функцию и вызывающей <code>for_each</code>. Добавьте версию от двух параметров, вызывающую предыдущую с <code>execution::seq</code>.</p>
+
+<p>Теперь самый простой способ — добавить в основную версию ветвление следующего вида: «если тип ExecutionPolicy — это <code>execution::par</code> и итераторы контейнера не обладают произвольным доступом, вызвать свою версию». Проблема в том, что в C++ типы — это не объекты: их нельзя сравнивать на == и передавать их в функции. Зато типы могут быть параметрами шаблонов, поэтому будем использовать шаблонную магию из библиотек <code>&lt;type_traits&gt;</code> и <code>&lt;iterator&gt;</code>.</p>
+
+<ol>
+<li>Чтобы проверить, что два типа совпадают, используйте <code>is_same_v</code>: <code>is_same_v&lt;ExecutionPolicy, execution::sequenced_policy&gt;</code>. Если что-нибудь не работает, вероятно, тип <code>ExecutionPolicy</code> отличается от нужного лишь константностью или наличием ссылки. В этом случае поможет обернуть его в <code>decay_t</code>: <code>is_same_v&lt;decay_t&lt;ExecutionPolicy&gt;, execution::sequenced_policy&gt;</code>.
+Здесь <code>is_same_v</code>, это шаблонная булевская переменная, так что при подстановке в неё двух типов выражение <code>is_same_v&lt;T, U&gt;</code> имеет тип <code>bool</code> и может участвовать в логических выражениях.</li>
+<li>Тип итератора для контейнера типа <code>ForwardRange</code> можно получить с помощью выражения <code>typename ForwardRange::iterator</code>. В реальной жизни это не всегда так, и в авторском решении вы увидите более правильный подход.</li>
+<li>Получить категорию итератора типа <code>It</code> можно, использовав выражение <code>typename iterator_traits&lt;It&gt;::iterator_category</code>.</li>
+<li>Категория итератора — это некоторый тип, объекты которого вам точно не понадобится создавать. Вам нужен <code>random_access_iterator_tag</code>.</li>
+<li>Условие из этих кирпичиков можно поместить в оператор <code>if</code>: тогда при каждом вызове функции оно будет проверяться. Но поскольку результат вычисления такого логического выражения зависит только от шаблонных параметров, его можно вычислить ещё на этапе компиляции — и там же пойти в нужную ветку условного оператора. Для этого сразу после слова <code>if</code> добавьте слово <code>constexpr</code>. Оно употребляется в разных контекстах, но всегда относится к вычислениям на этапе компиляции.
+Преимущество <code>if constexpr</code> не только в эффективности: теперь в той ветке, в которую компилятор попадает только с итераторами произвольного доступа, можно спокойно вычитать итераторы. С обычным <code>if</code> такой код не скомпилируется.</li>
+</ol>
+
+</body>
+</html>

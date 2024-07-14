@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Собираем CMake&rsquo;ом</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Собираем CMake&rsquo;ом</h1>
+
+<p>Итак, CMake установлен. Но сам собирать он не может, потребуется компилятор. CMake — универсальная система, которая может работать с любым современным компилятором. Команды сборки могут немного различаться в зависимости от того, какая у вас операционная система и чем вы собираете программы. Если это Windows, то в качестве консоли используйте консоль MinGW с компилятором GCC.</p>
+
+<h3>Создаём первый CMake-проект</h3>
+
+<p>Проект CMake задаётся текстовым файлом CMakeLists.txt. Начать его нужно с описания минимальной версии CMake. Также вначале зададим название проекта и его язык программирования:</p>
+
+<pre><code>cmake_minimum_required(VERSION 3.11)
+
+project(HelloCMake CXX)
+set(CMAKE_CXX_STANDARD 17)
+</code></pre>
+
+<p>В этом коде задан только один параметр языка, <code>CXX</code>, что соответствует C++. Команда <code>set</code>, идущая после <code>project</code>, предназначена для присвоения значения переменной. Здесь она задаёт переменную <code>CMAKE_CXX_STANDARD</code>, показывая, что мы хотим использовать стандарт C++17.</p>
+
+<p>CMakeLists.txt определяет <strong>цели</strong>. В терминологии CMake — target. Например, сборка исполняемого файла — это цель. Если проект предназначен для сборки одной программы, вероятно, он состоит из одной цели. Чтобы добавить цель CMake для создания исполняемого файла, воспользуемся командой <code>add_executable</code>. Ей нужно сообщить название цели и список файлов исходного кода:</p>
+
+<pre><code>cmake_minimum_required(VERSION 3.11)
+
+project(HelloCMake CXX)
+set(CMAKE_CXX_STANDARD 17)
+
+# добавляем цель hello для сборки исполняемого файла
+# hello.exe под Windows, hello под Linux и macOS
+add_executable(&quot;hello&quot; &quot;src/main.cpp&quot; &quot;src/hello_printer.h&quot; &quot;src/hello_printer.cpp&quot;)
+</code></pre>
+
+<p>Мы вызвали команду <code>add_executable</code>, сообщив ей четыре параметра. В отличие от C++ параметры разделяются не запятой, а просто пробелом.</p>
+
+<p>Если параметр команды не содержит пробелов, кавычки можно не писать:</p>
+
+<pre><code>add_executable(hello src/main.cpp src/hello_printer.h src/hello_printer.cpp)
+</code></pre>
+
+<p>Помимо cpp-фалов мы указали ещё и заголовки *.h, которые компилировать не нужно. CMake сам определит, какие файлы подлежат сборке. Перечисляйте все исходные файлы.</p>
+
+<p>Программа состоит из трёх файлов, пути к которым указаны относительно расположения файла CMakeLists.txt:</p>
+
+<pre><code class="language-cpp">// main.cpp
+#include &quot;hello_printer.h&quot;
+
+int main() {
+    PrintHelloCMake();
+}
+
+// hello_printer.h
+#pragma once
+
+void PrintHelloCMake();
+
+// hello_printer.cpp
+#include &lt;iostream&gt;
+#include &lt;string_view&gt;
+
+using namespace std;
+
+void PrintHelloCMake() {
+    cout &lt;&lt; &quot;Hello, CMake!&quot;sv &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Для сборки проекта понадобится отдельная папка, в которой будут размещаться вспомогательные файлы CMake, промежуточные файлы компиляции и итоговая программа. Важно, чтобы эта папка не совпадала с папкой, где размещён исходный код, чтобы не засорять его лишними файлами. Создадим папку hello_cmake_build. Структура каталогов может получиться такой:</p>
+
+<ul>
+<li>hello_cmake — папка с исходным кодом,
+
+<ul>
+<li>src — вспомогательная папка для структурирования исходного кода,
+
+<ul>
+<li>hello_printer.cpp,</li>
+<li>hello_printer.h,</li>
+<li>main.cpp,</li>
+</ul></li>
+<li>CMakeLists.txt — файл проекта CMake,</li>
+</ul></li>
+<li>hello_cmake_build — папка для сборки,
+
+<ul>
+<li>тут будут файлы сборки.</li>
+</ul></li>
+</ul>
+
+<p>В консоли перейдём в папку hello_cmake_build и выполним две команды:</p>
+
+<pre><code>cmake ../hello_cmake
+cmake --build .
+</code></pre>
+
+<p>Первая нужна для создания файлов сборки, а вторая — для самой сборки. Дело в том, что напрямую CMake собирать не может. Для начала он создаёт сценарий сборки или проект для IDE одним из <strong>генераторов</strong>. Это делает команда <code>cmake ../hello_cmake</code>. Мы воспользовались генератором по умолчанию. В качестве параметра указали путь к папке с исходным кодом, в которой находится CMakeLists.txt.</p>
+
+<p>Вторая команда — универсальный механизм, позволяющий выполнить сборку. Тут можно было бы обойтись без CMake: он сгенерировал сценарий, который выполнится соответствующим инструментом. Но конкретные команды будут зависеть от генератора, а так мы запрашиваем сборку универсальным способом. В качестве параметра CMake, помимо ключа <code>--build</code>, указана директория, содержащая сборочные файлы — в данном случае указана <code>.</code>, то есть текущая директория.</p>
+
+<p>Если всё прошло успешно, CMake отчитается о создании исполняемого файла <code>hello</code>, или <code>hello.exe</code> под Windows. Если нет — возможно, вы собираете под <code>MinGW</code> и нужно явно попросить компоновать стандартную библиотеку. Для этого добавим волшебную команду:</p>
+
+<pre><code class="language-cpp">target_link_libraries(negate -lstdc++)
+</code></pre>
+
+<p>Запустим полученную программу и увидим долгожданное сообщение:</p>
+
+<pre><code>Hello, CMake!
+</code></pre>
+
+<p>Простейшая программа с использованием CMake готова. Разберём этот инструмент подробнее.</p>
+
+<h3>Генераторы и конфигурации</h3>
+
+<p>Как говорилось выше, CMake поддерживает разные генераторы — он может создать проекты для различных IDE и Makefile для компиляции без IDE. Можно посмотреть список всех генераторов, доступных на вашей системе, введя команду <code>cmake -G</code>. Поменяем команду генерации, чтобы создать проект Eclipse CDT. Прежде чем использовать новый генератор, нужно перейти в папку hello_cmake_build и очистить её содержимое. Под Windows нужно выполнить такую команду:</p>
+
+<pre><code>cmake ../hello_cmake -G &quot;Eclipse CDT4 - MinGW Makefiles&quot;
+</code></pre>
+
+<p>Под Linux и macOS выберем Unix Makefiles:</p>
+
+<pre><code>cmake ../hello_cmake -G &quot;Eclipse CDT4 - Unix Makefiles&quot;
+</code></pre>
+
+<p>CMake создаст файл проекта, который можно открыть в Eclipse. Для этого нажмите в меню Eclipse на пункт <strong>File</strong> → <strong>Open Projects from File System</strong> и выберите папку hello_cmake_build. Обычно Eclipse сам ищет компилятор и сам запускает его, определяя параметры сборки. Но в случае с проектом, полученным из файла CMakeLists.txt, команды уже составил CMake, и Eclipse просто вызывает их.</p>
+
+<hr>
+
+<p>Какой есть существенный минус у такого подхода?</p>
+
+<ul>
+<li><p>Нет возможности выбирать конфигурацию Debug или Release.</p></li>
+
+<li><p>Проект перестанет работать при смене компилятора.</p></li>
+
+<li><p>Сборка будет некорректной</p></li>
+</ul>
+
+<p>К сожалению, в Eclipse переключение между конфигурациями Debug и Release недоступно для проекта, сгенерированного через CMake. Чтобы задать конфигурацию, нужно добавить при генерации файлов сборки дополнительный параметр <code>-DCMAKE_BUILD_TYPE=...</code> и выбрать одну из четырёх поддерживаемых конфигураций:</p>
+
+<ul>
+<li>Release — сборка с полной оптимизацией и без отладочной информации, предназначена для конечного пользователя.</li>
+<li>Debug — сборка без оптимизации и с отладочной информацией.</li>
+<li>RelWithDebInfo — сборка с оптимизацией и с отладочной информацией. Нужна, если в Release версии есть баги, которые не получается выявить в Debug версии.</li>
+<li>MinSizeRel — аналог Release, но оптимизируется в первую очередь размер итогового файла, а не скорость. Имеет смысл для сборки программ под устройства, у которых жёстко ограничено дисковое пространство.</li>
+</ul>
+
+<p>Запустим команду генерации проекта заново, выбрав отладочную конфигурацию:</p>
+
+<pre><code>cmake ../hello_cmake -DCMAKE_BUILD_TYPE=Debug
+</code></pre>
+
+<p>Поскольку в этой папке уже были сгенерированы файлы, второй раз указывать генератор параметром <code>-G</code> не нужно. Для конфигураций Release и Debug создайте отдельные директории. Если выполняете эту команду в новой папке, где ещё не запускался CMake, придётся помимо конфигурации указать и генератор, как сделано ранее.</p>
+
+<p>После этого проект нужно пересобрать, и его можно будет отлаживать в Eclipse как обычно. Параметр <code>-DCMAKE_BUILD_TYPE=...</code> имеет смысл для различных генераторов, но некоторые IDE интегрированы с CMake лучше и поддерживают смену конфигурации из интерфейса, без перегенерации:</p>
+
+<ul>
+<li>Visual Studio — генератор для этой IDE создаёт универсальный проект, позволяющий выполнить сборку в любой конфигурации.</li>
+<li>QT Creator — позволяет открыть файл CMakeLists.txt напрямую, не требует запуска команд из консоли.</li>
+<li>CLion — как и QT Creator, поддерживает непосредственное открытие проекта CMake.</li>
+</ul>
+
+<p>Вы узнали, как создавать проект CMake, как генерировать сценарии сборки и проекты, и как, в конце концов, собирать программу. Теперь используйте эти знания при решении задачи.</p>
+
+</body>
+</html>

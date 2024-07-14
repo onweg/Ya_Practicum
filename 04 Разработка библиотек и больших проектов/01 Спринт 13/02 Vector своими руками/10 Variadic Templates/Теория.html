@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Variadic Templates</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Variadic Templates</h1>
+
+<p>В этом уроке вы познакомитесь с Variadic templates. Их также называют шаблонами с переменным числом параметров или <strong>вариативными шаблонами</strong>. Они позволяют создать шаблон функции или класса, принимающий любое число параметров произвольных типов. С такими шаблонами вы уже знакомы. Среди них классы <code>std::tuple</code> и <code>std::variant</code>, функции <code>std::tie</code>, <code>std::make_unique</code>:</p>
+
+<pre><code class="language-cpp">using namespace std;
+
+struct Student {
+    string name;
+    string surname;
+    int age;
+};
+
+bool operator&lt;(const Student&amp; lhs, const Student&amp; rhs) {
+    // Шаблонная функция tie имеет произвольное число аргументов
+    // Она возвращает tuple из ссылок на параметры
+    return tie(lhs.name, lhs.surname, lhs.age) &lt; tie(rhs.name, rhs.surname, rhs.age);
+}
+
+int main() {
+    vector&lt;Student&gt; students{
+        {&quot;Ivan&quot;s, &quot;Ivanov&quot;s, 20},
+        {&quot;Vasiliy&quot;s, &quot;Vasiliev&quot;s, 25},
+        {&quot;Sergey&quot;s, &quot;Sergeev&quot;, 16},
+    };
+    sort(students.begin(), students.end());
+}
+</code></pre>
+
+<p>Вариативный шаблон или шаблон с переменным числом аргументов объявляется так:</p>
+
+<pre><code class="language-cpp">// Вариативный шаблон класса
+template &lt;typename... Types&gt; // Types — пакет параметров шаблона
+class Tuple{};
+
+// Вариативный шаблон функции
+template &lt;typename... Types&gt; // Types — пакет параметров шаблона
+void Fn(Types... values) {   // values — пакет параметров функции
+}
+</code></pre>
+
+<p>Вариативные шаблоны <code>Tuple</code> и <code>Fn</code> содержат пакет параметров шаблона, который вмещает ноль и более параметров.</p>
+
+<p>В заголовке вариативной функции <code>Fn</code> используется пакет параметров функции, способный принять ноль и более аргументов:</p>
+
+<pre><code class="language-cpp">int main() {
+    // Аналогично вызову Fn&lt;int, string, double&gt;(42, &quot;hello&quot;s, 3.5);
+    Fn(42, &quot;hello&quot;s, 3.5); 
+
+    // Аналогично вызову Fn&lt;&gt;();
+    Fn();
+}
+</code></pre>
+
+<h3>Определение количества параметров в пакете</h3>
+
+<p>В качестве простого примера шаблонной функции напишем функцию <code>PrintArgumentCount</code>, которая выводит количество своих аргументов. Для этого она использует оператор <code>sizeof...</code>, возвращающий число параметров в пакете:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+using namespace std;
+
+template &lt;typename... Types&gt;
+void PrintArgumentCount(const Types&amp;... values) {
+    cout &lt;&lt; sizeof...(values) &lt;&lt; endl;
+}
+
+int main() {
+    PrintArgumentCount();                    // Выведет 0
+    PrintArgumentCount(42);                  // Выведет 1
+    PrintArgumentCount(&quot;hello&quot;s, 42, 1.23);  // Выведет 3
+}
+</code></pre>
+
+<p>Шаблон <code>PrintArgumentCount</code> принимает пакет <code>values</code> по константной ссылке. На основе этого шаблона компилятор сгенерирует три функции:</p>
+
+<ul>
+<li>без параметров,</li>
+<li>с параметром <code>const int&amp;</code>,</li>
+<li>с параметрами <code>const std::string&amp;</code>, <code>const int&amp;</code> и <code>const double&amp;</code>.</li>
+</ul>
+
+<p>Внутри них компилятор вместо <code>sizeof...(values)</code> вставит размер пакета <code>values</code>. Так как <code>PrintArgumentCount</code> принимает только пакет параметров, его размер будет равен количеству аргументов функции.</p>
+
+<h3>Распаковка пакета параметров</h3>
+
+<p>Пакет параметров можно распаковать, написав после его имени многоточие. Распакованный пакет превращается в список элементов пакета, разделённых запятыми.</p>
+
+<p>Одно из применений распаковки — передача содержимого пакета в функцию. Прежде чем вызвать <code>PrintArgumentCount</code>, функция <code>Fn</code> должна распаковать свой пакет параметров:</p>
+
+<pre><code class="language-cpp">// Функция Fn иллюстрирует распаковку пакета параметров при вызове функции
+template &lt;typename T, typename... Types&gt;
+void Fn(int arg1, const T&amp; arg2, const Types&amp;... values) {
+    // Чтобы вызвать PrintArgumentCount, нужно распаковать пакет values
+    PrintArgumentCount(arg1, arg2, values...);
+    /* ... */
+}
+
+int main() {
+    Fn(42, &quot;Hello&quot;sv, 4);         // Выведет 3
+    Fn(42, 10.5);                 // Выведет 2
+    Fn(3, &quot;Goodbye&quot;s, 42, 1.23);  // Выведет 4
+}
+</code></pre>
+
+<p>Распаковать можно не только пакет параметров функции, но и пакет параметров шаблона. Используем это, чтобы создать химер — существ, обладающих свойствами нескольких организмов:</p>
+
+<pre><code class="language-cpp">struct Man {
+    void SayHello() { cout &lt;&lt; &quot;Hi!&quot;sv &lt;&lt; endl; }
+};
+struct Bat {
+    void Fly() { cout &lt;&lt; &quot;I'm flying!!!&quot;sv &lt;&lt; endl; }
+};
+struct Spider {
+    void Weave() { cout &lt;&lt; &quot;I'm weaving a web&quot;sv &lt;&lt; endl; }
+};
+
+// Химера, наследуется от переданных ей базовых классов
+template &lt;typename... Bases&gt;
+class Chimera : public Bases... {};
+
+int main() { 
+    Chimera&lt;Bat, Man&gt; batman;
+    batman.SayHello();
+    batman.Fly();
+
+    Chimera&lt;Spider, Man&gt; spiderman;
+    spiderman.Weave();
+    spiderman.SayHello();
+}
+</code></pre>
+
+<p>Этот искусственный пример с наследованием иллюстрирует идею, на которой основываются полезные стандартные классы, например <code>std::tuple</code>.</p>
+
+<h3>Обработка пакета параметров</h3>
+
+<p>Рассмотрим функцию <code>Log</code>, которая выводит значения своих аргументов, разделяя их запятыми:</p>
+
+<pre><code class="language-cpp">template &lt;typename... Ts&gt;
+void Log(std::ostream&amp; out, const Ts&amp;... vs);
+
+int main() {
+    using namespace std;
+    Log(cout, &quot;Hello&quot;s, &quot;World&quot;s, 42); // Выведет Hello, World, 42
+    Log(cout);                         // Выведет пустую строку
+}
+</code></pre>
+
+<p>Если бы в C++ была возможность пробежаться в цикле по содержимому пакета параметров, функция <code>Log</code> могла быть такой:</p>
+
+<pre><code class="language-cpp">.template &lt;typename... Ts&gt;
+void Log(std::ostream&amp; out, const Ts&amp;... vs) {
+    using namespace std;
+
+    bool print_comma = false;
+    for (const auto&amp; v : vs) {
+        // На каждой итерации v ссылается на очередной параметр пакета vs
+        if (print_comma) {
+            out &lt;&lt; &quot;, &quot;sv;
+        }
+        out &lt;&lt; v;
+        print_comma = true;
+    }
+    out &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Увы, этот код даже не скомпилируется. C++ — язык со статической типизацией, и переменная <code>v</code> не может менять тип на каждой итерации цикла. Кроме того, пакет параметров — это не контейнер, по которому можно выполнить итерацию во время выполнения программы. Пакет параметров существует только во время компиляции, и для работы с ним доступны только две операции: «узнать размер» и «распаковать содержимое».</p>
+
+<p>Один из способов решить задачу — использовать рекурсию. На каждом шаге рекурсии программа должна сначала вывести самый первый элемент пакета параметров, а затем рекурсивно обработать оставшиеся элементы.</p>
+
+<p>Псевдокод решения:</p>
+
+<pre><code class="language-cpp">// Это псевдокод для иллюстрации решения
+
+// LogImpl — вспомогательная функция, которая рекурсивно выводит 
+// элементы списка args в out, разделяя их запятыми
+void LogImpl(out, args...) {
+    head = взять первый элемент списка args...
+    out &lt;&lt; head;
+    tail = взять элементы списка args..., кроме head
+    if (tail не пуст) {
+        out &lt;&lt; &quot;, &quot;sv;
+        LogImpl(out, tail...); // вывести остальные элементы
+    }
+}
+
+void Log(out, args...) {
+    if (args не пуст) {
+        LogImpl(out, args...);
+    }
+    out &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Так, вызов <code>Log(cout, 1, 3.5, &quot;hello&quot;s)</code> приведёт к последовательности рекурсивных вызовов:</p>
+
+<ul>
+<li><code>LogImpl(cout, 1, 3.5, &quot;hello&quot;s)</code>. На этом шаге в <code>cout</code> будет выведено <code>1,</code> .</li>
+<li><code>LogImpl(cout, 3.5, &quot;hello&quot;s)</code>. В <code>cout</code> будет выведено <code>3.5,</code> .</li>
+<li><code>LogImpl(cout, &quot;hello&quot;s)</code>. В <code>cout</code> будет выведено: <code>hello</code>.</li>
+</ul>
+
+<p>Функция <code>Log</code> дословно повторяет псевдокод:</p>
+
+<pre><code class="language-cpp">template &lt;typename... Ts&gt;
+void Log(std::ostream&amp; out, const Ts&amp;... vs) {
+    // Выводим аргументы функции, если они не пустые
+    if constexpr (sizeof...(vs) != 0) {
+        detail::LogImpl(out, vs...);
+    }
+    out &lt;&lt; std::endl;
+}
+</code></pre>
+
+<p>Чтобы написать функцию <code>LogImpl</code>, нужна операция разделения списка параметров на «голову» и «хвост». Самый простой способ сделать это — добавить обычный шаблонный параметр <code>T0</code>, принимающий голову списка:</p>
+
+<pre><code class="language-cpp"> namespace detail {
+// Функция для вывода одного и более значений
+template &lt;typename T0, typename... Ts&gt;
+void LogImpl(std::ostream&amp; out, const T0&amp; v0, const Ts&amp;... vs) {
+    using namespace std::literals;
+    out &lt;&lt; v0;
+    // Выводим через запятую остальные параметры, если они остались
+    if constexpr (sizeof...(vs) != 0) {
+        out &lt;&lt; &quot;, &quot;sv;
+        LogImpl(out, vs...);  // Рекурсивно выводим остальные параметры
+    }
+}
+}  // namespace detail
+</code></pre>
+
+<p>Функция <code>LogImpl</code> рекурсивно вызывает себя, пока не будут выведены все аргументы функции. Для проверки пакета <code>vs</code> на пустоту используется <code>if constexpr</code>, а не обычный <code>if</code>. Так не будет компилироваться вызов <code>LogImpl</code> на последнем шаге рекурсии, когда список <code>vs</code> опустеет.</p>
+
+<p>Функцию <code>Log</code> можно вызывать с любым количеством произвольных аргументов. Единственное требование к её аргументам — наличие оператора вывода в <code>ostream</code>:</p>
+
+<pre><code class="language-cpp">struct Point {
+    int x, y;
+};
+
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, Point p) {
+    out &lt;&lt; '{' &lt;&lt; p.x &lt;&lt; ',' &lt;&lt; p.y &lt;&lt; '}';
+    return out;
+}
+
+int main() {
+    using namespace std;
+    Log(cout, 42, Point{10, 20}, &quot;Hello&quot;s);  // 42, {10,20}, Hello
+    Log(cout);                               // выведет пустую строку
+    Log(cout, 5.8);                          // 5.8
+}
+</code></pre>
+
+<h3>Паттерн распаковки</h3>
+
+<p>При распаковке пакета параметров можно указать паттерн распаковки. Пример:</p>
+
+<pre><code class="language-cpp">template &lt;typename... Types&gt;
+void F(Types... args);
+
+template &lt;typename... Types&gt;
+void G(Types... args) {
+    // Пусть args — пакет x, y, z
+    F(args...);     // F(x, y, z);
+    F(&amp;args...);    // F(&amp;x, &amp;y, &amp;z);
+    F(H(args)...);  // F(H(x), H(y), H(z));
+
+    F(const_cast&lt;const Types*&gt;(&amp;args)...);
+        // F(const_cast&lt;const int*&gt;(&amp;x),
+        //   const_cast&lt;const double*&gt;(&amp;y),
+        //   const_cast&lt;const string*&gt;(&amp;z));
+}
+
+G(1, 3.5, &quot;hello&quot;s); // G(int x, double y, string z);
+</code></pre>
+
+<p>Применим паттерн распаковки, чтобы вывести функцией <code>Log</code> элементы внутри фигурных скобок <code>{}</code>, не изменяя ни функцию <code>Log</code>, ни <code>LogImpl</code>:</p>
+
+<pre><code class="language-cpp">// Возвращает строковое представление v внутри фигурных скобок
+template &lt;typename T&gt;
+std::string Decorate(const T&amp; v) {
+    std::ostringstream os;
+    os &lt;&lt; '{' &lt;&lt; v &lt;&lt; '}';
+    return os.str();
+}
+
+// Выводит через запятую аргументы vs, заключая их в фигурные скобки
+template &lt;typename... Ts&gt;
+void LogDecorated(std::ostream&amp; out, const Ts&amp;... vs) {
+    // Раскроется в Log(out, Decorate(vs1), ..., Decorate(vsN))
+    Log(out, Decorate(vs)...);
+}
+
+int main() {
+    using namespace std;
+    // Выведет {42}, {{10,20}}, {Hello}
+    LogDecorated(cout, 42, Point{10, 20}, &quot;Hello&quot;s);
+}
+</code></pre>
+
+<hr>
+
+<p>Пусть <code>args</code> — это пакет параметров <code>x, y, z</code>. Тогда во что распакуется следующее выражение?</p>
+
+<pre><code class="language-cpp">F(args + args...);
+</code></pre>
+
+<ul>
+<li><p><code>F(x, y, z) + F(x, y, z);</code></p></li>
+
+<li><p><code>F(x, y, z + x, y, z);</code></p></li>
+
+<li><p><code>F(x + x, y + y, z + z);</code></p></li>
+</ul>
+
+<p>Здесь паттерн распаковки — выражение <code>args + args</code>. После распаковки пакета <code>x, y, z</code> он будет раскрыт в <code>x + x, y + y, z + z</code>.</p>
+
+<hr>
+
+<hr>
+
+<p>Пусть <code>args</code> — пакет параметров <code>x, y, z</code>. Во что распакуется следующее выражение?</p>
+
+<pre><code class="language-cpp">F(H(args...) + H(args)...);
+</code></pre>
+
+<ul>
+<li><p><code>F(H(x, y, z) + H(x, y, z));</code></p></li>
+
+<li><p><code>F(H(x, y, z) + H(x), H(x, y, z) + H(y), H(x, y, z) + H(z));</code></p></li>
+
+<li><p><code>F(H(x + x, y + y, z + z));</code></p></li>
+
+<li><p><code>F(H(x) + H(x), H(y) + H(y), H(z) + H(z));</code></p></li>
+</ul>
+
+<p>Здесь два паттерна распаковки: <code>args</code> и <code>H(args...) + H(args)</code>. При этом первый — часть второго. Сначала первый паттерн распакуется в <code>x, y, z</code>, превратив второй паттерн в <code>H(x, y, z) + H(args)</code>. Затем второй паттерн распакуется в <code>H(x, y, z) + H(x), H(x, y, z) + H(y), H(x, y, z) + H(z)</code>.</p>
+
+<hr>
+
+<h3>Выражения свёртки</h3>
+
+<p>Простая шаблонная функция <code>LogImpl</code> выглядит сложно из-за рекурсии и во время компиляции может создавать много работы для компилятора. Ведь даже один вызов <code>Log(cout, 42, Point{10, 20}, &quot;Hello&quot;s)</code> приведёт к построению четырёх функций.</p>
+
+<pre><code class="language-cpp">void Log(ostream&amp;, const int&amp;, const Point&amp;, const string&amp;);
+void LogImpl(ostream&amp;, const int&amp;, const Point&amp;, const string&amp;);
+void LogImpl(ostream&amp;, const Point&amp;, const string&amp;);
+void LogImpl(ostream&amp;, const string&amp;);
+
+</code></pre>
+
+<p>Можно упростить разбор пакета параметров шаблона — применить <strong>выражение свёртки</strong>, или <a href="https://en.cppreference.com/w/cpp/language/fold">fold expression</a>. Оно позволяет обработать пакет параметров шаблона, не прибегая к рекурсии.</p>
+
+<p>Рассмотрим работу свёрточных выражений на примере функции, которая вычисляет сумму своих аргументов:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+template &lt;typename... Tn&gt;
+auto Sum(const Tn&amp;... vn) {
+    return (... + vn); // (((vn1 + vn2) + ...) + vnN)
+}
+</code></pre>
+
+<p>Выражение <code>(... + vn)</code> называется выражением свёртки. Оно превращает пакет <code>a, b, c, d</code> в <code>(((a + b) + c) + d)</code>, что эквивалентно вычислению <code>a + b + c + d</code> слева направо. Скобки — обязательная часть выражения свёртки.</p>
+
+<p>Шаблонную функцию <code>Sum</code> можно использовать для вычисления суммы чисел или конкатенации строк:</p>
+
+<pre><code class="language-cpp">int main() {
+    using namespace std;
+    std::cout &lt;&lt; Sum(10) &lt;&lt; std::endl;                         // 10
+    std::cout &lt;&lt; Sum(10, 15.5) &lt;&lt; std::endl;                   // 25.5
+    std::cout &lt;&lt; Sum(&quot;Hello &quot;s, &quot;world&quot;s, &quot;!&quot;s) &lt;&lt; std::endl;  // Hello world!
+}
+</code></pre>
+
+<p>Встретив вызов функции <code>Sum(&quot;Hello &quot;s, &quot;world&quot;s, &quot;!&quot;s)</code>, компилятор сгенерирует всего одну функцию <code>Sum</code>, эквивалентную этой:</p>
+
+<pre><code class="language-cpp">std::string Sum(const string&amp; vn1, const string&amp; vn2, const string&amp; vn3) {
+    return (((v0 + vn1) + vn2) + vn3);
+}
+</code></pre>
+
+<p>Кроме операции <code>+</code> в выражениях свёртки можно использовать и другие бинарные операции:</p>
+
+<pre><code class="language-cpp">template &lt;typename... Ts&gt;
+auto Product(const Ts&amp;... vs) {
+    return (... * vs);
+}
+
+int main() {
+    std::cout &lt;&lt; Product(2, 3, 4) &lt;&lt; std::endl;  // 24
+}
+</code></pre>
+
+<p>Применим выражение свёртки, чтобы упростить функцию <code>LogImpl</code>. Для этого снова представим, как она могла бы выглядеть, если бы элементы пакета параметров можно было использовать в циклах:</p>
+
+<pre><code class="language-cpp">template &lt;typename... Ts&gt;
+void LogImpl(std::ostream&amp; out, const T0&amp; v0, const Ts&amp;... vs) {
+    using namespace std;
+    out &lt;&lt; v0;
+    // Этот код не скомпилируется и служит для иллюстрации идеи
+    for (const auto&amp; v : vs) {
+        out &lt;&lt; &quot;, &quot;sv &lt;&lt; v;
+    }
+}
+</code></pre>
+
+<p>Здесь нужна бинарная операция, которая позволит последовательно выполнить выражение <code>out &lt;&lt; &quot;, &quot;sv &lt;&lt; v</code> для каждого элемента пакета параметров. Провернуть такой фокус поможет оператор <code>,</code>. Он вычисляет свои аргументы слева направо и возвращает результат вычисления второго аргумента:</p>
+
+<pre><code class="language-cpp">int a = F1(), F2(); // вычислит F1(), потом F2() и вернёт результат вызова F2()
+
+(cout &lt;&lt; &quot;, &quot;sv &lt;&lt; 1), (cout &lt;&lt; &quot;, &quot;sv &lt;&lt; 2.3), (cout &lt;&lt; &quot;, &quot;sv&quot;, 4); // Выведет 1, 2.3, 4
+</code></pre>
+
+<p>Перепишем функцию <code>LogImpl</code>:</p>
+
+<pre><code class="language-cpp">namespace detail {
+// Функция для вывода одного и более значений
+template &lt;typename T0, typename... Ts&gt;
+void LogImpl(std::ostream&amp; out, const T0&amp; v0, const Ts&amp;... vs) {
+    using namespace std::literals;
+    out &lt;&lt; v0;
+    (..., (out &lt;&lt; &quot;, &quot;sv &lt;&lt; vs));
+}
+}  // namespace detail
+
+// Функция Log остаётся без изменений
+template &lt;typename... Ts&gt;
+void Log(std::ostream&amp; out, const Ts&amp;... vs) {
+    if constexpr (sizeof...(vs) != 0) {
+        detail::LogImpl(out, vs...);
+    }
+    out &lt;&lt; std::endl;
+}
+</code></pre>
+
+<p>В данном случае вызов <code>Log(cout, 42, Point{10, 20}, &quot;Hello&quot;s)</code> сгенерирует две функции c кодом, эквивалентным такому:</p>
+
+<pre><code class="language-cpp">namespace detail {
+void LogImpl(ostream&amp; out, const int&amp; v0, const Point&amp; vs1, const string&amp; vs2) {
+    out &lt;&lt; v0;
+    ((out &lt;&lt; &quot;, &quot;sv &lt;&lt; vs1), (out &lt;&lt; &quot;, &quot;sv &lt;&lt; vs2));
+}
+}
+
+void Log(ostream&amp;, const int&amp; vs1, const Point&amp; vs2, const string&amp; vs3) {
+    detail::LogImpl(out, vs1, vs2, vs3);
+}
+</code></pre>
+
+<hr>
+
+<p>Версия <code>Log</code> на основе свёртки всё ещё использует вспомогательную функция <code>LogImpl</code>. Почему нельзя обойтись одной лишь функцией <code>Log</code>?</p>
+
+<ul>
+<li><p>Для свёртки, использующей <code>,</code>, в пакете должен быть минимум один аргумент.</p></li>
+
+<li><p>После последнего аргумента не должна выводиться запятая.</p></li>
+
+<li><p>Функция <code>Log</code> должна уметь принимать ноль и более аргументов и не выводить после последнего запятую.</p></li>
+</ul>
+
+<p>В отличие от большинства других бинарных операций, свёртка с использованием запятой может применяться к пустому пакету параметров. Чтобы не выводить запятую в конце списка, первый элемент обрабатывается особым образом. Из-за этого функция <code>LogImpl</code> требует как минимум один аргумент для вывода. Функция <code>Log</code> вызывает <code>LogImpl</code>, только когда пакет параметров не пустой.</p>
+
+<hr>
+
+<p>Так свёртка упрощает обработку параметров вариативного шаблона. В выражениях свёртки можно использовать один из четырёх видов синтаксиса, которые различаются порядком вычислений и наличием начального значения:</p>
+
+<pre><code class="language-cpp">( pack op ... )             //(1) унарная правоассоциативная свёртка
+( ... op pack )             //(2) унарная леваоассоциативная свёртка
+( pack op ... op init )     //(3) бинарная правоассоциативная свёртка
+( init op ... op pack )     //(4) бинарная левоассоциативная свёртка
+</code></pre>
+
+<p>Здесь <code>pack</code> обозначает пакет параметров, <code>op</code> — бинарный оператор, <code>init</code> — начальное значение. Скобки — обязательная часть выражения свёртки.</p>
+
+<ul>
+<li><code>(values + ...)</code> раскрывается в (values<em>1+(&hellip;+(values</em>{N-1}+values_N))).</li>
+<li><code>(... - args)</code> раскрывается в (((args_1-args_2)-&hellip;)-args_N).</li>
+<li><code>(nums * ... * 5)</code> раскрывается в (nums_1<em>(&hellip;</em>(nums_N*5))).</li>
+<li><code>(&quot;Hello, &quot;s + ... + strings)</code> раскрывается в (((&ldquo;Hello, &ldquo;s + strings_1)+&hellip;)+strings_N).</li>
+</ul>
+
+</body>
+</html>

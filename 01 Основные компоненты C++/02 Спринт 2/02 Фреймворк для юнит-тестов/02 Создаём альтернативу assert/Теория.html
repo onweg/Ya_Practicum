@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Создаём альтернативу assert</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Создаём альтернативу assert</h1>
+
+<p>В предыдущей теме вы написали юнит-тесты, чтобы найти и исправить ошибки в решении задачи «Синонимы», программе «Автобусные остановки» и в своей поисковой системе.</p>
+
+<p>Юнит-тесты были основаны на стандартном макросе <code>assert</code>, который проверяет ожидания от работы кода. Рассмотрим преимущества и недостатки этого макроса.</p>
+
+<h3>Преимущества</h3>
+
+<ul>
+<li>Макрос <code>assert</code> показывает, какая именно проверка не сработала в модульном тесте, сообщает название файла и номер строки. Это помогает найти и выяснить причину ошибки. Простейший пример:</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;cassert&gt;
+
+int Add(int x, int y) {
+    return x * y;
+}
+
+int main() {
+    assert(Add(2, 3) == 5);
+}
+</code></pre>
+
+<p>При запуске программы <code>assert</code> «‎выстрелит»: аварийно прекратит её работу и выведет диагностическую информацию:</p>
+
+<pre><code>test.exe: test.cpp:8: int main(): Assertion `Add(2, 3) == 5' failed.
+</code></pre>
+
+<p>Макрос <code>assert</code> проверяет истинность условия, нарушение которого указывает на ошибку в логике программы или на противоречивость в её состоянии. Если условие ложное, программа завершает работу. А мы получаем диагностическую информацию о том, где код не прошёл тест.</p>
+
+<p>На этом преимущества <code>assert</code> заканчиваются и начинаются недостатки.</p>
+
+<h3>Недостатки</h3>
+
+<ul>
+<li>Диагностическая информация не содержит значений сравниваемых выражений. В примере выше не сработало условие <code>Add(2, 3) == 5</code>. Но какое именно значение вернула функция <code>Add</code>, мы не знаем. Чтобы выяснить это, приходится использовать отладчик.</li>
+<li>Первый же «‎выстреливший»‎ <code>assert</code> прекращает работу программы и не даёт узнать, как пройдут остальные проверки.</li>
+<li>Макрос <code>assert</code> выводит диагностическую информацию в стандартный поток вывода, и она смешивается с выходными данными программы. Это может быть нежелательным.</li>
+<li>Следующий недостаток разберём на примере:</li>
+</ul>
+
+<pre><code class="language-cpp">#define NDEBUG // Объявляем макрос NDEBUG
+#include &lt;cassert&gt;
+
+int Add(int x, int y) {
+    return x * y; // Ошибка тут специально
+}
+
+int main() {
+    assert(Add(2, 3) == 5); // Этот assert не сработает
+}
+</code></pre>
+
+<p>Запустим программу и увидим, что макрос <code>assert</code> не сработал. Дело в том, что мы объявили макрос <code>NDEBUG</code> перед подключением файла <code>cassert</code>. Определение макроса <code>assert</code> зависит от макроса <code>NDEBUG</code>, который по умолчанию не объявлен в стандартной библиотеке. Если объявить <code>NDEBUG</code> перед подключением файла <code>&lt;cassert&gt;</code>,  <code>assert</code> не будет делать ничего. Это позволяет ограничить использование макроса <code>assert</code> отладочными версиями программы и отключить проверки в финальной сборке программы.</p>
+
+<p>Тесты для C++ пишут, используя не только макрос <code>assert</code>. Существуют целые фреймворки, такие как <a href="https://github.com/google/googletest">Google Test</a>, <a href="https://www.boost.org/doc/libs/1_74_0/libs/test/doc/html/index.html">Boost.Test</a>, <a href="https://github.com/catchorg/Catch2">Catch2</a>. На практике для разработки тестов применяют фрейморк, а макрос <code>assert</code> оставляют, чтобы проверить инварианты в отладочных версиях программы. Вы увидите, как это работает, когда создадите собственный фреймворк на основе своих знаний С++.</p>
+
+<p>Делать это вы начнёте прямо сейчас. При сравнении значений не видно, чему равен каждый из операндов, если <code>assert</code> «выстрелил». Устраним эту неприятность. Чтобы сравнивать значения разных типов, напишем функцию <code>AssertEqual</code>:</p>
+
+<pre><code class="language-cpp">AssertEqual(Add(2, 3), 5);
+AssertEqual(Sort(vector&lt;int&gt;{1, 4, 2}), vector&lt;int&gt;{1, 2, 4});
+</code></pre>
+
+<p>Если её аргументы будут неравны, хорошо бы увидеть в консоли значения аргументов:</p>
+
+<pre><code>Assertion failed: 6 != 5
+Assertion failed: [1, 4, 2] != [1, 2, 4]
+</code></pre>
+
+<p>Для этого нужна функция, которая принимает два значения произвольного типа, сравнивает их и, если они оказались неравны, реагирует на это. Как это сделать в C++, вы уже знаете: создать шаблон функции. Напишем шаблон <code>AssertEqual</code>:</p>
+
+<pre><code class="language-cpp">#include &lt;cstdlib&gt;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+template &lt;typename T, typename U&gt;
+void AssertEqual(const T&amp; t, const U&amp; u) {
+    if (t != u) {
+        cout &lt;&lt; &quot;Assertion failed: &quot;s &lt;&lt; t &lt;&lt; &quot; != &quot;s &lt;&lt; u &lt;&lt; endl;
+        // Аварийно завершаем работу программы
+        abort();
+    }
+}
+
+int main() {
+    string hello = &quot;hello&quot;s;
+    AssertEqual(hello.length(), 5);
+
+    // Эта проверка не сработает
+    AssertEqual(2 + 2, 5);
+}
+</code></pre>
+
+<p>Функция-шаблон здесь принимает два параметра некоторых типов <code>T</code> и <code>U</code>.  Если  значения неравны, она выводит их в консоль и стандартной функцией <code>abort</code> аварийно завершает программу. Функция <code>abort</code> подключается заголовочным файлом <code>&lt;cstdlib&gt;</code>.</p>
+
+<p>Возникает логичный вопрос: почему шаблонная функция <code>AssertEqual</code> принимает аргументы не одного и того же типа, а различных. Ответ: так она удобнее в применении, особенно с целочисленными типами. Мы могли объявить функцию <code>AssertEqual</code> иначе:</p>
+
+<pre><code class="language-cpp">template &lt;typename T&gt;
+void AssertEqual(const T&amp; t, const T&amp; u) {
+    if (t != u) {
+        cout &lt;&lt; &quot;Assertion failed: &quot;s &lt;&lt; t &lt;&lt; &quot; != &quot;s &lt;&lt; u &lt;&lt; endl;
+        // Аварийно завершаем работу программы
+        abort();
+    }
+}
+</code></pre>
+
+<p>Тогда результат метода <code>length()</code>, который относится к типу <code>size_t</code>, сравнивался бы со значением 5, которое относится к типу <code>int</code>. Программа не скомпилировалась бы. Компилятор не может определить, какой тип использовать в данной ситуации:</p>
+
+<pre><code class="language-cpp">string hello = &quot;hello&quot;s;
+AssertEqual(hello.length(), 5);
+</code></pre>
+
+<p>То есть разные типы <code>T</code> и <code>U</code> в шаблоне <code>AssertEqual</code> оправданы.</p>
+
+<p>Запустим программу и увидим, что вторая проверка не сработала. В консоль вывелись значения сравниваемых аргументов:</p>
+
+<pre><code>Assertion failed: 4 != 5
+</code></pre>
+
+<p>Теперь можем выводить значения аргументов функции <code>AssertEqual</code>. Но макрос <code>assert</code> сообщал, какая именно проверка сработала, и где искать ошибку. Этой информации мы лишились. Не беда. В следующем уроке вы научитесь получать подробную диагностику и без <code>assert</code>. А пока добавим в <code>AssertEqual</code> параметр <code>hint</code>. Он содержит строку-подсказку, которая выводится в конце сообщения:</p>
+
+<pre><code class="language-cpp">template &lt;typename T, typename U&gt;
+void AssertEqual(const T&amp; t, const U&amp; u, const string&amp; hint) {
+    if (t != u) {
+        cout &lt;&lt; &quot;Assertion failed: &quot;s &lt;&lt; t &lt;&lt; &quot; != &quot;s &lt;&lt; u &lt;&lt; &quot;.&quot;s;
+        if (!hint.empty()) {
+            cout &lt;&lt; &quot; Hint: &quot;s &lt;&lt; hint;
+        }
+        cout &lt;&lt; endl;
+        abort();
+    }
+}
+</code></pre>
+
+<p>Теперь в тестах можем использовать подсказки, помогающие диагностировать проблему:</p>
+
+<pre><code class="language-cpp">int Add(int a, int b) {
+    // Ошибка здесь специально, чтобы вы увидели вывод информации об ошибке
+    return a + b + 1;
+}
+
+int main() {
+    // Эта проверка не сработает
+    AssertEqual(Add(2, 3), 5, &quot;Add() must add its arguments&quot;s);
+} 
+</code></pre>
+
+<pre><code>Assertion failed: 6 != 5. Hint: Add() must add its arguments
+</code></pre>
+
+<p>Посмотрим, как обстоит дело с проверкой булевых значений:</p>
+
+<pre><code class="language-cpp">int main() {
+    // Ошибка в условии допущена намеренно, чтобы продемонстрировать работу AssertEqual
+    AssertEqual(greeting.empty(), true, &quot;Greeting must be non-empty&quot;s);
+}
+</code></pre>
+
+<p>Запустим программу и увидим сообщение:</p>
+
+<pre><code>Assertion failed: 0 != 1. Hint: Greeting must be non-empty
+</code></pre>
+
+<p>По умолчанию значения <code>true</code> и <code>false</code> выводятся в поток как единица и ноль. Чтобы заменить их при выводе на более привычные значения, применим <code>boolalpha</code>. Он подключается директивой <code>#include &lt;iomanip&gt;</code>. Отменяется такой режим манипулятором <code>noboolalpha</code>.</p>
+
+<pre><code class="language-cpp">#include &lt;cstdlib&gt;
+#include &lt;iomanip&gt;  // Подключаем, чтобы использовать манипулятор boolalpha
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+template &lt;typename T, typename U&gt;
+void AssertEqual(const T&amp; t, const U&amp; u, const string&amp; hint) {
+    if (t != u) {
+        // Включаем режим вывода значений типа bool в виде true и false
+****        cout &lt;&lt; boolalpha;
+        cout &lt;&lt; &quot;Assertion failed: &quot;s &lt;&lt; t &lt;&lt; &quot; != &quot;s &lt;&lt; u &lt;&lt; &quot;.&quot;s;
+        if (!hint.empty()) {
+            cout &lt;&lt; &quot; Hint: &quot;s &lt;&lt; hint;
+        }
+        cout &lt;&lt; endl;
+        abort();
+    }
+}
+
+int main() {
+    const string greeting = &quot;Hello&quot;s;
+    // Ошибка в условии специально, чтобы вы увидели работу AssertEqual
+    AssertEqual(greeting.empty(), true, &quot;Greeting must be non-empty&quot;s);
+}
+</code></pre>
+
+<p>Логические выражения стали выводиться так:</p>
+
+<pre><code>Assertion failed: false != true. Hint: Greeting must be non-empty
+</code></pre>
+
+<p>Проверять булевые значений функцией <code>AssertEqual</code> допустимо. Но это слишком длинный способ по сравнению с оригинальным макросом <code>assert</code>, который позволяет написать просто <code>assert(!greeting.empty());</code>. Чтобы устранить многословность, нужно реализовать функцию <code>Assert</code> с аналогичным функционалом. Вы сделаете это, когда будете выполнять задания.</p>
+
+<p>Мы рассмотрели преимущества и недостатки макроса <code>assert</code>, нашли ему замену и создали основу фреймворка юнит-тестирования. В следующих уроках вы разовьёте и улучшите свой фреймворк.</p>
+
+<hr>
+
+<p>В чём недостатки этой реализации шаблона <code>AssertEqual</code>? Выберите несколько вариантов ответа.</p>
+
+<pre><code class="language-cpp">template &lt;typename T&gt;
+void AssertEqual(const T&amp; first, const T&amp; second) {
+    if (first != second) {
+        cout &lt;&lt; &quot;Assertion failed: &quot;s &lt;&lt; first &lt;&lt; &quot; != &quot;s &lt;&lt; second &lt;&lt; endl;
+        abort();
+    }
+}
+</code></pre>
+
+<ul>
+<li><p>Аргументы принимаются по значению, хотя в этом нет необходимости.</p></li>
+
+<li><p>Аргументы <code>first</code> и <code>second</code> здесь обязаны быть одного типа.</p></li>
+
+<li><p>Эта реализация не сообщает значения аргументов, если они оказались неравны.</p></li>
+
+<li><p>Эта реализация не помогает понять, какой именно <code>assert</code> сработал.</p></li>
+</ul>
+
+</body>
+</html>

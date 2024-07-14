@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание</h2>
+
+<p>Рассмотрим упрощённый текстовый редактор, который поддерживает следующий набор команд:</p>
+
+<ul>
+<li>Перемещение курсора влево (<strong>Left</strong>) и вправо (<strong>Right</strong>) на одну позицию;</li>
+<li>Ввод символа в текущую позицию курсора (<strong>Insert</strong>);</li>
+<li>Копирование фрагмента текста, начинающегося в текущей позиции курсора, в буфер обмена (<strong>Copy</strong>);</li>
+<li>Вырезание фрагмента текста — аналогично копированию с последующим удалением скопированных символов из текста (<strong>Cut</strong>);</li>
+<li>Вставка содержимого буфера обмена в текущую позицию курсора (<strong>Paste</strong>).</li>
+</ul>
+
+<p>Эти команды поддерживаются почти любым текстовым редактором. Для команд действуют стандартные правила, определяющие их эффект:</p>
+
+<ul>
+<li>Если редактор содержит текст длиной <code>n</code> символов, курсор может находиться в одной из <code>(n + 1)</code> возможных позиций. Обозначим курсор вертикальной чертой <code>|</code> и будем использовать это обозначение дальше. В тексте <code>abc</code> курсор может быть в позициях: <code>|abc</code>, <code>a|bc</code>, <code>ab|c</code>, <code>abc|</code>. Поэтому команда <strong>Left</strong> не имеет эффекта, когда курсор расположен в начале текста, а <strong>Right</strong> не имеет эффекта, когда курсор находится в конце. Ни <strong>Left</strong>, ни <strong>Right</strong> не имеют эффекта, когда редактор не содержит текста.</li>
+<li>Введённый символ располагается в позиции курсора, сдвигая курсор и весь текст справа от него на одну позицию вправо. Аналогично при вставке фрагмента длиной <code>n</code> курсор и текст справа от него смещаются на <code>n</code> позиций вправо. В таблице приведены примеры, демонстрирующие это правило.</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th align="center">До вставки</th>
+<th align="center">Вводимый символ/вставляемый фрагмент</th>
+<th align="center">После вставки</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">I</td>
+<td align="center">a</td>
+<td align="center">aI</td>
+</tr>
+
+<tr>
+<td align="center">abI</td>
+<td align="center">c</td>
+<td align="center">abcI</td>
+</tr>
+
+<tr>
+<td align="center">Ibc</td>
+<td align="center">a</td>
+<td align="center">aIbc</td>
+</tr>
+
+<tr>
+<td align="center">Iworld</td>
+<td align="center">hello_</td>
+<td align="center">hello_Iworld</td>
+</tr>
+
+<tr>
+<td align="center">hello_I</td>
+<td align="center">world</td>
+<td align="center">hello_worldI</td>
+</tr>
+
+<tr>
+<td align="center">123I78</td>
+<td align="center">456</td>
+<td align="center">123456I78</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>Буфер обмена изначально пуст. Вставка пустого фрагмента не имеет эффекта. Содержимое буфера не сбрасывается после вставки, а остаётся неизменным до следующей команды <strong>Copy</strong> или <strong>Cut</strong>. Копирование или вырезание фрагмента нулевой длины не оказывает влияния на текст, но опустошает буфер обмена. Курсор не смещается ни при копировании, ни при вырезании текста. Например, после вырезания из текста <code>ab|cdef</code> фрагмента из трёх символов получим текст <code>ab|f</code>.</li>
+</ul>
+
+<p>Вам предстоит реализовать «ядро» текстового редактора, который поддерживает все описанные операции, в виде класса <code>Editor</code> с таким интерфейсом:</p>
+
+<pre><code class="language-cpp">class Editor {
+public:
+    Editor();
+    // сдвинуть курсор влево
+    void Left();
+    // сдвинуть курсор вправо 
+    void Right();
+    // вставить символ token
+    void Insert(char token);
+    // вырезать не более tokens символов, начиная с текущей позиции курсора
+    void Cut(size_t tokens = 1);
+    // cкопировать не более tokens символов, начиная с текущей позиции курсора
+    void Copy(size_t tokens = 1);
+    // вставить содержимое буфера в текущую позицию курсора
+    void Paste();
+    // получить текущее содержимое текстового редактора
+    string GetText() const;
+};
+</code></pre>
+
+<p>Каждой описанной команде сопоставлен метод класса <code>Editor</code>. Также введён метод <code>GetText()</code>, позволяющий получить текущее содержимое редактора в виде строки. В комментариях к методам <code>Cut(size_t tokens)</code> и <code>Copy(size_t tokens)</code> указано, что в буфер обмена попадает фрагмент длиной не более <code>tokens</code> символов. Это значит, что если справа от курсора располагается менее чем <code>tokens</code> символов, методы <code>Cut()</code> и <code>Copy()</code> должны вырезать или скопировать все символы справа.</p>
+
+<h3>Ограничения</h3>
+
+<p>Реализация класса <code>Editor</code> должна обрабатывать 10^6 запросов не более чем за одну секунду. При этом гарантируется, что:</p>
+
+<ul>
+<li>Длина текста никогда не превышает 10^6 символов;</li>
+<li>Методы <code>Copy()</code> и <code>Cut()</code> суммарно копируют/вырезают не более 10^6 символов;</li>
+<li>Метод <code>GetText()</code> вызывается один раз в каждом из тестов.</li>
+</ul>
+
+<h3>Пример использования</h3>
+
+<pre><code class="language-cpp">int main() {
+    Editor editor;
+    const string text = &quot;hello, world&quot;s;
+    for (char c : text) {
+        editor.Insert(c);
+    }
+    // Текущее состояние редактора: `hello, world|`
+    for (size_t i = 0; i &lt; text.size(); ++i) {
+        editor.Left();
+    }
+    // Текущее состояние редактора: `|hello, world`
+    editor.Cut(7);
+    // Текущее состояние редактора: `|world`
+    // в буфере обмена находится текст `hello, `
+    for (size_t i = 0; i &lt; 5; ++i) {
+        editor.Right();
+    }
+    // Текущее состояние редактора: `world|`
+    editor.Insert(',');
+    editor.Insert(' ');
+    // Текущее состояние редактора: `world, |`
+    editor.Paste();
+    // Текущее состояние редактора: `world, hello, |`
+    editor.Left();
+    editor.Left();
+    //Текущее состояние редактора: `world, hello|, `
+    editor.Cut(3);  // Будут вырезаны 2 символа
+    // Текущее состояние редактора: `world, hello|`
+    cout &lt;&lt; editor.GetText();
+    return 0;
+}
+</code></pre>
+
+<h3>Пример вывода</h3>
+
+<pre><code>world, hello
+</code></pre>
+
+<h3>Подсказка</h3>
+
+<p>Вам понадобятся два списка: один для хранения текста, а другой — для буфера вставки. Итератор — удобное решение для хранения текущей позиции курсора.</p>
+
+</body>
+</html>

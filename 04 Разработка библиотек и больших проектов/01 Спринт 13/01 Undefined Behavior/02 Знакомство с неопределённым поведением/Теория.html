@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Знакомство с неопределённым поведением</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Знакомство с неопределённым поведением</h1>
+
+<p>Из предыдущих уроков вы знаете, что некоторые операции в C++ приводят к неопределённому поведению, или undefined behavior. Причём это вызвано не ошибками компилятора или стандартной библиотеки. Такое поведение описано в стандарте языка. При этом с программой может происходить что угодно: от корректной работы до аварийного завершения или зависания.</p>
+
+<p>Возникает вопрос, зачем в языке программирования такая странная конструкция, усложняющая жизнь разработчикам. Ответ прост: производительность. Неопределённое поведение позволяет улучшить производительность программы, причём двумя способами.</p>
+
+<p>Во-первых, неопределённое поведение разрешает убирать из программы некоторые накладные расходы. Во-вторых, разрешает выполнять оптимизации кода, которые в противном случае были бы невозможны.</p>
+
+<p>В этом уроке вы узнаете, как неопределённое поведение позволяет избегать накладных расходов.</p>
+
+<p>В качестве примера рассмотрим два способа доступа к элементу контейнера <code>std::vector</code> по его индексу:</p>
+
+<ul>
+<li>оператор <code>[]</code>,</li>
+<li>метод <code>at</code>.</li>
+</ul>
+
+<p>Метод <code>at</code> проверяет, не выходит ли индекс элемента за границы массива, и выбрасывает исключение <code>out_of_range</code> при попытке обратиться к несуществующему элементу:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {
+    vector v{1, 2, 3, 4};
+    try {
+        cout &lt;&lt; v.at(10) &lt;&lt; endl;
+    } catch (const exception&amp; e) {
+        cout &lt;&lt; &quot;Exception: &quot;sv &lt;&lt; e.what() &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Запустим программу и увидим сообщение о пойманном исключении:</p>
+
+<pre><code>Exception: vector::_M_range_check: __n (which is 10) &gt;= this-&gt;size() (which is 4)
+</code></pre>
+
+<p>Текст сообщения может быть другим в вашей версии компилятора. Но при обращении за границы контейнера точно выбросится исключение.</p>
+
+<hr>
+
+<p>Какое поведение допустимо при работе этой программы? Выберите несколько вариантов ответа.</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {
+    vector v{1, 2, 3, 4};
+    cout &lt;&lt; v[0] &lt;&lt; endl;
+    cout &lt;&lt; v[10] &lt;&lt; endl;
+    cout &lt;&lt; v[100] &lt;&lt; endl;
+    cout &lt;&lt; v[1000] &lt;&lt; endl;
+    cout &lt;&lt; v[10000] &lt;&lt; endl;
+    cout &lt;&lt; v[100000] &lt;&lt; endl;
+}
+</code></pre>
+
+<ul>
+<li>Программа выведет</li>
+</ul>
+
+<pre><code>1
+</code></pre>
+
+<ul>
+<li>Программа выведет</li>
+</ul>
+
+<pre><code>1
+-93263863
+0
+0
+0
+0
+</code></pre>
+
+<ul>
+<li><p>Программа упадёт</p></li>
+
+<li><p>Программа выведет</p></li>
+</ul>
+
+<pre><code>1
+Hello, world!
+</code></pre>
+
+<p>В отличие от метода <code>at()</code>, оператор <code>[]</code> контейнера <code>vector</code> не проверяет выход индекса за границы массива, а напрямую обращается к ячейке памяти по адресу <code>start+index</code>, где <code>start</code> — адрес массива в динамической памяти, а <code>index</code> — индекс элемента.</p>
+
+<p>Если индекс находится внутри массива, всё в порядке:</p>
+
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzkzIiBoZWlnaHQ9IjI0NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgb3ZlcmZsb3c9ImhpZGRlbiI+PGRlZnM+PGNsaXBQYXRoIGlkPSJjbGlwMCI+PHJlY3QgeD0iMTMyIiB5PSIxMiIgd2lkdGg9IjM5MyIgaGVpZ2h0PSIyNDUiLz48L2NsaXBQYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY2xpcDApIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTMyIC0xMikiPjxyZWN0IHg9IjE4OSIgeT0iMTEwIiB3aWR0aD0iMzciIGhlaWdodD0iMzUiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0Q2RENFNSIvPjxyZWN0IHg9IjIyNiIgeT0iMTEwIiB3aWR0aD0iMzciIGhlaWdodD0iMzUiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0Q2RENFNSIvPjxyZWN0IHg9IjI2MyIgeT0iMTEwIiB3aWR0aD0iMzciIGhlaWdodD0iMzUiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0Q2RENFNSIvPjxyZWN0IHg9IjMwMCIgeT0iMTEwIiB3aWR0aD0iMzgiIGhlaWdodD0iMzUiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0Q2RENFNSIvPjxyZWN0IHg9IjMzOCIgeT0iMTEwIiB3aWR0aD0iMzciIGhlaWdodD0iMzUiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0ZGRkYwMCIvPjxyZWN0IHg9IjM3NSIgeT0iMTEwIiB3aWR0aD0iMzciIGhlaWdodD0iMzUiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0Q2RENFNSIvPjxyZWN0IHg9IjQxMiIgeT0iMTEwIiB3aWR0aD0iMzciIGhlaWdodD0iMzUiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0Q2RENFNSIvPjxyZWN0IHg9IjQ0OSIgeT0iMTEwIiB3aWR0aD0iMzciIGhlaWdodD0iMzUiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0Q2RENFNSIvPjxyZWN0IHg9IjQ4NiIgeT0iMTEwIiB3aWR0aD0iMzciIGhlaWdodD0iMzUiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0Q2RENFNSIvPjx0ZXh0IGZvbnQtZmFtaWx5PSJDYWxpYnJpLENhbGlicmlfTVNGb250U2VydmljZSxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iNDAwIiBmb250LXNpemU9IjI0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNjUuMTM0IDQyKSI+c3RhcnQ8L3RleHQ+PHBhdGggZD0iTTE1OC42OTQgMzcuOTk3OCAxNTIuMzgxIDQzLjYyMjggMTUyLjQxNCA0My41OTE0IDE0Ni42MDEgNDkuNTI4OSAxNDYuNjY0IDQ5LjQ1NDQgMTQxLjg1MiA1Ni4wNzk0IDE0MS45IDU2LjAwMTggMTM5Ljk2MyA1OS42MjY4IDE0MC4wMDEgNTkuNTQxMiAxMzguNTY0IDYzLjQ3ODcgMTM4LjU4MiA2My40MjI0IDEzNy4zOTQgNjcuODU5OSAxMzcuNDAzIDY3LjgxOTkgMTM2LjQwMyA3Mi43NTc0IDEzNi40MSA3Mi43MTcyIDEzNS42NiA3OC4wOTIyIDEzNS42NjUgNzguMDUyOSAxMzUuMjI3IDgzLjU1MjkgMTM1LjIyOSA4My40OTIzIDEzNS4yOTIgODguODY3MyAxMzUuMjg2IDg4Ljc4NzUgMTM1Ljk3MyA5My45NzUgMTM1Ljk1MiA5My44NzQ5IDEzNy4zMjcgOTguNTYyNCAxMzcuMjY5IDk4LjQyMzIgMTM5LjUxOSAxMDIuNDIzIDEzOS40MjIgMTAyLjI5MyAxNDIuNTQ3IDEwNS42MDUgMTQyLjQ2MSAxMDUuNTI4IDE0Ni4zOTkgMTA4LjQ2NiAxNDYuMzE3IDEwOC40MTQgMTUwLjk0MiAxMTAuOTE0IDE1MC44ODEgMTEwLjg4NSAxNTYuMTMxIDExMy4wNzIgMTU2LjA4OCAxMTMuMDU2IDE2MS44MzggMTE0Ljk5MyAxNjEuODA4IDExNC45ODQgMTY3LjkzMyAxMTYuNzM0IDE2Ny45MDkgMTE2LjcyOCAxNzkuMzc3IDExOS41MzggMTc5LjA1OSAxMjAuODMzIDE2Ny41NzkgMTE4LjAyIDE2MS40MjcgMTE2LjI2MiAxNTUuNjQgMTE0LjMxMiAxNTAuMzM4IDExMi4xMDMgMTQ1LjY0IDEwOS41NjMgMTQxLjYxNyAxMDYuNTYyIDEzOC4zOTcgMTAzLjE0OCAxMzYuMDY5IDk5LjAxMDYgMTM0LjY1OCA5NC4yMDEgMTMzLjk1OSA4OC45MjI5IDEzMy44OTYgODMuNDc3NCAxMzQuMzM3IDc3LjkyNzUgMTM1LjA5MyA3Mi41MTI3IDEzNi4xMDEgNjcuNTM1MSAxMzcuMzAxIDYzLjA0OTIgMTM4Ljc2NSA1OS4wMzk4IDE0MC43NDYgNTUuMzMyOCAxNDUuNjE0IDQ4LjYzMTIgMTUxLjQ3NyA0Mi42NDI0IDE1Ny44MDcgMzcuMDAyM1pNMTczLjAyMiAxMTMuMjcgMTgwLjUwMyAxMjAuNTAxIDE3MC41MjYgMTIzLjQ1M0MxNzAuMTczIDEyMy41NTggMTY5LjgwMiAxMjMuMzU2IDE2OS42OTggMTIzLjAwMyAxNjkuNTkzIDEyMi42NSAxNjkuNzk1IDEyMi4yNzkgMTcwLjE0OCAxMjIuMTc1TDE3OS4wMjkgMTE5LjU0NyAxNzguNzU1IDEyMC42NjUgMTcyLjA5NiAxMTQuMjI4QzE3MS44MzEgMTEzLjk3MiAxNzEuODI0IDExMy41NSAxNzIuMDggMTEzLjI4NiAxNzIuMzM1IDExMy4wMjEgMTcyLjc1NyAxMTMuMDE0IDE3My4wMjIgMTEzLjI3WiIgZmlsbD0iIzJGNTI4RiIvPjx0ZXh0IGZvbnQtZmFtaWx5PSJDb25zb2xhcyxDb25zb2xhc19NU0ZvbnRTZXJ2aWNlLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc2l6ZT0iMjQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI4Mi45MDYgMjM1KSI+czx0c3BhbiBmb250LXNpemU9IjI0IiB4PSIxMy4xNjY3IiB5PSIwIj50YXJ0KzQ8L3RzcGFuPjwvdGV4dD48cGF0aCBkPSJNMzIwLjk4NyAyMDMuODM2IDMxNi43ODYgMTk2LjYyNiAzMTUuMDE2IDE5Mi45NiAzMTMuNDk1IDE4OS4yODMgMzEyLjQwOCAxODUuNTEyIDMxMS44OTQgMTgxLjY1MyAzMTIuMDg3IDE3Ny43MjEgMzEyLjk4OSAxNzMuNzkxIDMxNC43MjEgMTY5LjgxNCAzMTcuMjY2IDE2NS43NDIgMzIwLjQyNyAxNjEuNjk1IDMyNC4xNDEgMTU3LjYwNCAzMjguMjIzIDE1My40NTkgMzMyLjY3NyAxNDkuMzE5IDM0MS4wNyAxNDEuODc3IDM0MS45NTUgMTQyLjg3NSAzMzMuNTY3IDE1MC4zMTEgMzMzLjU3OSAxNTAuMzAxIDMyOS4xNDEgMTU0LjQyNiAzMjkuMTYzIDE1NC40MDUgMzI1LjEgMTU4LjUzIDMyNS4xMTkgMTU4LjUxMSAzMjEuNDMxIDE2Mi41NzMgMzIxLjQ2MyAxNjIuNTM1IDMxOC4zMzggMTY2LjUzNSAzMTguMzc4IDE2Ni40NzggMzE1Ljg3OCAxNzAuNDc4IDMxNS45MjQgMTcwLjM5MSAzMTQuMjM2IDE3NC4yNjYgMzE0LjI3NSAxNzQuMTQ5IDMxMy40IDE3Ny45NjIgMzEzLjQxNiAxNzcuODQ1IDMxMy4yMjggMTgxLjY1OCAzMTMuMjIzIDE4MS41MzcgMzEzLjcyMyAxODUuMjg3IDMxMy43MDMgMTg1LjE5IDMxNC43NjYgMTg4Ljg3OCAzMTQuNzQxIDE4OC44MDggMzE2LjI0MSAxOTIuNDMzIDMxNi4yMjUgMTkyLjM5OCAzMTcuOTc1IDE5Ni4wMjMgMzE3Ljk1MSAxOTUuOTc3IDMyMi4xMzkgMjAzLjE2NFpNMzMyLjMgMTQzLjUzOCAzNDIuNTAyIDE0MS40OTggMzM5LjI1NiAxNTEuMzgzQzMzOS4xNDEgMTUxLjczMyAzMzguNzY0IDE1MS45MjMgMzM4LjQxNSAxNTEuODA4IDMzOC4wNjUgMTUxLjY5NCAzMzcuODc0IDE1MS4zMTcgMzM3Ljk4OSAxNTAuOTY3TDM0MC44NzkgMTQyLjE2OCAzNDEuNjQzIDE0My4wMyAzMzIuNTYxIDE0NC44NDVDMzMyLjIgMTQ0LjkxNyAzMzEuODQ5IDE0NC42ODMgMzMxLjc3NyAxNDQuMzIyIDMzMS43MDUgMTQzLjk2MSAzMzEuOTM5IDE0My42MSAzMzIuMyAxNDMuNTM4WiIgZmlsbD0iIzJGNTI4RiIvPjwvZz48L3N2Zz4=" alt="image" /></p>
+
+<p>Но если индекс выходит за пределы массива, то в памяти по адресу <code>start+index</code> может быть всё что угодно. Например, по этому адресу может располагаться область памяти, недоступная нашей программе.</p>
+
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTQ1IiBoZWlnaHQ9IjI0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgb3ZlcmZsb3c9ImhpZGRlbiI+PGRlZnM+PGNsaXBQYXRoIGlkPSJjbGlwMCI+PHJlY3QgeD0iNjQxIiB5PSIzOTQiIHdpZHRoPSI1NDUiIGhlaWdodD0iMjQwIi8+PC9jbGlwUGF0aD48L2RlZnM+PGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwKSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTY0MSAtMzk0KSI+PHJlY3QgeD0iNjk4IiB5PSI0OTMiIHdpZHRoPSIzNyIgaGVpZ2h0PSIzNCIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRDZEQ0U1Ii8+PHJlY3QgeD0iNzM1IiB5PSI0OTMiIHdpZHRoPSIzNyIgaGVpZ2h0PSIzNCIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRDZEQ0U1Ii8+PHJlY3QgeD0iNzcyIiB5PSI0OTMiIHdpZHRoPSIzNyIgaGVpZ2h0PSIzNCIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRDZEQ0U1Ii8+PHJlY3QgeD0iODA5IiB5PSI0OTMiIHdpZHRoPSIzNyIgaGVpZ2h0PSIzNCIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRDZEQ0U1Ii8+PHJlY3QgeD0iODQ2IiB5PSI0OTMiIHdpZHRoPSIzNyIgaGVpZ2h0PSIzNCIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRDZEQ0U1Ii8+PHJlY3QgeD0iODgzIiB5PSI0OTMiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNCIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRDZEQ0U1Ii8+PHJlY3QgeD0iOTIxIiB5PSI0OTMiIHdpZHRoPSIzNyIgaGVpZ2h0PSIzNCIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRDZEQ0U1Ii8+PHJlY3QgeD0iOTU4IiB5PSI0OTMiIHdpZHRoPSIzNyIgaGVpZ2h0PSIzNCIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRDZEQ0U1Ii8+PHJlY3QgeD0iOTk1IiB5PSI0OTMiIHdpZHRoPSIzNyIgaGVpZ2h0PSIzNCIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRDZEQ0U1Ii8+PHRleHQgZm9udC1mYW1pbHk9IkNhbGlicmksQ2FsaWJyaV9NU0ZvbnRTZXJ2aWNlLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc2l6ZT0iMjQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDY3My44NTUgNDI0KSI+c3RhcnQ8L3RleHQ+PHBhdGggZD0iTTY2Ny4yNDYgNDIxLjAwNyA2NjAuNzQ2IDQyNi41NjkgNjYwLjc4MSA0MjYuNTM2IDY1NC44NDQgNDMyLjQxMSA2NTQuODkgNDMyLjM2MSA2NTIuMjY1IDQzNS41NDkgNjUyLjI5NyA0MzUuNTA3IDY0OS45ODQgNDM4LjgxOSA2NTAuMDI2IDQzOC43NTIgNjQ4LjA4OCA0NDIuMzc3IDY0OC4xMjIgNDQyLjMwMyA2NDYuNjIyIDQ0Ni4xNzggNjQ2LjY0MyA0NDYuMTEyIDY0NS40NTYgNDUwLjQ4NyA2NDUuNDY0IDQ1MC40NTUgNjQ0LjQwMSA0NTUuMzMgNjQ0LjQxIDQ1NS4yODEgNjQzLjY2IDQ2MC41OTMgNjQzLjY2NSA0NjAuNTU0IDY0My4yMjcgNDY1Ljk5MSA2NDMuMjI5IDQ2NS45MyA2NDMuMjkyIDQ3MS4yNDIgNjQzLjI4NiA0NzEuMTYxIDY0My45NzMgNDc2LjI4NiA2NDMuOTQ5IDQ3Ni4xNzcgNjQ1LjM4NyA0ODAuODAyIDY0NS4zMjkgNDgwLjY2OSA2NDcuNTc5IDQ4NC42MDcgNjQ3LjQ4IDQ4NC40NzUgNjUwLjY2OCA0ODcuNzg4IDY1MC41NjcgNDg3LjcwMiA2NTQuNjMgNDkwLjUxNCA2NTQuNTYxIDQ5MC40NzMgNjU5LjMxMSA0OTIuOTczIDY1OS4yNTEgNDkyLjk0NSA2NjQuNjI2IDQ5NS4xMzMgNjY0LjU3OCA0OTUuMTE1IDY3MC40NTMgNDk2Ljk5IDY3MC40MzIgNDk2Ljk4NCA2NzYuNjE5IDQ5OC43MzQgNjc2LjU5MyA0OTguNzI3IDY4OC4zNzEgNTAxLjU0NSA2ODguMDYxIDUwMi44NDEgNjc2LjI2OSA1MDAuMDIgNjcwLjA1OCA0OTguMjY0IDY2NC4xNDggNDk2LjM3NyA2NTguNzE5IDQ5NC4xNjggNjUzLjkwNCA0OTEuNjM0IDY0OS43NTMgNDg4Ljc2IDY0Ni40NjIgNDg1LjM0IDY0NC4xMzUgNDgxLjI2OCA2NDIuNjU5IDQ3Ni41MTkgNjQxLjk1OSA0NzEuMjk4IDY0MS44OTYgNDY1LjkxNSA2NDIuMzM3IDQ2MC40MjcgNjQzLjA5MyA0NTUuMDcgNjQ0LjE2NSA0NTAuMTU0IDY0NS4zNjYgNDQ1LjcyOSA2NDYuODkzIDQ0MS43ODQgNjQ4Ljg2OCA0MzguMDg4IDY1MS4yMTkgNDM0LjcyMiA2NTMuODgyIDQzMS40ODggNjU5Ljg2MSA0MjUuNTcyIDY2Ni4zNzkgNDE5Ljk5NFpNNjgxLjk4MiA0OTUuMzExIDY4OS41MDMgNTAyLjUwMSA2NzkuNTQzIDUwNS41MDhDNjc5LjE5IDUwNS42MTUgNjc4LjgxOCA1MDUuNDE1IDY3OC43MTIgNTA1LjA2MyA2NzguNjA1IDUwNC43MSA2NzguODA1IDUwNC4zMzggNjc5LjE1NyA1MDQuMjMyTDY4OC4wMjQgNTAxLjU1NSA2ODcuNzU2IDUwMi42NzUgNjgxLjA2MSA0OTYuMjc1QzY4MC43OTUgNDk2LjAyIDY4MC43ODUgNDk1LjU5OCA2ODEuMDQgNDk1LjMzMiA2ODEuMjk0IDQ5NS4wNjYgNjgxLjcxNiA0OTUuMDU3IDY4MS45ODIgNDk1LjMxMVoiIGZpbGw9IiMyRjUyOEYiLz48cmVjdCB4PSIxMDMyIiB5PSI0OTMiIHdpZHRoPSIzNyIgaGVpZ2h0PSIzNCIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBzdHJva2UtZGFzaGFycmF5PSIyIDIiIGZpbGw9Im5vbmUiLz48cmVjdCB4PSIxMDY5IiB5PSI0OTMiIHdpZHRoPSIzNyIgaGVpZ2h0PSIzNCIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBzdHJva2UtZGFzaGFycmF5PSIyIDIiIGZpbGw9Im5vbmUiLz48cmVjdCB4PSIxMTA2IiB5PSI0OTMiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNCIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBzdHJva2UtZGFzaGFycmF5PSIyIDIiIGZpbGw9Im5vbmUiLz48cmVjdCB4PSIxMTQ0IiB5PSI0OTMiIHdpZHRoPSIzNyIgaGVpZ2h0PSIzNCIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRkZGRjAwIi8+PHRleHQgZm9udC1mYW1pbHk9IkNvbnNvbGFzLENvbnNvbGFzX01TRm9udFNlcnZpY2Usc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zaXplPSIyNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTA2NS42OCA2MTMpIj5zPHRzcGFuIGZvbnQtc2l6ZT0iMjQiIHg9IjEzLjE2NjYiIHk9IjAiPnRhcnQrMTI8L3RzcGFuPjwvdGV4dD48cGF0aCBkPSJNMTEzNS42NyA1ODAuODI5IDExMzEuNjYgNTczLjc0OSAxMTI5Ljg5IDU3MC4xNDUgMTEyOC40MyA1NjYuNDYyIDExMjcuNDEgNTYyLjc2IDExMjYuODkgNTU5LjAzNSAxMTI3LjAyIDU1NS4xNjIgMTEyNy45MyA1NTEuMjg5IDExMjkuNjYgNTQ3LjMxNiAxMTMyLjA3IDU0My4zNzMgMTEzNS4xMSA1MzkuMzg4IDExMzguNyA1MzUuMzU3IDExNDIuNzIgNTMxLjI3NSAxMTQ2Ljk4IDUyNy4xOTkgMTE1NS4wNyA1MTkuODkgMTE1NS45NyA1MjAuODggMTE0Ny44OCA1MjguMTgyIDExNDcuOSA1MjguMTY5IDExNDMuNjUgNTMyLjIzMiAxMTQzLjY2IDUzMi4yMTggMTEzOS42NiA1MzYuMjggMTEzOS42OSA1MzYuMjU2IDExMzYuMTIgNTQwLjI1NiAxMTM2LjE2IDU0MC4yMTcgMTEzMy4xNiA1NDQuMTU0IDExMzMuMTkgNTQ0LjA5OCAxMTMwLjgyIDU0Ny45NzMgMTEzMC44NiA1NDcuODkxIDExMjkuMTcgNTUxLjc2NiAxMTI5LjIxIDU1MS42NTIgMTEyOC4zNCA1NTUuNDAyIDExMjguMzUgNTU1LjI3MiAxMTI4LjIzIDU1OS4wMjIgMTEyOC4yMiA1NTguOTA5IDExMjguNzIgNTYyLjUzNCAxMTI4LjcxIDU2Mi40NDggMTEyOS43MSA1NjYuMDczIDExMjkuNjggNTY2LjAwNCAxMTMxLjEyIDU2OS42MjkgMTEzMS4xIDU2OS41ODEgMTEzMi44NSA1NzMuMTQ0IDExMzIuODMgNTczLjEwOSAxMTM2LjgzIDU4MC4xNzJaTTExNDYuMzIgNTIxLjYzMyAxMTU2LjUgNTE5LjQ5OCAxMTUzLjM1IDUyOS40MTNDMTE1My4yNCA1MjkuNzY0IDExNTIuODYgNTI5Ljk1OCAxMTUyLjUxIDUyOS44NDYgMTE1Mi4xNiA1MjkuNzM0IDExNTEuOTcgNTI5LjM1OSAxMTUyLjA4IDUyOS4wMDlMMTE1NC44OSA1MjAuMTgzIDExNTUuNjYgNTIxLjAzNyAxMTQ2LjU5IDUyMi45MzhDMTE0Ni4yMyA1MjMuMDEzIDExNDUuODggNTIyLjc4MiAxMTQ1LjggNTIyLjQyMiAxMTQ1LjczIDUyMi4wNjIgMTE0NS45NiA1MjEuNzA4IDExNDYuMzIgNTIxLjYzM1oiIGZpbGw9IiMyRjUyOEYiLz48L2c+PC9zdmc+" alt="image" /></p>
+
+<p>Когда выполняется не чтение, а запись за пределы массива, программа может испортить содержимое другого объекта, которому посчастливилось оказаться в той области памяти. Стандарт C++ в подобных случаях вводит понятие <strong>неопределённого поведения</strong>. Если программа нарушает правила языка, на её поведение не накладывается никаких ограничений.</p>
+
+<p>В описании <code>vector::operator[]</code> говорится о неопределённом поведении при выходе индекса за пределы массива. Это позволило авторам стандартной библиотеки избавиться от накладных расходов на проверки и реализовать максимально быстрый доступ к элементу динамического массива.</p>
+
+<p>Чтобы убедиться в этом, используйте онлайн-сервис <a href="https://godbolt.org">Compiler Explorer</a>. Там вы увидите, какой ассемблерный код сгенерируется из заданного кода на C++.</p>
+
+<p>Рассмотрим две функции, которые принимают по ссылке <code>vector</code> и возвращают некоторый элемент этого массива. Только одна использует оператор <code>[]</code>, а другая — метод <code>at</code>:</p>
+
+<pre><code class="language-cpp">#include &lt;vector&gt;
+
+int TestVectorIndexingOperator(std::vector&lt;int&gt;&amp; v) {
+    return v[3];
+}
+
+int TestVectorAt(std::vector&lt;int&gt;&amp; v) {
+    return v.at(3);
+}
+</code></pre>
+
+<p>Сгенерированный код для ассемблера x86-64 функции, которая использует оператор <code>[]</code>:</p>
+
+<pre><code>TestVectorIndexingOperator(std::vector&lt;int, std::allocator&lt;int&gt; &gt;&amp;):
+        // В регистре %rdi — первый аргумент функции — адрес, по которому располагается vector&lt;int&gt;
+        movq    (%rdi), %rax    // Загружаем в регистр rax адрес массива элементов контейнера vector
+        movl    12(%rax), %eax  // Загружаем в регистр eax значение элемента с индексом 3 (12/sizeof(int))
+        ret                     // Выходим из функции. В регистре eax значение элемента массива
+</code></pre>
+
+<p>Код второй функции:</p>
+
+<pre><code>.LC0:
+        .string &quot;vector::_M_range_check: __n (which is %zu) &gt;= this-&gt;size() (which is %zu)&quot;
+TestVectorAt(std::vector&lt;int, std::allocator&lt;int&gt; &gt;&amp;):
+        // В регистре rdi — первый аргумент функции — адрес, по которому располагается vector&lt;int&gt;
+        // Загружаем в регистр rdx адрес первого элемента массива
+        movq    (%rdi), %rdx
+        // Загружаем в регистр rax адрес конца массива (указатель end)
+        movq    8(%rdi), %rax
+        // Проверяем, что массив содержит более трёх элементов
+        subq    %rdx, %rax
+        cmpq    $12, %rax
+        jbe     .L8            // Если нет, переходим на метку .L8 
+        movl    12(%rdx), %eax // Загружаем в регистр eax значение элемента с индексом 3
+        ret                    // Выходим из функции. Результат возвращается в регистре eax
+.L8:
+        // Выбрасываем исключение out_of_range
+        pushq   %rdx
+        sarq    $2, %rax
+        movl    $3, %esi
+        movl    $.LC0, %edi
+        movq    %rax, %rdx
+        xorl    %eax, %eax
+        call    std::__throw_out_of_range_fmt(char const*, ...)
+</code></pre>
+
+<p>Даже если вы не знакомы с языком ассемблера, увидите, что второй вариант функции занимает значительно больше кода и, скорее всего, будет медленнее.</p>
+
+<p>Индекс массива вышел за границы контейнера, и случилось неопределённое поведение оператора <code>[]</code>. Это позволило избавиться от накладных расходов на проверку индекса и максимально быстро обращаться к элементам массива.</p>
+
+<p>Вы можете поэкспериментировать с генерируемым кодом на сайте Compiler Explorer: <a href="https://godbolt.org/z/r541Kx">https://godbolt.org/z/r541Kx</a>.</p>
+
+<p>За скорость доступа надо платить. Задача программиста — гарантировать, что при работе с оператором <code>[]</code> будут использованы только допустимые значения индексов.</p>
+
+<p>Посмотрим на другие примеры, когда неопределённое поведение избавляет программу от накладных расходов.</p>
+
+<ul>
+<li>Повторный вызов оператора <code>delete</code> с одним и тем же значением указателя. Без неопределённого поведения понадобилось бы проверить валидность удаляемого указателя. А это дорого:</li>
+</ul>
+
+<pre><code class="language-cpp">int main() {
+    int *p = new int(42);
+    delete p;
+    delete p; // Неопределённое поведение: повторное удаление ранее удалённого объекта
+}
+</code></pre>
+
+<ul>
+<li>Вызов непарной версии оператора <code>delete</code>: удаление массива как одиночного объекта и наоборот. Неопределённое поведение позволяет уменьшить объём служебной информации, которая нужна для хранения объектов и массивов в куче:</li>
+</ul>
+
+<pre><code class="language-cpp">int main() {
+    int *p = new int(42);
+    delete[] p; // Неопределённое поведение: одиночный объект удаляется как массив
+}
+</code></pre>
+
+<ul>
+<li>Одновременное чтение и запись одного и того же объекта в многопоточной программе без использования примитивов синхронизации — знакомое вам состояние гонки — тоже приводит к неопределённому поведению. Оно избавляет компилятор от дорогостоящих операций синхронизации при чтении и записи переменных, с которыми может работать другой поток.</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;future&gt;
+#include &lt;iostream&gt;
+#include &lt;string_view&gt;
+
+using namespace std;
+
+int main() {
+    int i = 0;
+    auto f = async([&amp;i] {
+        // Неопределённое поведение: чтение и запись переменной
+        // производится в разных потоках без синхронизации
+        ++i;
+    });
+
+    // Неопределённое поведение: чтение и запись переменной
+    // производится в разных потоках без синхронизации
+    ++i; 
+    f.get();
+    cout &lt;&lt; &quot;i: &quot;sv &lt;&lt; i &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Вместо этого программист сам должен синхронизировать доступ в нужных местах. Например, используя <code>mutex</code>:</p>
+
+<pre><code class="language-cpp">#include &lt;future&gt;
+#include &lt;iostream&gt;
+#include &lt;mutex&gt;
+#include &lt;string_view&gt;
+
+using namespace std;
+
+int main() {
+    int i = 0;
+    mutex m;
+    auto f = async([&amp;i, &amp;m] {
+        lock_guard lk{m};
+        ++i;
+    });
+
+    {
+        lock_guard lk{m};
+        ++i; 
+    }
+    f.get();
+    cout &lt;&lt; &quot;i: &quot;sv &lt;&lt; i &lt;&lt; endl;
+}
+</code></pre>
+
+<p>В следующем уроке вы узнаете, как неопределённое поведение позволяет компилятору выполнять некоторые оптимизации.</p>
+
+</body>
+</html>

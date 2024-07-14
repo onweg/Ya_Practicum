@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Тестируем по плану</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1><p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p> Тестируем по плану</h1>
+
+<p>В прошлом уроке вы изучили принципы тестирования, помогающие отладить решение задач. Применим их на практике.</p>
+
+<p>Допустим, у вас есть задача: написать программу, которая считывает со стандартного входа три строки, разделённые пробелами и состоящие из строчных латинских букв. Программа должна вывести в стандартный вывод лексикографически минимальную из этих трёх строк. Например:</p>
+
+<ul>
+<li>для строк <code>milk</code>, <code>milkshake</code>, <code>month</code> должна быть выведена строка <code>milk</code>;</li>
+<li>для строк <code>c</code>, <code>a</code>, <code>b</code> должна быть выведена строка <code>a</code>;</li>
+<li>для строк <code>fire</code>, <code>fog</code>, <code>wood</code> должна быть выведена строка <code>fire</code>.</li>
+</ul>
+
+<p><p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p> Задачу можно решить так:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main() {
+    string a, b, c;
+
+    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+
+    if (a &lt; b &amp;&amp; a &lt; c) {  // Первая строка является минимальной?
+        cout &lt;&lt; a &lt;&lt; endl;
+    } else if (b &lt; a &amp;&amp; b &lt; c) {  // Вторая строка является минимальной?
+        cout &lt;&lt; b &lt;&lt; endl;
+    } else if (c &lt; a &amp;&amp; c &lt; b) {  // Третья строка является минимальной?
+        cout &lt;&lt; c &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Программа успешно компилируется. Проверим её работу на примерах, которые даны в условии:</p>
+
+<pre><code>milk milkshake month
+milk
+</code></pre>
+
+<pre><code>c a b
+a
+</code></pre>
+
+<pre><code>fire fog wood
+fire
+</code></pre>
+
+<p><p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p> Программа отработала правильно. Казалось бы, можно отправлять решение на проверку.</p>
+
+<p>Сделаем это и увидим, что программа не прошла один из тестов. Значит, в ней есть ошибки, которые не проявили себя на примерах из условия задачи. Чтобы исправить ошибки, составим план тестирования.</p>
+
+<p>По условию задачи, пользователь вводит три строки, а программа проверяет, находится ли минимальная строка на первой, второй или третьей позиции. Возможны следующие варианты:</p>
+
+<ul>
+<li><p>Все три строки разные. Среди них минимальная строка может быть на первом, втором или третьем месте. При этом относительное местоположение двух других строк значения не имеет. Например:</p>
+
+<p><code>alpha beta gamma</code></p>
+
+<p><code>beta alpha gamma</code></p>
+
+<p><code>gamma beta alpha</code></p></li>
+
+<li><p>Две из трёх строк одинаковые. Пусть одинаковые строки будут являться минимальными. В противном случае входные данные подпадали бы под предыдущий класс эквивалентности. Примеры входных данных:</p>
+
+<p><code>alpha beta alpha</code></p>
+
+<p><code>beta alpha alpha</code></p>
+
+<p><code>alpha alpha beta</code></p></li>
+
+<li><p>Все три строки одинаковые. Например:</p>
+
+<p><code>alpha alpha alpha</code></p></li>
+</ul>
+
+<p>Таким образом, для этой программы у нас семь классов эквивалентности — то есть семь наборов входных данных. План тестирования готов.</p>
+
+<p><p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p> Теперь проверим работу программы на каждом варианте входных данных. Когда все строки разные, она работает правильно:</p>
+
+<pre><code>alpha beta gamma
+alpha
+</code></pre>
+
+<pre><code>beta alpha gamma
+alpha
+</code></pre>
+
+<pre><code>gamma beta alpha
+alpha
+</code></pre>
+
+<p>Проверим вариант, где две одинаковые строки минимальны:</p>
+
+<pre><code>alpha beta alpha
+</code></pre>
+
+<p>Странно, программа не вывела ничего, хотя из трёх строк одна точно должна быть ответом. Взглянем на проверяемые условия:</p>
+
+<pre><code class="language-cpp">  if (a &lt; b &amp;&amp; a &lt; c) {  // Первая строка минимальная?
+      cout &lt;&lt; a &lt;&lt; endl;
+  } else if (b &lt; a &amp;&amp; b &lt; c) {  // Вторая строка минимальная?
+      cout &lt;&lt; b &lt;&lt; endl;
+  } else if (c &lt; a &amp;&amp; c &lt; b) {  // Третья строка минимальная?
+      cout &lt;&lt; c &lt;&lt; endl;
+  }
+</code></pre>
+
+<p>Первое, что бросается в глаза, — избыточность условия вывода третьей строки. Ведь если ни первая, ни вторая строка не будут ответами, значит, ответ — третья. Уберём последнюю проверку:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main() {
+    string a, b, c;
+
+    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+
+    if (a &lt; b &amp;&amp; a &lt; c) {  // Первая строка минимальная?
+        cout &lt;&lt; a &lt;&lt; endl;
+    } else if (b &lt; a &amp;&amp; b &lt; c) {  // Вторая строка минимальная?
+        cout &lt;&lt; b &lt;&lt; endl;
+    } else {  // Третья строка точно минимальная
+        cout &lt;&lt; c &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Проверим, как программа ведёт себя на входных данных, с которыми тест падал:</p>
+
+<pre><code>alpha beta alpha
+alpha
+</code></pre>
+
+<p>Отлично, она стала работать правильно там, где не работала. Но считать программу готовой нельзя, ведь мы проверили её не на всех запланированных тестах. Исправляя одну ошибку, мы могли внести новую или пропустить другие. Поэтому важно выполнить все тесты.</p>
+
+<p>Проверим работу программы на предыдущих тестах, чтобы убедиться: то, что работало, мы правками не сломали. Затем продолжим тестирование по плану.</p>
+
+<p>Тесты с тремя разными строками:</p>
+
+<pre><code>alpha beta gamma
+alpha
+</code></pre>
+
+<pre><code>beta alpha gamma
+alpha
+</code></pre>
+
+<pre><code>gamma beta alpha
+alpha
+</code></pre>
+
+<p>Тесты с двумя одинаковыми строками:</p>
+
+<pre><code>alpha beta alpha
+alpha
+</code></pre>
+
+<pre><code>beta alpha alpha
+alpha
+</code></pre>
+
+<pre><code>alpha alpha beta
+beta
+</code></pre>
+
+<p>И снова неожиданность. Программа вывела строку <code>beta</code>, хотя в лексикографическом порядке строка <code>alpha</code> идёт до <code>beta</code>. Проанализируем, как выполняется код на данных <code>alpha alpha beta</code>:</p>
+
+<pre><code class="language-cpp">  if (a &lt; b &amp;&amp; a &lt; c) {  // Первая строка минимальная?
+      cout &lt;&lt; a &lt;&lt; endl;
+  } else if (b &lt; a &amp;&amp; b &lt; c) {  // Вторая строка минимальная?
+      cout &lt;&lt; b &lt;&lt; endl;
+  } else {  // Третья строка точно минимальная
+      cout &lt;&lt; c &lt;&lt; endl;
+  }
+</code></pre>
+
+<p>На таком входном наборе в переменной <code>a</code> хранится значение “alpha”, в переменной <code>b</code> — “alpha”, а в переменной <code>c</code> — “beta”, и ожидается, что будет выведено значение переменной <code>a</code> либо переменной <code>b</code>. Но <code>a</code> и <code>b</code> содержат одно и то же значение. Поэтому из-за строгих сравнений <code>a &lt; b</code> и <code>b &lt; a</code> ни одно из первых двух условий не выполняется, а выполняется третья ветка, выводящая значение переменной <code>c</code>. Чтобы исправить ошибку, используем нестрогие сравнения — при равенстве строк неважно, какую из них выводить:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main() {
+    string a, b, c;
+
+    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+
+    if (a &lt;= b &amp;&amp; a &lt;= c) {  // Первая строка минимальная?
+        cout &lt;&lt; a &lt;&lt; endl;
+    } else if (b &lt;= a &amp;&amp; b &lt;= c) {  // Вторая строка минимальная?
+        cout &lt;&lt; b &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; c &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Повторим провалившийся тест и убедимся, что новая версия кода решает выявленную проблему:</p>
+
+<pre><code>alpha alpha beta
+alpha
+</code></pre>
+
+<p>Ура! Исправили уже две ошибки. Теперь посмотрим, как программа ведёт себя на последнем тесте с тремя одинаковыми строками:</p>
+
+<pre><code>alpha alpha alpha
+alpha
+</code></pre>
+
+<p>Исправляя последнюю ошибку, мы могли внести в программу дефект. Перепроверим её работу на всех тестах плана тестирования:</p>
+
+<pre><code>alpha beta gamma
+alpha
+</code></pre>
+
+<pre><code>beta alpha gamma
+alpha
+</code></pre>
+
+<pre><code>gamma beta alpha
+alpha
+</code></pre>
+
+<pre><code>alpha beta alpha
+alpha
+</code></pre>
+
+<pre><code>beta alpha alpha
+alpha
+</code></pre>
+
+<p><p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p> Всё в порядке. Теперь программу можно считать завершённой и смело отправлять её на проверку. Так происходит ручное тестирование.</p>
+
+<hr>
+
+<p><p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p> Вы проверили работу программы на строках <code>alpha beta gamma</code> и убедились, что она работает корректно. Будете ли вы тестировать её на других наборах входных данных из того же класса эквивалентности? Например, на <code>apple cat dog</code>?</p>
+
+<ul>
+<li><p>Да, это имеет смысл</p></li>
+
+<li><p>Нет, как правило, это бессмысленно</p></li>
+</ul>
+
+</body>
+</html>

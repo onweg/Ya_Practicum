@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание 3</h2>
+
+<p>Завершите работу, начатую в предыдущих задачах: добавьте сериализацию маршрутизатора. Поскольку его построение имеет кубическую сложность по времени, а итоговый размер квадратичен по памяти, программа <code>process_requests</code> должна работать с готовым маршрутизатором.</p>
+
+<p>Изменения по сравнению с предыдущей частью следующие:</p>
+
+<ol>
+<li>В <code>&quot;stat_requests&quot;</code> на входе программы <code>process_requests</code> добавляются запросы <code>Route</code> в том же формате, что и раньше.</li>
+<li>Начинает использоваться <code>&quot;routing_settings&quot;</code> из входа программы <code>make_base</code>.</li>
+<li>Ответ на запрос <code>Route</code> должен соответствовать прежнему формату (см. примеры).</li>
+<li>Сериализованный файл должен содержать транспортный граф и данные, необходимые для быстрого построения кратчайших путей в нём.</li>
+</ol>
+
+<h3>Пример 1</h3>
+
+<ul>
+<li><p>Ввод make_base</p>
+
+<pre><code class="language-json">{
+    &quot;serialization_settings&quot;: {
+        &quot;file&quot;: &quot;transport_catalogue.db&quot;
+    },
+    &quot;routing_settings&quot;: {
+        &quot;bus_wait_time&quot;: 2,
+        &quot;bus_velocity&quot;: 30
+    },
+    &quot;render_settings&quot;: {
+        &quot;width&quot;: 1200,
+        &quot;height&quot;: 500,
+        &quot;padding&quot;: 50,
+        &quot;stop_radius&quot;: 5,
+        &quot;line_width&quot;: 14,
+        &quot;bus_label_font_size&quot;: 20,
+        &quot;bus_label_offset&quot;: [
+            7,
+            15
+        ],
+        &quot;stop_label_font_size&quot;: 18,
+        &quot;stop_label_offset&quot;: [
+            7,
+            -3
+        ],
+        &quot;underlayer_color&quot;: [
+            255,
+            255,
+            255,
+            0.85
+        ],
+        &quot;underlayer_width&quot;: 3,
+        &quot;color_palette&quot;: [
+            &quot;green&quot;,
+            [
+                255,
+                160,
+                0
+            ],
+            &quot;red&quot;
+        ]
+    },
+    &quot;base_requests&quot;: [
+        {
+            &quot;type&quot;: &quot;Bus&quot;,
+            &quot;name&quot;: &quot;14&quot;,
+            &quot;stops&quot;: [
+                &quot;Улица Лизы Чайкиной&quot;,
+                &quot;Электросети&quot;,
+                &quot;Ривьерский мост&quot;,
+                &quot;Гостиница Сочи&quot;,
+                &quot;Кубанская улица&quot;,
+                &quot;По требованию&quot;,
+                &quot;Улица Докучаева&quot;,
+                &quot;Улица Лизы Чайкиной&quot;
+            ],
+            &quot;is_roundtrip&quot;: true
+        },
+        {
+            &quot;type&quot;: &quot;Bus&quot;,
+            &quot;name&quot;: &quot;24&quot;,
+            &quot;stops&quot;: [
+                &quot;Улица Докучаева&quot;,
+                &quot;Параллельная улица&quot;,
+                &quot;Электросети&quot;,
+                &quot;Санаторий Родина&quot;
+            ],
+            &quot;is_roundtrip&quot;: false
+        },
+        {
+            &quot;type&quot;: &quot;Bus&quot;,
+            &quot;name&quot;: &quot;114&quot;,
+            &quot;stops&quot;: [
+                &quot;Морской вокзал&quot;,
+                &quot;Ривьерский мост&quot;
+            ],
+            &quot;is_roundtrip&quot;: false
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Улица Лизы Чайкиной&quot;,
+            &quot;latitude&quot;: 43.590317,
+            &quot;longitude&quot;: 39.746833,
+            &quot;road_distances&quot;: {
+                &quot;Электросети&quot;: 4300,
+                &quot;Улица Докучаева&quot;: 2000
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Морской вокзал&quot;,
+            &quot;latitude&quot;: 43.581969,
+            &quot;longitude&quot;: 39.719848,
+            &quot;road_distances&quot;: {
+                &quot;Ривьерский мост&quot;: 850
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Электросети&quot;,
+            &quot;latitude&quot;: 43.598701,
+            &quot;longitude&quot;: 39.730623,
+            &quot;road_distances&quot;: {
+                &quot;Санаторий Родина&quot;: 4500,
+                &quot;Параллельная улица&quot;: 1200,
+                &quot;Ривьерский мост&quot;: 1900
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Ривьерский мост&quot;,
+            &quot;latitude&quot;: 43.587795,
+            &quot;longitude&quot;: 39.716901,
+            &quot;road_distances&quot;: {
+                &quot;Морской вокзал&quot;: 850,
+                &quot;Гостиница Сочи&quot;: 1740
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Гостиница Сочи&quot;,
+            &quot;latitude&quot;: 43.578079,
+            &quot;longitude&quot;: 39.728068,
+            &quot;road_distances&quot;: {
+                &quot;Кубанская улица&quot;: 320
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Кубанская улица&quot;,
+            &quot;latitude&quot;: 43.578509,
+            &quot;longitude&quot;: 39.730959,
+            &quot;road_distances&quot;: {
+                &quot;По требованию&quot;: 370
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;По требованию&quot;,
+            &quot;latitude&quot;: 43.579285,
+            &quot;longitude&quot;: 39.733742,
+            &quot;road_distances&quot;: {
+                &quot;Улица Докучаева&quot;: 600
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Улица Докучаева&quot;,
+            &quot;latitude&quot;: 43.585586,
+            &quot;longitude&quot;: 39.733879,
+            &quot;road_distances&quot;: {
+                &quot;Параллельная улица&quot;: 1100
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Параллельная улица&quot;,
+            &quot;latitude&quot;: 43.590041,
+            &quot;longitude&quot;: 39.732886,
+            &quot;road_distances&quot;: {}
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Санаторий Родина&quot;,
+            &quot;latitude&quot;: 43.601202,
+            &quot;longitude&quot;: 39.715498,
+            &quot;road_distances&quot;: {}
+        }
+    ]
+}
+</code></pre></li>
+
+<li><p>Ввод process_requests</p>
+
+<pre><code class="language-json">{
+    &quot;serialization_settings&quot;: {
+        &quot;file&quot;: &quot;transport_catalogue.db&quot;
+    },
+    &quot;stat_requests&quot;: [
+        {
+            &quot;id&quot;: 218563507,
+            &quot;type&quot;: &quot;Bus&quot;,
+            &quot;name&quot;: &quot;14&quot;
+        },
+        {
+            &quot;id&quot;: 508658276,
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Электросети&quot;
+        },
+        {
+            &quot;id&quot;: 1964680131,
+            &quot;type&quot;: &quot;Route&quot;,
+            &quot;from&quot;: &quot;Морской вокзал&quot;,
+            &quot;to&quot;: &quot;Параллельная улица&quot;
+        },
+        {
+            &quot;id&quot;: 1359372752,
+            &quot;type&quot;: &quot;Map&quot;
+        }
+    ]
+}
+</code></pre></li>
+
+<li><p>Вывод process_requests</p>
+
+<pre><code class="language-json">[
+    {
+        &quot;curvature&quot;: 1.60481,
+        &quot;request_id&quot;: 218563507,
+        &quot;route_length&quot;: 11230,
+        &quot;stop_count&quot;: 8,
+        &quot;unique_stop_count&quot;: 7
+    },
+    {
+        &quot;buses&quot;: [
+            &quot;14&quot;,
+            &quot;24&quot;
+        ],
+        &quot;request_id&quot;: 508658276
+    },
+    {
+        &quot;items&quot;: [
+            {
+                &quot;stop_name&quot;: &quot;Морской вокзал&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;114&quot;,
+                &quot;span_count&quot;: 1,
+                &quot;time&quot;: 1.7,
+                &quot;type&quot;: &quot;Bus&quot;
+            },
+            {
+                &quot;stop_name&quot;: &quot;Ривьерский мост&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;14&quot;,
+                &quot;span_count&quot;: 4,
+                &quot;time&quot;: 6.06,
+                &quot;type&quot;: &quot;Bus&quot;
+            },
+            {
+                &quot;stop_name&quot;: &quot;Улица Докучаева&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;24&quot;,
+                &quot;span_count&quot;: 1,
+                &quot;time&quot;: 2.2,
+                &quot;type&quot;: &quot;Bus&quot;
+            }
+        ],
+        &quot;request_id&quot;: 1964680131,
+        &quot;total_time&quot;: 15.96
+    },
+    {
+        &quot;map&quot;: &quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot; ?&gt;\n&lt;svg xmlns=\&quot;http://www.w3.org/2000/svg\&quot; version=\&quot;1.1\&quot;&gt;\n  &lt;polyline points=\&quot;125.25,382.708 74.2702,281.925 125.25,382.708\&quot; fill=\&quot;none\&quot; stroke=\&quot;green\&quot; stroke-width=\&quot;14\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot;/&gt;\n  &lt;polyline points=\&quot;592.058,238.297 311.644,93.2643 74.2702,281.925 267.446,450 317.457,442.562 365.599,429.138 367.969,320.138 592.058,238.297\&quot; fill=\&quot;none\&quot; stroke=\&quot;rgb(255,160,0)\&quot; stroke-width=\&quot;14\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot;/&gt;\n  &lt;polyline points=\&quot;367.969,320.138 350.791,243.072 311.644,93.2643 50,50 311.644,93.2643 350.791,243.072 367.969,320.138\&quot; fill=\&quot;none\&quot; stroke=\&quot;red\&quot; stroke-width=\&quot;14\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot;/&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;125.25\&quot; y=\&quot;382.708\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;114&lt;/text&gt;\n  &lt;text fill=\&quot;green\&quot; x=\&quot;125.25\&quot; y=\&quot;382.708\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;114&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;74.2702\&quot; y=\&quot;281.925\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;114&lt;/text&gt;\n  &lt;text fill=\&quot;green\&quot; x=\&quot;74.2702\&quot; y=\&quot;281.925\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;114&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;592.058\&quot; y=\&quot;238.297\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;14&lt;/text&gt;\n  &lt;text fill=\&quot;rgb(255,160,0)\&quot; x=\&quot;592.058\&quot; y=\&quot;238.297\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;14&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;367.969\&quot; y=\&quot;320.138\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;24&lt;/text&gt;\n  &lt;text fill=\&quot;red\&quot; x=\&quot;367.969\&quot; y=\&quot;320.138\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;24&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;50\&quot; y=\&quot;50\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;24&lt;/text&gt;\n  &lt;text fill=\&quot;red\&quot; x=\&quot;50\&quot; y=\&quot;50\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;24&lt;/text&gt;\n  &lt;circle cx=\&quot;267.446\&quot; cy=\&quot;450\&quot; r=\&quot;5\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;317.457\&quot; cy=\&quot;442.562\&quot; r=\&quot;5\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;125.25\&quot; cy=\&quot;382.708\&quot; r=\&quot;5\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;350.791\&quot; cy=\&quot;243.072\&quot; r=\&quot;5\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;365.599\&quot; cy=\&quot;429.138\&quot; r=\&quot;5\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;74.2702\&quot; cy=\&quot;281.925\&quot; r=\&quot;5\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;50\&quot; cy=\&quot;50\&quot; r=\&quot;5\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;367.969\&quot; cy=\&quot;320.138\&quot; r=\&quot;5\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;592.058\&quot; cy=\&quot;238.297\&quot; r=\&quot;5\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;311.644\&quot; cy=\&quot;93.2643\&quot; r=\&quot;5\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;267.446\&quot; y=\&quot;450\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Гостиница Сочи&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;267.446\&quot; y=\&quot;450\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Гостиница Сочи&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;317.457\&quot; y=\&quot;442.562\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Кубанская улица&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;317.457\&quot; y=\&quot;442.562\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Кубанская улица&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;125.25\&quot; y=\&quot;382.708\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Морской вокзал&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;125.25\&quot; y=\&quot;382.708\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Морской вокзал&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;350.791\&quot; y=\&quot;243.072\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Параллельная улица&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;350.791\&quot; y=\&quot;243.072\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Параллельная улица&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;365.599\&quot; y=\&quot;429.138\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;По требованию&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;365.599\&quot; y=\&quot;429.138\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;По требованию&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;74.2702\&quot; y=\&quot;281.925\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Ривьерский мост&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;74.2702\&quot; y=\&quot;281.925\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Ривьерский мост&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;50\&quot; y=\&quot;50\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий Родина&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;50\&quot; y=\&quot;50\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий Родина&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;367.969\&quot; y=\&quot;320.138\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Улица Докучаева&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;367.969\&quot; y=\&quot;320.138\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Улица Докучаева&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;592.058\&quot; y=\&quot;238.297\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Улица Лизы Чайкиной&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;592.058\&quot; y=\&quot;238.297\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Улица Лизы Чайкиной&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;311.644\&quot; y=\&quot;93.2643\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Электросети&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;311.644\&quot; y=\&quot;93.2643\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot;&gt;Электросети&lt;/text&gt;\n&lt;/svg&gt;&quot;,
+        &quot;request_id&quot;: 1359372752
+    }
+]
+</code></pre></li>
+</ul>
+
+<h3>Пример 2</h3>
+
+<ul>
+<li><p>Ввод make_base</p>
+
+<pre><code class="language-json">{
+    &quot;serialization_settings&quot;: {
+        &quot;file&quot;: &quot;transport_catalogue.db&quot;
+    },
+    &quot;routing_settings&quot;: {
+        &quot;bus_wait_time&quot;: 2,
+        &quot;bus_velocity&quot;: 30
+    },
+    &quot;render_settings&quot;: {
+        &quot;width&quot;: 1500,
+        &quot;height&quot;: 950,
+        &quot;padding&quot;: 50,
+        &quot;stop_radius&quot;: 3,
+        &quot;line_width&quot;: 10,
+        &quot;bus_label_font_size&quot;: 18,
+        &quot;bus_label_offset&quot;: [
+            7,
+            15
+        ],
+        &quot;stop_label_font_size&quot;: 13,
+        &quot;stop_label_offset&quot;: [
+            7,
+            -3
+        ],
+        &quot;underlayer_color&quot;: [
+            255,
+            255,
+            255,
+            0.85
+        ],
+        &quot;underlayer_width&quot;: 3,
+        &quot;color_palette&quot;: [
+            &quot;red&quot;,
+            &quot;green&quot;,
+            &quot;blue&quot;,
+            &quot;brown&quot;,
+            &quot;orange&quot;
+        ]
+    },
+    &quot;base_requests&quot;: [
+        {
+            &quot;type&quot;: &quot;Bus&quot;,
+            &quot;name&quot;: &quot;23&quot;,
+            &quot;stops&quot;: [
+                &quot;Санаторий Салют&quot;,
+                &quot;Санаторная улица&quot;,
+                &quot;Пансионат Нева&quot;,
+                &quot;Санаторий Радуга&quot;,
+                &quot;Санаторий Родина&quot;,
+                &quot;Спортивная&quot;,
+                &quot;Парк Ривьера&quot;,
+                &quot;Морской вокзал&quot;,
+                &quot;Органный зал&quot;,
+                &quot;Театральная&quot;,
+                &quot;Пансионат Светлана&quot;,
+                &quot;Цирк&quot;,
+                &quot;Стадион&quot;,
+                &quot;Санаторий Металлург&quot;,
+                &quot;Улица Бытха&quot;
+            ],
+            &quot;is_roundtrip&quot;: false
+        },
+        {
+            &quot;type&quot;: &quot;Bus&quot;,
+            &quot;name&quot;: &quot;13&quot;,
+            &quot;stops&quot;: [
+                &quot;Улица Лизы Чайкиной&quot;,
+                &quot;Пионерская улица, 111&quot;,
+                &quot;Садовая&quot;,
+                &quot;Театральная&quot;
+            ],
+            &quot;is_roundtrip&quot;: false
+        },
+        {
+            &quot;type&quot;: &quot;Bus&quot;,
+            &quot;name&quot;: &quot;36&quot;,
+            &quot;stops&quot;: [
+                &quot;Морской вокзал&quot;,
+                &quot;Сбербанк&quot;,
+                &quot;Автовокзал&quot;,
+                &quot;Отель Звёздный&quot;,
+                &quot;Магазин Быт&quot;,
+                &quot;Хлебозавод&quot;,
+                &quot;Кинотеатр Юбилейный&quot;,
+                &quot;Новая Заря&quot;,
+                &quot;Деревообр. комбинат&quot;,
+                &quot;Целинная улица, 5&quot;,
+                &quot;Целинная улица, 57&quot;,
+                &quot;Целинная улица&quot;
+            ],
+            &quot;is_roundtrip&quot;: false
+        },
+        {
+            &quot;type&quot;: &quot;Bus&quot;,
+            &quot;name&quot;: &quot;44к&quot;,
+            &quot;stops&quot;: [
+                &quot;Пансионат Светлана&quot;,
+                &quot;Улица Лысая Гора&quot;,
+                &quot;Улица В. Лысая Гора&quot;
+            ],
+            &quot;is_roundtrip&quot;: false
+        },
+        {
+            &quot;type&quot;: &quot;Bus&quot;,
+            &quot;name&quot;: &quot;90&quot;,
+            &quot;stops&quot;: [
+                &quot;Краево-Греческая улица&quot;,
+                &quot;Улица Бытха&quot;,
+                &quot;Санаторий им. Ворошилова&quot;,
+                &quot;Санаторий Приморье&quot;,
+                &quot;Санаторий Заря&quot;,
+                &quot;Мацеста&quot;,
+                &quot;Мацестинская долина&quot;
+            ],
+            &quot;is_roundtrip&quot;: false
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Краево-Греческая улица&quot;,
+            &quot;latitude&quot;: 43.565551,
+            &quot;longitude&quot;: 39.776858,
+            &quot;road_distances&quot;: {
+                &quot;Улица Бытха&quot;: 1780
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Санаторий им. Ворошилова&quot;,
+            &quot;latitude&quot;: 43.557935,
+            &quot;longitude&quot;: 39.764452,
+            &quot;road_distances&quot;: {
+                &quot;Санаторий Приморье&quot;: 950
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Санаторий Приморье&quot;,
+            &quot;latitude&quot;: 43.554202,
+            &quot;longitude&quot;: 39.77256,
+            &quot;road_distances&quot;: {
+                &quot;Санаторий Заря&quot;: 2350
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Санаторий Заря&quot;,
+            &quot;latitude&quot;: 43.549618,
+            &quot;longitude&quot;: 39.780908,
+            &quot;road_distances&quot;: {
+                &quot;Мацеста&quot;: 800
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Мацеста&quot;,
+            &quot;latitude&quot;: 43.545509,
+            &quot;longitude&quot;: 39.788993,
+            &quot;road_distances&quot;: {
+                &quot;Мацестинская долина&quot;: 2350
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Мацестинская долина&quot;,
+            &quot;latitude&quot;: 43.560422,
+            &quot;longitude&quot;: 39.798219,
+            &quot;road_distances&quot;: {}
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Улица Лысая Гора&quot;,
+            &quot;latitude&quot;: 43.577997,
+            &quot;longitude&quot;: 39.741685,
+            &quot;road_distances&quot;: {
+                &quot;Улица В. Лысая Гора&quot;: 640
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Улица В. Лысая Гора&quot;,
+            &quot;latitude&quot;: 43.58092,
+            &quot;longitude&quot;: 39.744749,
+            &quot;road_distances&quot;: {}
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Морской вокзал&quot;,
+            &quot;latitude&quot;: 43.581969,
+            &quot;longitude&quot;: 39.719848,
+            &quot;road_distances&quot;: {
+                &quot;Сбербанк&quot;: 870,
+                &quot;Органный зал&quot;: 570
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Сбербанк&quot;,
+            &quot;latitude&quot;: 43.585969,
+            &quot;longitude&quot;: 39.725175,
+            &quot;road_distances&quot;: {
+                &quot;Автовокзал&quot;: 870
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Автовокзал&quot;,
+            &quot;latitude&quot;: 43.592956,
+            &quot;longitude&quot;: 39.727798,
+            &quot;road_distances&quot;: {
+                &quot;Отель Звёздный&quot;: 700
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Отель Звёздный&quot;,
+            &quot;latitude&quot;: 43.596585,
+            &quot;longitude&quot;: 39.721151,
+            &quot;road_distances&quot;: {
+                &quot;Магазин Быт&quot;: 1000
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Магазин Быт&quot;,
+            &quot;latitude&quot;: 43.604025,
+            &quot;longitude&quot;: 39.724492,
+            &quot;road_distances&quot;: {
+                &quot;Хлебозавод&quot;: 420
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Хлебозавод&quot;,
+            &quot;latitude&quot;: 43.607364,
+            &quot;longitude&quot;: 39.726643,
+            &quot;road_distances&quot;: {
+                &quot;Кинотеатр Юбилейный&quot;: 2110
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Кинотеатр Юбилейный&quot;,
+            &quot;latitude&quot;: 43.623382,
+            &quot;longitude&quot;: 39.720626,
+            &quot;road_distances&quot;: {
+                &quot;Новая Заря&quot;: 450
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Новая Заря&quot;,
+            &quot;latitude&quot;: 43.626842,
+            &quot;longitude&quot;: 39.717802,
+            &quot;road_distances&quot;: {
+                &quot;Деревообр. комбинат&quot;: 530
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Деревообр. комбинат&quot;,
+            &quot;latitude&quot;: 43.631035,
+            &quot;longitude&quot;: 39.714624,
+            &quot;road_distances&quot;: {
+                &quot;Целинная улица, 5&quot;: 840
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Целинная улица, 5&quot;,
+            &quot;latitude&quot;: 43.633353,
+            &quot;longitude&quot;: 39.710257,
+            &quot;road_distances&quot;: {
+                &quot;Целинная улица, 57&quot;: 1270
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Целинная улица, 57&quot;,
+            &quot;latitude&quot;: 43.640536,
+            &quot;longitude&quot;: 39.713253,
+            &quot;road_distances&quot;: {
+                &quot;Целинная улица&quot;: 1050
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Целинная улица&quot;,
+            &quot;latitude&quot;: 43.647968,
+            &quot;longitude&quot;: 39.717733,
+            &quot;road_distances&quot;: {}
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Санаторий Салют&quot;,
+            &quot;latitude&quot;: 43.623238,
+            &quot;longitude&quot;: 39.704646,
+            &quot;road_distances&quot;: {
+                &quot;Санаторная улица&quot;: 1500
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Санаторная улица&quot;,
+            &quot;latitude&quot;: 43.620766,
+            &quot;longitude&quot;: 39.719058,
+            &quot;road_distances&quot;: {
+                &quot;Пансионат Нева&quot;: 670
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Пансионат Нева&quot;,
+            &quot;latitude&quot;: 43.614288,
+            &quot;longitude&quot;: 39.718674,
+            &quot;road_distances&quot;: {
+                &quot;Санаторий Радуга&quot;: 520
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Санаторий Радуга&quot;,
+            &quot;latitude&quot;: 43.609951,
+            &quot;longitude&quot;: 39.72143,
+            &quot;road_distances&quot;: {
+                &quot;Санаторий Родина&quot;: 1190
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Санаторий Родина&quot;,
+            &quot;latitude&quot;: 43.601202,
+            &quot;longitude&quot;: 39.715498,
+            &quot;road_distances&quot;: {
+                &quot;Спортивная&quot;: 1100
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Спортивная&quot;,
+            &quot;latitude&quot;: 43.593689,
+            &quot;longitude&quot;: 39.717642,
+            &quot;road_distances&quot;: {
+                &quot;Парк Ривьера&quot;: 640
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Парк Ривьера&quot;,
+            &quot;latitude&quot;: 43.588296,
+            &quot;longitude&quot;: 39.715956,
+            &quot;road_distances&quot;: {
+                &quot;Морской вокзал&quot;: 730
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Органный зал&quot;,
+            &quot;latitude&quot;: 43.57926,
+            &quot;longitude&quot;: 39.725574,
+            &quot;road_distances&quot;: {
+                &quot;Театральная&quot;: 770
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Пансионат Светлана&quot;,
+            &quot;latitude&quot;: 43.571807,
+            &quot;longitude&quot;: 39.735866,
+            &quot;road_distances&quot;: {
+                &quot;Цирк&quot;: 520,
+                &quot;Улица Лысая Гора&quot;: 1070
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Цирк&quot;,
+            &quot;latitude&quot;: 43.569207,
+            &quot;longitude&quot;: 39.739869,
+            &quot;road_distances&quot;: {
+                &quot;Стадион&quot;: 860
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Стадион&quot;,
+            &quot;latitude&quot;: 43.565301,
+            &quot;longitude&quot;: 39.749485,
+            &quot;road_distances&quot;: {
+                &quot;Санаторий Металлург&quot;: 950
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Санаторий Металлург&quot;,
+            &quot;latitude&quot;: 43.561005,
+            &quot;longitude&quot;: 39.760511,
+            &quot;road_distances&quot;: {
+                &quot;Улица Бытха&quot;: 900
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Улица Бытха&quot;,
+            &quot;latitude&quot;: 43.566135,
+            &quot;longitude&quot;: 39.762109,
+            &quot;road_distances&quot;: {
+                &quot;Санаторий им. Ворошилова&quot;: 1160
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Улица Лизы Чайкиной&quot;,
+            &quot;latitude&quot;: 43.590317,
+            &quot;longitude&quot;: 39.746833,
+            &quot;road_distances&quot;: {
+                &quot;Пионерская улица, 111&quot;: 950
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Пионерская улица, 111&quot;,
+            &quot;latitude&quot;: 43.587257,
+            &quot;longitude&quot;: 39.740325,
+            &quot;road_distances&quot;: {
+                &quot;Садовая&quot;: 520
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Садовая&quot;,
+            &quot;latitude&quot;: 43.58395,
+            &quot;longitude&quot;: 39.736938,
+            &quot;road_distances&quot;: {
+                &quot;Театральная&quot;: 1300
+            }
+        },
+        {
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Театральная&quot;,
+            &quot;latitude&quot;: 43.57471,
+            &quot;longitude&quot;: 39.731954,
+            &quot;road_distances&quot;: {
+                &quot;Пансионат Светлана&quot;: 390
+            }
+        }
+    ]
+}
+</code></pre></li>
+
+<li><p>Ввод process_requests</p>
+
+<pre><code class="language-json">{
+    &quot;serialization_settings&quot;: {
+        &quot;file&quot;: &quot;transport_catalogue.db&quot;
+    },
+    &quot;stat_requests&quot;: [
+        {
+            &quot;id&quot;: 80146768,
+            &quot;type&quot;: &quot;Bus&quot;,
+            &quot;name&quot;: &quot;13&quot;
+        },
+        {
+            &quot;id&quot;: 1571442892,
+            &quot;type&quot;: &quot;Stop&quot;,
+            &quot;name&quot;: &quot;Морской вокзал&quot;
+        },
+        {
+            &quot;id&quot;: 1490699931,
+            &quot;type&quot;: &quot;Route&quot;,
+            &quot;from&quot;: &quot;Пансионат Нева&quot;,
+            &quot;to&quot;: &quot;Улица Лысая Гора&quot;
+        },
+        {
+            &quot;id&quot;: 684758285,
+            &quot;type&quot;: &quot;Map&quot;
+        }
+    ]
+}
+</code></pre></li>
+
+<li><p>Вывод process_requests</p>
+
+<pre><code class="language-json">[
+    {
+        &quot;curvature&quot;: 1.26723,
+        &quot;request_id&quot;: 80146768,
+        &quot;route_length&quot;: 5540,
+        &quot;stop_count&quot;: 7,
+        &quot;unique_stop_count&quot;: 4
+    },
+    {
+        &quot;buses&quot;: [
+            &quot;23&quot;,
+            &quot;36&quot;
+        ],
+        &quot;request_id&quot;: 1571442892
+    },
+    {
+        &quot;items&quot;: [
+            {
+                &quot;stop_name&quot;: &quot;Пансионат Нева&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;23&quot;,
+                &quot;span_count&quot;: 8,
+                &quot;time&quot;: 11.82,
+                &quot;type&quot;: &quot;Bus&quot;
+            },
+            {
+                &quot;stop_name&quot;: &quot;Пансионат Светлана&quot;,
+                &quot;time&quot;: 2,
+                &quot;type&quot;: &quot;Wait&quot;
+            },
+            {
+                &quot;bus&quot;: &quot;44к&quot;,
+                &quot;span_count&quot;: 1,
+                &quot;time&quot;: 2.14,
+                &quot;type&quot;: &quot;Bus&quot;
+            }
+        ],
+        &quot;request_id&quot;: 1490699931,
+        &quot;total_time&quot;: 17.96
+    },
+    {
+        &quot;map&quot;: &quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot; ?&gt;\n&lt;svg xmlns=\&quot;http://www.w3.org/2000/svg\&quot; version=\&quot;1.1\&quot;&gt;\n  &lt;polyline points=\&quot;399.983,528.273 345.993,553.659 317.894,581.093 276.547,657.748 317.894,581.093 345.993,553.659 399.983,528.273\&quot; fill=\&quot;none\&quot; stroke=\&quot;red\&quot; stroke-width=\&quot;10\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot;/&gt;\n  &lt;polyline points=\&quot;50,255.16 169.562,275.668 166.376,329.409 189.24,365.389 140.028,437.971 157.815,500.299 143.828,545.039 176.116,597.528 223.619,620.002 276.547,657.748 309.001,681.832 342.21,703.401 421.984,735.806 513.456,771.445 526.713,728.887 513.456,771.445 421.984,735.806 342.21,703.401 309.001,681.832 276.547,657.748 223.619,620.002 176.116,597.528 143.828,545.039 157.815,500.299 140.028,437.971 189.24,365.389 166.376,329.409 169.562,275.668 50,255.16\&quot; fill=\&quot;none\&quot; stroke=\&quot;green\&quot; stroke-width=\&quot;10\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot;/&gt;\n  &lt;polyline points=\&quot;176.116,597.528 220.309,564.344 242.069,506.38 186.926,476.273 214.642,414.551 232.487,386.851 182.57,253.965 159.142,225.261 132.778,190.476 96.5489,171.246 121.404,111.656 158.57,50 121.404,111.656 96.5489,171.246 132.778,190.476 159.142,225.261 182.57,253.965 232.487,386.851 214.642,414.551 186.926,476.273 242.069,506.38 220.309,564.344 176.116,597.528\&quot; fill=\&quot;none\&quot; stroke=\&quot;blue\&quot; stroke-width=\&quot;10\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot;/&gt;\n  &lt;polyline points=\&quot;309.001,681.832 357.276,630.48 382.695,606.23 357.276,630.48 309.001,681.832\&quot; fill=\&quot;none\&quot; stroke=\&quot;brown\&quot; stroke-width=\&quot;10\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot;/&gt;\n  &lt;polyline points=\&quot;649.071,733.732 526.713,728.887 546.151,796.914 613.415,827.883 682.67,865.912 749.743,900 826.282,776.282 749.743,900 682.67,865.912 613.415,827.883 546.151,796.914 526.713,728.887 649.071,733.732\&quot; fill=\&quot;none\&quot; stroke=\&quot;orange\&quot; stroke-width=\&quot;10\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot;/&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;399.983\&quot; y=\&quot;528.273\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;13&lt;/text&gt;\n  &lt;text fill=\&quot;red\&quot; x=\&quot;399.983\&quot; y=\&quot;528.273\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;13&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;276.547\&quot; y=\&quot;657.748\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;13&lt;/text&gt;\n  &lt;text fill=\&quot;red\&quot; x=\&quot;276.547\&quot; y=\&quot;657.748\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;13&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;50\&quot; y=\&quot;255.16\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;23&lt;/text&gt;\n  &lt;text fill=\&quot;green\&quot; x=\&quot;50\&quot; y=\&quot;255.16\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;23&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;526.713\&quot; y=\&quot;728.887\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;23&lt;/text&gt;\n  &lt;text fill=\&quot;green\&quot; x=\&quot;526.713\&quot; y=\&quot;728.887\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;23&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;176.116\&quot; y=\&quot;597.528\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;36&lt;/text&gt;\n  &lt;text fill=\&quot;blue\&quot; x=\&quot;176.116\&quot; y=\&quot;597.528\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;36&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;158.57\&quot; y=\&quot;50\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;36&lt;/text&gt;\n  &lt;text fill=\&quot;blue\&quot; x=\&quot;158.57\&quot; y=\&quot;50\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;36&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;309.001\&quot; y=\&quot;681.832\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;44к&lt;/text&gt;\n  &lt;text fill=\&quot;brown\&quot; x=\&quot;309.001\&quot; y=\&quot;681.832\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;44к&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;382.695\&quot; y=\&quot;606.23\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;44к&lt;/text&gt;\n  &lt;text fill=\&quot;brown\&quot; x=\&quot;382.695\&quot; y=\&quot;606.23\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;44к&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;649.071\&quot; y=\&quot;733.732\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;90&lt;/text&gt;\n  &lt;text fill=\&quot;orange\&quot; x=\&quot;649.071\&quot; y=\&quot;733.732\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;90&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;826.282\&quot; y=\&quot;776.282\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;90&lt;/text&gt;\n  &lt;text fill=\&quot;orange\&quot; x=\&quot;826.282\&quot; y=\&quot;776.282\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;18\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;90&lt;/text&gt;\n  &lt;circle cx=\&quot;242.069\&quot; cy=\&quot;506.38\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;132.778\&quot; cy=\&quot;190.476\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;182.57\&quot; cy=\&quot;253.965\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;649.071\&quot; cy=\&quot;733.732\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;214.642\&quot; cy=\&quot;414.551\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;749.743\&quot; cy=\&quot;900\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;826.282\&quot; cy=\&quot;776.282\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;176.116\&quot; cy=\&quot;597.528\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;159.142\&quot; cy=\&quot;225.261\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;223.619\&quot; cy=\&quot;620.002\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;186.926\&quot; cy=\&quot;476.273\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;166.376\&quot; cy=\&quot;329.409\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;309.001\&quot; cy=\&quot;681.832\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;143.828\&quot; cy=\&quot;545.039\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;345.993\&quot; cy=\&quot;553.659\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;317.894\&quot; cy=\&quot;581.093\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;682.67\&quot; cy=\&quot;865.912\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;513.456\&quot; cy=\&quot;771.445\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;613.415\&quot; cy=\&quot;827.883\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;189.24\&quot; cy=\&quot;365.389\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;140.028\&quot; cy=\&quot;437.971\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;50\&quot; cy=\&quot;255.16\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;546.151\&quot; cy=\&quot;796.914\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;169.562\&quot; cy=\&quot;275.668\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;220.309\&quot; cy=\&quot;564.344\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;157.815\&quot; cy=\&quot;500.299\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;421.984\&quot; cy=\&quot;735.806\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;276.547\&quot; cy=\&quot;657.748\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;526.713\&quot; cy=\&quot;728.887\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;382.695\&quot; cy=\&quot;606.23\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;399.983\&quot; cy=\&quot;528.273\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;357.276\&quot; cy=\&quot;630.48\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;232.487\&quot; cy=\&quot;386.851\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;158.57\&quot; cy=\&quot;50\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;96.5489\&quot; cy=\&quot;171.246\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;121.404\&quot; cy=\&quot;111.656\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;342.21\&quot; cy=\&quot;703.401\&quot; r=\&quot;3\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;242.069\&quot; y=\&quot;506.38\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Автовокзал&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;242.069\&quot; y=\&quot;506.38\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Автовокзал&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;132.778\&quot; y=\&quot;190.476\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Деревообр. комбинат&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;132.778\&quot; y=\&quot;190.476\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Деревообр. комбинат&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;182.57\&quot; y=\&quot;253.965\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Кинотеатр Юбилейный&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;182.57\&quot; y=\&quot;253.965\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Кинотеатр Юбилейный&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;649.071\&quot; y=\&quot;733.732\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Краево-Греческая улица&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;649.071\&quot; y=\&quot;733.732\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Краево-Греческая улица&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;214.642\&quot; y=\&quot;414.551\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Магазин Быт&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;214.642\&quot; y=\&quot;414.551\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Магазин Быт&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;749.743\&quot; y=\&quot;900\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Мацеста&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;749.743\&quot; y=\&quot;900\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Мацеста&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;826.282\&quot; y=\&quot;776.282\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Мацестинская долина&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;826.282\&quot; y=\&quot;776.282\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Мацестинская долина&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;176.116\&quot; y=\&quot;597.528\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Морской вокзал&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;176.116\&quot; y=\&quot;597.528\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Морской вокзал&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;159.142\&quot; y=\&quot;225.261\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Новая Заря&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;159.142\&quot; y=\&quot;225.261\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Новая Заря&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;223.619\&quot; y=\&quot;620.002\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Органный зал&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;223.619\&quot; y=\&quot;620.002\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Органный зал&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;186.926\&quot; y=\&quot;476.273\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Отель Звёздный&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;186.926\&quot; y=\&quot;476.273\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Отель Звёздный&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;166.376\&quot; y=\&quot;329.409\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Пансионат Нева&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;166.376\&quot; y=\&quot;329.409\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Пансионат Нева&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;309.001\&quot; y=\&quot;681.832\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Пансионат Светлана&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;309.001\&quot; y=\&quot;681.832\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Пансионат Светлана&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;143.828\&quot; y=\&quot;545.039\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Парк Ривьера&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;143.828\&quot; y=\&quot;545.039\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Парк Ривьера&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;345.993\&quot; y=\&quot;553.659\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Пионерская улица, 111&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;345.993\&quot; y=\&quot;553.659\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Пионерская улица, 111&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;317.894\&quot; y=\&quot;581.093\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Садовая&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;317.894\&quot; y=\&quot;581.093\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Садовая&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;682.67\&quot; y=\&quot;865.912\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий Заря&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;682.67\&quot; y=\&quot;865.912\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий Заря&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;513.456\&quot; y=\&quot;771.445\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий Металлург&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;513.456\&quot; y=\&quot;771.445\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий Металлург&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;613.415\&quot; y=\&quot;827.883\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий Приморье&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;613.415\&quot; y=\&quot;827.883\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий Приморье&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;189.24\&quot; y=\&quot;365.389\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий Радуга&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;189.24\&quot; y=\&quot;365.389\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий Радуга&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;140.028\&quot; y=\&quot;437.971\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий Родина&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;140.028\&quot; y=\&quot;437.971\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий Родина&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;50\&quot; y=\&quot;255.16\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий Салют&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;50\&quot; y=\&quot;255.16\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий Салют&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;546.151\&quot; y=\&quot;796.914\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий им. Ворошилова&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;546.151\&quot; y=\&quot;796.914\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторий им. Ворошилова&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;169.562\&quot; y=\&quot;275.668\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторная улица&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;169.562\&quot; y=\&quot;275.668\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Санаторная улица&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;220.309\&quot; y=\&quot;564.344\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Сбербанк&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;220.309\&quot; y=\&quot;564.344\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Сбербанк&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;157.815\&quot; y=\&quot;500.299\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Спортивная&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;157.815\&quot; y=\&quot;500.299\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Спортивная&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;421.984\&quot; y=\&quot;735.806\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Стадион&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;421.984\&quot; y=\&quot;735.806\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Стадион&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;276.547\&quot; y=\&quot;657.748\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Театральная&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;276.547\&quot; y=\&quot;657.748\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Театральная&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;526.713\&quot; y=\&quot;728.887\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Улица Бытха&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;526.713\&quot; y=\&quot;728.887\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Улица Бытха&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;382.695\&quot; y=\&quot;606.23\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Улица В. Лысая Гора&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;382.695\&quot; y=\&quot;606.23\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Улица В. Лысая Гора&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;399.983\&quot; y=\&quot;528.273\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Улица Лизы Чайкиной&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;399.983\&quot; y=\&quot;528.273\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Улица Лизы Чайкиной&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;357.276\&quot; y=\&quot;630.48\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Улица Лысая Гора&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;357.276\&quot; y=\&quot;630.48\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Улица Лысая Гора&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;232.487\&quot; y=\&quot;386.851\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Хлебозавод&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;232.487\&quot; y=\&quot;386.851\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Хлебозавод&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;158.57\&quot; y=\&quot;50\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Целинная улица&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;158.57\&quot; y=\&quot;50\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Целинная улица&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;96.5489\&quot; y=\&quot;171.246\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Целинная улица, 5&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;96.5489\&quot; y=\&quot;171.246\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Целинная улица, 5&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;121.404\&quot; y=\&quot;111.656\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Целинная улица, 57&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;121.404\&quot; y=\&quot;111.656\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Целинная улица, 57&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;342.21\&quot; y=\&quot;703.401\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Цирк&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;342.21\&quot; y=\&quot;703.401\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;13\&quot; font-family=\&quot;Verdana\&quot;&gt;Цирк&lt;/text&gt;\n&lt;/svg&gt;&quot;,
+        &quot;request_id&quot;: 684758285
+    }
+]
+</code></pre></li>
+</ul>
+
+<p>В файле ниже - примеры случайно сгенерированных входных файлов и корректных выводов для них.</p>
+
+<p>s14_part3_opentest.zip</p>
+
+<h3>Подсказка</h3>
+
+<p>Сериализуйте настройки маршрутизации, содержимое классов <code>Graph</code> и <code>Router</code>, а также координаты остановок. В качестве аналога <code>std::variant</code> в proto-сообщениях используйте <a href="https://developers.google.com/protocol-buffers/docs/proto3?hl=ru#oneof"><code>oneof</code></a>.</p>
+
+<p>Будьте внимательны при десериализации <code>Router</code>, содержащего ссылку на <code>Graph</code>. Убедитесь, что граф, на который ссылается маршрутизатор, не меняет свой адрес в памяти.</p>
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Связь потоков: в поисках оптимального ввода и вывода</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Связь потоков: в поисках оптимального ввода и вывода</h1>
+
+<p>В прошлом уроке речь шла о том, что замена <code>endl</code> на <code>\n</code> улучшает эффективность. Разберёмся, всегда ли это происходит. Рассмотрим программу для возведения в квадрат чисел, прочитанных из стандартного ввода:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+#include &quot;log_duration.h&quot;
+
+using namespace std;
+
+// main с аргументами означает, что программа принимает аргументы командной строки,
+// при запуске из консоли их количество будет сохранено в переменную argc,
+// а значения — в argv.
+// Тип const char** будет обсуждаться позже в курсе, работать с ним можно
+// отчасти как с вектором: argv[0] — нулевой аргумент, argv[1] — первый. 
+// argv[i] можно конвертировать в string
+int main(int argc, const char** argv) {
+    // Нулевой аргумент — это всегда имя программы,
+    // поэтому нам нужен первый
+    int arg = stoi(argv[1]);
+
+    if (arg == 1) {
+        LOG_DURATION(&quot;endl&quot;s);
+        int i;
+        while (cin &gt;&gt; i) {
+            cout &lt;&lt; i * i &lt;&lt; endl;
+        }
+    }
+
+    if (arg == 2) {
+        // Чтобы &quot;\n&quot; воспринималось не как перевод строки, а как 
+        // слэш и буква 'n', добавим перед ним ещё один слеш:
+        // два слеша в строковом (и символьном) литерале воспринимаются
+        // как один (\) 
+        LOG_DURATION(&quot;\\n&quot;s);
+        int i;
+        while (cin &gt;&gt; i) {
+            cout &lt;&lt; i * i &lt;&lt; &quot;\n&quot;s;
+        }
+    }
+}
+</code></pre>
+
+<p>Эта программа принимает один числовой аргумент: единицу или двойку. Она читает числа из стандартного ввода и выдаёт их квадраты в стандартный вывод, замеряя время. Причём метод завершения строки — <code>\n</code> или <code>endl</code> — можно менять, используя аргумент командной строки. Скомпилируем программу и назовём исполняемый файл <code>sqnums</code>. Запустим её так:</p>
+
+<pre><code class="language-bash">$ sqnums 1
+</code></pre>
+
+<p>Она будет радостно выводить квадраты всех введённых чисел до тех пор, пока вы не введёте символ конца файла. Затем выведет общее время работы и при этом будет использовать <code>endl</code>. Запустим программу иначе:</p>
+
+<pre><code class="language-bash">$ sqnums 2
+</code></pre>
+
+<p>Тут вместо <code>endl</code> будет простой <code>\n</code>.</p>
+
+<p>Для запуска программы возьмём файл <code>numbers.txt</code>, который содержит 50000 чисел от 0 до 99.</p>
+
+<p>Запускать будем, перенаправляя стандартный ввод и вывод:</p>
+
+<pre><code class="language-bash">$ sqnums 1 &gt;numbers2.txt &lt;numbers.txt
+</code></pre>
+
+<p>Перенаправление символами <code>&gt;</code> и <code>&lt;</code> позволяет проассоциировать потоки <code>cin</code> и <code>cout</code> с файлами. Так программа будет через поток <code>cin</code> получать данные из файла <code>numbers.txt</code>. Благодаря <code>&gt;</code> данные из <code>cout</code> пойдут в файл <code>numbers2.txt</code>, а не в окно консоли. Если хотим использовать <code>\n</code>, меняем параметр <code>1</code> на <code>2</code>:</p>
+
+<pre><code class="language-bash">$ sqnums 2 &gt;numbers2.txt &lt;numbers.txt
+</code></pre>
+
+<p>Смотрим на результаты:</p>
+
+<pre><code class="language-bash">$ sqnums 1 &gt;numbers2.txt &lt;numbers.txt
+endl: 410 ms
+$ sqnums 2 &gt;numbers2.txt &lt;numbers.txt
+\n: 408 ms
+</code></pre>
+
+<p>Не столь впечатляюще. Раньше мы наблюдали чуть не десятикратное различие, а теперь оно едва заметно. Чтобы понять причину этого, обратимся к другой программе:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+    cout &lt;&lt; &quot;Enter x and y: &quot;s;
+    cin &gt;&gt; x &gt;&gt; y;
+    cout &lt;&lt; x + y &lt;&lt; endl;
+}
+</code></pre>
+
+<hr>
+
+<p>Почему мы всегда видим надпись <code>Enter x and y:</code> перед вводом?</p>
+
+<ul>
+<li><p>Очевидно, потому что выводим её в <code>cout</code> перед вводом.</p></li>
+
+<li><p>Потому что далее в <code>cout</code> выводится <code>endl</code>, сбрасывающий буфер.</p></li>
+
+<li><p>Это нельзя объяснить так просто, явно чтение из <code>cin</code> влияет на <code>cout</code>.</p></li>
+</ul>
+
+<p>Совсем не очевидно, но чтение из <code>cin</code> заставляет буфер <code>cout</code> и <code>cerr</code> опустошаться, как если бы мы добавили <code>cout.flush()</code> перед ним. В этом причина медленной работы программы с <code>\n</code>. К счастью, есть способ исправить ситуацию, отвязав <code>cin</code> от <code>cout</code> так: <code>cin.tie(nullptr);</code>.</p>
+
+<p>Дополним программу ещё одной веткой и протестируем скорость:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+#include &quot;log_duration.h&quot;
+
+using namespace std;
+
+int main(int argc, const char** argv) {
+    // не забываем, что один аргумент — это название программы,
+    // поэтому argc должно быть как минимум 2
+    if (argc &lt; 2) {
+        cerr &lt;&lt; &quot;Пожалуйста, задайте как минимум 1 аргумент&quot;s &lt;&lt; endl;
+        return 1;
+    }
+
+    int arg = std::stoi(argv[1]);
+
+    if (arg == 1) {
+        LOG_DURATION(&quot;endl&quot;s);
+        int i;
+        while (cin &gt;&gt; i) {
+            cout &lt;&lt; i * i &lt;&lt; endl;
+        }
+    }
+
+    if (arg == 2) {
+        LOG_DURATION(&quot;\\n&quot;s);
+        int i;
+        while (cin &gt;&gt; i) {
+            cout &lt;&lt; i * i &lt;&lt; &quot;\n&quot;s;
+        }
+    }
+
+    if (arg == 3) {
+        LOG_DURATION(&quot;\\n with tie&quot;s);
+        cin.tie(nullptr);
+        int i;
+        while (cin &gt;&gt; i) {
+            cout &lt;&lt; i * i &lt;&lt; &quot;\n&quot;s;
+        }
+    }
+}
+</code></pre>
+
+<p>Запускаем:</p>
+
+<pre><code class="language-bash">$ test-stream.exe 3 &lt;numbers.txt &gt;numbers2.txt
+\n with tie: 89 ms
+</code></pre>
+
+<p>Совсем другое дело! Однако будьте осторожны, потому что отвязывание <code>cin</code> от <code>cout</code> повлияет на всё последующее выполнение. Если разрабатываете основную функцию программы, это не так важно. Но если подобное происходит в функции библиотеки, которая будет применяться в разных программах, такой побочный эффект крайне нежелателен. Избежать его просто — в конце работы привяжите обратно:</p>
+
+<pre><code class="language-cpp">...
+if (arg == 3) {
+    LOG_DURATION(&quot;\\n with tie&quot;s);
+    auto tied_before = cin.tie(nullptr);
+
+    int i;
+    while (cin &gt;&gt; i) {
+        cout &lt;&lt; i * i &lt;&lt; &quot;\n&quot;s;
+    }
+
+    cin.tie(tied_before);
+}
+...
+</code></pre>
+
+<p>Чтобы избежать возможных проблем, используйте для этих целей класс с конструктором и деструктором для выполнения парных действий. В прошлой теме вы так измеряли время.</p>
+
+<p>В этом уроке мы убедились: замена <code>endl</code> на <code>\n</code> серьёзно ускоряет использование потоков, если это критичное место вашей программы.</p>
+
+<p>Ещё сильнее ускорить ввод и вывод в <code>cin</code> и <code>cout</code> может магическая команда <code>ios_base::sync_with_stdio(false)</code>, с которой хорошо знакомы участники соревнований по программированию. Использовать её следует осторожно. Эта команда способна помешать работе при подключении сторонних библиотек, выводящих информацию в стандартный вывод, и при многопоточной работе, с которой вы ещё познакомитесь.</p>
+
+<p>Команда <code>sync_with_stdio</code> отключает синхронизацию между стандартными потоками C и C++, а также между разными потоками выполнения, сохраняя ресурсы.</p>
+
+<p>Не путайте потоки ввода и вывода <code>stream</code> и потоки выполнения <code>thread</code>:</p>
+
+<ul>
+<li>Потоки ввода и вывода <code>stream</code> передают данные между произвольным источником <code>source</code> и потребителем <code>sink</code>.</li>
+<li>Потоки выполнения <code>thread</code> позволяют одновременно выполнять несколько операций в программе. Они также используются для ускорения за счёт выполнения на разных ядрах процессора. Термины «многопоточный», «потокобезопасный» всегда относятся к потокам выполнения.</li>
+</ul>
+
+<hr>
+
+<p>Когда замена <code>endl</code> на <code>\n</code> не сможет дать значительного выигрыша? Отметьте все подходящие варианты.</p>
+
+<ul>
+<li><p>Когда вывод производится в файл через <code>ofstream</code>, а не через перенаправление стандартного вывода.</p></li>
+
+<li><p>Когда данные выводятся в поток большими порциями.</p></li>
+
+<li><p>Когда используется режим <code>binary</code> для записи в файл — такая оптимизация имеет смысл только для текста.</p></li>
+
+<li><p>Когда читаем из <code>cin</code> и пишем в <code>cout</code>, но не отвязали одно от другого.</p></li>
+</ul>
+
+</body>
+</html>

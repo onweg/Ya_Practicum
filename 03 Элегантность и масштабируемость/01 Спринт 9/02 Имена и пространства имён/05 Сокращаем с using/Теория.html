@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Сокращаем с using</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Сокращаем с using</h1>
+
+<p>Разберём способы избежать квалификации. С одним из таких способов вы хорошо знакомы с первых уроков: <code>using namespace std</code>. Он позволяет убрать квалификацию у имён стандартной библиотеки и вместо <code>std::map&lt;std::string, std::pair&lt;std::string, std::optional&lt;std::string_view&gt;&gt;&gt;</code> написать <code>map&lt;string, pair&lt;string, optional&lt;string_view&gt;&gt;&gt;</code>. Это тоже не выглядит просто, но всё-таки короче и легче читается.</p>
+
+<hr>
+
+<p>Представьте себе такой диалог:</p>
+
+<p>— Как дела у Пети Иванова?</p>
+
+<p>— О, у него дела отлично!</p>
+
+<p>— У Пети Иванова что-то новое?</p>
+
+<p>— Да, Петя Иванов защитил диссертацию и уехал за границу.</p>
+
+<p>— А в какую страну Петя Иванов уехал?</p>
+
+<p>— В Голландию!</p>
+
+<p>Есть в этом диалоге что-то странное и неестественное — Петю всё время называют по имени и фамилии. В реальной жизни так говорить не будут — фамилию назовут только в первый раз, если это необходимо, а дальше будут говорить просто «‎Петя», поскольку уже понятно, что имеется в виду именно Петя Иванов, а не Петров и не Сидоров. Если убрать фамилию в третьей и последующих строчках, диалог станет вполне естественным.</p>
+
+<p>Но в C++ вне пространства имён приходится использовать полное квалифицированное имя. Так произошло, например, в следующем юнит-тесте для библиотеки INI:</p>
+
+<pre><code class="language-cpp">void TestDocument() {
+    ini::Document doc;
+    assert(doc.SectionCount() == 0u);
+
+    ini::Section* section = &amp;doc.AddSection(&quot;one&quot;s);
+    assert(doc.SectionCount() == 1u);
+
+    section-&gt;insert({&quot;name_1&quot;s, &quot;value_1&quot;s});
+    section-&gt;insert({&quot;name_2&quot;s, &quot;value_2&quot;s});
+
+    section = &amp;doc.AddSection(&quot;two&quot;s);
+    section-&gt;insert({&quot;name_1&quot;s, &quot;value_1&quot;s});
+    section-&gt;insert({&quot;name_2&quot;s, &quot;value_2&quot;s});
+    section-&gt;insert({&quot;name_3&quot;s, &quot;value_3&quot;s});
+
+    section = &amp;doc.AddSection(&quot;three&quot;s);
+    section-&gt;insert({&quot;name_1&quot;s, &quot;value_1&quot;s});
+
+    assert(doc.SectionCount() == 3u);
+    const ini::Section expected_one = {{&quot;name_1&quot;s, &quot;value_1&quot;s}, {&quot;name_2&quot;s, &quot;value_2&quot;s}};
+    const ini::Section expected_two = {{&quot;name_1&quot;s, &quot;value_1&quot;s}, {&quot;name_2&quot;s, &quot;value_2&quot;s}, {&quot;name_3&quot;s, &quot;value_3&quot;s}};
+    const ini::Section expected_three = {{&quot;name_1&quot;s, &quot;value_1&quot;s}};
+
+    assert(doc.GetSection(&quot;one&quot;s) == expected_one);
+    assert(doc.GetSection(&quot;two&quot;s) == expected_two);
+    assert(doc.GetSection(&quot;three&quot;s) == expected_three);
+}
+</code></pre>
+
+<p>Обратите внимание, что квалифицировать имя <code>Section</code> пришлось несколько раз. При чтении кода было бы понятно и так, что работа производится с сущностями именно этой библиотеки, но компилятор требует квалификацию. Сейчас пространство имён короткое — его название состоит всего из трёх букв. А в реальных программах оно может достигать 20 и более символов. В таких случаях частое использование квалификации затрудняло бы чтение кода.</p>
+
+<p>Чтобы сократить написание и упростить чтение, можно применить декларацию <code>using</code>:</p>
+
+<pre><code class="language-cpp">using ini::Section;
+</code></pre>
+
+<p>Она добавит имя в область видимости, после чего <code>Section</code> можно будет использовать без квалификации. Код стал немного проще:</p>
+
+<pre><code class="language-cpp">void TestDocument() {
+    ini::Document doc;
+    assert(doc.SectionCount() == 0u);
+
+    using ini::Section;
+    Section* section = &amp;doc.AddSection(&quot;one&quot;s);
+    assert(doc.SectionCount() == 1u);
+
+    section-&gt;insert({&quot;name_1&quot;s, &quot;value_1&quot;s});
+    section-&gt;insert({&quot;name_2&quot;s, &quot;value_2&quot;s});
+
+    section = &amp;doc.AddSection(&quot;two&quot;s);
+    section-&gt;insert({&quot;name_1&quot;s, &quot;value_1&quot;s});
+    section-&gt;insert({&quot;name_2&quot;s, &quot;value_2&quot;s});
+    section-&gt;insert({&quot;name_3&quot;s, &quot;value_3&quot;s});
+
+    section = &amp;doc.AddSection(&quot;three&quot;s);
+    section-&gt;insert({&quot;name_1&quot;s, &quot;value_1&quot;s});
+
+    assert(doc.SectionCount() == 3u);
+    const Section expected_one = {{&quot;name_1&quot;s, &quot;value_1&quot;s}, {&quot;name_2&quot;s, &quot;value_2&quot;s}};
+    const Section expected_two = {{&quot;name_1&quot;s, &quot;value_1&quot;s}, {&quot;name_2&quot;s, &quot;value_2&quot;s}, {&quot;name_3&quot;s, &quot;value_3&quot;s}};
+    const Section expected_three = {{&quot;name_1&quot;s, &quot;value_1&quot;s}};
+
+    assert(doc.GetSection(&quot;one&quot;s) == expected_one);
+    assert(doc.GetSection(&quot;two&quot;s) == expected_two);
+    assert(doc.GetSection(&quot;three&quot;s) == expected_three);
+}
+</code></pre>
+
+<hr>
+
+<p>Сколько квалификаций удалось убрать, добавив <code>using</code>-декларацию? Введите ответ числом:</p>
+
+<p>Нам удалось убрать четыре квалификации. Посчитаем, на сколько символов сократился код. 20 символов мы сэкономили, убрав <code>ini::</code> перед именем <code>Section</code>, но 19 пришлось потратить на саму конструкцию <code>using ini::Section;</code>. Итого — выигрыш всего в один символ.</p>
+
+<p>Как видно, экономия небольшая, но код стало проще воспринимать. Похожая ситуация была в диалоге о Пете из начала урока. А читаемость кода — это гораздо более важный параметр, чем количество символов в нём.</p>
+
+<hr>
+
+<p>Такая <code>using</code>-декларация распространяется только на то имя, которое указано в ней явно, и только на ту область видимости, где она объявлена. <code>using</code> можно написать и вне областей видимости, например в начале файла. Тогда имя станет глобальным — будет распространяться на весь файл. Это соответствует ситуации, когда человек недавно чего-нибудь достиг, и о нём все говорят. Использовать его имя можно, не уточняя, кому именно оно принадлежит.</p>
+
+<p>Теперь представьте, что обсуждают членов одной семьи. Их называют по имени и фамилии. Довольно бессмысленное занятия — ведь фамилия у всех одинаковая. Так никто не делает. В C++ подобное возникает, когда вне пространства имён вам нужно использовать самые разные имена этого пространства.</p>
+
+<p>Например, в другом юнит-тесте библиотеки используется три разных имени из <code>ini</code>:</p>
+
+<pre><code class="language-cpp">void TestLoadIni() {
+    istringstream input(
+        R&quot;([july]
+food=2500
+sport=12000
+travel=23400
+clothes=5200
+[august]
+food=3250
+sport=10000
+travel=0
+clothes=8300
+jewelery=25000
+)&quot;s);
+
+    const ini::Document doc = ini::Load(input);
+
+    assert(doc.SectionCount() == 2u);
+
+    const ini::Section expected_july = {
+        {&quot;food&quot;s, &quot;2500&quot;s},
+        {&quot;sport&quot;s, &quot;12000&quot;s},
+        {&quot;travel&quot;s, &quot;23400&quot;s},
+        {&quot;clothes&quot;s, &quot;5200&quot;s},
+    };
+
+    const ini::Section expected_august = {
+        {&quot;food&quot;s, &quot;3250&quot;s}, {&quot;sport&quot;s, &quot;10000&quot;s}, {&quot;travel&quot;s, &quot;0&quot;s}, {&quot;clothes&quot;s, &quot;8300&quot;s}, {&quot;jewelery&quot;s, &quot;25000&quot;s},
+    };
+
+    assert(doc.GetSection(&quot;july&quot;s) == expected_july);
+    assert(doc.GetSection(&quot;august&quot;s) == expected_august);
+}
+</code></pre>
+
+<p>Здесь имеет смысл использовать директиву <code>using namespace</code>, которая сделает доступными все имена выбранного пространства имён. В области видимости, где эта декларация есть, можно использовать имена выбранного пространства имён без квалификации:</p>
+
+<pre><code class="language-cpp">void TestLoadIni() {
+    istringstream input(
+        R&quot;([july]
+food=2500
+sport=12000
+travel=23400
+clothes=5200
+[august]
+food=3250
+sport=10000
+travel=0
+clothes=8300
+jewelery=25000
+)&quot;s);
+
+    using namespace ini;
+
+    const Document doc = Load(input);
+
+    assert(doc.SectionCount() == 2u);
+
+    const Section expected_july = {
+        {&quot;food&quot;s, &quot;2500&quot;s},
+        {&quot;sport&quot;s, &quot;12000&quot;s},
+        {&quot;travel&quot;s, &quot;23400&quot;s},
+        {&quot;clothes&quot;s, &quot;5200&quot;s},
+    };
+
+    const Section expected_august = {
+        {&quot;food&quot;s, &quot;3250&quot;s}, {&quot;sport&quot;s, &quot;10000&quot;s}, {&quot;travel&quot;s, &quot;0&quot;s}, {&quot;clothes&quot;s, &quot;8300&quot;s}, {&quot;jewelery&quot;s, &quot;25000&quot;s},
+    };
+
+    assert(doc.GetSection(&quot;july&quot;s) == expected_july);
+    assert(doc.GetSection(&quot;august&quot;s) == expected_august);
+}
+</code></pre>
+
+<p>Код сократился, и читать его стало проще. Есть соблазн поставить директиву <code>using namespace</code> прямо в начало файла, как мы делаем это иногда с <code>using namespace std</code>:</p>
+
+<pre><code class="language-cpp">...
+#include &quot;json.h&quot;
+#include &quot;xml.h&quot;
+
+using namespace json;
+using namespace xml;
+</code></pre>
+
+<p>Компилируем программу и видим ошибку — <code>error: reference to 'Document' is ambiguous</code>.</p>
+
+<p>Эти конструкции <code>using namespace</code> отменили все преимущества, которые дал сам <code>namespace</code>, сделав фактически обратное действие. Мы вернулись к разбитому корыту — ситуации, когда у нас не было пространств имён, но мы всё равно хотели использовать JSON и XML одновременно. Однако между двумя этими случаями есть разница: в первом ошибка возникла сразу при попытке включения двух файлов, а во втором — только при использовании имени. Это делает ошибку более опасной, поскольку она выявляется не сразу.</p>
+
+<p>Всё это диктует важное правило: использовать директиву <code>using namespace</code> нужно только в том месте, где она действительно необходима, максимально сужая область её действия.</p>
+
+<p>Особенно неприятно, когда конструкция <code>using namespace</code> встречается в h-файле, причём её действие не ограничено областью видимости. В этом случае она будет распространяться на все файлы, которые используют этот заголовочный файл. Пользователи h-файла могут совсем не ожидать, что он будет делать видимыми имена какого-либо пространства имён, и это приведёт к конфликтам. Поэтому делать так ни в коем случае не нужно.</p>
+
+<p>У декларации <code>using namespace</code> есть ещё один эффект. Если написать <code>using namespace my_beautiful_namespace</code> внутри другого пространства имён, оно примет все имена пространства <code>my_beautiful_namespace</code>:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+namespace verbs {
+void Clap() {
+    std::cout &lt;&lt; &quot;Хлоп!&quot; &lt;&lt; std::endl;
+}
+}  // namespace verbs
+
+namespace words {
+using namespace verbs;
+}
+
+int main() {
+    // обращаемся к функции verbs::Clap через пространство words
+    words::Clap();
+}
+</code></pre>
+
+<p>У декларации <code>using</code> и директивы <code>using namespace</code> есть некоторые различия, выходящие за рамки курса. О них можно почитать в <a href="https://en.cppreference.com/w/cpp/language/namespace">документации</a>. Они касаются поведения при конфликте имён. Можно считать, что <code>using</code> работает чётко — помещает имя в текущую область видимости, и это имя будет всегда иметь приоритет при конфликтах над именами, расположенными в объемлющих областях. С <code>using namespace</code> так не происходит — приоритет при конфликтах эта конструкция даёт не всегда.</p>
+
+<hr>
+
+<p>Какие из этих примеров не содержат ошибки?</p>
+
+<ul>
+<li><p><code>using std::string;</code></p></li>
+
+<li><p><code>using namespace std::chrono;</code></p></li>
+
+<li><p><code>using namespace std::vector;</code></p></li>
+
+<li><p><code>using namespace std::vector&lt;int&gt;;</code></p></li>
+
+<li><p><code>using std::map&lt;int, std::string&gt;;</code></p></li>
+
+<li><p><code>using namespace std; using namespace chrono;</code></p></li>
+
+<li><p><code>using std;</code></p></li>
+</ul>
+
+</body>
+</html>

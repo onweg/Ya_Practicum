@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Больше о путях</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Больше о путях</h1>
+
+<p>У пути есть два формата строкового представления: native и generic. В native-формате путь выглядит так, как он должен быть представлен в операционной системе. Метод <code>path::string</code> возвращает путь в этом представлении. Оно рекомендуется в большинстве случаев.</p>
+
+<p>Формат generic одинаковый на всех операционных системах. Он определяет папки прямым слешем. Чтобы получить generic-представление, вызовите метод <code>generic_string</code>. Это метод класса <code>path</code>. Такой формат полезен при конструировании пути из <code>string</code>. Например, путь, аналогичный пути из прошлого урока, можно задать так:</p>
+
+<pre><code class="language-cpp">path p = path(&quot;a/folder/and/../a/file.txt&quot;s, path::generic_format);
+</code></pre>
+
+<p>Тут вы видите второй параметр при конструировании пути из <code>string</code>. По умолчанию он равен <code>path::generic_format::auto_format</code>. Это значение подразумевает, что компилятор постарается универсальным образом интерпретировать путь.</p>
+
+<p>Под Windows путь в native-формате иногда содержит оба вида слешей, но предпочтительнее обратный. Можно явно заменить в переменной типа <code>path</code> все слеши на предпочтительные методом <code>make_preferred</code>:</p>
+
+<pre><code class="language-cpp">path p = path(&quot;a/folder/and/../a/file.txt&quot;s, path::generic_format);
+
+cout &lt;&lt; &quot;p.string():                      &quot;sv &lt;&lt; p.string() &lt;&lt; endl;
+p.make_preferred();
+cout &lt;&lt; &quot;p.string() после make_preferred: &quot;sv &lt;&lt; p.string() &lt;&lt; endl;
+cout &lt;&lt; &quot;p.generic_string():              &quot;sv &lt;&lt; p.generic_string() &lt;&lt; endl;
+</code></pre>
+
+<p>Возможный вывод:</p>
+
+<pre><code class="language-cpp">p.string():                      a/folder/and/../a/file.txt
+p.string() после make_preferred: a\folder\and\..\a\file.txt
+p.generic_string():              a/folder/and/../a/file.txt
+</code></pre>
+
+<p>Рассмотрим другие операции с путями, которые не вошли в прошлый урок.</p>
+
+<p><strong>Нормализация</strong></p>
+
+<p>Пути, содержащие элементы папки<code>.</code>, папки <code>..</code> или несколько слешей подряд, легко упростить. Это делается методом <code>lexically_normal</code>:</p>
+
+<pre><code class="language-cpp">path p = &quot;a&quot;_p / &quot;folder&quot;_p / &quot;and&quot;_p / &quot;..&quot;_p / &quot;a&quot;_p / &quot;file.txt&quot;_p;
+
+cout &lt;&lt; &quot;Исходный вид: &quot;sv &lt;&lt; p.string() &lt;&lt; endl;
+p = p.lexically_normal();
+cout &lt;&lt; &quot;После lexically_normal(): &quot;sv &lt;&lt; p.string() &lt;&lt; endl;
+</code></pre>
+
+<p>Возможный вывод:</p>
+
+<pre><code>Исходный вид: a/folder/and/../a/file.txt
+После lexically_normal(): a/folder/a/file.txt
+</code></pre>
+
+<p>Полученный путь называется нормальным.</p>
+
+<p><strong>Получение родительской папки</strong></p>
+
+<p>Чтобы получить родительскую папку, используйте метод пути <code>parent_path</code>. Но он действует довольно наивно — просто убирает последний элемент пути, если это был не единственный элемент.</p>
+
+<hr>
+
+<p>Для каких путей <code>parent_path</code> неправильно определит родительскую папку?</p>
+
+<ul>
+<li><p><code>c:\temp\x\y</code></p></li>
+
+<li><p><code>/usr/</code></p></li>
+
+<li><p><code>/home/./ivan/.</code></p></li>
+
+<li><p><code>abc.txt</code></p></li>
+
+<li><p><code>xxx/yyy</code></p></li>
+
+<li><p><code>x:/c/abc/..</code></p></li>
+</ul>
+
+<p>Проблемы возникли для относительных путей и для тех, которые содержат папки <code>.</code> и <code>..</code>. Значит, для правильной работы метода <code>parent_path</code> путь нужно сделать нормальным и абсолютным перед его вызовом.</p>
+
+<p><strong>Другое</strong></p>
+
+<p>В библиотеке filesystem есть и другие функции, которые устроены по аналогии с описанными. Полный их список — на сайте <a href="https://en.cppreference.com/w/cpp/filesystem">cppreference.com</a>.</p>
+
+<p>Вот некоторые из них:</p>
+
+<ul>
+<li><code>exists</code> — проверка существования файла или папки. Может принимать статус или путь.</li>
+<li><code>copy</code>, <code>copy_file</code> — копирование файлов и папок.</li>
+<li><code>current_path</code> — получение и изменение текущего пути.</li>
+<li><code>equivalent</code> — проверка, что два пути указывают на один объект.</li>
+<li><code>file_size</code> — получение размера файла.</li>
+<li><code>remove</code>, <code>remove_all</code> — удаление файлов и папок.</li>
+<li><code>resize_file</code> — изменение размера файлов. Увеличивать размер можно потоком <code>ofstream</code>, а уменьшать — этой функцией.</li>
+</ul>
+
+<h3>Заключение</h3>
+
+<p>Несколько недель назад вы проходили многопоточность. Там вы увидели, какие сложности возникают, когда несколько потоков пытаются модифицировать одни и те же данные. Файловой системе присущи все те же проблемы — с ней работают сразу много процессов. Алгоритмы операционной системы достаточно безопасны, чтобы файловая система не портилась при совместном доступе, но следует быть осторожными и не полагаться на данные, полученные в прошлом.</p>
+
+<hr>
+
+<p>Как вы думаете, гарантируется ли, что файл всегда будет существовать при попытке открытия? Выберите все возможные варианты.</p>
+
+<pre><code class="language-cpp">int main() {
+    auto status = filesystem::status(&quot;a_file&quot;);
+    if (filesystem::exists(status) &amp;&amp; status.type() == filesystem::file_type::regular) {
+        ifstream file(&quot;a_file&quot;);
+        cout &lt;&lt; (file ? &quot;Success!&quot;sv : &quot;Fail :(&quot;sv) &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<ul>
+<li><p>Да, гарантируется. Всегда будет выведено <code>Success</code>.</p></li>
+
+<li><p>Да, гарантируется, но файл может быть не доступен для чтения, поэтому вероятно <code>Fail :(</code>.</p></li>
+
+<li><p>Нет, не гарантируется. Это может быть папкой.</p></li>
+
+<li><p>Нет, не гарантируется, &ldquo;a_file&rdquo; может не существовать на момент открытия.</p></li>
+
+<li><p>Эта программа может вообще вылететь из-за исключения.</p></li>
+</ul>
+
+<p>Нет никакой гарантии, что за время, прошедшее с проверки условия <code>if</code> до попытки открытия, другая программа не удалит файл. К тому же, за это время кто-нибудь может создать папку на его месте. Более того, в программе есть серьёзная ошибка: если вы не указали второй параметр у функции <code>status</code>, он может выбросить исключение, которое точно не будет обработано, поскольку этот код расположен прямо в <code>main</code>.</p>
+
+<p>Может показаться маловероятным, что файл удаляется сразу после проверки существования. Но следует учитывать две вещи:</p>
+
+<ol>
+<li>Для программиста не существует понятия «‎маловероятно»‎. Любая ошибка может не проявляться лишь до поры до времени.</li>
+<li>Некоторые программы устанавливают обработчики событий на изменение файловой системы. Например, на создание файлов. Так делают антивирусы. Когда проверяете на существование только что созданный файл, какой-нибудь антивирус может одновременно пытаться его удалить, заподозрив в нём вредоносный код.</li>
+</ol>
+
+<p>В условиях совместного доступа всех программ к файловой системе следует всегда контролировать ошибки, даже если предыдущие проверки показали, что ошибки быть не должно. Операционная система в некоторых случаях будет вам помогать, оберегая открытые файлы от модификации другими программами.</p>
+
+<p>В общем случае в различных ОС есть возможности для совместной работы с файловой системой по аналогии с мьютексами для многопоточной работы. Они не входят в стандартную библиотеку и в этот курс тоже.</p>
+
+</body>
+</html>

@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<p>В заготовке кода вы найдёте файлы:</p>
+
+<ol>
+<li>Файл Formula.g4. В файл с грамматикой добавлен новый вид операнда <code>CELL</code>. Он может состоять из последовательности заглавных латинских букв и последовательности цифр.</li>
+<li>Файл common.h.
+
+<ol>
+<li>Добавлены описания новых исключений: <code>InvalidPositionException</code>, <code>FormulaException</code>, <code>CircularDependencyException</code>.</li>
+<li>В класс <code>FormulaError</code> добавлено поле <code>category_</code> — это типы ошибок вычисления. Возможные значения поля: <code>Ref</code>, <code>Value</code>, <code>Div0</code>.</li>
+<li>В интерфейс <code>CellInterface</code> добавлен метод <code>GetRefferencedCells()</code>, который возвращает позиции всех ячеек, входящих в формулу.</li>
+<li>В классе <code>CellInterface</code> указано возможное значение ячейки: <code>using Value = std::variant&lt;std::string, double, FormulaError&gt;</code>.</li>
+</ol></li>
+<li>Файл FormulaAST.cpp. Добавлен новый дочерний класс <code>CellExpr : Expr</code>. Реализуйте для него метод <code>Evaluate(args)</code>. Также реализуйте этот метод для всех остальных дочерних классов класса <code>Expr</code>. Поменяйте сигнатуру метода.</li>
+<li>Файлы cell.h и cell.cpp. Добавьте новые поля и методы.</li>
+<li>Файлы sheet.h и sheet.cpp. Добавьте новые поля и методы в соответствии с вашим дизайном классов.</li>
+<li>Файл main.cpp. Содержит возможные тесты.</li>
+</ol>
+
+<ul>
+<li>CMakeLists.txt</li>
+</ul>
+
+<pre><code class="language-markdown">cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
+project(spreadsheet)
+
+set(CMAKE_CXX_STANDARD 17)
+if(CMAKE_CXX_COMPILER_ID MATCHES &quot;MSVC&quot;)
+  set(
+    CMAKE_CXX_FLAGS_DEBUG
+    &quot;${CMAKE_CXX_FLAGS_DEBUG} /JMC&quot;
+  )
+else()
+  set(
+    CMAKE_CXX_FLAGS
+    &quot;${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Werror -Wno-unused-parameter -Wno-implicit-fallthrough&quot;
+  )
+endif()
+
+set(ANTLR_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/antlr-4.7.2-complete.jar)
+include(${CMAKE_CURRENT_SOURCE_DIR}/FindANTLR.cmake)
+
+add_definitions(
+  -DANTLR4CPP_STATIC
+  -D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+)
+
+set(WITH_STATIC_CRT OFF CACHE BOOL &quot;Visual C++ static CRT for ANTLR&quot; FORCE)
+add_subdirectory(antlr4_runtime)
+
+antlr_target(FormulaParser Formula.g4 LEXER PARSER LISTENER)
+
+include_directories(
+  ${ANTLR4_INCLUDE_DIRS}
+  ${ANTLR_FormulaParser_OUTPUT_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}/antlr4_runtime/runtime/src
+)
+
+file(GLOB sources
+  *.cpp
+  *.h
+)
+
+add_executable(
+  spreadsheet
+  ${ANTLR_FormulaParser_CXX_OUTPUTS}
+  ${sources}
+)
+
+target_link_libraries(spreadsheet antlr4_static)
+
+install(
+  TARGETS spreadsheet
+  DESTINATION bin
+  EXPORT spreadsheet
+)
+
+set_directory_properties(PROPERTIES VS_STARTUP_PROJECT spreadsheet)
+</code></pre>
+
+<ul>
+<li>FindANTLR.cmake</li>
+</ul>
+
+<pre><code class="language-markdown">find_package(Java QUIET COMPONENTS Runtime)
+
+if(NOT ANTLR_EXECUTABLE)
+  find_program(ANTLR_EXECUTABLE
+               NAMES antlr.jar antlr4.jar antlr-4.jar antlr-4.7.2-complete.jar)
+endif()
+
+if(ANTLR_EXECUTABLE AND Java_JAVA_EXECUTABLE)
+  execute_process(
+      COMMAND ${Java_JAVA_EXECUTABLE} -jar ${ANTLR_EXECUTABLE}
+      OUTPUT_VARIABLE ANTLR_COMMAND_OUTPUT
+      ERROR_VARIABLE ANTLR_COMMAND_ERROR
+      RESULT_VARIABLE ANTLR_COMMAND_RESULT
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+  if(ANTLR_COMMAND_RESULT EQUAL 0)
+    string(REGEX MATCH &quot;Version [0-9]+(\\.[0-9])*&quot; ANTLR_VERSION ${ANTLR_COMMAND_OUTPUT})
+    string(REPLACE &quot;Version &quot; &quot;&quot; ANTLR_VERSION ${ANTLR_VERSION})
+  else()
+    message(
+        SEND_ERROR
+        &quot;Command '${Java_JAVA_EXECUTABLE} -jar ${ANTLR_EXECUTABLE}' &quot;
+        &quot;failed with the output '${ANTLR_COMMAND_ERROR}'&quot;)
+  endif()
+
+  macro(ANTLR_TARGET Name InputFile)
+    set(ANTLR_OPTIONS LEXER PARSER LISTENER VISITOR)
+    set(ANTLR_ONE_VALUE_ARGS PACKAGE OUTPUT_DIRECTORY DEPENDS_ANTLR)
+    set(ANTLR_MULTI_VALUE_ARGS COMPILE_FLAGS DEPENDS)
+    cmake_parse_arguments(ANTLR_TARGET
+                          &quot;${ANTLR_OPTIONS}&quot;
+                          &quot;${ANTLR_ONE_VALUE_ARGS}&quot;
+                          &quot;${ANTLR_MULTI_VALUE_ARGS}&quot;
+                          ${ARGN})
+
+    set(ANTLR_${Name}_INPUT ${InputFile})
+
+    get_filename_component(ANTLR_INPUT ${InputFile} NAME_WE)
+
+    if(ANTLR_TARGET_OUTPUT_DIRECTORY)
+      set(ANTLR_${Name}_OUTPUT_DIR ${ANTLR_TARGET_OUTPUT_DIRECTORY})
+    else()
+      set(ANTLR_${Name}_OUTPUT_DIR
+          ${CMAKE_CURRENT_BINARY_DIR}/antlr4cpp_generated_src/${ANTLR_INPUT})
+    endif()
+
+    unset(ANTLR_${Name}_CXX_OUTPUTS)
+
+    if((ANTLR_TARGET_LEXER AND NOT ANTLR_TARGET_PARSER) OR
+       (ANTLR_TARGET_PARSER AND NOT ANTLR_TARGET_LEXER))
+      list(APPEND ANTLR_${Name}_CXX_OUTPUTS
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}.h
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}.cpp)
+      set(ANTLR_${Name}_OUTPUTS
+          ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}.interp
+          ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}.tokens)
+    else()
+      list(APPEND ANTLR_${Name}_CXX_OUTPUTS
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}Lexer.h
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}Lexer.cpp
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}Parser.h
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}Parser.cpp)
+      list(APPEND ANTLR_${Name}_OUTPUTS
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}Lexer.interp
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}Lexer.tokens)
+    endif()
+
+    if(ANTLR_TARGET_LISTENER)
+      list(APPEND ANTLR_${Name}_CXX_OUTPUTS
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}BaseListener.h
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}BaseListener.cpp
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}Listener.h
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}Listener.cpp)
+      list(APPEND ANTLR_TARGET_COMPILE_FLAGS -listener)
+    endif()
+
+    if(ANTLR_TARGET_VISITOR)
+      list(APPEND ANTLR_${Name}_CXX_OUTPUTS
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}BaseVisitor.h
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}BaseVisitor.cpp
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}Visitor.h
+           ${ANTLR_${Name}_OUTPUT_DIR}/${ANTLR_INPUT}Visitor.cpp)
+      list(APPEND ANTLR_TARGET_COMPILE_FLAGS -visitor)
+    endif()
+
+    if(ANTLR_TARGET_PACKAGE)
+      list(APPEND ANTLR_TARGET_COMPILE_FLAGS -package ${ANTLR_TARGET_PACKAGE})
+    endif()
+
+    list(APPEND ANTLR_${Name}_OUTPUTS ${ANTLR_${Name}_CXX_OUTPUTS})
+
+    if(ANTLR_TARGET_DEPENDS_ANTLR)
+      if(ANTLR_${ANTLR_TARGET_DEPENDS_ANTLR}_INPUT)
+        list(APPEND ANTLR_TARGET_DEPENDS
+             ${ANTLR_${ANTLR_TARGET_DEPENDS_ANTLR}_INPUT})
+        list(APPEND ANTLR_TARGET_DEPENDS
+             ${ANTLR_${ANTLR_TARGET_DEPENDS_ANTLR}_OUTPUTS})
+      else()
+        message(SEND_ERROR
+                &quot;ANTLR target '${ANTLR_TARGET_DEPENDS_ANTLR}' not found&quot;)
+      endif()
+    endif()
+
+    add_custom_command(
+        OUTPUT ${ANTLR_${Name}_OUTPUTS}
+        COMMAND ${Java_JAVA_EXECUTABLE} -jar ${ANTLR_EXECUTABLE}
+                ${InputFile}
+                -o ${ANTLR_${Name}_OUTPUT_DIR}
+                -no-listener
+                -Dlanguage=Cpp
+                ${ANTLR_TARGET_COMPILE_FLAGS}
+        DEPENDS ${InputFile}
+                ${ANTLR_TARGET_DEPENDS}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        COMMENT &quot;Building ${Name} with ANTLR ${ANTLR_VERSION}&quot;)
+  endmacro(ANTLR_TARGET)
+
+endif(ANTLR_EXECUTABLE AND Java_JAVA_EXECUTABLE)
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(
+    ANTLR
+    REQUIRED_VARS ANTLR_EXECUTABLE Java_JAVA_EXECUTABLE
+    VERSION_VAR ANTLR_VERSION)
+</code></pre>
+
+<ul>
+<li>Formula.g4</li>
+</ul>
+
+<pre><code class="language-markdown">grammar Formula;
+
+main
+		: expr EOF
+		;
+
+expr
+		: '(' expr ')'  # Parens
+		| (ADD | SUB) expr  # UnaryOp
+		| expr (MUL | DIV) expr  # BinaryOp
+		| expr (ADD | SUB) expr  # BinaryOp
+		| CELL  # Cell
+		| NUMBER  # Literal
+		;
+
+// number literals cannot be signed, or else 1-2 would be lexed as [1] [-2]
+fragment INT: [-+]? UINT ;
+fragment UINT: [0-9]+ ;
+fragment EXPONENT: [eE] INT;
+NUMBER
+		: UINT EXPONENT?
+		| UINT? '.' UINT EXPONENT?
+		;
+
+ADD: '+' ;
+SUB: '-' ;
+MUL: '*' ;
+DIV: '/' ;
+CELL: [A-Z]+[0-9]+ ;
+WS: [ \t\n\r]+ -&gt; skip ;
+</code></pre>
+
+<ul>
+<li>common.h</li>
+</ul>
+
+<pre><code class="language-cpp">#pragma once
+
+#include &lt;iosfwd&gt;
+#include &lt;memory&gt;
+#include &lt;stdexcept&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;variant&gt;
+#include &lt;vector&gt;
+
+// Позиция ячейки. Индексация с нуля.
+struct Position {
+    int row = 0;
+    int col = 0;
+
+    bool operator==(Position rhs) const;
+    bool operator&lt;(Position rhs) const;
+
+    bool IsValid() const;
+    std::string ToString() const;
+
+    static Position FromString(std::string_view str);
+
+    static const int MAX_ROWS = 16384;
+    static const int MAX_COLS = 16384;
+    static const Position NONE;
+};
+
+struct Size {
+    int rows = 0;
+    int cols = 0;
+
+    bool operator==(Size rhs) const;
+};
+
+// Описывает ошибки, которые могут возникнуть при вычислении формулы.
+class FormulaError {
+public:
+    enum class Category {
+        Ref,    // ссылка на ячейку с некорректной позицией
+        Value,  // ячейка не может быть трактована как число
+        Div0,  // в результате вычисления возникло деление на ноль
+    };
+
+    FormulaError(Category category);
+
+    Category GetCategory() const;
+
+    bool operator==(FormulaError rhs) const;
+
+    std::string_view ToString() const;
+
+private:
+    Category category_;
+};
+
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; output, FormulaError fe);
+
+// Исключение, выбрасываемое при попытке передать в метод некорректную позицию
+class InvalidPositionException : public std::out_of_range {
+public:
+    using std::out_of_range::out_of_range;
+};
+
+// Исключение, выбрасываемое при попытке задать синтаксически некорректную
+// формулу
+class FormulaException : public std::runtime_error {
+public:
+    using std::runtime_error::runtime_error;
+};
+
+// Исключение, выбрасываемое при попытке задать формулу, которая приводит к
+// циклической зависимости между ячейками
+class CircularDependencyException : public std::runtime_error {
+public:
+    using std::runtime_error::runtime_error;
+};
+
+class CellInterface {
+public:
+    // Либо текст ячейки, либо значение формулы, либо сообщение об ошибке из
+    // формулы
+    using Value = std::variant&lt;std::string, double, FormulaError&gt;;
+
+    virtual ~CellInterface() = default;
+
+    // Возвращает видимое значение ячейки.
+    // В случае текстовой ячейки это её текст (без экранирующих символов). В
+    // случае формулы - числовое значение формулы или сообщение об ошибке.
+    virtual Value GetValue() const = 0;
+    // Возвращает внутренний текст ячейки, как если бы мы начали её
+    // редактирование. В случае текстовой ячейки это её текст (возможно,
+    // содержащий экранирующие символы). В случае формулы - её выражение.
+    virtual std::string GetText() const = 0;
+
+    // Возвращает список ячеек, которые непосредственно задействованы в данной
+    // формуле. Список отсортирован по возрастанию и не содержит повторяющихся
+    // ячеек. В случае текстовой ячейки список пуст.
+    virtual std::vector&lt;Position&gt; GetReferencedCells() const = 0;
+};
+
+inline constexpr char FORMULA_SIGN = '=';
+inline constexpr char ESCAPE_SIGN = '\'';
+
+// Интерфейс таблицы
+class SheetInterface {
+public:
+    virtual ~SheetInterface() = default;
+
+    // Задаёт содержимое ячейки. Если текст начинается со знака &quot;=&quot;, то он
+    // интерпретируется как формула. Если задаётся синтаксически некорректная
+    // формула, то бросается исключение FormulaException и значение ячейки не
+    // изменяется. Если задаётся формула, которая приводит к циклической
+    // зависимости (в частности, если формула использует текущую ячейку), то
+    // бросается исключение CircularDependencyException и значение ячейки не
+    // изменяется.
+    // Уточнения по записи формулы:
+    // * Если текст содержит только символ &quot;=&quot; и больше ничего, то он не считается
+    // формулой
+    // * Если текст начинается с символа &quot;'&quot; (апостроф), то при выводе значения
+    // ячейки методом GetValue() он опускается. Можно использовать, если нужно
+    // начать текст со знака &quot;=&quot;, но чтобы он не интерпретировался как формула.
+    virtual void SetCell(Position pos, std::string text) = 0;
+
+    // Возвращает значение ячейки.
+    // Если ячейка пуста, может вернуть nullptr.
+    virtual const CellInterface* GetCell(Position pos) const = 0;
+    virtual CellInterface* GetCell(Position pos) = 0;
+
+    // Очищает ячейку.
+    // Последующий вызов GetCell() для этой ячейки вернёт либо nullptr, либо
+    // объект с пустым текстом.
+    virtual void ClearCell(Position pos) = 0;
+
+    // Вычисляет размер области, которая участвует в печати.
+    // Определяется как ограничивающий прямоугольник всех ячеек с непустым
+    // текстом.
+    virtual Size GetPrintableSize() const = 0;
+
+    // Выводит всю таблицу в переданный поток. Столбцы разделяются знаком
+    // табуляции. После каждой строки выводится символ перевода строки. Для
+    // преобразования ячеек в строку используются методы GetValue() или GetText()
+    // соответственно. Пустая ячейка представляется пустой строкой в любом случае.
+    virtual void PrintValues(std::ostream&amp; output) const = 0;
+    virtual void PrintTexts(std::ostream&amp; output) const = 0;
+};
+
+// Создаёт готовую к работе пустую таблицу.
+std::unique_ptr&lt;SheetInterface&gt; CreateSheet();
+</code></pre>
+
+<ul>
+<li>FormulaAST.h</li>
+</ul>
+
+<pre><code class="language-cpp">#pragma once
+
+#include &quot;FormulaLexer.h&quot;
+#include &quot;common.h&quot;
+
+#include &lt;forward_list&gt;
+#include &lt;functional&gt;
+#include &lt;stdexcept&gt;
+
+namespace ASTImpl {
+class Expr;
+}
+
+class ParsingError : public std::runtime_error {
+    using std::runtime_error::runtime_error;
+};
+
+class FormulaAST {
+public:
+    explicit FormulaAST(std::unique_ptr&lt;ASTImpl::Expr&gt; root_expr,
+                        std::forward_list&lt;Position&gt; cells);
+    FormulaAST(FormulaAST&amp;&amp;) = default;
+    FormulaAST&amp; operator=(FormulaAST&amp;&amp;) = default;
+    ~FormulaAST();
+
+    double Execute(/*добавьте нужные аргументы*/ args) const;
+    void PrintCells(std::ostream&amp; out) const;
+    void Print(std::ostream&amp; out) const;
+    void PrintFormula(std::ostream&amp; out) const;
+
+    std::forward_list&lt;Position&gt;&amp; GetCells() {
+        return cells_;
+    }
+
+    const std::forward_list&lt;Position&gt;&amp; GetCells() const {
+        return cells_;
+    }
+
+private:
+    std::unique_ptr&lt;ASTImpl::Expr&gt; root_expr_;
+
+    // physically stores cells so that they can be
+    // efficiently traversed without going through
+    // the whole AST
+    std::forward_list&lt;Position&gt; cells_;
+};
+
+FormulaAST ParseFormulaAST(std::istream&amp; in);
+FormulaAST ParseFormulaAST(const std::string&amp; in_str);
+</code></pre>
+
+<ul>
+<li>FormulaAST.cpp</li>
+</ul>
+
+<pre><code class="language-cpp">#include &quot;FormulaAST.h&quot;
+
+#include &quot;FormulaBaseListener.h&quot;
+#include &quot;FormulaLexer.h&quot;
+#include &quot;FormulaParser.h&quot;
+
+#include &lt;cassert&gt;
+#include &lt;cmath&gt;
+#include &lt;memory&gt;
+#include &lt;optional&gt;
+#include &lt;sstream&gt;
+
+namespace ASTImpl {
+
+enum ExprPrecedence {
+    EP_ADD,
+    EP_SUB,
+    EP_MUL,
+    EP_DIV,
+    EP_UNARY,
+    EP_ATOM,
+    EP_END,
+};
+
+// a bit is set when the parentheses are needed
+enum PrecedenceRule {
+    PR_NONE = 0b00,                // never needed
+    PR_LEFT = 0b01,                // needed for a left child
+    PR_RIGHT = 0b10,               // needed for a right child
+    PR_BOTH = PR_LEFT | PR_RIGHT,  // needed for both children
+};
+
+// PRECEDENCE_RULES[parent][child] determines if parentheses need
+// to be inserted between a parent and a child of specific precedences;
+// for some nodes rules are different for left and right children:
+// (X c Y) p Z  vs  X p (Y c Z)
+//
+// The interesting cases are the ones where removing the parens would change the AST.
+// It may happen when our precedence rules for parentheses are different from
+// the grammatic precedence of operations.
+//
+// Case analysis:
+// A + (B + C) - always okay (nothing of lower grammatic precedence could have been written to the
+// right)
+//    (e.g. if we had A + (B + C) / D, it wouldn't parse in a way
+//    that woudld have given us A + (B + C) as a subexpression to deal with)
+// A + (B - C) - always okay (nothing of lower grammatic precedence could have been written to the
+// right) A - (B + C) - never okay A - (B - C) - never okay A * (B * C) - always okay (the parent
+// has the highest grammatic precedence) A * (B / C) - always okay (the parent has the highest
+// grammatic precedence) A / (B * C) - never okay A / (B / C) - never okay
+// -(A + B) - never okay
+// -(A - B) - never okay
+// -(A * B) - always okay (the resulting binary op has the highest grammatic precedence)
+// -(A / B) - always okay (the resulting binary op has the highest grammatic precedence)
+// +(A + B) - **sometimes okay** (e.g. parens in +(A + B) / C are **not** optional)
+//     (currently in the table we're always putting in the parentheses)
+// +(A - B) - **sometimes okay** (same)
+//     (currently in the table we're always putting in the parentheses)
+// +(A * B) - always okay (the resulting binary op has the highest grammatic precedence)
+// +(A / B) - always okay (the resulting binary op has the highest grammatic precedence)
+constexpr PrecedenceRule PRECEDENCE_RULES[EP_END][EP_END] = {
+    /* EP_ADD */ {PR_NONE, PR_NONE, PR_NONE, PR_NONE, PR_NONE, PR_NONE},
+    /* EP_SUB */ {PR_RIGHT, PR_RIGHT, PR_NONE, PR_NONE, PR_NONE, PR_NONE},
+    /* EP_MUL */ {PR_BOTH, PR_BOTH, PR_NONE, PR_NONE, PR_NONE, PR_NONE},
+    /* EP_DIV */ {PR_BOTH, PR_BOTH, PR_RIGHT, PR_RIGHT, PR_NONE, PR_NONE},
+    /* EP_UNARY */ {PR_BOTH, PR_BOTH, PR_NONE, PR_NONE, PR_NONE, PR_NONE},
+    /* EP_ATOM */ {PR_NONE, PR_NONE, PR_NONE, PR_NONE, PR_NONE, PR_NONE},
+};
+
+class Expr {
+public:
+    virtual ~Expr() = default;
+    virtual void Print(std::ostream&amp; out) const = 0;
+    virtual void DoPrintFormula(std::ostream&amp; out, ExprPrecedence precedence) const = 0;
+    virtual double Evaluate(/*добавьте сюда нужные аргументы*/ args) const = 0;
+
+    // higher is tighter
+    virtual ExprPrecedence GetPrecedence() const = 0;
+
+    void PrintFormula(std::ostream&amp; out, ExprPrecedence parent_precedence,
+                      bool right_child = false) const {
+        auto precedence = GetPrecedence();
+        auto mask = right_child ? PR_RIGHT : PR_LEFT;
+        bool parens_needed = PRECEDENCE_RULES[parent_precedence][precedence] &amp; mask;
+        if (parens_needed) {
+            out &lt;&lt; '(';
+        }
+
+        DoPrintFormula(out, precedence);
+
+        if (parens_needed) {
+            out &lt;&lt; ')';
+        }
+    }
+};
+
+namespace {
+class BinaryOpExpr final : public Expr {
+public:
+    enum Type : char {
+        Add = '+',
+        Subtract = '-',
+        Multiply = '*',
+        Divide = '/',
+    };
+
+public:
+    explicit BinaryOpExpr(Type type, std::unique_ptr&lt;Expr&gt; lhs, std::unique_ptr&lt;Expr&gt; rhs)
+        : type_(type)
+        , lhs_(std::move(lhs))
+        , rhs_(std::move(rhs)) {
+    }
+
+    void Print(std::ostream&amp; out) const override {
+        out &lt;&lt; '(' &lt;&lt; static_cast&lt;char&gt;(type_) &lt;&lt; ' ';
+        lhs_-&gt;Print(out);
+        out &lt;&lt; ' ';
+        rhs_-&gt;Print(out);
+        out &lt;&lt; ')';
+    }
+
+    void DoPrintFormula(std::ostream&amp; out, ExprPrecedence precedence) const override {
+        lhs_-&gt;PrintFormula(out, precedence);
+        out &lt;&lt; static_cast&lt;char&gt;(type_);
+        rhs_-&gt;PrintFormula(out, precedence, /* right_child = */ true);
+    }
+
+    ExprPrecedence GetPrecedence() const override {
+        switch (type_) {
+            case Add:
+                return EP_ADD;
+            case Subtract:
+                return EP_SUB;
+            case Multiply:
+                return EP_MUL;
+            case Divide:
+                return EP_DIV;
+            default:
+                // have to do this because VC++ has a buggy warning
+                assert(false);
+                return static_cast&lt;ExprPrecedence&gt;(INT_MAX);
+        }
+    }
+
+    double Evaluate(/*добавьте нужные аргументы*/) const override {
+			// Скопируйте ваше решение из предыдущих уроков.
+    }
+
+private:
+    Type type_;
+    std::unique_ptr&lt;Expr&gt; lhs_;
+    std::unique_ptr&lt;Expr&gt; rhs_;
+};
+
+class UnaryOpExpr final : public Expr {
+public:
+    enum Type : char {
+        UnaryPlus = '+',
+        UnaryMinus = '-',
+    };
+
+public:
+    explicit UnaryOpExpr(Type type, std::unique_ptr&lt;Expr&gt; operand)
+        : type_(type)
+        , operand_(std::move(operand)) {
+    }
+
+    void Print(std::ostream&amp; out) const override {
+        out &lt;&lt; '(' &lt;&lt; static_cast&lt;char&gt;(type_) &lt;&lt; ' ';
+        operand_-&gt;Print(out);
+        out &lt;&lt; ')';
+    }
+
+    void DoPrintFormula(std::ostream&amp; out, ExprPrecedence precedence) const override {
+        out &lt;&lt; static_cast&lt;char&gt;(type_);
+        operand_-&gt;PrintFormula(out, precedence);
+    }
+
+    ExprPrecedence GetPrecedence() const override {
+        return EP_UNARY;
+    }
+
+    double Evaluate(/*добавьте нужные аргументы*/ args) const override {
+        // Скопируйте ваше решение из предыдущих уроков.
+    }
+
+private:
+    Type type_;
+    std::unique_ptr&lt;Expr&gt; operand_;
+};
+
+class CellExpr final : public Expr {
+public:
+    explicit CellExpr(const Position* cell)
+        : cell_(cell) {
+    }
+
+    void Print(std::ostream&amp; out) const override {
+        if (!cell_-&gt;IsValid()) {
+            out &lt;&lt; FormulaError::Category::Ref;
+        } else {
+            out &lt;&lt; cell_-&gt;ToString();
+        }
+    }
+
+    void DoPrintFormula(std::ostream&amp; out, ExprPrecedence /* precedence */) const override {
+        Print(out);
+    }
+
+    ExprPrecedence GetPrecedence() const override {
+        return EP_ATOM;
+    }
+
+    double Evaluate(/*добавьте нужные аргументы*/ args) const override {
+        // реализуйте метод.
+    }
+
+private:
+    const Position* cell_;
+};
+
+class NumberExpr final : public Expr {
+public:
+    explicit NumberExpr(double value)
+        : value_(value) {
+    }
+
+    void Print(std::ostream&amp; out) const override {
+        out &lt;&lt; value_;
+    }
+
+    void DoPrintFormula(std::ostream&amp; out, ExprPrecedence /* precedence */) const override {
+        out &lt;&lt; value_;
+    }
+
+    ExprPrecedence GetPrecedence() const override {
+        return EP_ATOM;
+    }
+
+    double Evaluate(/*добавьте нужные аргументы*/ args) const override {
+        return value_;
+    }
+
+private:
+    double value_;
+};
+
+class ParseASTListener final : public FormulaBaseListener {
+public:
+    std::unique_ptr&lt;Expr&gt; MoveRoot() {
+        assert(args_.size() == 1);
+        auto root = std::move(args_.front());
+        args_.clear();
+
+        return root;
+    }
+
+    std::forward_list&lt;Position&gt; MoveCells() {
+        return std::move(cells_);
+    }
+
+public:
+    void exitUnaryOp(FormulaParser::UnaryOpContext* ctx) override {
+        assert(args_.size() &gt;= 1);
+
+        auto operand = std::move(args_.back());
+
+        UnaryOpExpr::Type type;
+        if (ctx-&gt;SUB()) {
+            type = UnaryOpExpr::UnaryMinus;
+        } else {
+            assert(ctx-&gt;ADD() != nullptr);
+            type = UnaryOpExpr::UnaryPlus;
+        }
+
+        auto node = std::make_unique&lt;UnaryOpExpr&gt;(type, std::move(operand));
+        args_.back() = std::move(node);
+    }
+
+    void exitLiteral(FormulaParser::LiteralContext* ctx) override {
+        double value = 0;
+        auto valueStr = ctx-&gt;NUMBER()-&gt;getSymbol()-&gt;getText();
+        std::istringstream in(valueStr);
+        in &gt;&gt; value;
+        if (!in) {
+            throw ParsingError(&quot;Invalid number: &quot; + valueStr);
+        }
+
+        auto node = std::make_unique&lt;NumberExpr&gt;(value);
+        args_.push_back(std::move(node));
+    }
+
+    void exitCell(FormulaParser::CellContext* ctx) override {
+        auto value_str = ctx-&gt;CELL()-&gt;getSymbol()-&gt;getText();
+        auto value = Position::FromString(value_str);
+        if (!value.IsValid()) {
+            throw FormulaException(&quot;Invalid position: &quot; + value_str);
+        }
+
+        cells_.push_front(value);
+        auto node = std::make_unique&lt;CellExpr&gt;(&amp;cells_.front());
+        args_.push_back(std::move(node));
+    }
+
+    void exitBinaryOp(FormulaParser::BinaryOpContext* ctx) override {
+        assert(args_.size() &gt;= 2);
+
+        auto rhs = std::move(args_.back());
+        args_.pop_back();
+
+        auto lhs = std::move(args_.back());
+
+        BinaryOpExpr::Type type;
+        if (ctx-&gt;ADD()) {
+            type = BinaryOpExpr::Add;
+        } else if (ctx-&gt;SUB()) {
+            type = BinaryOpExpr::Subtract;
+        } else if (ctx-&gt;MUL()) {
+            type = BinaryOpExpr::Multiply;
+        } else {
+            assert(ctx-&gt;DIV() != nullptr);
+            type = BinaryOpExpr::Divide;
+        }
+
+        auto node = std::make_unique&lt;BinaryOpExpr&gt;(type, std::move(lhs), std::move(rhs));
+        args_.back() = std::move(node);
+    }
+
+    void visitErrorNode(antlr4::tree::ErrorNode* node) override {
+        throw ParsingError(&quot;Error when parsing: &quot; + node-&gt;getSymbol()-&gt;getText());
+    }
+
+private:
+    std::vector&lt;std::unique_ptr&lt;Expr&gt;&gt; args_;
+    std::forward_list&lt;Position&gt; cells_;
+};
+
+class BailErrorListener : public antlr4::BaseErrorListener {
+public:
+    void syntaxError(antlr4::Recognizer* /* recognizer */, antlr4::Token* /* offendingSymbol */,
+                     size_t /* line */, size_t /* charPositionInLine */, const std::string&amp; msg,
+                     std::exception_ptr /* e */
+                     ) override {
+        throw ParsingError(&quot;Error when lexing: &quot; + msg);
+    }
+};
+
+}  // namespace
+}  // namespace ASTImpl
+
+FormulaAST ParseFormulaAST(std::istream&amp; in) {
+    using namespace antlr4;
+
+    ANTLRInputStream input(in);
+
+    FormulaLexer lexer(&amp;input);
+    ASTImpl::BailErrorListener error_listener;
+    lexer.removeErrorListeners();
+    lexer.addErrorListener(&amp;error_listener);
+
+    CommonTokenStream tokens(&amp;lexer);
+
+    FormulaParser parser(&amp;tokens);
+    auto error_handler = std::make_shared&lt;BailErrorStrategy&gt;();
+    parser.setErrorHandler(error_handler);
+    parser.removeErrorListeners();
+
+    tree::ParseTree* tree = parser.main();
+    ASTImpl::ParseASTListener listener;
+    tree::ParseTreeWalker::DEFAULT.walk(&amp;listener, tree);
+
+    return FormulaAST(listener.MoveRoot(), listener.MoveCells());
+}
+
+FormulaAST ParseFormulaAST(const std::string&amp; in_str) {
+    std::istringstream in(in_str);
+    return ParseFormulaAST(in);
+}
+
+void FormulaAST::PrintCells(std::ostream&amp; out) const {
+    for (auto cell : cells_) {
+        out &lt;&lt; cell.ToString() &lt;&lt; ' ';
+    }
+}
+
+void FormulaAST::Print(std::ostream&amp; out) const {
+    root_expr_-&gt;Print(out);
+}
+
+void FormulaAST::PrintFormula(std::ostream&amp; out) const {
+    root_expr_-&gt;PrintFormula(out, ASTImpl::EP_ATOM);
+}
+
+double FormulaAST::Execute(/*добавьте нужные аргументы*/ args) const {
+    return root_expr_-&gt;Evaluate(/*добавьте нужные аргументы*/ args);
+}
+
+FormulaAST::FormulaAST(std::unique_ptr&lt;ASTImpl::Expr&gt; root_expr, std::forward_list&lt;Position&gt; cells)
+    : root_expr_(std::move(root_expr))
+    , cells_(std::move(cells)) {
+    cells_.sort();  // to avoid sorting in GetReferencedCells
+}
+
+FormulaAST::~FormulaAST() = default;
+</code></pre>
+
+<ul>
+<li>formula.h Обратите внимание: метод <code>Evaluate</code> имеет новую сигнатуру, у метода есть аргумент — ссылка на таблицу.</li>
+</ul>
+
+<pre><code class="language-cpp">#pragma once
+
+#include &quot;common.h&quot;
+
+#include &lt;memory&gt;
+#include &lt;vector&gt;
+
+// Формула, позволяющая вычислять и обновлять арифметическое выражение.
+// Поддерживаемые возможности:
+// * Простые бинарные операции и числа, скобки: 1+2*3, 2.5*(2+3.5/7)
+// * Значения ячеек в качестве переменных: A1+B2*C3
+// Ячейки, указанные в формуле, могут быть как формулами, так и текстом. Если это
+// текст, но он представляет число, тогда его нужно трактовать как число. Пустая
+// ячейка или ячейка с пустым текстом трактуется как число ноль.
+class FormulaInterface {
+public:
+		using Value = std::variant&lt;double, FormulaError&gt;;
+
+		virtual ~FormulaInterface() = default;
+
+		// Обратите внимание, что в метод Evaluate() ссылка на таблицу передаётся 
+		// в качестве аргумента.
+		// Возвращает вычисленное значение формулы для переданного листа либо ошибку.
+		// Если вычисление какой-то из указанных в формуле ячеек приводит к ошибке, то
+		// возвращается именно эта ошибка. Если таких ошибок несколько, возвращается
+		// любая.
+		virtual Value Evaluate(const SheetInterface&amp; sheet) const = 0;
+
+		// Возвращает выражение, которое описывает формулу.
+		// Не содержит пробелов и лишних скобок.
+		virtual std::string GetExpression() const = 0;
+
+		// Возвращает список ячеек, которые непосредственно задействованы в вычислении
+		// формулы. Список отсортирован по возрастанию и не содержит повторяющихся
+		// ячеек.
+		virtual std::vector&lt;Position&gt; GetReferencedCells() const = 0;
+};
+
+// Парсит переданное выражение и возвращает объект формулы.
+// Бросает FormulaException в случае, если формула синтаксически некорректна.
+std::unique_ptr&lt;FormulaInterface&gt; ParseFormula(std::string expression);
+</code></pre>
+
+<ul>
+<li>cell.h</li>
+</ul>
+
+<pre><code class="language-cpp">#pragma once
+
+#include &quot;common.h&quot;
+#include &quot;formula.h&quot;
+
+#include &lt;functional&gt;
+#include &lt;unordered_set&gt;
+
+class Sheet;
+
+class Cell : public CellInterface {
+public:
+		Cell(Sheet&amp; sheet);
+		~Cell();
+
+		void Set(std::string text);
+		void Clear();
+
+		Value GetValue() const override;
+		std::string GetText() const override;
+		std::vector&lt;Position&gt; GetReferencedCells() const override;
+
+		bool IsReferenced() const;
+
+private:
+		class Impl;
+		class EmptyImpl;
+		class TextImpl;
+		class FormulaImpl;
+
+		std::unique_ptr&lt;Impl&gt; impl_;
+
+		// Добавьте поля и методы для связи с таблицей, проверки циклических 
+		// зависимостей, графа зависимостей и т. д.
+</code></pre>
+
+<ul>
+<li>test_runner.h</li>
+</ul>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;map&gt;
+#include &lt;set&gt;
+#include &lt;sstream&gt;
+#include &lt;stdexcept&gt;
+#include &lt;string&gt;
+#include &lt;unordered_map&gt;
+#include &lt;vector&gt;
+
+namespace TestRunnerPrivate {
+template &lt;typename K, typename V, template &lt;typename, typename&gt; class Map&gt;
+std::ostream&amp; PrintMap(std::ostream&amp; os, const Map&lt;K, V&gt;&amp; m) {
+    os &lt;&lt; &quot;{&quot;;
+    bool first = true;
+    for (const auto&amp; kv : m) {
+        if (!first) {
+            os &lt;&lt; &quot;, &quot;;
+        }
+        first = false;
+        os &lt;&lt; kv.first &lt;&lt; &quot;: &quot; &lt;&lt; kv.second;
+    }
+    return os &lt;&lt; &quot;}&quot;;
+}
+}  // namespace TestRunnerPrivate
+
+template &lt;class T&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::vector&lt;T&gt;&amp; s) {
+    os &lt;&lt; &quot;{&quot;;
+    bool first = true;
+    for (const auto&amp; x : s) {
+        if (!first) {
+            os &lt;&lt; &quot;, &quot;;
+        }
+        first = false;
+        os &lt;&lt; x;
+    }
+    return os &lt;&lt; &quot;}&quot;;
+}
+
+template &lt;class T&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::set&lt;T&gt;&amp; s) {
+    os &lt;&lt; &quot;{&quot;;
+    bool first = true;
+    for (const auto&amp; x : s) {
+        if (!first) {
+            os &lt;&lt; &quot;, &quot;;
+        }
+        first = false;
+        os &lt;&lt; x;
+    }
+    return os &lt;&lt; &quot;}&quot;;
+}
+
+template &lt;class K, class V&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::map&lt;K, V&gt;&amp; m) {
+    return TestRunnerPrivate::PrintMap(os, m);
+}
+
+template &lt;class K, class V&gt;
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const std::unordered_map&lt;K, V&gt;&amp; m) {
+    return TestRunnerPrivate::PrintMap(os, m);
+}
+
+template &lt;class T, class U&gt;
+void AssertEqual(const T&amp; t, const U&amp; u, const std::string&amp; hint = {}) {
+    if (!(t == u)) {
+        std::ostringstream os;
+        os &lt;&lt; &quot;Assertion failed: &quot; &lt;&lt; t &lt;&lt; &quot; != &quot; &lt;&lt; u;
+        if (!hint.empty()) {
+            os &lt;&lt; &quot; hint: &quot; &lt;&lt; hint;
+        }
+        throw std::runtime_error(os.str());
+    }
+}
+
+inline void Assert(bool b, const std::string&amp; hint) {
+    AssertEqual(b, true, hint);
+}
+
+class TestRunner {
+public:
+    template &lt;class TestFunc&gt;
+    void RunTest(TestFunc func, const std::string&amp; test_name) {
+        try {
+            func();
+            std::cerr &lt;&lt; test_name &lt;&lt; &quot; OK&quot; &lt;&lt; std::endl;
+        } catch (std::exception&amp; e) {
+            ++fail_count;
+            std::cerr &lt;&lt; test_name &lt;&lt; &quot; fail: &quot; &lt;&lt; e.what() &lt;&lt; std::endl;
+        } catch (...) {
+            ++fail_count;
+            std::cerr &lt;&lt; &quot;Unknown exception caught&quot; &lt;&lt; std::endl;
+        }
+    }
+
+    ~TestRunner() {
+        std::cerr.flush();
+        if (fail_count &gt; 0) {
+            std::cerr &lt;&lt; fail_count &lt;&lt; &quot; unit tests failed. Terminate&quot; &lt;&lt; std::endl;
+            exit(1);
+        }
+    }
+
+private:
+    int fail_count = 0;
+};
+
+#ifndef FILE_NAME
+#define FILE_NAME __FILE__
+#endif
+
+#define ASSERT_EQUAL(x, y)                                                                       \
+    {                                                                                            \
+        std::ostringstream __assert_equal_private_os;                                            \
+        __assert_equal_private_os &lt;&lt; #x &lt;&lt; &quot; != &quot; &lt;&lt; #y &lt;&lt; &quot;, &quot; &lt;&lt; FILE_NAME &lt;&lt; &quot;:&quot; &lt;&lt; __LINE__; \
+        AssertEqual(x, y, __assert_equal_private_os.str());                                      \
+    }
+
+#define ASSERT(x)                                                                   \
+    {                                                                               \
+        std::ostringstream __assert_private_os;                                     \
+        __assert_private_os &lt;&lt; #x &lt;&lt; &quot; is false, &quot; &lt;&lt; FILE_NAME &lt;&lt; &quot;:&quot; &lt;&lt; __LINE__; \
+        Assert(x, __assert_private_os.str());                                       \
+    }
+
+#define RUN_TEST(tr, func) tr.RunTest(func, #func)
+</code></pre>
+
+<ul>
+<li>main.cpp</li>
+</ul>
+
+<pre><code class="language-cpp">#include &quot;common.h&quot;
+#include &quot;formula.h&quot;
+#include &quot;test_runner_p.h&quot;
+
+inline std::ostream&amp; operator&lt;&lt;(std::ostream&amp; output, Position pos) {
+    return output &lt;&lt; &quot;(&quot; &lt;&lt; pos.row &lt;&lt; &quot;, &quot; &lt;&lt; pos.col &lt;&lt; &quot;)&quot;;
+}
+
+inline Position operator&quot;&quot; _pos(const char* str, std::size_t) {
+    return Position::FromString(str);
+}
+
+inline std::ostream&amp; operator&lt;&lt;(std::ostream&amp; output, Size size) {
+    return output &lt;&lt; &quot;(&quot; &lt;&lt; size.rows &lt;&lt; &quot;, &quot; &lt;&lt; size.cols &lt;&lt; &quot;)&quot;;
+}
+
+inline std::ostream&amp; operator&lt;&lt;(std::ostream&amp; output, const CellInterface::Value&amp; value) {
+    std::visit(
+        [&amp;](const auto&amp; x) {
+            output &lt;&lt; x;
+        },
+        value);
+    return output;
+}
+
+namespace {
+std::string ToString(FormulaError::Category category) {
+    return std::string(FormulaError(category).ToString());
+}
+
+void TestPositionAndStringConversion() {
+    auto testSingle = [](Position pos, std::string_view str) {
+        ASSERT_EQUAL(pos.ToString(), str);
+        ASSERT_EQUAL(Position::FromString(str), pos);
+    };
+
+    for (int i = 0; i &lt; 25; ++i) {
+        testSingle(Position{i, i}, char('A' + i) + std::to_string(i + 1));
+    }
+
+    testSingle(Position{0, 0}, &quot;A1&quot;);
+    testSingle(Position{0, 1}, &quot;B1&quot;);
+    testSingle(Position{0, 25}, &quot;Z1&quot;);
+    testSingle(Position{0, 26}, &quot;AA1&quot;);
+    testSingle(Position{0, 27}, &quot;AB1&quot;);
+    testSingle(Position{0, 51}, &quot;AZ1&quot;);
+    testSingle(Position{0, 52}, &quot;BA1&quot;);
+    testSingle(Position{0, 53}, &quot;BB1&quot;);
+    testSingle(Position{0, 77}, &quot;BZ1&quot;);
+    testSingle(Position{0, 78}, &quot;CA1&quot;);
+    testSingle(Position{0, 701}, &quot;ZZ1&quot;);
+    testSingle(Position{0, 702}, &quot;AAA1&quot;);
+    testSingle(Position{136, 2}, &quot;C137&quot;);
+    testSingle(Position{Position::MAX_ROWS - 1, Position::MAX_COLS - 1}, &quot;XFD16384&quot;);
+}
+
+void TestPositionToStringInvalid() {
+    ASSERT_EQUAL((Position{-1, -1}).ToString(), &quot;&quot;);
+    ASSERT_EQUAL((Position{-10, 0}).ToString(), &quot;&quot;);
+    ASSERT_EQUAL((Position{1, -3}).ToString(), &quot;&quot;);
+}
+
+void TestStringToPositionInvalid() {
+    ASSERT(!Position::FromString(&quot;&quot;).IsValid());
+    ASSERT(!Position::FromString(&quot;A&quot;).IsValid());
+    ASSERT(!Position::FromString(&quot;1&quot;).IsValid());
+    ASSERT(!Position::FromString(&quot;e2&quot;).IsValid());
+    ASSERT(!Position::FromString(&quot;A0&quot;).IsValid());
+    ASSERT(!Position::FromString(&quot;A-1&quot;).IsValid());
+    ASSERT(!Position::FromString(&quot;A+1&quot;).IsValid());
+    ASSERT(!Position::FromString(&quot;R2D2&quot;).IsValid());
+    ASSERT(!Position::FromString(&quot;C3PO&quot;).IsValid());
+    ASSERT(!Position::FromString(&quot;XFD16385&quot;).IsValid());
+    ASSERT(!Position::FromString(&quot;XFE16384&quot;).IsValid());
+    ASSERT(!Position::FromString(&quot;A1234567890123456789&quot;).IsValid());
+    ASSERT(!Position::FromString(&quot;ABCDEFGHIJKLMNOPQRS8&quot;).IsValid());
+}
+
+void TestEmpty() {
+    auto sheet = CreateSheet();
+    ASSERT_EQUAL(sheet-&gt;GetPrintableSize(), (Size{0, 0}));
+}
+
+void TestInvalidPosition() {
+    auto sheet = CreateSheet();
+    try {
+        sheet-&gt;SetCell(Position{-1, 0}, &quot;&quot;);
+    } catch (const InvalidPositionException&amp;) {
+    }
+    try {
+        sheet-&gt;GetCell(Position{0, -2});
+    } catch (const InvalidPositionException&amp;) {
+    }
+    try {
+        sheet-&gt;ClearCell(Position{Position::MAX_ROWS, 0});
+    } catch (const InvalidPositionException&amp;) {
+    }
+}
+
+void TestSetCellPlainText() {
+    auto sheet = CreateSheet();
+
+    auto checkCell = [&amp;](Position pos, std::string text) {
+        sheet-&gt;SetCell(pos, text);
+        CellInterface* cell = sheet-&gt;GetCell(pos);
+        ASSERT(cell != nullptr);
+        ASSERT_EQUAL(cell-&gt;GetText(), text);
+        ASSERT_EQUAL(std::get&lt;std::string&gt;(cell-&gt;GetValue()), text);
+    };
+
+    checkCell(&quot;A1&quot;_pos, &quot;Hello&quot;);
+    checkCell(&quot;A1&quot;_pos, &quot;World&quot;);
+    checkCell(&quot;B2&quot;_pos, &quot;Purr&quot;);
+    checkCell(&quot;A3&quot;_pos, &quot;Meow&quot;);
+
+    const SheetInterface&amp; constSheet = *sheet;
+    ASSERT_EQUAL(constSheet.GetCell(&quot;B2&quot;_pos)-&gt;GetText(), &quot;Purr&quot;);
+
+    sheet-&gt;SetCell(&quot;A3&quot;_pos, &quot;'=escaped&quot;);
+    CellInterface* cell = sheet-&gt;GetCell(&quot;A3&quot;_pos);
+    ASSERT_EQUAL(cell-&gt;GetText(), &quot;'=escaped&quot;);
+    ASSERT_EQUAL(std::get&lt;std::string&gt;(cell-&gt;GetValue()), &quot;=escaped&quot;);
+}
+
+void TestClearCell() {
+    auto sheet = CreateSheet();
+
+    sheet-&gt;SetCell(&quot;C2&quot;_pos, &quot;Me gusta&quot;);
+    sheet-&gt;ClearCell(&quot;C2&quot;_pos);
+    ASSERT(sheet-&gt;GetCell(&quot;C2&quot;_pos) == nullptr);
+
+    sheet-&gt;ClearCell(&quot;A1&quot;_pos);
+    sheet-&gt;ClearCell(&quot;J10&quot;_pos);
+}
+
+void TestFormulaArithmetic() {
+    auto sheet = CreateSheet();
+    auto evaluate = [&amp;](std::string expr) {
+        return std::get&lt;double&gt;(ParseFormula(std::move(expr))-&gt;Evaluate(*sheet));
+    };
+
+    ASSERT_EQUAL(evaluate(&quot;1&quot;), 1);
+    ASSERT_EQUAL(evaluate(&quot;42&quot;), 42);
+    ASSERT_EQUAL(evaluate(&quot;2 + 2&quot;), 4);
+    ASSERT_EQUAL(evaluate(&quot;2 + 2*2&quot;), 6);
+    ASSERT_EQUAL(evaluate(&quot;4/2 + 6/3&quot;), 4);
+    ASSERT_EQUAL(evaluate(&quot;(2+3)*4 + (3-4)*5&quot;), 15);
+    ASSERT_EQUAL(evaluate(&quot;(12+13) * (14+(13-24/(1+1))*55-46)&quot;), 575);
+}
+
+void TestFormulaReferences() {
+    auto sheet = CreateSheet();
+    auto evaluate = [&amp;](std::string expr) {
+        return std::get&lt;double&gt;(ParseFormula(std::move(expr))-&gt;Evaluate(*sheet));
+    };
+
+    sheet-&gt;SetCell(&quot;A1&quot;_pos, &quot;1&quot;);
+    ASSERT_EQUAL(evaluate(&quot;A1&quot;), 1);
+    sheet-&gt;SetCell(&quot;A2&quot;_pos, &quot;2&quot;);
+    ASSERT_EQUAL(evaluate(&quot;A1+A2&quot;), 3);
+
+    // Тест на нули:
+    sheet-&gt;SetCell(&quot;B3&quot;_pos, &quot;&quot;);
+    ASSERT_EQUAL(evaluate(&quot;A1+B3&quot;), 1);  // Ячейка с пустым текстом
+    ASSERT_EQUAL(evaluate(&quot;A1+B1&quot;), 1);  // Пустая ячейка
+    ASSERT_EQUAL(evaluate(&quot;A1+E4&quot;), 1);  // Ячейка за пределами таблицы
+}
+
+void TestFormulaExpressionFormatting() {
+    auto reformat = [](std::string expr) {
+        return ParseFormula(std::move(expr))-&gt;GetExpression();
+    };
+
+    ASSERT_EQUAL(reformat(&quot;  1  &quot;), &quot;1&quot;);
+    ASSERT_EQUAL(reformat(&quot;  -1  &quot;), &quot;-1&quot;);
+    ASSERT_EQUAL(reformat(&quot;2 + 2&quot;), &quot;2+2&quot;);
+    ASSERT_EQUAL(reformat(&quot;(2*3)+4&quot;), &quot;2*3+4&quot;);
+    ASSERT_EQUAL(reformat(&quot;(2*3)-4&quot;), &quot;2*3-4&quot;);
+    ASSERT_EQUAL(reformat(&quot;( ( (  1) ) )&quot;), &quot;1&quot;);
+}
+
+void TestFormulaReferencedCells() {
+    ASSERT(ParseFormula(&quot;1&quot;)-&gt;GetReferencedCells().empty());
+
+    auto a1 = ParseFormula(&quot;A1&quot;);
+    ASSERT_EQUAL(a1-&gt;GetReferencedCells(), (std::vector{&quot;A1&quot;_pos}));
+
+    auto b2c3 = ParseFormula(&quot;B2+C3&quot;);
+    ASSERT_EQUAL(b2c3-&gt;GetReferencedCells(), (std::vector{&quot;B2&quot;_pos, &quot;C3&quot;_pos}));
+
+    auto tricky = ParseFormula(&quot;A1 + A2 + A1 + A3 + A1 + A2 + A1&quot;);
+    ASSERT_EQUAL(tricky-&gt;GetExpression(), &quot;A1+A2+A1+A3+A1+A2+A1&quot;);
+    ASSERT_EQUAL(tricky-&gt;GetReferencedCells(), (std::vector{&quot;A1&quot;_pos, &quot;A2&quot;_pos, &quot;A3&quot;_pos}));
+}
+
+void TestErrorValue() {
+    auto sheet = CreateSheet();
+    sheet-&gt;SetCell(&quot;E2&quot;_pos, &quot;A1&quot;);
+    sheet-&gt;SetCell(&quot;E4&quot;_pos, &quot;=E2&quot;);
+    ASSERT_EQUAL(sheet-&gt;GetCell(&quot;E4&quot;_pos)-&gt;GetValue(),
+                 CellInterface::Value(FormulaError::Category::Value));
+
+    sheet-&gt;SetCell(&quot;E2&quot;_pos, &quot;3D&quot;);
+    ASSERT_EQUAL(sheet-&gt;GetCell(&quot;E4&quot;_pos)-&gt;GetValue(),
+                 CellInterface::Value(FormulaError::Category::Value));
+}
+
+void TestErrorDiv0() {
+    auto sheet = CreateSheet();
+
+    constexpr double max = std::numeric_limits&lt;double&gt;::max();
+
+    sheet-&gt;SetCell(&quot;A1&quot;_pos, &quot;=1/0&quot;);
+    ASSERT_EQUAL(sheet-&gt;GetCell(&quot;A1&quot;_pos)-&gt;GetValue(),
+                 CellInterface::Value(FormulaError::Category::Div0));
+
+    sheet-&gt;SetCell(&quot;A1&quot;_pos, &quot;=1e+200/1e-200&quot;);
+    ASSERT_EQUAL(sheet-&gt;GetCell(&quot;A1&quot;_pos)-&gt;GetValue(),
+                 CellInterface::Value(FormulaError::Category::Div0));
+
+    sheet-&gt;SetCell(&quot;A1&quot;_pos, &quot;=0/0&quot;);
+    ASSERT_EQUAL(sheet-&gt;GetCell(&quot;A1&quot;_pos)-&gt;GetValue(),
+                 CellInterface::Value(FormulaError::Category::Div0));
+
+    {
+        std::ostringstream formula;
+        formula &lt;&lt; '=' &lt;&lt; max &lt;&lt; '+' &lt;&lt; max;
+        sheet-&gt;SetCell(&quot;A1&quot;_pos, formula.str());
+        ASSERT_EQUAL(sheet-&gt;GetCell(&quot;A1&quot;_pos)-&gt;GetValue(),
+                     CellInterface::Value(FormulaError::Category::Div0));
+    }
+
+    {
+        std::ostringstream formula;
+        formula &lt;&lt; '=' &lt;&lt; -max &lt;&lt; '-' &lt;&lt; max;
+        sheet-&gt;SetCell(&quot;A1&quot;_pos, formula.str());
+        ASSERT_EQUAL(sheet-&gt;GetCell(&quot;A1&quot;_pos)-&gt;GetValue(),
+                     CellInterface::Value(FormulaError::Category::Div0));
+    }
+
+    {
+        std::ostringstream formula;
+        formula &lt;&lt; '=' &lt;&lt; max &lt;&lt; '*' &lt;&lt; max;
+        sheet-&gt;SetCell(&quot;A1&quot;_pos, formula.str());
+        ASSERT_EQUAL(sheet-&gt;GetCell(&quot;A1&quot;_pos)-&gt;GetValue(),
+                     CellInterface::Value(FormulaError::Category::Div0));
+    }
+}
+
+void TestEmptyCellTreatedAsZero() {
+    auto sheet = CreateSheet();
+    sheet-&gt;SetCell(&quot;A1&quot;_pos, &quot;=B2&quot;);
+    ASSERT_EQUAL(sheet-&gt;GetCell(&quot;A1&quot;_pos)-&gt;GetValue(), CellInterface::Value(0));
+}
+
+void TestFormulaInvalidPosition() {
+    auto sheet = CreateSheet();
+    auto try_formula = [&amp;](const std::string&amp; formula) {
+        try {
+            sheet-&gt;SetCell(&quot;A1&quot;_pos, formula);
+            ASSERT(false);
+        } catch (const FormulaException&amp;) {
+            // we expect this one
+        }
+    };
+
+    try_formula(&quot;=X0&quot;);
+    try_formula(&quot;=ABCD1&quot;);
+    try_formula(&quot;=A123456&quot;);
+    try_formula(&quot;=ABCDEFGHIJKLMNOPQRS1234567890&quot;);
+    try_formula(&quot;=XFD16385&quot;);
+    try_formula(&quot;=XFE16384&quot;);
+    try_formula(&quot;=R2D2&quot;);
+}
+
+void TestPrint() {
+    auto sheet = CreateSheet();
+    sheet-&gt;SetCell(&quot;A2&quot;_pos, &quot;meow&quot;);
+    sheet-&gt;SetCell(&quot;B2&quot;_pos, &quot;=35&quot;);
+
+    ASSERT_EQUAL(sheet-&gt;GetPrintableSize(), (Size{2, 2}));
+
+    std::ostringstream texts;
+    sheet-&gt;PrintTexts(texts);
+    ASSERT_EQUAL(texts.str(), &quot;\t\nmeow\t=35\n&quot;);
+
+    std::ostringstream values;
+    sheet-&gt;PrintValues(values);
+    ASSERT_EQUAL(values.str(), &quot;\t\nmeow\t35\n&quot;);
+}
+
+void TestCellReferences() {
+    auto sheet = CreateSheet();
+    sheet-&gt;SetCell(&quot;A1&quot;_pos, &quot;1&quot;);
+    sheet-&gt;SetCell(&quot;A2&quot;_pos, &quot;=A1&quot;);
+    sheet-&gt;SetCell(&quot;B2&quot;_pos, &quot;=A1&quot;);
+
+    ASSERT(sheet-&gt;GetCell(&quot;A1&quot;_pos)-&gt;GetReferencedCells().empty());
+    ASSERT_EQUAL(sheet-&gt;GetCell(&quot;A2&quot;_pos)-&gt;GetReferencedCells(), std::vector{&quot;A1&quot;_pos});
+    ASSERT_EQUAL(sheet-&gt;GetCell(&quot;B2&quot;_pos)-&gt;GetReferencedCells(), std::vector{&quot;A1&quot;_pos});
+
+    // Ссылка на пустую ячейку
+    sheet-&gt;SetCell(&quot;B2&quot;_pos, &quot;=B1&quot;);
+    ASSERT(sheet-&gt;GetCell(&quot;B1&quot;_pos)-&gt;GetReferencedCells().empty());
+    ASSERT_EQUAL(sheet-&gt;GetCell(&quot;B2&quot;_pos)-&gt;GetReferencedCells(), std::vector{&quot;B1&quot;_pos});
+
+    sheet-&gt;SetCell(&quot;A2&quot;_pos, &quot;&quot;);
+    ASSERT(sheet-&gt;GetCell(&quot;A1&quot;_pos)-&gt;GetReferencedCells().empty());
+    ASSERT(sheet-&gt;GetCell(&quot;A2&quot;_pos)-&gt;GetReferencedCells().empty());
+
+    // Ссылка на ячейку за пределами таблицы
+    sheet-&gt;SetCell(&quot;B1&quot;_pos, &quot;=C3&quot;);
+    ASSERT_EQUAL(sheet-&gt;GetCell(&quot;B1&quot;_pos)-&gt;GetReferencedCells(), std::vector{&quot;C3&quot;_pos});
+}
+
+void TestFormulaIncorrect() {
+    auto isIncorrect = [](std::string expression) {
+        try {
+            ParseFormula(std::move(expression));
+        } catch (const FormulaException&amp;) {
+            return true;
+        }
+        return false;
+    };
+
+    ASSERT(isIncorrect(&quot;A2B&quot;));
+    ASSERT(isIncorrect(&quot;3X&quot;));
+    ASSERT(isIncorrect(&quot;A0++&quot;));
+    ASSERT(isIncorrect(&quot;((1)&quot;));
+    ASSERT(isIncorrect(&quot;2+4-&quot;));
+}
+
+void TestCellCircularReferences() {
+    auto sheet = CreateSheet();
+    sheet-&gt;SetCell(&quot;E2&quot;_pos, &quot;=E4&quot;);
+    sheet-&gt;SetCell(&quot;E4&quot;_pos, &quot;=X9&quot;);
+    sheet-&gt;SetCell(&quot;X9&quot;_pos, &quot;=M6&quot;);
+    sheet-&gt;SetCell(&quot;M6&quot;_pos, &quot;Ready&quot;);
+
+    bool caught = false;
+    try {
+        sheet-&gt;SetCell(&quot;M6&quot;_pos, &quot;=E2&quot;);
+    } catch (const CircularDependencyException&amp;) {
+        caught = true;
+    }
+
+    ASSERT(caught);
+    ASSERT_EQUAL(sheet-&gt;GetCell(&quot;M6&quot;_pos)-&gt;GetText(), &quot;Ready&quot;);
+}
+}  // namespace
+
+int main() {
+    TestRunner tr;
+    RUN_TEST(tr, TestPositionAndStringConversion);
+    RUN_TEST(tr, TestPositionToStringInvalid);
+    RUN_TEST(tr, TestStringToPositionInvalid);
+    RUN_TEST(tr, TestEmpty);
+    RUN_TEST(tr, TestInvalidPosition);
+    RUN_TEST(tr, TestSetCellPlainText);
+    RUN_TEST(tr, TestClearCell);
+    RUN_TEST(tr, TestFormulaArithmetic);
+    RUN_TEST(tr, TestFormulaReferences);
+    RUN_TEST(tr, TestFormulaExpressionFormatting);
+    RUN_TEST(tr, TestFormulaReferencedCells);
+    RUN_TEST(tr, TestErrorValue);
+    RUN_TEST(tr, TestErrorDiv0);
+    RUN_TEST(tr, TestEmptyCellTreatedAsZero);
+    RUN_TEST(tr, TestFormulaInvalidPosition);
+    RUN_TEST(tr, TestPrint);
+    RUN_TEST(tr, TestCellReferences);
+    RUN_TEST(tr, TestFormulaIncorrect);
+    RUN_TEST(tr, TestCellCircularReferences);
+    return 0;
+}
+</code></pre>
+
+<h3>Подсказка</h3>
+
+</body>
+</html>

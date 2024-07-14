@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Наследование и исключения</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Наследование и исключения</h1>
+
+<p>В C++ можно использовать классы и структуры в качестве объектов исключений. У этого есть ряд преимуществ.</p>
+
+<p>Во-первых, классы исключений могут нести дополнительную информацию о возникшей проблеме. Например:</p>
+
+<ul>
+<li>имя файла, при чтении которого возникла проблема;</li>
+<li>введённые пользователем данные, не прошедшие проверку;</li>
+<li>имя файла и номер строки исходного кода, в котором произошло выбрасывание исключения.</li>
+</ul>
+
+<p>Во-вторых, обработчик <code>catch</code>, отлавливающий исключения родительского класса, может поймать исключения любых его публичных наследников. То есть приведение типа вверх по иерархии классов работает и при поиске подходящего обработчика исключений.</p>
+
+<p>На диаграмме показана иерархия классов стандартных исключений C++. Некоторые стандартные классы исключений на ней для экономии места не показаны.</p>
+
+<p><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSIxNjYycHgiIGhlaWdodD0iNjY2cHgiIHZpZXdCb3g9Ii0wLjUgLTAuNSAxNjYyIDY2NiIgY29udGVudD0iJmx0O214ZmlsZSBob3N0PSZxdW90O0VsZWN0cm9uJnF1b3Q7IG1vZGlmaWVkPSZxdW90OzIwMjEtMDEtMTdUMjA6NDc6MDcuNjU0WiZxdW90OyBhZ2VudD0mcXVvdDs1LjAgKFdpbmRvd3MgTlQgMTAuMDsgV09XNjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIGRyYXcuaW8vMTQuMS44IENocm9tZS84Ny4wLjQyODAuODggRWxlY3Ryb24vMTEuMS4xIFNhZmFyaS81MzcuMzYmcXVvdDsgdmVyc2lvbj0mcXVvdDsxNC4xLjgmcXVvdDsgZXRhZz0mcXVvdDtmZEYwajVsd3UxWW43anlzSEtXUyZxdW90OyB0eXBlPSZxdW90O2RldmljZSZxdW90OyZndDsmbHQ7ZGlhZ3JhbSBpZD0mcXVvdDtfS1ozNWlrT2lfNGlsS09wTGcxRCZxdW90OyZndDs3WnJkYitJNEVNRC9HcVM5a3c1aHgvbmdzZERkMjRldXRObyszR1BsSmlheDFvbVJNWVh1WDc4VDRoQVMwNWJsOHNGRGFBVjQ0b3d6ODV1eG5TRVRaNW51LzFWMG5YeVRFUk1UUEl2MkUrZCtnakVPZkFRZnVlUzFrQ0FVNEVJU0t4NFpXU1Y0NUwrWUVjNk1kTXNqdHFsMTFGSUt6ZGQxWVNpempJVzZKcU5LeVYyOTIwcUsrcWhyR2pOTDhCaFNZVXYvNDVGT0NtbUEvVXIrbGZFNEtVZEczcnc0a3RLeXM3RmtrOUJJN2s1RXp1ZUpzMVJTNnVKYnVsOHlrWHV2OUV0eDNwYzNqaDR2VExGTVgzS0M4ZnNMRlZ0akc5dUhiSzI1ek13RjZ0ZlM2czJPcDRKbTBGcXNaS1lmelJFRWJTcDRuTUgzRUlabENnUXZUR2tPRHJzekI3UmNnelJNdUlnZTZLdmM1aGUzMFRUOFdiWVdpVlQ4RjZpbHd1aUV3MG9iOXRpcjlYak16d1R4REtTS2JhRFA5OUppMUJCOW8vdGF4d2U2MFVZUVNpSG9lc09majJha1ZNVThXMGl0WldvNkdmK0FPV3ovcG8vUmtSekVQSk1wMCtvVnVod0Qzc0EyNFY0MmQxWG9JTWZJa3BPd2NRMGNhcUkxUG1xdWdNSVh3L1E4WDhmaU84R0xmT3lFNms5L1RaeTdJa3ZBSi9DWlVQVzNSUjNzMWdjYVN2NWtTeWtrNEwzUFpCRUdYSWlHcUl3RXdWYjZ6VGpZckduSXMvamgwT2VlVkpJZnh2cGNKT0hjbFRna1I4S2ppR1U1UTZtcHBnV3duTTVhOGt3ZjNPTXU0QitjdUp4TjNZa0xGNzZFTnFyYThKOTNWM3FaVzZzb1A3QmpFQTA3bGtmRVphRHhlZEFHTEVUcFJXRExmdjhITExIQUNobno4SW5COUtiRzFHMHBkUjFjVDEwOE81Tzd1S1BjZFMzRWFwdHBucklSY3F1UWtUc2daTStDekRObzhPZ0piTjJtdVFrajUyN1dZY2Zya2JOdno5Y3NpM1V5NW5LcmpBa2lIektlZDRRNHNCQ0R0NS9rNmtuUkRPNG5Sc1R0SUhieHgybmNGZUs1amRqc1VzYzhibmROSG5DcUxzYytvYnpOb2hGekY1akprSnlSeGZtWndyNUxDQm1PaE50YWtJT1BOOWRCVjREdDZsWU9PTXk5TVBKdGg2ODNHNUN2WGQyS1pFcDVOczdTN1RJZWNNZUY3RUxYWVRzOUltNFY4VC9vQXNiZHJjUjJxY3NpeTdMb0x2L3BCbHJQc0VDRGF4Y2dNcjVIWHRIOHd2TXhEazVKZEZwU0tuU3hxUEdqemtadVZXaEU1Z0lBWjh4T2E3MFgrZkRVUmFYYkZCTlU4NWY2aU9kOFpOUjl6eXZaRlkvR3FvbktkcW1odUhaekVqNzVmYWVoQjVNUEZCVVdXNG9PeEk0bVhnYlJMbVgxREpIY0dFUk0vS2x6OGlKQmZhbEUxMEtkNDZsMzhuTHJpQW51RExGZHhlb1pjYmxudnhuR2p2OGVpNnNSTzdnZU92MGh0cXRZZlNQR040YVl6QnRiWEVTbUtLait5bm5uanhtNy9rQnBiSmV4K21ZOHN4bTdnMDdWdmpjbE9IQjlWTHk3WGp0NVRCeG5lbFFLNzZSZW5rYTRNOGpZcm1MMURIbCthNHlkeGhiWHVYYjliU2lDRzZUT0tObzFxcjVUOWN5dWFsQ01hRVpxMDZaUDJxR0s1bTV0eWNWZWI1RHgwSkE5bXpFWk5GVm5iVUYxK3FONDdsbXJYaW42TjBiUm1iYzA0VFlWZFVuUnJqZjFUREc0TVlvdWN0KzVGYm1hS2NIa3ZSdW5EZ2tQWG13cTY5WTNnOWh6bTRrS3U5WXJzVFlmcG5LRHBxcXJVVUt6ZWpLNjZGNDlZTzU4L2cwPSZsdDsvZGlhZ3JhbSZndDsmbHQ7L214ZmlsZSZndDsiPjxkZWZzPjxjbGlwUGF0aCBpZD0ibXgtY2xpcC04MTAtNjQtMjQwLTQ4LTAiPjxyZWN0IHg9IjgxMCIgeT0iNjQiIHdpZHRoPSIyNDAiIGhlaWdodD0iNDgiLz48L2NsaXBQYXRoPjwvZGVmcz48Zz48cGF0aCBkPSJNIDgwMCA1MiBMIDgwMCAwIEwgMTA2MCAwIEwgMTA2MCA1MiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxwYXRoIGQ9Ik0gODAwIDUyIEwgODAwIDEwNCBMIDEwNjAgMTA0IEwgMTA2MCA1MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDgwMCA1MiBMIDEwNjAgNTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PGcgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC13ZWlnaHQ9ImJvbGQiIHBvaW50ZXItZXZlbnRzPSJub25lIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI0cHgiPjx0ZXh0IHg9IjkyOS41IiB5PSIzNS41Ij5leGNlcHRpb248L3RleHQ+PC9nPjxnIGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIHBvaW50ZXItZXZlbnRzPSJub25lIiBjbGlwLXBhdGg9InVybCgjbXgtY2xpcC04MTAtNjQtMjQwLTQ4LTApIiBmb250LXNpemU9IjI0cHgiPjx0ZXh0IHg9IjgxMS41IiB5PSI4Ny41Ij4rIHdoYXQoKTogY29uc3QgY2hhcio8L3RleHQ+PC9nPjxwYXRoIGQ9Ik0gODgwIDI5MiBMIDg4MCAyNDAgTCAxMTIwIDI0MCBMIDExMjAgMjkyIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gODgwIDI5MiBMIDg4MCAzNDQgTCAxMTIwIDM0NCBMIDExMjAgMjkyIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gODgwIDI5MiBMIDExMjAgMjkyIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxnIGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIGZvbnQtd2VpZ2h0PSJib2xkIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIyNHB4Ij48dGV4dCB4PSI5OTkuNSIgeT0iMjc1LjUiPmxvZ2ljX2Vycm9yPC90ZXh0PjwvZz48cGF0aCBkPSJNIDU0MCAyOTIgTCA1NDAgMjQwIEwgNzgwIDI0MCBMIDc4MCAyOTIiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSA1NDAgMjkyIEwgNTQwIDM0NCBMIDc4MCAzNDQgTCA3ODAgMjkyIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gNTQwIDI5MiBMIDc4MCAyOTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PGcgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC13ZWlnaHQ9ImJvbGQiIHBvaW50ZXItZXZlbnRzPSJub25lIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI0cHgiPjx0ZXh0IHg9IjY1OS41IiB5PSIyNzUuNSI+cnVudGltZV9lcnJvcjwvdGV4dD48L2c+PHBhdGggZD0iTSA4MDAgNjEyIEwgODAwIDU2MCBMIDEwNDAgNTYwIEwgMTA0MCA2MTIiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSA4MDAgNjEyIEwgODAwIDY2NCBMIDEwNDAgNjY0IEwgMTA0MCA2MTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSA4MDAgNjEyIEwgMTA0MCA2MTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PGcgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC13ZWlnaHQ9ImJvbGQiIHBvaW50ZXItZXZlbnRzPSJub25lIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI0cHgiPjx0ZXh0IHg9IjkxOS41IiB5PSI1OTUuNSI+aW52YWxpZF9hcmd1bWVudDwvdGV4dD48L2c+PHBhdGggZD0iTSAxMDY4IDYxMiBMIDEwNjggNTYwIEwgMTI0OCA1NjAgTCAxMjQ4IDYxMiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDEwNjggNjEyIEwgMTA2OCA2NjQgTCAxMjQ4IDY2NCBMIDEyNDggNjEyIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gMTA2OCA2MTIgTCAxMjQ4IDYxMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48ZyBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXdlaWdodD0iYm9sZCIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjRweCI+PHRleHQgeD0iMTE1Ny41IiB5PSI1OTUuNSI+bGVuZ3RoX2Vycm9yPC90ZXh0PjwvZz48cGF0aCBkPSJNIDEyODAgNjEyIEwgMTI4MCA1NjAgTCAxNDYwIDU2MCBMIDE0NjAgNjEyIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gMTI4MCA2MTIgTCAxMjgwIDY2NCBMIDE0NjAgNjY0IEwgMTQ2MCA2MTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAxMjgwIDYxMiBMIDE0NjAgNjEyIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxnIGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIGZvbnQtd2VpZ2h0PSJib2xkIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIyNHB4Ij48dGV4dCB4PSIxMzY5LjUiIHk9IjU5NS41Ij5vdXRfb2ZfcmFuZ2U8L3RleHQ+PC9nPjxwYXRoIGQ9Ik0gMjYwIDYxMiBMIDI2MCA1NjAgTCA1MDAgNTYwIEwgNTAwIDYxMiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDI2MCA2MTIgTCAyNjAgNjY0IEwgNTAwIDY2NCBMIDUwMCA2MTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAyNjAgNjEyIEwgNTAwIDYxMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48ZyBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXdlaWdodD0iYm9sZCIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjRweCI+PHRleHQgeD0iMzc5LjUiIHk9IjU5NS41Ij5vdmVyZmxvd19lcnJvcjwvdGV4dD48L2c+PHBhdGggZD0iTSA1MjAgNjEyIEwgNTIwIDU2MCBMIDc2MCA1NjAgTCA3NjAgNjEyIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gNTIwIDYxMiBMIDUyMCA2NjQgTCA3NjAgNjY0IEwgNzYwIDYxMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDUyMCA2MTIgTCA3NjAgNjEyIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxnIGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIGZvbnQtd2VpZ2h0PSJib2xkIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIyNHB4Ij48dGV4dCB4PSI2MzkuNSIgeT0iNTk1LjUiPnVuZGVyZmxvd19lcnJvcjwvdGV4dD48L2c+PHBhdGggZD0iTSAxMjAwIDI5MiBMIDEyMDAgMjQwIEwgMTM2MCAyNDAgTCAxMzYwIDI5MiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDEyMDAgMjkyIEwgMTIwMCAzNDQgTCAxMzYwIDM0NCBMIDEzNjAgMjkyIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gMTIwMCAyOTIgTCAxMzYwIDI5MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48ZyBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXdlaWdodD0iYm9sZCIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjRweCI+PHRleHQgeD0iMTI3OS41IiB5PSIyNzUuNSI+YmFkX2FsbG9jPC90ZXh0PjwvZz48cGF0aCBkPSJNIDE0NDAgMjkyIEwgMTQ0MCAyNDAgTCAxNjAwIDI0MCBMIDE2MDAgMjkyIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gMTQ0MCAyOTIgTCAxNDQwIDM0NCBMIDE2MDAgMzQ0IEwgMTYwMCAyOTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAxNDQwIDI5MiBMIDE2MDAgMjkyIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxnIGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIGZvbnQtd2VpZ2h0PSJib2xkIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIyNHB4Ij48dGV4dCB4PSIxNTE5LjUiIHk9IjI3NS41Ij5iYWRfY2FzdDwvdGV4dD48L2c+PHBhdGggZD0iTSAxNDgwIDYxMiBMIDE0ODAgNTYwIEwgMTY2MCA1NjAgTCAxNjYwIDYxMiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDE0ODAgNjEyIEwgMTQ4MCA2NjQgTCAxNjYwIDY2NCBMIDE2NjAgNjEyIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gMTQ4MCA2MTIgTCAxNjYwIDYxMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48ZyBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXdlaWdodD0iYm9sZCIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjRweCI+PHRleHQgeD0iMTU2OS41IiB5PSI1OTUuNSI+ZG9tYWluX2Vycm9yPC90ZXh0PjwvZz48cGF0aCBkPSJNIDAgNjEyIEwgMCA1NjAgTCAyNDAgNTYwIEwgMjQwIDYxMiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDAgNjEyIEwgMCA2NjQgTCAyNDAgNjY0IEwgMjQwIDYxMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDAgNjEyIEwgMjQwIDYxMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48ZyBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXdlaWdodD0iYm9sZCIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjRweCI+PHRleHQgeD0iMTE5LjUiIHk9IjU5NS41Ij5yYW5nZV9lcnJvcjwvdGV4dD48L2c+PHBhdGggZD0iTSA3MTguNSAyNDAgTCA4NDQuNDIgMTI4LjA3IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gODY5LjgzIDEwNS40OSBMIDg1NS43MSAxNDAuNzggTCA4MzMuMTIgMTE1LjM3IFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSA5ODQuODMgMjQwIEwgOTU1LjMxIDEzOC43OSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDk0NS43OSAxMDYuMTUgTCA5NzEuNjMgMTM0LjAzIEwgOTM4Ljk5IDE0My41NSBaIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gMTIwNC4xNyAyNDAgTCAxMDM1LjcyIDEyNC40OSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDEwMDcuNjggMTA1LjI2IEwgMTA0NS4zMyAxMTAuNDcgTCAxMDI2LjEgMTM4LjUxIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAxNDQwIDI1OS40NiBMIDEwOTEuNCAxMTcuNjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAxMDU5LjkgMTA0Ljg0IEwgMTA5Ny44IDEwMS45MSBMIDEwODQuOTkgMTMzLjQgWiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDY0My4yNSA1NjAgTCA2NTQuNDkgMzgwLjE3IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gNjU2LjYxIDM0Ni4yMyBMIDY3MS40NiAzODEuMjMgTCA2MzcuNTIgMzc5LjExIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSA0MjUuNSA1NjAgTCA1OTAuNjQgMzcxLjI3IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gNjEzLjAzIDM0NS42OCBMIDYwMy40MyAzODIuNDYgTCA1NzcuODQgMzYwLjA4IFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAyMDcuNzUgNTYwIEwgNTQxLjA4IDM2Mi40NyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDU3MC4zMyAzNDUuMTQgTCA1NDkuNzQgMzc3LjEgTCA1MzIuNDEgMzQ3Ljg1IFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSA5MzMgNTYwIEwgOTc4LjIxIDM3OS4xNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDk4Ni40NiAzNDYuMTcgTCA5OTQuNyAzODMuMjggTCA5NjEuNzIgMzc1LjAzIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAxMTMyLjMyIDU2MCBMIDEwNDEuNzIgMzc2LjQ5IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjxwYXRoIGQ9Ik0gMTAyNi42NiAzNDYgTCAxMDU2Ljk2IDM2OC45NiBMIDEwMjYuNDcgMzg0LjAyIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAxMzA5Ljg4IDU2MCBMIDEwODcuNTMgMzY3LjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAxMDYxLjgyIDM0NS40NiBMIDEwOTguNjUgMzU0Ljg1IEwgMTA3Ni40MSAzODAuNTYgWiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9Im5vbmUiLz48cGF0aCBkPSJNIDE0ODAgNTYxLjQ3IEwgMTEyNC4yMiAzNjEuNzQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJub25lIi8+PHBhdGggZD0iTSAxMDk0LjU3IDM0NS4wOSBMIDExMzIuNTQgMzQ2LjkyIEwgMTExNS45IDM3Ni41NiBaIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ibm9uZSIvPjwvZz48L3N2Zz4=" alt="image" /></p>
+
+<p>Все стандартные классы исключений прямо или косвенно наследуются от класса <code>std::exception</code>. Когда нужно однотипно обрабатывать все стандартные исключения, можно написать единственный обработчик <code>catch</code>, отлавливающий <code>std::exception</code>:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+
+using namespace std;
+
+int main() {
+    try {
+        throw std::invalid_argument(&quot;Invalid argument&quot;s);
+    } catch (const std::exception&amp; e) {
+        std::cout &lt;&lt; e.what() &lt;&lt; std::endl;
+    }
+}
+</code></pre>
+
+<p>Когда требуется особая реакция на определённый тип исключений, следует разместить его обработчик <code>catch</code> до обработчика более общего типа.</p>
+
+<p>Это иллюстрирует программа, которая определяет, чётное ли очередное введённое пользователем число. Ввод заканчивается, когда пользователь введёт <code>exit</code> или нажмёт комбинацию клавиш <code>Ctrl+Z</code> (на Windows) либо <code>Ctrl+D</code> (на Linux или MacOS) для ввода символа конца файла:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+
+using namespace std;
+
+int main() {
+    while (true) {
+        cout &lt;&lt; &quot;Enter a number, or type 'exit' to quit&quot;sv &lt;&lt; endl;
+        string str;
+        if (!getline(cin, str) || (str == &quot;exit&quot;sv)) {
+            break;
+        }
+
+        try {
+            size_t idx;
+            // stoi может выбросить out_of_range либо invalid_argument
+            int number = std::stoi(str, &amp;idx);
+            if (idx != str.length()) {
+                throw invalid_argument(&quot;invalid argument&quot;s);
+            }
+
+            cout &lt;&lt; number;
+            if (number % 2 == 0) {
+                cout &lt;&lt; &quot; is even&quot;sv &lt;&lt; endl;
+            } else {
+                cout &lt;&lt; &quot; is odd&quot;sv &lt;&lt; endl;
+            }
+        } catch (const out_of_range&amp;) {
+            cout &lt;&lt; &quot;An overflow occurred when converting '&quot;sv &lt;&lt; str &lt;&lt; &quot;' to number&quot;sv &lt;&lt; endl;
+        } catch (const invalid_argument&amp;) {
+            cout &lt;&lt; '\'' &lt;&lt; str &lt;&lt; &quot;' is not a valid number&quot;sv &lt;&lt; endl;
+        } catch (const exception&amp; e) {
+            // Сюда можем попасть, например, при нехватке памяти
+            cout &lt;&lt; &quot;Unexpected exception: &quot;sv &lt;&lt; e.what() &lt;&lt; endl;
+        } catch (...) {
+            // В этот обработчик попасть не должны никогда, так как в программе
+            // не выбрасываются исключения, не унаследованные от std::exception.
+            // Тем не менее это на практике возможно, особенно когда используется
+            // код сторонних библиотек.
+            cout &lt;&lt; &quot;Unknown error&quot;sv &lt;&lt; endl;
+        }
+    }
+}
+</code></pre>
+
+<p>Используемая для преобразования строки в число функция <a href="https://en.cppreference.com/w/cpp/string/basic_string/stol"><code>stoi</code></a> может выбросить исключение одного из двух типов:</p>
+
+<ul>
+<li><code>out_of_range</code>, если в строке записано число, не помещающееся в диапазон <code>int</code>;</li>
+<li><code>invalid_argument</code>, если в начале строки не записано число.</li>
+</ul>
+
+<p>Чтобы программа сообщала об этих ошибках по-разному, их обработчики должны быть размещены до обработчика исключений <code>exception</code>, способного поймать любые стандартные исключения:</p>
+
+<pre><code>Enter a number, or type 'exit' to quit
+10
+10 is even
+Enter a number, or type 'exit' to quit
+13
+13 is odd
+Enter a number, or type 'exit' to quit
+1235s
+'1235s' is not a valid number
+Enter a number, or type 'exit' to quit
+hello
+'hello' is not a valid number
+Enter a number, or type 'exit' to quit
+99999999999999999999999999999
+An overflow occurred when converting '99999999999999999999999999999' to number
+Enter a number, or type 'exit' to quit
+exit
+</code></pre>
+
+<p>При создании собственных классов исключений рекомендуется наследоваться от <code>std::exception</code> или одного из его подклассов. Это позволит перехватывать пользовательские типы исключений вместе со стандартными.</p>
+
+<p>Пример:</p>
+
+<pre><code class="language-cpp">class UserValidationError : public invalid_argument {
+public:
+    UserValidationError(bool invalid_login, bool invalid_password)
+        : invalid_argument(MakeErrorMessage(invalid_login, invalid_password))
+        , invalid_login_(invalid_login)
+        , invalid_password_(invalid_password) {
+    }
+
+    bool IsUserNameValid() const {
+        return !invalid_login_;
+    }
+
+    bool IsPasswordValid() const {
+        return !invalid_password_;
+    }
+
+private:
+    static std::string MakeErrorMessage(bool invalid_login, bool invalid_password) {
+        if (invalid_login &amp;&amp; invalid_password) {
+            return &quot;Invalid login and password&quot;s;
+        } else if (invalid_login) {
+            return &quot;Invalid login&quot;s;
+        } else if (invalid_password) {
+            return &quot;Invalid password&quot;s;
+        } else {
+            return &quot;Unknown user registration error&quot;s;
+        }
+    }
+
+    bool invalid_login_ = false;
+    bool invalid_password_ = false;
+};
+
+struct User {
+    string login;
+    string password;
+};
+
+void ValidateUser(const User&amp; user) {
+    const bool login_is_valid = !user.login.empty();
+    const bool password_is_valid = user.password.length() &gt; 10;
+    if (!login_is_valid || !password_is_valid) {
+        throw UserValidationError(!login_is_valid, !password_is_valid);
+    }
+}
+
+int main() {
+    try {
+        ValidateUser({&quot;CoolHacker&quot;s, &quot;qwerty&quot;s});
+    } catch (const std::exception&amp; e) {
+        cout &lt;&lt; e.what() &lt;&lt; endl;
+    } catch (...) {
+        cout &lt;&lt; &quot;Unknown exception&quot;sv &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<pre><code>Invalid password
+</code></pre>
+
+<p>При наследовании классов исключений важно использовать публичное наследование. Другие типы наследования сделают невозможным перехват исключений дочернего класса в обработчике базового.</p>
+
+<p>Так, если забыть указать публичное наследование при объявлении <code>UserValidationError</code>, преобразование от <code>UserValidationError</code> к <code>std::exception</code> станет недоступным:</p>
+
+<pre><code class="language-cpp">class UserValidationError : invalid_argument { ... };
+</code></pre>
+
+<p>Тогда обработчик <code>catch (const std::exception&amp; e)</code> не будет считаться подходящим обработчиком для исключения <code>UserValidationError</code>. Это исключение будет поймано в обработчике <code>catch (...)</code>, который выведет менее информативное сообщение:</p>
+
+<pre><code> Unknown exception
+</code></pre>
+
+<p>Классы исключений следует ловить по ссылке — возможно, константной, — а не по значению. Это позволит избежать срезки, когда исключение дочернего класса попадает в обработчик исключения родительского класса. Обработчик, принимающий исключение родительского класса по значению, будет иметь дело не с оригинальным объектом исключения, а с копией части объекта, который относится к родительскому классу.</p>
+
+<p>Рассмотрим срезку на иерархии животных:</p>
+
+<pre><code class="language-cpp">class Animal {
+public:
+    virtual ~Animal() = default;
+    virtual string GetType() const {
+        return &quot;unknown&quot;s;
+    }
+};
+
+class Mouse : public Animal {
+public:
+    string GetType() const override {
+        return &quot;mouse&quot;s;
+    }
+};
+
+class Frog : public Animal {
+public:
+    string GetType() const override {
+        return &quot;frog&quot;s;
+    }
+};
+
+int main() {
+    try {
+        throw Mouse();
+    } catch (Animal animal) {
+        cout &lt;&lt; &quot;Caught an animal of type: &quot;sv &lt;&lt; animal.GetType() &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Обработчик <code>catch</code> ловит исключения типа <code>Animal</code> по значению. Перед передачей мыши в обработчик исключения она будет частично скопирована в новый объект, имеющий тип <code>Animal</code>. В результате обработчик исключения поймает не мышонка, не лягушку, а неведому зверушку:</p>
+
+<pre><code class="language-cpp">Caught an animal of type: unknown
+</code></pre>
+
+<p>Компилятор может предупредить о том, что полиморфный класс <code>Animal</code> отлавливается по значению:</p>
+
+<pre><code>prog.cc: In function 'int main()':
+prog.cc:25:21: warning: catching polymorphic type 'class Animal' by value [-Wcatch-value=]
+   25 |     } catch (Animal animal) {
+      |                     ^~~~~~ 
+</code></pre>
+
+<p>После исправления обработчика исключения на ловлю по ссылке, проблема будет решена:</p>
+
+<pre><code class="language-cpp">int main() {
+    try {
+        throw Mouse();
+    } catch (const Animal&amp; animal) {
+        cout &lt;&lt; &quot;Caught an animal of type: &quot;sv &lt;&lt; animal.GetType() &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Будет пойман мышонок:</p>
+
+<pre><code class="language-cpp">Caught an animal of type: mouse
+</code></pre>
+
+<p>Подведём итоги.</p>
+
+<p>Используйте наследование, чтобы построить иерархии классов исключений. Это позволит одинаково обрабатывать исключения одной и той же категории.</p>
+
+<p>Делайте собственные классы исключений прямыми или косвенными наследниками <code>std::exception</code>. Это позволит обрабатывать пользовательские типы ошибок наравне со стандартными.</p>
+
+<p>Сначала размещайте обработчики конкретных типов исключений, а потом — более общих. Так вы сможете обработать нужные типы ошибок особо. С остальными ошибками справится универсальный обработчик.</p>
+
+<p>Всегда используйте публичное наследование при объявлении классов исключений. Ловите исключения по ссылке, а не по значению, чтобы избежать срезки.</p>
+
+<hr>
+
+<p>Что выведет эта программа?</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+
+using namespace std;
+
+int main() {
+    try {
+        cout &lt;&lt; stoi(&quot;hello&quot;s) &lt;&lt; &quot;!&quot; &lt;&lt; endl;
+    } catch (const exception&amp;) {
+        cout &lt;&lt; &quot;exception&quot;sv &lt;&lt; endl;
+    } catch (const out_of_range&amp;) {
+        cout &lt;&lt; &quot;out_of_range&quot;sv &lt;&lt; endl;
+    } catch (const invalid_argument&amp;) {
+        cout &lt;&lt; &quot;invalid_argument&quot;sv &lt;&lt; endl;
+    } catch (...) {
+        cout &lt;&lt; &quot;unknown&quot;sv &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Выберите один вариант ответа.</p>
+
+<ul>
+<li><p><code>exception</code></p></li>
+
+<li><p><code>out_of_range</code></p></li>
+
+<li><p><code>invalid_argument</code></p></li>
+
+<li><p><code>unknown</code></p></li>
+</ul>
+
+</body>
+</html>

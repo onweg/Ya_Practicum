@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Передаём умный указатель</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Передаём умный указатель</h1>
+
+<p>Рассматривать частные случаи можно до бесконечности. Но у некоторых распространённых случаев есть нетривиальные нюансы. Таким случаям посвящены следующие два урока.</p>
+
+<p>На этом этапе курса вы уже умеете самостоятельно догадываться, как правильно передавать объект.</p>
+
+<p>Умные указатели <code>unique_ptr</code> и <code>shared_ptr</code> — перемещаемые объекты. Если функция сохраняет объект, то правильный способ передачи — по значению.</p>
+
+<p>Рассмотрим случай, когда умный указатель нужен функции только на время её работы, а при завершении она не будет его сохранять и забудет. Как вы знаете, в этом случае передача по значению не обязательна.</p>
+
+<hr>
+
+<p>Выбирая между передачей по ссылке и передачей по значению, какой способ вы бы предпочли для <code>shared_ptr</code>?</p>
+
+<ul>
+<li><p>По значению — объект лёгкий.</p></li>
+
+<li><p>По значению — иначе не будет обеспечен правильный совместный доступ к памяти.</p></li>
+
+<li><p>По константной ссылке — объект тяжёлый.</p></li>
+
+<li><p>По константной ссылке — копирование содержит побочный эффект.</p></li>
+
+<li><p>По константной ссылке — постоянный <code>shared_ptr</code> вообще не получится передать по значению.</p></li>
+</ul>
+
+<p>Указатель <code>shared_ptr</code> содержит счётчик ссылок. Это достаточно лёгкий объект, но его увеличение, уменьшение и проверка — лишние операции, которые не происходят при передаче по ссылке. Даже если в вашем случае этими издержками получится пренебречь, копирования <code>shared_ptr</code> всё равно могут быть нежелательны. Они непотокобезопасны, и их нельзя производить вне критической секции многопоточного приложения.</p>
+
+<hr>
+
+<p>Выбирая между передачей по ссылке и передачей по значению, какой способ вы бы предпочли для <code>unique_ptr</code>?</p>
+
+<ul>
+<li><p>По значению — объект лёгкий.</p></li>
+
+<li><p>По значению — иначе не будет обеспечен правильный совместный доступ к памяти.</p></li>
+
+<li><p>По константной ссылке — объект тяжёлый.</p></li>
+
+<li><p>По константной ссылке — копирование содержит побочный эффект.</p></li>
+
+<li><p>По константной ссылке — постоянный <code>unique_ptr</code> вообще не получится передать по значению.</p></li>
+</ul>
+
+<p>Класс <code>unique_ptr</code> вовсе запрещает копирование. Этот объект в большинстве случаев нельзя передавать по значению — только если функция намеревается его сохранить.</p>
+
+<hr>
+
+<p>Чтобы подтвердить эти результаты, запустим бенчмарк на сайте <a href="https://quick-bench.com/">quick-bench.com</a>. Возьмём за основу программу о собаках и хозяевах из урока «Умный указатель <code>shared_ptr</code>». В класс человека добавим метод для проверки принадлежности собаки. Реализуем его в двух видах — для приёма умного указателя по ссылке и по значению:</p>
+
+<pre><code class="language-cpp">#include &lt;memory&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;iostream&gt;
+
+using namespace std;
+
+class Dog {
+public:
+    explicit Dog(string name)
+        : name_(move(name))  //
+    {
+        cout &lt;&lt; name_ &lt;&lt; &quot; dog has been created&quot;sv &lt;&lt; endl;
+    }
+
+    ~Dog() {
+        // Все псы попадают в рай
+        cout &lt;&lt; name_ &lt;&lt; &quot; dog has gone to heaven&quot;sv &lt;&lt; endl;
+    }
+
+private:
+    string name_;
+};
+
+class Person {
+public:
+    explicit Person(string name)
+        : name_(move(name)) {
+    }
+
+    ~Person() {
+        cout &lt;&lt; name_ &lt;&lt; &quot; has died&quot;sv &lt;&lt; endl;
+    }
+
+    // Стать владельцем собаки
+    void OwnDog(shared_ptr&lt;Dog&gt; dog) {
+        dog_ = move(dog);
+    }
+
+    const shared_ptr&lt;Dog&gt;&amp; GetDog() const {
+        return dog_;
+    }
+
+    __attribute__((noinline)) bool TestDogVal(shared_ptr&lt;Dog&gt; dog) const {
+        return dog_ == dog;
+    }
+
+    __attribute__((noinline)) bool TestDogRef(const shared_ptr&lt;Dog&gt;&amp; dog) const {
+        return dog_ == dog;
+    }
+
+    // Перестаём владеть собакой
+    void ReleaseDog() {
+        dog_.reset();
+        assert(!dog_);  // Указатель обнуляется после вызова reset
+    }
+
+private:
+    string name_;
+    shared_ptr&lt;Dog&gt; dog_;
+};
+
+static void TestDogVal(benchmark::State&amp; state) {
+  Person ivan(&quot;Иван&quot;s);
+  auto sharik = make_shared&lt;Dog&gt;(&quot;Шарик&quot;s);
+  auto barbos = make_shared&lt;Dog&gt;(&quot;Барбос&quot;s);
+
+  ivan.OwnDog(sharik);
+
+  // Code inside this loop is measured repeatedly
+  for (auto _ : state) {
+    bool own_sharik = ivan.TestDogVal(sharik);
+    bool own_barbos = ivan.TestDogVal(barbos);
+    benchmark::DoNotOptimize(own_sharik | own_barbos);
+  }
+}
+// Register the function as a benchmark
+BENCHMARK(TestDogVal);
+
+static void TestDogRef(benchmark::State&amp; state) {
+  Person ivan(&quot;Иван&quot;s);
+  auto sharik = make_shared&lt;Dog&gt;(&quot;Шарик&quot;s);
+  auto barbos = make_shared&lt;Dog&gt;(&quot;Барбос&quot;s);
+
+  ivan.OwnDog(sharik);
+
+  // Code inside this loop is measured repeatedly
+  for (auto _ : state) {
+    bool own_sharik = ivan.TestDogRef(sharik);
+    bool own_barbos = ivan.TestDogRef(barbos);
+    benchmark::DoNotOptimize(own_sharik | own_barbos);
+  }
+}
+// Register the function as a benchmark
+BENCHMARK(TestDogRef);
+</code></pre>
+
+<p>Результаты <a href="https://quick-bench.com/q/WJZbh55OXUxhBqhRmQ6y8RW_0nY">предсказуемы</a>: передача умного указателя <code>shared_ptr</code> по значению оказалась значительно медленнее.</p>
+
+<p><img src="data:image/png;base64,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" alt="image" /></p>
+
+<p>Хотя <code>TestDogRef</code> работает существенно быстрее, такой способ передачи умного указателя — неверный. Как вы помните, передача по ссылке эквивалентна передаче по указателю. Таким образом, передавая умный указатель по ссылке, вы передаёте указатель по указателю, или двойной указатель. В большинстве случаев это избыточно, ведь функция может принимать обычный указатель на сам объект или даже ссылку. Если функция не принимает владение умным указателем, передавать его и не следует — это усложняет сигнатуру и делает функцию менее универсальной.</p>
+
+<p>Правильный вид метода <code>TestDog</code> таков:</p>
+
+<pre><code class="language-cpp">bool TestDog(const Dog* dog) const {
+    return dog_.get() == dog;
+}
+</code></pre>
+
+<p>По производительности он ничем не отличается от <code>TestDogRef</code>, но его сигнатура лучше.</p>
+
+<hr>
+
+<p>Выберите верные утверждения.</p>
+
+<ul>
+<li>Такая передача недопустима, если умный указатель <code>ptr</code> может быть пустым:</li>
+</ul>
+
+<pre><code class="language-cpp">void Process(const Elephant&amp;);
+
+...
+
+shared_ptr&lt;Elephant&gt; ptr;
+
+...
+
+Process(*ptr);
+</code></pre>
+
+<ul>
+<li>Такая передача недопустима, если умный указатель <code>ptr</code> может быть пустым:</li>
+</ul>
+
+<pre><code class="language-cpp">void Process(const Elephant*);
+
+...
+
+shared_ptr&lt;Elephant&gt; ptr;
+
+...
+
+Process(ptr.get());
+</code></pre>
+
+<ul>
+<li><p>Даже если функция собирается сохранить умный указатель, можно всё равно передать объект по обычному указателю, а затем создать другой умный указатель уже внутри функции.</p></li>
+
+<li><p>Если функция принимает объект через умный указатель, в неё не получится передать объект, хранящийся в локальной переменной или контейнере.</p></li>
+</ul>
+
+</body>
+</html>

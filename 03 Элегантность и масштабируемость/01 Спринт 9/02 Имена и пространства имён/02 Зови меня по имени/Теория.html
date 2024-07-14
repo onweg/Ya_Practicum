@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Зови меня по имени</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Зови меня по имени</h1>
+
+<p>— Меня зовут Иван Андреевич Иванов.</p>
+
+<p>— А меня Петр Васильевич Петров.</p>
+
+<p>Такой диалог можно услышать где-нибудь в общественном месте. Имена мы используем, чтобы обратиться к человеку. Имена есть у всех, причём не только у людей: у домашних животных, у железнодорожных станций, у улиц и площадей, городов, компаний, брендов, сайтов и у многого другого. А в C++ имена есть&hellip; Впрочем, давайте вы сами скажете.</p>
+
+<hr>
+
+<p>У каких сущностей кода в C++ есть имена?</p>
+
+<ul>
+<li><p>У переменных</p></li>
+
+<li><p>У параметров функции</p></li>
+
+<li><p>У классов, структур, enum и union-деклараций</p></li>
+
+<li><p>У функций</p></li>
+
+<li><p>У циклов</p></li>
+
+<li><p>У лямбда-функций</p></li>
+
+<li><p>У областей видимости</p></li>
+
+<li><p>У псевдонимов типов</p></li>
+
+<li><p>У шаблонных параметров</p></li>
+</ul>
+
+<p>Ещё имена есть у пространств имён, которые вы будете проходить в этой теме. И отдельно нужно сказать, у чего имён нет — у макросов, определённых через <code>#define</code> или параметры компиляции. Макросы обрабатываются во время препроцессирования, и компилятор получает код, где никаких макросов уже нет. Поэтому названия макросов не стоит считать именами. Эти идентификаторы живут по своим законам и не конкурируют с другими.</p>
+
+<p>Имя — это идентификатор. Оно:</p>
+
+<ul>
+<li>состоит из латинских букв: больших и маленьких, цифр и знака подчёркивания;</li>
+<li>не может начинаться с цифры;</li>
+<li>может состоять даже из одного символа, например, знака подчёркивания: <code>_</code> — допустимое имя для сущности в C++.</li>
+</ul>
+
+<p>Имена людей в реальной жизни могут совпадать. Имена разных сущностей кода тоже. Но они не должны совпадать с ключевыми словами, набор которых в C++ жёстко ограничен. Если в одной программе встретились одинаковые имена, они конкурируют между собой. Компилятор по строгим правилам будет определять, какую сущность имел в виду программист, когда написал имя, принадлежащее нескольким сущностям. Если выбрать не удалось, компилятор выдаст ошибку.</p>
+
+<p>Некоторые сущности кода, которые обычно имеют имя, могут вдруг оказаться безымянными. Бывает, что хозяева не дали имя своей собачке, и её зовут просто Собака. Но в C++ назвать структуру словом <code>struct</code> нельзя, потому что это слово ключевое. Поэтому она будет безымянной. Всё, что вы можете сделать с такой структурой, — это сразу объявить переменную такого типа:</p>
+
+<pre><code class="language-cpp">int main() {
+    // Объявляем переменную point. 
+    // Её тип - безымянная структура с полями x и y типа int.
+    struct {
+        int x;
+        int y;
+    } point;
+    point.x = 5;
+    point.y = 10;
+}
+</code></pre>
+
+<p>Помимо структуры и класса, безымянным может быть параметр функции или шаблона, если они не используются, но должны быть указаны. Вспомните, например, самый плохой в мире хешер, который всегда выдаёт 42, вне зависимости от значения своего параметра:</p>
+
+<pre><code class="language-cpp">struct DummyHasher { 
+    size_t operator() (const std::string&amp; s) const {
+        return 42;
+    }
+};
+</code></pre>
+
+<p>Параметр <code>s</code> не используется, о чём может предупредить компилятор:</p>
+
+<pre><code>In member function 'size_t DummyHasher::operator()(const string&amp;) const':
+prog.cc:6:43: warning: unused parameter 's' [-Wunused-parameter]
+    6 |     size_t operator() (const std::string&amp; s) const {
+      |                        ~~~~~~~~~~~~~~~~~~~^
+</code></pre>
+
+<p>Объявив параметр операции <code>()</code> безымянным, можно устранить это предупреждение:</p>
+
+<pre><code class="language-cpp">struct DummyHasher { 
+    size_t operator() (const std::string&amp;) const {
+        return 42;
+    }
+};
+</code></pre>
+
+<p>Другой способ указать, что параметр может быть неиспользуемым — пометить его атрибутом <code>[[maybe_unused]]</code>:</p>
+
+<pre><code class="language-cpp">struct DummyHasher { 
+    size_t operator() ([[maybe_unused]] const std::string&amp; s) const {
+        // Теперь компилятор не будет предупреждать о том, что s не используется
+        return 42;
+    }
+};
+</code></pre>
+
+<p>Разрешается не писать имена параметров и при объявлении функции. А вот переменные и сами функции безымянными быть не могут.</p>
+
+<p>В некоторых случаях имя может быть составным — разбиваться на лексемы. Так бывает с операциями. Операция — это обычная функция, имя которой состоит из ключевого слова <code>operator</code> и знака операции, например, <code>operator+</code>. Ещё один пример составного имени — имя деструктора класса, которое содержит знак <code>~</code>.</p>
+
+<hr>
+
+<p>Укажите имена в коде следующей программы. В случае сомнений можете свериться со <a href="https://ru.cppreference.com/w/cpp/keyword">списком ключевых слов</a> на сайте cppreference.com.</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+using namespace std;
+
+template &lt;int X&gt;
+struct S {
+    int operator()() const {
+        return X;
+    }
+};
+
+int main() {
+    S&lt;42&gt; get42, _;
+    cout &lt;&lt; &quot;Hello world, &quot;s &lt;&lt; get42() &lt;&lt; endl;
+}
+</code></pre>
+
+<ul>
+<li><p><code>include</code></p></li>
+
+<li><p><code>iostream</code></p></li>
+
+<li><p><code>using</code></p></li>
+
+<li><p><code>namespace</code></p></li>
+
+<li><p><code>std</code></p></li>
+
+<li><p><code>template</code></p></li>
+
+<li><p><code>int</code></p></li>
+
+<li><p><code>X</code></p></li>
+
+<li><p><code>struct</code></p></li>
+
+<li><p><code>S</code></p></li>
+
+<li><p><code>operator()</code></p></li>
+
+<li><p><code>const</code></p></li>
+
+<li><p><code>return</code></p></li>
+
+<li><p><code>main</code></p></li>
+
+<li><p><code>42</code></p></li>
+
+<li><p><code>get42</code></p></li>
+
+<li><p><code>_</code></p></li>
+
+<li><p><code>cout</code></p></li>
+
+<li><p><code>endl</code></p></li>
+</ul>
+
+<hr>
+
+<p>В этом уроке мы говорили о синтаксисе программы — структуре её кода, но не о семантике — том, что программа делает. Вы увидели, у каких сущностей кода программы есть имена, и какими эти имена бывают. В заданиях к этому уроку вам предстоит отвлечься от имён и поработать с уже готовым кодом, написанным другими программистами. Материалы этих заданий пригодятся в последующих уроках.</p>
+
+<p>В заданиях говорится о компьютерных языках JSON и XML, которые задают форматы структурирования данных. Для вас подготовлены простые библиотеки для чтения этих форматов. Ваша задача — самостоятельно в них разобраться и научиться использовать.</p>
+
+</body>
+</html>

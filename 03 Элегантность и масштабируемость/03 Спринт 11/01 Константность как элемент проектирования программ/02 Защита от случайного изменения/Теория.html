@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Защита от случайного изменения</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Защита от случайного изменения</h1>
+
+<p>Проектируя новый модуль, приложение, библиотеку или сервис, программист задумывается над удобством API. API — это список предоставляемых услуг, возможности чужого кода, описанные на формальном языке.</p>
+
+<p>API — первое, что программист читает перед тем, как подключить к своему проекту новую библиотеку или интегрироваться с новым сервисом. Крупные компании разрабатывают документацию к своим API. Она делает их использование максимально удобным для разработчика. Примеры:</p>
+
+<ul>
+<li><a href="https://yandex.ru/dev/metrika/doc/api2/management/intro.html/">Яндекс.Метрика</a></li>
+<li>Матрица расстояний от <a href="https://yandex.ru/routing/doc/distance_matrix/concepts/about.html">Яндекс.Маршрутизации</a></li>
+<li><a href="https://cloud.yandex.ru/docs/translate/">Яндекс.Переводчик</a></li>
+</ul>
+
+<p>Вы тоже уже имели дело с API. Просто оформлено оно было немного не так, как в примерах выше.</p>
+
+<hr>
+
+<ul>
+<li><p>Точно! Это же были заголовочные файлы.</p></li>
+
+<li><p>Не было такого. Вам показалось.</p></li>
+</ul>
+
+<p>Внимание к проектированию API — залог того, что коллеги вспомнят вас добрым словом. Эта тема поможет лучше понять инструмент проектирования, которым вы уже активно пользуетесь — константность объектов и методов.</p>
+
+<p>В этом уроке вы на двух примерах разберётесь, как константность защищает объекты от случайных изменений. Первый пример будет очевидным, а второй — не совсем.</p>
+
+<h3>Очевидный пример</h3>
+
+<p>Рассмотрим функцию, которая копирует из одного вектора в другой все элементы, кроме равных определённому значению. Она будет обёрткой над стандартным алгоритмом <a href="https://en.cppreference.com/w/cpp/algorithm/remove_copy"><code>remove_copy</code></a>. В коде также есть небольшой тест к функции:</p>
+
+<pre><code class="language-cpp">template &lt;typename T&gt;
+void CopyIfNotEqual(vector&lt;T&gt;&amp; src, vector&lt;T&gt;&amp; dest, T value) {
+    remove_copy(src.begin(), src.end(), back_inserter(src), value);
+}
+
+void TestCopyIfNotEqual() {
+    vector&lt;int&gt; values = {1, 9, 2, 3, 5, 8, 4, 3, 5};
+    vector&lt;int&gt; values_copy;
+    CopyIfNotEqual(values, values_copy, 3);
+    vector&lt;int&gt; expected = {1, 9, 2, 5, 8, 4, 5};
+    assert(expected == values_copy);
+}
+</code></pre>
+
+<p>Подробно о функции <code>back_inserter</code> — <a href="https://en.cppreference.com/w/cpp/iterator/back_inserter">здесь</a>.</p>
+
+<hr>
+
+<p>А теперь, Ватсон, проявите наблюдательность и скажите, что случится с этим кодом при запуске:</p>
+
+<ul>
+<li><p>Код работает, всё в порядке.</p></li>
+
+<li><p>Код запустится, но упадёт в процессе работы.</p></li>
+
+<li><p>Запуск отменяется, код не компилируется.</p></li>
+</ul>
+
+<p>Код падает на <code>assert</code>. Результат не соответствует ожидаемому.</p>
+
+<hr>
+
+<p>Невнимательный автор функции <code>CopyIfNotEqual</code> допустил ошибку и вызвал <code>back_inserter(src)</code> вместо <code>back_inserter(dest)</code>. Компилятор эту ошибку не заметил и прошёл мимо. Ошибка обнаружилась только при работе программы. Это очень неприятный вид ошибок, их нужно всеми силами избегать. Дело в том, что в большом проекте невозможно знать, когда функция будет вызвана. Может быть, до падения пройдёт несколько дней, а на коротких временных промежутках баг будет незаметен. Спасти от неприятности может ключевое слово из пяти букв.</p>
+
+<hr>
+
+<p>Что это за слово?</p>
+
+<ul>
+<li><p>catch</p></li>
+
+<li><p>break</p></li>
+
+<li><p>const</p></li>
+
+<li><p>using</p></li>
+</ul>
+
+<p>При добавлении в сигнатуру функции слова <code>const</code> проблема будет обнаружена на этапе компиляции.</p>
+
+<hr>
+
+<p>Добавим <code>const</code> к переменной <code>src</code> и попробуем скомпилировать:</p>
+
+<pre><code class="language-cpp">template &lt;typename T&gt;
+void CopyIfNotEqual(const vector&lt;T&gt;&amp; src, vector&lt;T&gt;&amp; dest, T value) {
+    remove_copy(src.begin(), src.end(), back_inserter(src), value);
+}
+</code></pre>
+
+<p>Компилятор сообщит об ошибке:</p>
+
+<pre><code class="language-cpp">CopyNotEqual.cpp:9:16:   required from 'void CopyIfNotEqual(const std::vector&lt;T&gt;&amp;, std::vector&lt;T&gt;&amp;, T) [with T = int]'
+CopyNotEqual.cpp:15:42:   required from here
+C:/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/bits/stl_iterator.h:489:2: error: passing 'const std::vector&lt;int&gt;' as 'this' argument discards qualifiers [-fpermissive]
+  container-&gt;push_back(__value);
+  ^~~~~~~~~
+</code></pre>
+
+<p>При разработке API — в частности, сигнатур функций — константность, объявленная в нужных местах, спасает объекты от случайных изменений и помогает найти ошибки в коде ещё на этапе компиляции.</p>
+
+<h3>Неочевидный пример</h3>
+
+<p>Вызывая функцию с одними и теми же входными данными, пользователь ожидает получить один и тот же результат. Если бы было иначе, весь мир программирования выглядел бы совершенно по-другому. Но как, никто не знает. Посмотрите на пример:</p>
+
+<pre><code class="language-cpp">int main() {
+    int value = 4;
+    auto increase = [value] (int x) {
+        return value + x;
+    };
+
+    cout &lt;&lt; increase(5) &lt;&lt; endl;
+    cout &lt;&lt; increase(5) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+
+<p>Ожидаемо, результат вывода:</p>
+
+<pre><code class="language-cpp">9
+9
+</code></pre>
+
+<p>Захват переменной <code>value</code> происходит по значению. Это значит, что её значение скопируется в объект <code>increase</code>, и при каждом вызове в теле лямбда-функции будет использоваться копия переменной <code>value</code>.</p>
+
+<p>Теперь предположим, что невнимательный программист написал лямбда-функцию так:</p>
+
+<pre><code class="language-cpp">int main() {
+    int value = 4;
+    auto increase = [value] (int x) {
+        value += x;
+        return value;
+    };
+
+    cout &lt;&lt; increase(5) &lt;&lt; endl;
+    cout &lt;&lt; increase(5) &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+
+<hr>
+
+<p>Этот код не скомпилируется. Далее вы узнаете почему, а пока предположим, что всё заработало. Что могло быть выведено на экран?</p>
+
+<ul>
+<li><p>9 9</p></li>
+
+<li><p>9 14</p></li>
+
+<li><p>9 19</p></li>
+
+<li><p>9 и какой-нибудь мусор</p></li>
+</ul>
+
+<p>В этом случае переменная <code>value</code>, скопированная внутрь объекта <code>increase</code>, при каждом вызове лямбды будет увеличиваться на <code>x</code>. И тогда, если вызвать эту функцию дважды с одним и тем же значением, результат будет разным:</p>
+
+<pre><code class="language-cpp">    cout &lt;&lt; increase(5) &lt;&lt; endl; // значение value изменилось и стало равно 4 + 5 = 9
+    cout &lt;&lt; increase(5) &lt;&lt; endl; // value = 9, x = 5, результат 14
+</code></pre>
+
+<p>Чтобы такого не могло произойти, при проектировании лямбда-функции используют константность. Вспомним, что такое лямбда-функция. Это объект некого безымянного класса с подобным определением:</p>
+
+<pre><code class="language-cpp">class &lt;unnamed&gt; {
+    int value;
+    int operator()(int x) const { return value + x; }
+};
+</code></pre>
+
+<p>Так как метод <code>operator()</code> объявлен константным, при попытке изменения полей объекта внутри метода возникает ошибка компиляции. Программист просто не может написать функцию, изменяющую значение <code>value</code>.</p>
+
+<hr>
+
+<hr>
+
+<p>Пожалуй, можно сказать, что вы:</p>
+
+<ul>
+<li><p>Приятно удивлены, что короткое слово <code>const</code> может играть такую большую роль.</p></li>
+
+<li><p>Восхищены разработчиками языка, которые так досконально продумали объекты лямбда-функций.</p></li>
+
+<li><p>Вспомнили о некоторых местах своего кода, где пренебрегли константностью, и хотите вернуться и поправить их.</p></li>
+
+<li><p>Хотели бы узнать больше о случаях успешного использования константности.</p></li>
+
+<li><p>Готовы перейти к следующему уроку.</p></li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание</h2>
+
+<p>Разработайте препроцессор C++, который будет подставлять содержимое файлов на место <code>#include</code>-директив.</p>
+
+<p>Обрабатывать <code>#define</code> и другие команды препроцессора, а также подставлять макросы в этой задаче не требуется.</p>
+
+<p>Реализуйте функцию:</p>
+
+<pre><code class="language-cpp">bool Preprocess(const path&amp; in_file, const path&amp; out_file, 
+                const vector&lt;path&gt;&amp; include_directories);
+</code></pre>
+
+<p>Она читает <code>in_file</code> и рекурсивно подставляет все <code>#include</code>-зависимости. Результат пишется в <code>out_file</code>.</p>
+
+<p>Функция должна корректно обрабатывать два вида <code>#include</code>-директив:</p>
+
+<ul>
+<li><code>#include &quot;...&quot;</code>, задаваемую регулярным выражением <code>\s*#\s*include\s*&quot;([^&quot;]*)&quot;\s*</code>. В этом случае поиск файла выполняется относительно текущего файла, где расположена сама директива. Если файл не найден, поиск выполняется последовательно по всем элементам вектора <code>include_directories</code>.</li>
+<li><code>#include &lt;...&gt;</code>, задаваемая регулярным выражением <code>\s*#\s*include\s*&lt;([^&gt;]*)&gt;\s*</code>. Поиск выполняется последовательно по всем элементам вектора <code>include_directories</code>.</li>
+</ul>
+
+<p>Чтобы задать эти регулярные выражения в коде, используйте сырой литерал.</p>
+
+<p>Если включаемый файл так и не был найден или его не удалось открыть через <code>ifstream</code>, функция должна вывести в <code>cout</code> следующий текст:</p>
+
+<pre><code>unknown include file &lt;имя файла в директиве&gt; at file &lt;имя файла, где директива&gt; at line &lt;номер строки, где директива&gt;
+</code></pre>
+
+<p>И сразу возвратить <code>false</code>. В случае ошибки в выходном файле должны быть записаны все строки до ошибки. При формировании сообщения считайте, что строки нумеруются от единицы.</p>
+
+<p>Если не удалось открыть начальный файл, функция должна сразу возвратить <code>false</code>, ничего не выводя и не открывая выходной файл для записи.</p>
+
+<p>Если все файлы были найдены, функция возвращает <code>true</code>.</p>
+
+<h3>Ограничения</h3>
+
+<p>Если не удалось открыть входной файл для чтения, не открывайте выходной для записи.</p>
+
+<p>Гарантируется, что:</p>
+
+<ul>
+<li>код, поданный на вход, не содержит циклических зависимостей,</li>
+<li>все файлы либо не существуют, либо доступны для открытия через <code>ifstream</code>,</li>
+<li>пути в <code>#include</code>-директивах в формате, который может прочитать конструктор <code>path</code>.</li>
+</ul>
+
+<h3>Пример</h3>
+
+<ul>
+<li><p><code>sources/a.cpp</code></p>
+
+<pre><code class="language-cpp">// this comment before include
+#include &quot;dir1/b.h&quot;
+// text between b.h and c.h
+#include &quot;dir1/d.h&quot;
+
+
+void SayHello() {
+    std::cout &lt;&lt; &quot;hello, world!&quot; &lt;&lt; std::endl;
+#   include&lt;dummy.txt&gt;
+}
+</code></pre></li>
+
+<li><p><code>sources/dir1/b.h</code></p>
+
+<pre><code class="language-cpp">// text from b.h before include
+#include &quot;subdir/c.h&quot;
+// text from b.h after include
+</code></pre></li>
+
+<li><p><code>sources/dir1/subdir/c.h</code></p>
+
+<pre><code class="language-cpp">// text from c.h before include
+#include &lt;std1.h&gt;
+// text from c.h after include
+</code></pre></li>
+
+<li><p><code>sources/dir1/d.h</code></p>
+
+<pre><code class="language-cpp">// text from d.h before include
+#include &quot;lib/std2.h&quot;
+// text from d.h after include
+</code></pre></li>
+
+<li><p><code>sources/include1/std1.h</code></p>
+
+<pre><code class="language-cpp">// std1
+</code></pre></li>
+
+<li><p><code>sources/include2/lib/std2.h</code></p>
+
+<pre><code class="language-cpp">// std2
+</code></pre></li>
+</ul>
+
+<p>В качестве include-директорий поданы <code>sources/include1</code> и <code>sources/include2</code>. Программа должна создать такой файл:</p>
+
+<pre><code class="language-cpp">// this comment before include
+// text from b.h before include
+// text from c.h before include
+// std1
+// text from c.h after include
+// text from b.h after include
+// text between b.h and c.h
+// text from d.h before include
+// std2
+// text from d.h after include
+
+void SayHello() {
+    std::cout &lt;&lt; &quot;hello, world!&quot; &lt;&lt; std::endl;
+</code></pre>
+
+<p>В <code>cout</code> должен быть выведен текст:</p>
+
+<pre><code class="language-cpp">unknown include file dummy.txt at file sources/a.cpp at line 8
+</code></pre>
+
+<p>В некоторых операционных системах слеш может быть другим, это допустимо:</p>
+
+<pre><code class="language-cpp">unknown include file dummy.txt at file sources\a.cpp at line 8
+</code></pre>
+
+<p>Этот пример есть в заготовке кода.</p>
+
+<h3>Что отправлять на проверку</h3>
+
+<p>Файл main.cpp с реализованной функцией <code>Preprocess</code>.</p>
+
+<h3>Как будет тестироваться ваш код</h3>
+
+<p>Мы проверим, что:</p>
+
+<ul>
+<li>программа правильно обрабатывает пример из условия,</li>
+<li>программа не портит и не создаёт выходной файл, если с открытием входного есть проблемы,</li>
+<li>программа правильно работает, если нет ошибок,</li>
+<li>программа правильно работает, если ошибки есть,</li>
+<li>программа правильно обрабатывает нестандартную расстановку пробелов и табуляций в <code>#include</code>-директиве.</li>
+</ul>
+
+<h3>Подсказка</h3>
+
+<ul>
+<li>Как и в предыдущей задаче, можете использовать рекурсию.</li>
+<li>Получите папку текущего файла через метод <code>parent_path</code>. Нормализаций и разрешения относительного пути тут не требуется.</li>
+<li>Комбинируйте предполагаемую папку и путь из <code>#include</code>-директивы операцией путей <code>/</code>.</li>
+<li>Если регулярное выражение нашло вхождение <code>m</code>, получить путь из него можно так: <code>path p = string(m[1]);</code>.</li>
+<li>Рекурсивная функция может принимать:
+
+<ul>
+<li>поток ввода</li>
+<li>поток вывода,</li>
+<li>имя файла, к которому относится поток ввода, чтобы в случае чего выдать ошибку,</li>
+<li>вектор include-директорий.</li>
+</ul></li>
+<li>Сохраните регулярные выражения в статические переменные. Не забудьте экранировать кавычки и слеши.</li>
+<li>В этой задаче полезно использовать метод <code>is_open</code> класса <code>ifstream</code>, чтобы проверить, был ли открыт файл. Можете применить цикл, который останавливается, если файл успешно открылся.</li>
+<li>При чтении строки методом <code>getline</code> не забывайте выводить конец строки самостоятельно.</li>
+</ul>
+
+</body>
+</html>

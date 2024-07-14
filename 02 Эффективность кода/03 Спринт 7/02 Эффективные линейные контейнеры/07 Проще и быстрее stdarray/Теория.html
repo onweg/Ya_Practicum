@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Проще и быстрее: std::array</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Проще и быстрее: std::array</h1>
+
+<p>Подумайте, в каких случаях использовать динамическую память для хранения элементов контейнера действительно нужно. Данные в куче сохраняются даже после окончания работы функции, где была выделена память. Это полезно не всегда — до сих пор мы создавали контейнер в функции, и после её работы этот контейнер был нам больше не нужен. Динамическое выделение памяти удобно, когда не знаем, сколько точно будет элементов в контейнере. Потенциально их может оказаться как очень много, так и очень мало. Поэтому желательно выделять память «‎по запросу»‎, а не резервировать лишнюю.</p>
+
+<p>Но иногда мы заранее знаем, что элементов будет определённое небольшое количество. Тогда накладные расходы, связанные с выделением памяти в куче, нам не нужны — это достаточно ресурсозатратная операция. На такие случаи есть контейнер <code>std::array</code> — массив, который вообще не выделяет память в куче, а хранит всё на стеке функции.</p>
+
+<p>Сначала проверим, что элементы массива действительно лежат на стеке функции. Используем простой приём:</p>
+
+<pre><code class="language-cpp">#include &lt;array&gt;
+#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+    // создадим на стеке переменные x и y,
+    // положим между ними массив, заполненный восьмёрками
+    int x = 111111;
+    array&lt;int, 10&gt; numbers;
+    numbers.fill(8);
+    int y = 222222;
+    // пройдёмся по адресам между y и x
+    // и выведем то, что лежит в памяти
+    for (int* p = &amp;y; p &lt;= &amp;x; ++p) {
+        cout &lt;&lt; *p &lt;&lt; &quot; &quot;s;
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+
+<p>Результат работы программы:</p>
+
+<pre><code class="language-cpp">222222 8 8 8 8 8 8 8 8 8 8 6 0 111111
+</code></pre>
+
+<p>Вывод на экран в вашей IDE может немного отличаться, но это не меняет результата — все десять восьмёрок хранятся последовательно в стеке.</p>
+
+<p>Массивы в языке С устроены так же, но всё-таки <code>std::array</code> удобнее. У него есть методы, итераторы, и его можно, например, скопировать:</p>
+
+<pre><code class="language-cpp">#include &lt;array&gt;
+#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+    array&lt;int, 10&gt; numbers;
+    numbers.fill(8);
+    // копируем массив
+    const auto numbers_copy = numbers;
+    // итерируем по массиву
+    for (int x : numbers_copy) {
+        cout &lt;&lt; x &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+
+<p>Результат работы:</p>
+
+<pre><code class="language-cpp">8 8 8 8 8 8 8 8 8 8
+</code></pre>
+
+<p>Разберёмся, в каких ситуациях массив эффективнее. Представим, что у нас есть функция, которая всегда возвращает пять разных элементов. Напишем два варианта этой функции — один вариант с вектором, другой с массивом:</p>
+
+<pre><code class="language-cpp">#include &quot;profile.h&quot;
+
+#include &lt;array&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+vector&lt;int&gt; BuildVector(int i) {
+    return {i, i + 1, i + 2, i + 3, i + 4};
+}
+
+array&lt;int, 5&gt; BuildArray(int i) {
+    return {i, i + 1, i + 2, i + 3, i + 4};
+}
+
+const int COUNT = 1000000;
+
+int main() {
+    {
+        LOG_DURATION(&quot;vector&quot;);
+        for (int i = 0; i &lt; COUNT; ++i) {
+            auto numbers = BuildVector(i);
+        }
+    }
+    {
+        LOG_DURATION(&quot;array&quot;);
+        for (int i = 0; i &lt; COUNT; ++i) {
+            auto numbers = BuildArray(i);
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+
+<p>В  <code>array&lt;int, 5&gt;</code> число пять означает максимальное количество элементов, которое может быть сохранено в объекте такого типа. Элементов всегда будет пять, не больше и не меньше. При этом типы <code>array&lt;int, 5&gt;</code> и <code>array&lt;int, 4&gt;</code> не будут совместимы друг с другом — они абсолютно разные. Запустим программу без оптимизации. Получим:</p>
+
+<pre><code class="language-cpp">vector: 147 ms
+array: 4 ms
+</code></pre>
+
+<p>А с оптимизацией результат ещё интереснее:</p>
+
+<pre><code class="language-cpp">vector: 55 ms
+array: 0 ms
+</code></pre>
+
+<p>Несмотря на то, что алгоритмическая сложность у этих двух функций одна и та же, массив работает в разы быстрее вектора.</p>
+
+<hr>
+
+<p>Какая алгоритмическая сложность у измеряемых макросом <code>LOG_DURATION</code> секций?</p>
+
+<ul>
+<li><p>C\cdot N, где C — количество вызовов функции, а N — количество элементов в контейнере.</p></li>
+
+<li><p>N, где N — количество элементов в контейнере.</p></li>
+
+<li><p>C \cdot N\cdot K, где C — количество вызовов функции, N — количество элементов в контейнере, K — некая переменная константа.</p></li>
+</ul>
+
+<p>Проведём ещё один эксперимент. Добавим сортировку для массива, но не будем трогать функцию с вектором. Это увеличит алгоритмическую сложность, и она станет равна C\cdot N\cdot\log N:</p>
+
+<pre><code class="language-cpp">#include &quot;profile.h&quot;
+
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+vector&lt;int&gt; BuildVector(int i) {
+    return {i, i + 1, i + 2, i + 3, i + 4};
+}
+
+array&lt;int, 5&gt; BuildArray(int i) {
+    return {i, i + 1, i + 2, i + 3, i + 4};
+}
+
+const int COUNT = 1000000;
+
+int main() {
+    {
+        LOG_DURATION(&quot;vector&quot;);
+        for (int i = 0; i &lt; COUNT; ++i) {  // C * N
+            auto numbers = BuildVector(i);
+        }
+    }
+    {
+        LOG_DURATION(&quot;array&quot;);
+        for (int i = 0; i &lt; COUNT; ++i) {  // C * N * logN
+            auto numbers = BuildArray(i);
+            sort(begin(numbers), end(numbers));
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+
+<p>Посмотрим на результаты:</p>
+
+<pre><code class="language-cpp">vector: 55 ms
+array: 6 ms
+</code></pre>
+
+<p>Важное наблюдение: функция с массивом всё ещё работает быстрее, хотя её алгоритмическая сложность больше. В данном случае расходы на выделение памяти для вектора оказались выше, чем добавление сортировки для массива.</p>
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Декомпозиция и отладка кода</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Декомпозиция и отладка кода</h1>
+
+<p>Вы научились декомпозировать и тестировать код. В этом уроке вы примените новые навыки для проверки задачи «‎Автобусные остановки». Ниже даны условие и правильное решение, целиком содержащееся внутри функции <code>main</code>. Сделайте декомпозицию решения на заранее заданные блоки так, чтобы получившаяся программа корректно решала задачу.</p>
+
+<h3>Условие задачи</h3>
+
+<p>Реализуйте систему хранения автобусных маршрутов. Обработайте следующие запросы:</p>
+
+<ul>
+<li><strong>NEW_BUS bus stop_count stop1 stop2</strong> &hellip; — добавить маршрут автобуса с параметрами <code>bus</code>, <code>stop_count</code> и <code>stop1</code>, <code>stop2</code>, &hellip; Эти параметры команды <strong>NEW_BUS</strong> задают название маршрута (<code>bus</code>), количество остановок (<code>stop_count</code>) и их названия. Например: <code>NEW_BUS golden_ring 4 sergiev_posad rostov ivanovo vladimir</code>
+задаёт маршрут с названием <code>golden_ring</code> и четырьмя остановками: <code>sergiev_posad</code>, <code>rostov</code>, <code>ivanovo</code>, <code>vladimir</code>.</li>
+<li><strong>BUSES_FOR_STOP stop</strong> — вывести названия всех маршрутов автобуса, проходящих через остановку <code>stop</code>.</li>
+<li><strong>STOPS_FOR_BUS bus</strong> — вывести названия всех остановок маршрута <code>bus</code> со списком автобусов, куда можно пересесть на каждой из остановок.</li>
+<li><strong>ALL_BUSES</strong> — вывести список всех маршрутов с остановками.</li>
+</ul>
+
+<h3>Формат ввода</h3>
+
+<p>В первой строке ввода содержится количество запросов Q, затем в Q строках следуют описания запросов.</p>
+
+<p>Гарантируется, что все названия маршрутов и остановок состоят лишь из латинских букв, цифр и знаков подчёркивания.</p>
+
+<p>Для каждого запроса <strong>NEW_BUS bus stop_count stop1 stop2 &hellip;</strong> гарантируется, что маршрут <code>bus</code> отсутствует, количество остановок больше нуля, а после числа <code>stop_count</code> следует именно такое количество названий остановок, причём все названия в каждом списке различны.</p>
+
+<h3>Формат вывода</h3>
+
+<p>Для каждого запроса кроме <strong>NEW_BUS</strong> выведите соответствующий ответ на него:</p>
+
+<ul>
+<li>На запрос <strong>BUSES_FOR_STOP stop</strong> выведите через пробел список автобусов, проезжающих через эту остановку, в том порядке, в котором они создавались командами <strong>NEW_BUS</strong>. Если остановка <code>stop</code> не существует, выведите <code>No stop</code>.</li>
+<li>На запрос <strong>STOPS_FOR_BUS bus</strong> выведите описания остановок маршрута <code>bus</code> в отдельных строках в том порядке, в котором они были заданы в соответствующей команде <strong>NEW_BUS</strong>. Описание каждой остановки <code>stop</code> должно иметь вид <strong>Stop stop: bus1 bus2 &hellip;</strong>, где <strong>bus1 bus2 &hellip;</strong> — список автобусов, проезжающих через остановку <code>stop</code>. Список должен быть в том порядке, в каком автобусы создавались командами <strong>NEW_BUS</strong>, за исключением исходного маршрута <code>bus</code>. Если через остановку <code>stop</code> не проезжает ни один автобус кроме <code>bus</code>, вместо списка автобусов для неё выведите &ldquo;no interchange<strong>&rdquo;</strong>. Если маршрут <code>bus</code> не существует, выведите <code>No bus</code>.</li>
+<li>На запрос <strong>ALL_BUSES</strong> выведите описания всех автобусов в алфавитном порядке. Описание каждого маршрута <code>bus</code> должно иметь вид <strong>Bus bus: stop1 stop2</strong> &hellip;, где <strong>stop1 stop2 &hellip;</strong> — список остановок автобуса <code>bus</code> в том порядке, в каком они были заданы в соответствующей команде <strong>NEW_BUS</strong>. Если автобусы отсутствуют, выведите <code>No buses</code>.</li>
+</ul>
+
+<h3>Предупреждение</h3>
+
+<p>В условии задачи много важных деталей. Чтобы не упустить ни одной, перечитайте его.</p>
+
+<h3>Примеры</h3>
+
+<p><strong>Ввод</strong></p>
+
+<pre><code>10
+ALL_BUSES
+BUSES_FOR_STOP Marushkino
+STOPS_FOR_BUS 32K
+NEW_BUS 32 3 Tolstopaltsevo Marushkino Vnukovo
+NEW_BUS 32K 6 Tolstopaltsevo Marushkino Vnukovo Peredelkino Solntsevo Skolkovo
+BUSES_FOR_STOP Vnukovo
+NEW_BUS 950 6 Kokoshkino Marushkino Vnukovo Peredelkino Solntsevo Troparyovo
+NEW_BUS 272 4 Vnukovo Moskovsky Rumyantsevo Troparyovo
+STOPS_FOR_BUS 272
+ALL_BUSES
+</code></pre>
+
+<p><strong>Вывод</strong></p>
+
+<pre><code>No buses
+No stop
+No bus
+32 32K
+Stop Vnukovo: 32 32K 950
+Stop Moskovsky: no interchange
+Stop Rumyantsevo: no interchange
+Stop Troparyovo: 950
+Bus 272: Vnukovo Moskovsky Rumyantsevo Troparyovo
+Bus 32: Tolstopaltsevo Marushkino Vnukovo
+Bus 32K: Tolstopaltsevo Marushkino Vnukovo Peredelkino Solntsevo Skolkovo
+Bus 950: Kokoshkino Marushkino Vnukovo Peredelkino Solntsevo Troparyovo
+</code></pre>
+
+<h2>Исходные файлы</h2>
+
+<p>Решение этой задачи:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;map&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int main() {
+    int q;
+    cin &gt;&gt; q;
+
+    map&lt;string, vector&lt;string&gt;&gt; buses_to_stops, stops_to_buses;
+
+    for (int i = 0; i &lt; q; ++i) {
+        string operation_code;
+        cin &gt;&gt; operation_code;
+
+        if (operation_code == &quot;NEW_BUS&quot;s) {
+            string bus;
+            cin &gt;&gt; bus;
+            int stop_count;
+            cin &gt;&gt; stop_count;
+            vector&lt;string&gt;&amp; stops = buses_to_stops[bus];
+            stops.resize(stop_count);
+            for (string&amp; stop : stops) {
+                cin &gt;&gt; stop;
+                stops_to_buses[stop].push_back(bus);
+            }
+
+        } else if (operation_code == &quot;BUSES_FOR_STOP&quot;s) {
+            string stop;
+            cin &gt;&gt; stop;
+            if (stops_to_buses.count(stop) == 0) {
+                cout &lt;&lt; &quot;No stop&quot;s &lt;&lt; endl;
+            } else {
+                for (const string&amp; bus : stops_to_buses[stop]) {
+                    cout &lt;&lt; bus &lt;&lt; &quot; &quot;s;
+                }
+                cout &lt;&lt; endl;
+            }
+
+        } else if (operation_code == &quot;STOPS_FOR_BUS&quot;s) {
+            string bus;
+            cin &gt;&gt; bus;
+            if (buses_to_stops.count(bus) == 0) {
+                cout &lt;&lt; &quot;No bus&quot;s &lt;&lt; endl;
+            } else {
+                for (const string&amp; stop : buses_to_stops[bus]) {
+                    cout &lt;&lt; &quot;Stop &quot;s &lt;&lt; stop &lt;&lt; &quot;: &quot;s;
+                    if (stops_to_buses[stop].size() == 1) {
+                        cout &lt;&lt; &quot;no interchange&quot;s;
+                    } else {
+                        for (const string&amp; other_bus : stops_to_buses[stop]) {
+                            if (bus != other_bus) {
+                                cout &lt;&lt; other_bus &lt;&lt; &quot; &quot;s;
+                            }
+                        }
+                    }
+                    cout &lt;&lt; endl;
+                }
+            }
+
+        } else if (operation_code == &quot;ALL_BUSES&quot;s) {
+            if (buses_to_stops.empty()) {
+                cout &lt;&lt; &quot;No buses&quot;s &lt;&lt; endl;
+            } else {
+                for (const auto&amp; bus_item : buses_to_stops) {
+                    cout &lt;&lt; &quot;Bus &quot;s &lt;&lt; bus_item.first &lt;&lt; &quot;: &quot;s;
+                    for (const string&amp; stop : bus_item.second) {
+                        cout &lt;&lt; stop &lt;&lt; &quot; &quot;s;
+                    }
+                    cout &lt;&lt; endl;
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+
+</body>
+</html>

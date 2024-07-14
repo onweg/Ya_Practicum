@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Пишем proto-файл</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Пишем proto-файл</h1>
+
+<p>Вы пришли на этот курс изучать C++, но пришлось разбираться в JSON, XML, потом в CMake, а теперь ещё и в Protobuf. Количество разнообразных языков растёт как на дрожжах. Но это нормально, такова судьба программиста. Одного языка редко бывает достаточно.</p>
+
+<p>Если вы дошли до этого момента курса, значит, уже неплохо разбираетесь в C++, и усвоить несложный синтаксис proto-файлов не составит труда.</p>
+
+<p>Подробное описание устройства файлов Protobuf есть в <a href="https://developers.google.com/protocol-buffers/docs/proto3">документации</a> на сайте библиотеки. Мы разберём только основные возможности. Поддерживаются два различных синтаксиса: proto2 и proto3. Это напоминает ситуацию с языком Python, у которого версии Python 2 и Python 3 развиваются параллельно.</p>
+
+<p>Мы будем использовать только синтаксис proto3 как более современный. Это нужно указать в первой строке proto-файла:</p>
+
+<pre><code>syntax = &quot;proto3&quot;;
+</code></pre>
+
+<p>Будем создавать приложение — адресную книгу. Поэтому сохраним код в файл <code>person.proto</code>. Добавим сообщение с информацией о контакте:</p>
+
+<pre><code>syntax = &quot;proto3&quot;;
+
+message Person {
+    string name = 1;
+    int32 age = 2;
+}
+</code></pre>
+
+<p>Описание сообщений похоже на описание класса или структуры в C++. Но есть несколько отличий:</p>
+
+<ul>
+<li>сообщения не имеют методов,</li>
+<li>в конце определения не ставится точка с запятой,</li>
+<li>нужно указывать номера полей.</li>
+</ul>
+
+<hr>
+
+<p>Зачем нужны номера полей? Выберите основное назначение.</p>
+
+<ul>
+<li><p>Чтобы поля корректно сопоставлялись при изменениях.</p></li>
+
+<li><p>Чтобы задать порядок загрузки и сохранения.</p></li>
+
+<li><p>Чтобы ссылаться на поля по номерам, а не именам.</p></li>
+</ul>
+
+<p>Изменения — это жизнь. Гарантировать, что основная структура данных не поменяется не может даже программа с очень давней историей. А в молодой программе данные, скорее всего, будут меняться, как сердце красавицы или ветер мая.</p>
+
+<p>Поэтому основная польза, которую приносят номера полей — безопасные изменения. Можно менять порядок, переименовывать, добавлять новые и удалять старые поля сообщения. Возможность загрузить то, что было сохранено ранее, при этом не теряется. Главное, чтобы сохранялся номер поля. Он должен быть уникальным в пределах одного сообщения.</p>
+
+<hr>
+
+<p>Простейший proto-файл готов. Скомпилируем его, передав на вход собранной ранее программе protoc:</p>
+
+<pre><code>&lt;путь к пакету Protobuf&gt;/bin/proto --cpp_out . person.proto
+</code></pre>
+
+<p>При генерации заданы следующие параметры:</p>
+
+<ul>
+<li><code>--cpp_out .</code> — указание, что нужно сгенерировать код на C++ и положить его в папку <code>.</code>, то есть в текущую папку.</li>
+<li><code>person.proto</code> — имя входного proto-файла.</li>
+</ul>
+
+<p>Из 6 строк файла <code>person.proto</code> программа protoc создала более шестисот в файлах <code>person.pb.h</code> и <code>person.pb.cc</code>. Точное количество зависит от версии Protobuf. Расширение <code>.h</code> вам хорошо знакомо, а <code>.cc</code> — это альтернатива для <code>.cpp</code>. Оба файла начинаются с комментария:</p>
+
+<pre><code>// Generated by the protocol buffer compiler.  DO NOT EDIT!
+</code></pre>
+
+<p>Он говорит, что файл сгенерирован компилятором protocol buffer, и его не нужно редактировать. Последнее требование даже выделено прописными буквами.</p>
+
+<hr>
+
+<p>Почему не нужно править файлы, сгенерированные Protobuf?</p>
+
+<ul>
+<li><p>Это нарушает лицензию библиотеки.</p></li>
+
+<li><p>Правки сотрутся после следующей генерации.</p></li>
+
+<li><p>Вы можете нарушить правильную работу библиотеки.</p></li>
+</ul>
+
+<p>Это правило вполне универсально: никогда не правьте файлы, сгенерированные автоматически. Всё равно ваши правки будут уничтожены при следующей перегенерации — это часть сборки программы. Даже если вы исключили процесс перегенерации из процедуры сборки, внесение изменений в исходник будет заблокировано.</p>
+
+<p>Также сгенерированные файлы не нужно загружать в репозиторий. Важно, что в репозитории должно быть только то, что не получается автоматически из других файлов того же репозитория.</p>
+
+<hr>
+
+<p>Продолжим изучать <code>person.pb.h</code>. Нас интересует класс <code>Person</code>, сгенерированный для сообщения <code>Person</code>.</p>
+
+<p>В нём имеются:</p>
+
+<ul>
+<li>конструктор копирования,</li>
+<li>конструктор перемещения,</li>
+<li>конструктор по умолчанию,</li>
+<li>копирующее присваивание,</li>
+<li>перемещающее присваивание,</li>
+<li>специальные методы Protobuf,</li>
+<li>методы взаимодействия с данными сообщения: <code>name</code> и <code>age</code>.</li>
+</ul>
+
+<p>Разберём методы взаимодействия с данными сообщения <code>name</code> и <code>age</code> подробнее. Они идут в секции <code>accessors</code>. Для получения значений <code>name</code> и <code>age</code> есть методы, которые называются так же, как и само поле. Для изменения есть методы <code>set_name</code> и <code>set_age</code>.</p>
+
+<p>Перед методами стоит комментарий, который показывает, к какому полю сообщения <code>Person</code> они относятся:</p>
+
+<pre><code class="language-cpp">class Person ... {
+...
+
+  // string name = 1;
+  void clear_name();
+  const std::string&amp; name() const;
+  void set_name(const std::string&amp; value);
+  void set_name(std::string&amp;&amp; value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  std::string* mutable_name();
+  std::string* release_name();
+  void set_allocated_name(std::string* name);
+
+...
+
+  // int32 age = 2;
+  void clear_age();
+  ::PROTOBUF_NAMESPACE_ID::int32 age() const;
+  void set_age(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+...
+};
+</code></pre>
+
+<p>Protobuf создал и другие методы. Их рассмотрим подробнее в следующем уроке. А сейчас попробуем расширить сообщение, добавив в него новое поле — адрес, который сам будет отдельным сообщением:</p>
+
+<pre><code>syntax = &quot;proto3&quot;;
+
+message Address {
+    string street = 1;
+    uint32 building = 2;
+}
+
+message Person {
+    string name = 1;
+    int32 age = 2;
+    Address address = 3;
+}
+</code></pre>
+
+<p>Сообщение, подобно классу C++, определяет новый тип данных, который можно использовать для создания полей в других сообщениях.</p>
+
+<p>Перегенерируем файлы person.pb.h и person.pb.cc, заново запустив программу protoc. Как и ожидалось, в proto.bp.h появился новый класс <code>class Address</code> с методами для работы с полями <code>street</code> и <code>building</code>. В классе <code>Person</code> добавились новые методы для работы с полем <code>address</code>:</p>
+
+<pre><code class="language-cpp">// .Address address = 3;
+bool has_address() const;
+void clear_address();
+const ::Address&amp; address() const;
+::Address* release_address();
+::Address* mutable_address();
+void set_allocated_address(::Address* address);
+</code></pre>
+
+<p>Продолжим расширять список контактов и добавим возможность хранить номера телефонов. Чтобы показать, что у одного контакта телефонов может быть несколько, добавим перед описанием поля слово <code>repeated</code>:</p>
+
+<pre><code>syntax = &quot;proto3&quot;;
+
+message Address {
+    string street = 1;
+    uint32 building = 2;
+}
+
+message Person {
+    string name = 1;
+    int32 age = 2;
+    Address address = 3;
+    repeated string phone_number = 4;
+}
+</code></pre>
+
+<p>Слово <code>repeated</code> создаёт массив. Перегенерируем код и посмотрим, какие публичные методы появились у класса <code>Person</code>:</p>
+
+<pre><code class="language-cpp">// repeated string phone_number = 4;
+int phone_number_size() const;
+void clear_phone_number();
+const std::string&amp; phone_number(int index) const;
+std::string* mutable_phone_number(int index);
+void set_phone_number(int index, const std::string&amp; value);
+void set_phone_number(int index, std::string&amp;&amp; value);
+void set_phone_number(int index, const char* value);
+void set_phone_number(int index, const char* value, size_t size);
+std::string* add_phone_number();
+void add_phone_number(const std::string&amp; value);
+void add_phone_number(std::string&amp;&amp; value);
+void add_phone_number(const char* value);
+void add_phone_number(const char* value, size_t size);
+const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField&lt;std::string&gt;&amp; phone_number() const;
+::PROTOBUF_NAMESPACE_ID::RepeatedPtrField&lt;std::string&gt;* mutable_phone_number();
+</code></pre>
+
+<p>Это основные методы для работы с массивом, которые позволяют:</p>
+
+<ul>
+<li><code>phone_number_size</code> — узнавать количество телефонов,</li>
+<li><code>phone_number</code> — узнавать телефон по индексу,</li>
+<li><code>set_phone_number</code> — менять телефон по индексу,</li>
+<li><code>add_phone_number</code> — добавлять телефон в массив.</li>
+</ul>
+
+<p>Подробности о том, как в C++ работать с кодом, сгенерированным Protobuf, вы узнаете из следующего урока. А пока напишите небольшой proto-файл.</p>
+
+</body>
+</html>

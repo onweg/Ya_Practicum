@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Список инициализации конструктора</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Список инициализации конструктора</h1>
+
+<p>В предыдущих уроках вы узнали, как создавать для класса конструктор по умолчанию и параметризованный конструктор. В этом уроке научитесь их правильно использовать для инициализации отдельных переменных, а также полей классов и структур.</p>
+
+<h3>Вызов параметризованного конструктора</h3>
+
+<p>Когда вызываем функцию и возвращаем значение из неё, компилятор знает и типы аргументов, и тип возвращаемого значения. Поэтому имя класса перед фигурными скобками можно опустить при условии, что код останется понятным:</p>
+
+<pre><code class="language-cpp">Rational AddRationals(Rational r1, Rational r2) {
+    int numerator = r1.Numerator() * r2.Denominator() + r2.Numerator() * r1.Denominator();
+    int denominator = r1.Denominator() * r2.Denominator();
+
+    // Компилятор знает, что функция возвращает Rational, и неявно
+    // вызывает соответствующий конструктор
+    return {numerator, denominator};
+    // Эта запись в данном контексте аналогична:
+    // return Rational{numerator, denominator};
+}
+
+int main() {
+    // Компилятор знает, что функция AddRationals принимает аргументы типа Rational
+    // и конструирует дроби 1/6 и 1/3
+    Rational sum = AddRationals({1, 6}, {1, 3});
+}
+</code></pre>
+
+<p>Здесь инструкция <code>return {numerator, denominator}</code> расположена близко к заголовку функции, и читатель видит тип возвращаемого значения. Поэтому компактную запись можно использовать вместо <code>return Rational{numerator, denominator};</code>. Имя функции <code>AddRationals</code> чётко показывает, что именно она делает, и вызов <code>AddRationals({1, 6}, {1, 3})</code> будет понятен.</p>
+
+<p>Краткую форму вызова конструктора используйте только когда у неё нет неоднозначного толкования. В остальных случаях вызывайте конструктор явно.</p>
+
+<h3>Вызов параметризованного конструктора при композиции</h3>
+
+<p>Каждый раз, когда создаёте классы и структуры с другими классами и структурами внутри, имеете дело с композицией. Композиция — способ писать новые классы и структуры путём включения уже имеющихся. Рассмотрим структуру <code>RationalPoint</code>, которая задаёт координаты точки на плоскости, используя композицию рациональных чисел:</p>
+
+<pre><code class="language-cpp">struct RationalPoint {
+    Rational x;
+    Rational y;
+};
+</code></pre>
+
+<p>Чтобы задать точку, можно передать в качестве координат уже имеющиеся переменные типа <code>Rational</code> или указать координаты напрямую:</p>
+
+<pre><code class="language-cpp"> int main() {
+    // Допустимые способы объявления переменной типа Rational
+    const Rational x1{7, 8};
+    const Rational y1(3, 4);
+
+    // Инициализируем поля структуры при помощи имеющихся переменных
+    RationalPoint p1 = {x1, y1};
+
+    // Инициализируем поля структуры явным образом
+    RationalPoint p0 = {
+        {2, 3},
+        {5, 6},
+    };
+
+    // Совмещаем разные способы инициализации полей структуры
+    const RationalPoint p2{x2, {7, 8}};
+}
+</code></pre>
+
+<h3>Списки инициализации</h3>
+
+<p>С инициализацией полей структур всё довольно просто: поля у структуры публичные, поэтому можем свободно задавать их значения. А у классов поля приватные и защищены от доступа извне. Поэтому инициализировать их сложнее. Рассмотрим на примере классов <code>Cat</code> и <code>Witch</code>:</p>
+
+<pre><code class="language-cpp">class Cat {
+public:
+    Cat(const string&amp; name) {
+        name_ = name;
+    }
+    string GetName() const {
+        return name_;
+    }
+private:
+    string name_;
+};
+
+class Witch {
+public:
+    Witch(const string&amp; catName) {
+        cat_ = Cat{catName}; // Пытаемся задать значение полю cat_
+    }
+private:
+    Cat cat_;
+};
+
+int main() {
+    Witch hermione{&quot;Живоглот&quot;s};
+}
+</code></pre>
+
+<p>Попытаемся скомпилировать код и столкнёмся с ошибкой:</p>
+
+<pre><code>error: constructor for 'Witch' must explicitly initialize the member 'cat_' which does not have a default constructor
+    Witch(const string&amp; catName) {
+    ^
+</code></pre>
+
+<p>Компилятор сообщает: конструктор класса <code>Witch</code> должен явно инициализировать поле <code>cat_</code>, у которого нет конструктора по умолчанию. Причём инициализация должна завершиться ещё до выполнения тела конструктора. Только так в теле конструктора можно будет безопасно обращаться к полям класса. Исправим ошибку:</p>
+
+<pre><code class="language-cpp">class Witch {
+public:
+    Witch(const string&amp; catName) {
+        // Чтобы безопасно использовать поле cat_ внутри конструктора, 
+        // инициализируем его ещё до выполнения тела конструктора Witch
+        cout &lt;&lt; &quot;Моего кота зовут &quot;s &lt;&lt; cat_.GetName() &lt;&lt; endl;
+    }
+private:
+    Cat cat_;
+};
+</code></pre>
+
+<p>В C++ для неявной инициализации полей класса применяют конструктор по умолчанию. Поля, у которых его нет, инициализируйте явно внутри списка инициализации конструктора.</p>
+
+<p>Чтобы написать список инициализации, поставьте двоеточие после скобки, закрывающей список параметров конструктора, и перечислите через запятую имена полей с их значениями внутри скобок в формате <code>имя_поля_1(значение_поля_1), имя_поля_2(значение_поля), ...</code>. Значениями полей могут быть параметры конструктора, выражения и константы. Перепишем конструкторы классов <code>Cat</code> и <code>Witch</code>:</p>
+
+<pre><code class="language-cpp">class Cat {
+public:
+    Cat(const string&amp; name)
+        // задаём значение поля name_, копируя в него аргумент конструктора
+        : name_(name) 
+    {
+    }
+    string GetName() const {
+        return name_;
+    }
+private:
+    string name_;
+};
+
+class Witch {
+public:
+    Witch(const string&amp; catName)
+        // Передаём параметр конструктору поля cat_
+        : cat_(catName) 
+    {
+        cout &lt;&lt; &quot;Моего кота зовут &quot;s &lt;&lt; cat_.GetName() &lt;&lt; endl;
+    }
+private:
+    Cat cat_;
+};
+</code></pre>
+
+<p>Список инициализации конструктора служит для инициализации полей класса до выполнения тела конструктора. Старайтесь всегда задавать значения полей класса в списке инициализации конструктора, а не в его теле. Тогда программа не будет выполнять двойную работу: вызывать у поля конструктор по умолчанию, а потом перезаписывать его значение через присваивание. В списке инициализации сразу вызовется нужный параметризованный конструктор.</p>
+
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание</h2>
+
+<p>Реализуйте в классе односвязного списка следующий функционал:</p>
+
+<ul>
+<li>Операции сравнения <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>;</li>
+<li>Обмен содержимого двух списков с использованием метода <code>swap</code> и шаблонной функции <code>swap</code>;</li>
+<li>Конструирование односвязного списка на основе <code>initializer_list</code>. Последовательность элементов созданного списка и <code>initializer_list</code> должна быть одинаковой;</li>
+<li>Надёжные конструктор копирования и операцию присваивания. Операция присваивания должна обеспечивать строгую гарантию безопасности исключений. Если в процессе присваивания будет выброшено исключение, содержимое левого аргумента операции присваивания должно остаться без изменений.</li>
+</ul>
+
+<p>Сигнатура добавляемых операций:</p>
+
+<pre><code class="language-cpp">template &lt;typename Type&gt;
+class SingleLinkedList {
+public:
+    SingleLinkedList(std::initializer_list&lt;Type&gt; values) {
+        // Реализуйте конструктор самостоятельно
+    }
+
+    SingleLinkedList(const SingleLinkedList&amp; other) {
+        // Реализуйте конструктор самостоятельно
+    }
+
+    SingleLinkedList&amp; operator=(const SingleLinkedList&amp; rhs) {
+        // Реализуйте присваивание самостоятельно
+        return *this;
+    }
+
+    // Обменивает содержимое списков за время O(1)
+    void swap(SingleLinkedList&amp; other) noexcept {
+        // Реализуйте обмен содержимого списков самостоятельно
+    }
+
+private:
+    // Фиктивный узел, используется для вставки &quot;перед первым элементом&quot;
+    Node head_;
+    size_t size_ = 0;
+};
+
+template &lt;typename Type&gt;
+void swap(SingleLinkedList&lt;Type&gt;&amp; lhs, SingleLinkedList&lt;Type&gt;&amp; rhs) noexcept {
+    // Реализуйте обмен самостоятельно
+}
+
+template &lt;typename Type&gt;
+bool operator==(const SingleLinkedList&lt;Type&gt;&amp; lhs, const SingleLinkedList&lt;Type&gt;&amp; rhs) {
+    // Заглушка. Реализуйте сравнение самостоятельно
+    return true;
+}
+
+template &lt;typename Type&gt;
+bool operator!=(const SingleLinkedList&lt;Type&gt;&amp; lhs, const SingleLinkedList&lt;Type&gt;&amp; rhs) {
+    // Заглушка. Реализуйте сравнение самостоятельно
+    return true;
+}
+
+template &lt;typename Type&gt;
+bool operator&lt;(const SingleLinkedList&lt;Type&gt;&amp; lhs, const SingleLinkedList&lt;Type&gt;&amp; rhs) {
+    // Заглушка. Реализуйте сравнение самостоятельно
+    return true;
+}
+
+template &lt;typename Type&gt;
+bool operator&lt;=(const SingleLinkedList&lt;Type&gt;&amp; lhs, const SingleLinkedList&lt;Type&gt;&amp; rhs) {
+    // Заглушка. Реализуйте сравнение самостоятельно
+    return true;
+}
+
+template &lt;typename Type&gt;
+bool operator&gt;(const SingleLinkedList&lt;Type&gt;&amp; lhs, const SingleLinkedList&lt;Type&gt;&amp; rhs) {
+    // Заглушка. Реализуйте сравнение самостоятельно
+    return true;
+}
+
+template &lt;typename Type&gt;
+bool operator&gt;=(const SingleLinkedList&lt;Type&gt;&amp; lhs, const SingleLinkedList&lt;Type&gt;&amp; rhs) {
+    // Заглушка. Реализуйте сравнение самостоятельно
+    return true;
+}
+</code></pre>
+
+<p>Пример использования и тесты:</p>
+
+<pre><code class="language-cpp">#include &lt;cassert&gt;
+#include &lt;cstddef&gt;
+#include &lt;iterator&gt;
+#include &lt;string&gt;
+#include &lt;utility&gt;
+
+template &lt;typename Type&gt;
+class SingleLinkedList {...};
+
+// Эта функция проверяет работу класса SingleLinkedList
+void Test3() {
+    // Проверка списков на равенство и неравенство
+    {
+        SingleLinkedList&lt;int&gt; list_1;
+        list_1.PushFront(1);
+        list_1.PushFront(2);
+
+        SingleLinkedList&lt;int&gt; list_2;
+        list_2.PushFront(1);
+        list_2.PushFront(2);
+        list_2.PushFront(3);
+
+        SingleLinkedList&lt;int&gt; list_1_copy;
+        list_1_copy.PushFront(1);
+        list_1_copy.PushFront(2);
+
+        SingleLinkedList&lt;int&gt; empty_list;
+        SingleLinkedList&lt;int&gt; another_empty_list;
+
+        // Список равен самому себе
+        assert(list_1 == list_1);
+        assert(empty_list == empty_list);
+
+        // Списки с одинаковым содержимым равны, а с разным - не равны
+        assert(list_1 == list_1_copy);
+        assert(list_1 != list_2);
+        assert(list_2 != list_1);
+        assert(empty_list == another_empty_list);
+    }
+
+    // Обмен содержимого списков
+    {
+        SingleLinkedList&lt;int&gt; first;
+        first.PushFront(1);
+        first.PushFront(2);
+
+        SingleLinkedList&lt;int&gt; second;
+        second.PushFront(10);
+        second.PushFront(11);
+        second.PushFront(15);
+
+        const auto old_first_begin = first.begin();
+        const auto old_second_begin = second.begin();
+        const auto old_first_size = first.GetSize();
+        const auto old_second_size = second.GetSize();
+
+        first.swap(second);
+
+        assert(second.begin() == old_first_begin);
+        assert(first.begin() == old_second_begin);
+        assert(second.GetSize() == old_first_size);
+        assert(first.GetSize() == old_second_size);
+
+        // Обмен при помощи функции swap
+        {
+            using std::swap;
+
+            // В отсутствие пользовательской перегрузки будет вызвана функция std::swap, которая
+            // выполнит обмен через создание временной копии
+            swap(first, second);
+
+            // Убеждаемся, что используется не std::swap, а пользовательская перегрузка
+
+            // Если бы обмен был выполнен с созданием временной копии,
+            // то итератор first.begin() не будет равен ранее сохранённому значению,
+            // так как копия будет хранить свои узлы по иным адресам
+            assert(first.begin() == old_first_begin);
+            assert(second.begin() == old_second_begin);
+            assert(first.GetSize() == old_first_size);
+            assert(second.GetSize() == old_second_size);
+        }
+    }
+
+    // Инициализация списка при помощи std::initializer_list
+    {
+        SingleLinkedList&lt;int&gt; list{1, 2, 3, 4, 5};
+        assert(list.GetSize() == 5);
+        assert(!list.IsEmpty());
+        assert(std::equal(list.begin(), list.end(), std::begin({1, 2, 3, 4, 5})));
+    }
+
+    // Лексикографическое сравнение списков
+    {
+        using IntList = SingleLinkedList&lt;int&gt;;
+
+        assert((IntList{1, 2, 3} &lt; IntList{1, 2, 3, 1}));
+        assert((IntList{1, 2, 3} &lt;= IntList{1, 2, 3}));
+        assert((IntList{1, 2, 4} &gt; IntList{1, 2, 3}));
+        assert((IntList{1, 2, 3} &gt;= IntList{1, 2, 3}));
+    }
+
+    // Копирование списков
+    {
+        const SingleLinkedList&lt;int&gt; empty_list{};
+        // Копирование пустого списка
+        {
+            auto list_copy(empty_list);
+            assert(list_copy.IsEmpty());
+        }
+
+        SingleLinkedList&lt;int&gt; non_empty_list{1, 2, 3, 4};
+        // Копирование непустого списка
+        {
+            auto list_copy(non_empty_list);
+
+            assert(non_empty_list.begin() != list_copy.begin());
+            assert(list_copy == non_empty_list);
+        }
+    }
+
+    // Присваивание списков
+    {
+        const SingleLinkedList&lt;int&gt; source_list{1, 2, 3, 4};
+
+        SingleLinkedList&lt;int&gt; receiver{5, 4, 3, 2, 1};
+        receiver = source_list;
+        assert(receiver.begin() != source_list.begin());
+        assert(receiver == source_list);
+    }
+
+    // Вспомогательный класс, бросающий исключение после создания N-копии
+    struct ThrowOnCopy {
+        ThrowOnCopy() = default;
+        explicit ThrowOnCopy(int&amp; copy_counter) noexcept
+            : countdown_ptr(&amp;copy_counter) {
+        }
+        ThrowOnCopy(const ThrowOnCopy&amp; other)
+            : countdown_ptr(other.countdown_ptr)  //
+        {
+            if (countdown_ptr) {
+                if (*countdown_ptr == 0) {
+                    throw std::bad_alloc();
+                } else {
+                    --(*countdown_ptr);
+                }
+            }
+        }
+        // Присваивание элементов этого типа не требуется
+        ThrowOnCopy&amp; operator=(const ThrowOnCopy&amp; rhs) = delete;
+        // Адрес счётчика обратного отсчёта. Если не равен nullptr, то уменьшается при каждом копировании.
+        // Как только обнулится, конструктор копирования выбросит исключение
+        int* countdown_ptr = nullptr;
+    };
+
+    // Безопасное присваивание списков
+    {
+        SingleLinkedList&lt;ThrowOnCopy&gt; src_list;
+        src_list.PushFront(ThrowOnCopy{});
+        src_list.PushFront(ThrowOnCopy{});
+        auto thrower = src_list.begin();
+        src_list.PushFront(ThrowOnCopy{});
+
+        int copy_counter = 0;  // при первом же копировании будет выброшего исключение
+        thrower-&gt;countdown_ptr = &amp;copy_counter;
+
+        SingleLinkedList&lt;ThrowOnCopy&gt; dst_list;
+        dst_list.PushFront(ThrowOnCopy{});
+        int dst_counter = 10;
+        dst_list.begin()-&gt;countdown_ptr = &amp;dst_counter;
+        dst_list.PushFront(ThrowOnCopy{});
+
+        try {
+            dst_list = src_list;
+            // Ожидается исключение при присваивании
+            assert(false);
+        } catch (const std::bad_alloc&amp;) {
+            // Проверяем, что состояние списка-приёмника не изменилось
+            // при выбрасывании исключений
+            assert(dst_list.GetSize() == 2);
+            auto it = dst_list.begin();
+            assert(it != dst_list.end());
+            assert(it-&gt;countdown_ptr == nullptr);
+            ++it;
+            assert(it != dst_list.end());
+            assert(it-&gt;countdown_ptr == &amp;dst_counter);
+            assert(dst_counter == 10);
+        } catch (...) {
+            // Других типов исключений не ожидается
+            assert(false);
+        }
+    }
+}
+
+int main() {
+    Test3();
+}
+</code></pre>
+
+<h3>Ограничения</h3>
+
+<p>Инкремент и разыменование итератора, ссылающегося на позицию за последним элементом списка, — недопустимые операции. Очистка или разрушение списка делают невалидными его итераторы. Любые операции над невалидным итератором, кроме естественного вызова деструктора, тоже недопустимы. Гарантируется, что тренажёр не будет совершать таких операций. Не усложняйте класс списка и итератора, чтобы выявить ситуации некорректного использования итераторов.</p>
+
+<h3>Что отправлять на проверку</h3>
+
+<p>В решении должен быть шаблонный класс <code>SingleLinkedList</code> с перегруженными операциями, функцией <code>swap</code> и нужными для их работы директивами <code>#include</code>. Функция <code>main</code> игнорируется.</p>
+
+<h3>Как будет тестироваться ваш код</h3>
+
+<p>Сохраните сигнатуры всех публичных методов класса <code>SingleLinkedList</code>, его итераторов и операций неизменными, чтобы код скомпилировался без ошибок.</p>
+
+<h3>Подсказка</h3>
+
+<p>У конструктора копирования и конструктора из <code>std::initializer_list</code> есть нечто общее — и тот, и другой принимают на вход объект, у которого есть итераторы <code>begin</code> и <code>end</code>. Эти итераторы задают диапазон элементов, которые надо скопировать. Если вынести инициализацию списка элементами из переданного диапазона итераторов в отдельный шаблонный метод, избавитесь от дублирования кода.</p>
+
+</body>
+</html>

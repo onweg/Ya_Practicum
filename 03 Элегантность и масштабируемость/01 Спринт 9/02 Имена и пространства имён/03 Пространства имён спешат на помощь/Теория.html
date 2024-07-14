@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Пространства имён спешат на помощь</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Пространства имён спешат на помощь</h1>
+
+<p>В C++ разные сущности кода могут иметь одинаковые имена. В некоторых случаях это не создаёт проблем:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int x() {
+    int x = 42;
+    return x;
+}
+
+int main() {
+    int y = x();
+    {
+        int x = y;
+        {
+            int x = 100500;
+            cout &lt;&lt; x &lt;&lt; endl;
+        }
+        cout &lt;&lt; x &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Программа два раза подряд выводит <code>x</code>, но выдаёт разные числа:</p>
+
+<pre><code class="language-cpp">100500
+42
+</code></pre>
+
+<hr>
+
+<p>Сколько разных сущностей кода этой программы имеют имя <code>x</code>?</p>
+
+<ul>
+<li><p>1</p></li>
+
+<li><p>2</p></li>
+
+<li><p>3</p></li>
+
+<li><p>4</p></li>
+
+<li><p>5</p></li>
+
+<li><p>6</p></li>
+</ul>
+
+<p>Посчитаем:</p>
+
+<ol>
+<li>функция <code>x</code>,</li>
+<li>переменная в функции <code>x</code>,</li>
+<li>переменная в функции <code>main</code>, которой мы присвоили значение <code>y</code>,</li>
+<li>переменная в функции <code>main</code>, которой мы присвоили 100500.</li>
+</ol>
+
+<hr>
+
+<p>Когда сущности с одинаковым именем начинают конкурировать друг с другом, компилятор выбирает ту из них, которая находится в наиболее близкой объемлющей области видимости. Если же несколько имён расположены одинаково по отношению к месту использования, неизбежно возникает конфликт: компилятор не сможет выбрать между ними. Подбрасывать монетку, чтобы выбрать победителя, компилятор не станет. Вместо этого он покажет вам ошибку и откажется собирать программу.</p>
+
+<p>Вспомним две задачи, которые вы решали перед этим уроком. В одной использовали библиотеку для работы с JSON, а в другой — для работы с XML. Теперь попробуем сделать универсальную программу, которая бы поддерживала оба формата. Здесь нас поджидают проблемы. Подключив <code>json.h</code> и <code>xml.h</code> в <code>main.cpp</code>, получим целую плеяду ошибок:</p>
+
+<pre><code>xml.h:11:7: error: redefinition of 'class Node'
+ class Node {
+       ^~~~
+In file included from main.cpp:7:
+json.h:10:7: note: previous definition of 'class Node'
+ class Node {
+       ^~~~
+In file included from main.cpp:8:
+xml.h:28:7: error: redefinition of 'class Document'
+ class Document {
+       ^~~~~~~~
+In file included from main.cpp:7:
+json.h:29:7: note: previous definition of 'class Document'
+ class Document {
+       ^~~~~~~~
+In file included from main.cpp:8:
+xml.h:44:10: error: no declaration matches 'T Node::AttributeValue(const string&amp;) const'
+ inline T Node::AttributeValue(const string&amp; name) const {
+          ^~~~
+xml.h:44:10: note: no functions named 'T Node::AttributeValue(const string&amp;) const'
+In file included from main.cpp:7:
+json.h:10:7: note: 'class Node' defined here
+ class Node {
+</code></pre>
+
+<p>Ошибка <code>redefinition of class</code> сообщает о том, что класс с таким именем был определён ранее. Иначе говоря, о конфликте имён. Компилятор указал два места, где определяются классы с именем <code>Node</code>, и с ним не поспоришь.</p>
+
+<p>Выходит, в библиотеках JSON и XML есть серьёзный просчёт — они используют простые названия для классов и функций: <code>Node</code>, <code>Document</code>, <code>Load</code>. Эти имена в двух библиотеках конфликтуют. Использовать их одновременно нельзя, более того, такие простые названия могут конфликтовать и с другими частями большой программы.</p>
+
+<hr>
+
+<p>Как можно решить эту проблему?</p>
+
+<ul>
+<li><p>Добавить к каждому имени префикс или постфикс. Например, <code>XMLNode</code>, <code>XMLDocument</code>, <code>JSONLoad</code> и т. д.</p></li>
+
+<li><p>Сделать два независимых cpp-файла. В одном включить <code>json.h</code>, в другом — <code>xml.h</code>.</p></li>
+
+<li><p>Не делать так: в одной программе и XML, и JSON не нужны одновременно, надо выбрать что-нибудь одно.</p></li>
+</ul>
+
+<p>Добавление к именам префикса часто используется, особенно в библиотеках, которые могут быть доступны на чистом C.</p>
+
+<p>Но мы поступим иначе и вместо добавления префикса к каждому имени используем такую возможность C++ как пространства имён. Чтобы это сделать, нужно все определения и объявления в cpp и h-файлах заключить в конструкцию <code>namespace имя {...}</code>:</p>
+
+<pre><code class="language-cpp">//файл json.h
+
+#pragma once
+
+// #include ...
+
+// начинаем пространство имён
+namespace json {
+
+// В соответствии с принятым в Практикуме стилем оформления кода
+// содержимое внутри namespace {...} пишется без отступов.
+class Node {
+    // ...
+};
+
+class Document {
+    // ...
+};
+
+Document Load(std::istream&amp; input);
+
+template &lt;typename T&gt;
+inline T Node::AttributeValue(const std::string&amp; name) const {
+    // ...
+}
+
+// нужно закрыть namespace
+}
+</code></pre>
+
+<p>Так будет выглядеть файл json.cpp:</p>
+
+<pre><code class="language-cpp">#include &quot;json.h&quot;
+
+using namespace std;
+
+// начинаем пространство имён
+namespace json {
+
+Node::Node(vector&lt;Node&gt; array) : as_array(move(array)) {
+}
+
+// определения других конструкторов и методов класса Node
+
+Node LoadNode(istream&amp; input);
+
+Node LoadArray(istream&amp; input) {
+    // ...
+}
+
+// определения других вспомогательных функций
+
+Document Load(istream&amp; input) {
+    // ...
+}
+
+// нужно закрыть namespace
+}
+</code></pre>
+
+<p>Аналогично поступим с библиотекой XML: обернём все объявления и определения в этих файлах в <code>namespace xml</code>.</p>
+
+<p>Теперь включение обоих заголовочных файлов в <code>main.cpp</code> не вызовет ошибок. Эта операция оказалась проще добавления префикса <code>JSON</code> или <code>XML</code> ко всем именам библиотек — не пришлось редактировать каждое имя. Но вне пространства имён, например в файле <code>main.cpp</code>, имя <code>Document</code> стало недоступно. Нужно сообщить компилятору, документ из какого пространства имён мы имеем в виду, добавив перед именем <strong>квалификацию</strong> — явное указание на то, в каком пространстве имён его искать.</p>
+
+<p>Вот как можно дать квалификацию:</p>
+
+<pre><code class="language-cpp">vector&lt;Spending&gt; LoadFromXml(istream&amp; input) {
+    xml::Document doc = xml::Load(input);
+    vector&lt;Spending&gt; result;
+    for (const xml::Node&amp; node : doc.GetRoot().Children()) {
+        result.push_back({node.AttributeValue&lt;string&gt;(&quot;category&quot;s), node.AttributeValue&lt;int&gt;(&quot;amount&quot;s)});
+    }
+    return result;
+}
+
+vector&lt;Spending&gt; LoadFromJson(istream&amp; input) {
+    json::Document doc = json::Load(input);
+    vector&lt;Spending&gt; result;
+    for (const json::Node&amp; node : doc.GetRoot().AsArray()) {
+        result.push_back({node.AsMap().at(&quot;category&quot;s).AsString(), node.AsMap().at(&quot;amount&quot;s).AsInt()});
+    }
+    return result;
+}
+</code></pre>
+
+<p>К именам библиотеки JSON добавлен префикс <code>json::</code> и префикс <code>xml::</code> для имён XML. Такой способ имеет минимум два преимущества перед явным приписыванием префиксов ко всем именам файла:</p>
+
+<ul>
+<li>имя с квалификацией <code>json::Document</code> выглядит структурировано и его проще читать, чем <code>JSONDocument</code>;</li>
+<li>внутри библиотеки нет необходимости каждый раз писать префикс.</li>
+</ul>
+
+<p>В этом уроке вы ближе познакомились с понятием пространства имён. Но на самом деле вы активно использовали пространства имён и до этого.</p>
+
+<hr>
+
+<p>Перед вами сущности из стандартной библиотеки. Выберите среди них пространства имён. В случае сомнений можете сверяться с документацией.</p>
+
+<ul>
+<li><p><code>std</code></p></li>
+
+<li><p><code>string</code></p></li>
+
+<li><p><code>cout</code></p></li>
+
+<li><p><code>chrono</code></p></li>
+
+<li><p><code>unordered_set</code></p></li>
+</ul>
+
+<p>Квалификация имени похожа на написание адреса. Если хотите попросить кого-нибудь сходить в ближайший магазин, можете просто сказать «сходи в магазин N». Если имеется в виду определённый магазин вашего города, нужно дать квалификацию, то есть название улицы: «магазин N на улице Бассейной». Если же магазин находится в другом городе или даже другой стране, квалификация будет больше, например «магазин N на Марион-стрит, Сиэтл, США». В C++ этому соответствует использование нескольких вложенных пространств имён, например <code>std::chrono::steady_clock</code>.</p>
+
+<p>В следующем уроке подробнее разберём синтаксис пространств имён.</p>
+
+</body>
+</html>

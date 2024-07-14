@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Применяем класс optional</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Применяем класс optional</h1>
+
+<p>В прошлом уроке вы успели почувствовать неудобства, связанные с возвратом значений через выходные параметры функций:</p>
+
+<ul>
+<li>Нужно заранее объявлять переменную-приёмник. Она передаётся в функцию по ссылке, куда функция записывает результат своей работы;</li>
+<li>Нужно инициализировать выходной параметр внутри функции;</li>
+<li>Нельзя использовать константы в качестве выходных параметров функций.</li>
+</ul>
+
+<p>Вот был бы способ вместо выходного параметра вернуть либо результат функции, либо некоторое значение, которое означало бы ошибку! Такой способ есть, и вы его освоите прямо сейчас.</p>
+
+<p>Возьмём решение, когда функция может либо вернуть некоторый результат, либо не вернуть его — например, из-за ошибки. Чтобы улучшить решение, применим встроенный шаблонный класс <code>optional</code>. Он управляет <strong>опциональными значениями</strong> — значениями, которые могут быть представлены или не представлены. С ними ваша программа способна работать с переменными, которые в один момент времени хранят значение, а в другой — остаются пустыми.</p>
+
+<p>Опциональные значения могут быть простой альтернативой кодам возврата, хотя их область применения этим не ограничивается. Как и в случае с классом <code>vector</code>, тип значения, которое хранится в <code>optional</code>, нужно указать внутри угловых скобок:</p>
+
+<pre><code class="language-cpp">// Функция возвращает пару корней квадратного уравнения либо пустое значение, когда решения нет
+optional&lt;pair&lt;double, double&gt;&gt; SolveQuadraticEquation(double a, double b, double c) {
+    double discriminant = b * b - 4 * a * c;
+    if (discriminant &lt; 0) {
+        // Возвращаем специальное значение nullopt, означающее отсутствие значения
+        return nullopt;
+    }
+
+    double x1 = (-b - sqrt(discriminant)) / (2 * a);
+    double x2 = (-b + sqrt(discriminant)) / (2 * a);
+
+    // Возвращаем корни уравнения
+    return pair{x1, x2};
+}
+</code></pre>
+
+<p>Проверить экземпляр <code>optional</code> на наличие в нём значения можно, используя метод <code>has_value</code>. Ещё вы можете обращаться с <code>optional</code> как со значением типа <code>bool</code>, например в операторах ветвления. Пустой объект <code>optional</code> будет вести себя как <code>false</code>, а непустой — как <code>true</code>:</p>
+
+<pre><code class="language-cpp">optional&lt;int&gt; result;
+...
+if (result.has_value()) // либо просто: if (result)
+{
+    // result содержит значение
+} else {
+    // в переменной result пусто
+}
+</code></pre>
+
+<p>Чтобы получить доступ к значению, хранящемуся внутри <code>optional</code>, используют метод <code>value</code> и унарный оператор <code>*</code>. Если внутри <code>optional</code> хранится структура или класс, можно получить доступ к его полям напрямую. Для этого есть специальный оператор <code>-&gt;</code>:</p>
+
+<pre><code class="language-cpp">int main() {
+    cout &lt;&lt; &quot;Введите коэффициенты уравнения a*x^2 + b*x + c = 0&quot;s &lt;&lt; endl;
+    double a, b, c;
+    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+    // Вместо const optional&lt;pair&lt;double, double&gt;&gt; roots используем auto,
+    //     позволяя компилятору вывести тип переменной roots самостоятельно
+    if (const auto roots = SolveQuadraticEquation(a, b, c);
+        roots.has_value())
+    {
+        cout &lt;&lt; &quot;Корни уравнения &quot;s &lt;&lt; a &lt;&lt; &quot;*x^2 + &quot;s &lt;&lt; b &lt;&lt; &quot;*x + &quot;s &lt;&lt; c &lt;&lt; &quot; = 0&quot;s &lt;&lt; endl;
+        // Доступ к значению можно получить при помощи метода roots.value() или (*roots)
+        // Если внутри хранится структура или класс, то доступ к его полям 
+        //   можно получить при помощи -&gt;
+        cout &lt;&lt; &quot;  x1=&quot;s &lt;&lt; roots.value().first &lt;&lt; &quot;; x2=&quot;s &lt;&lt; roots-&gt;second &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; &quot;Уравнение не имеет действительных корней&quot;s &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Переменную <code>roots</code> мы объявили прямо внутри условного выражения оператора <code>if</code>, а после <code>;</code> проверили её значение. Такой способ объявления переменной позволяет ограничить её область видимости границами оператора <code>if</code>, если за пределами этого оператора переменная не используется:</p>
+
+<pre><code class="language-cpp">if (string name = ReadString(); !name.empty()) {
+    cout &lt;&lt; &quot;Привет, &quot;s &lt;&lt; name &lt;&lt; endl;
+} else {
+    cout &lt;&lt; &quot;Привет, незнакомец&quot;s &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Для типа <code>optional</code> перегружена операция приведения к типу <code>bool</code>. Поэтому проверить наличие значения можно просто:</p>
+
+<pre><code class="language-cpp">// Значение roots будет проверено на наличие значения 
+// при помощи оператора приведения к типу bool
+if (const auto roots = SolveQuadraticEquation(a, b, c)) {
+    cout &lt;&lt; &quot;Корни уравнения &quot;s &lt;&lt; a &lt;&lt; &quot;*x^2 + &quot;s &lt;&lt; b &lt;&lt; &quot;*x + &quot;s &lt;&lt; c &lt;&lt; &quot; = 0&quot;s &lt;&lt; endl;
+    cout &lt;&lt; &quot;  x1=&quot;s &lt;&lt; roots.value().first &lt;&lt; &quot;; x2=&quot;s &lt;&lt; roots-&gt;second &lt;&lt; endl;
+} else {
+    cout &lt;&lt; &quot;Уравнение не имеет действительных корней&quot;s &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Применив <code>optional</code>, мы смогли написать функцию, которая способна сообщить об ошибке в ходе работы. При этом дополнительные выходные параметры в сигнатуру функции вводить не надо. Ключевое слово <code>auto</code> избавляет от многословности при объявлении типа переменной.</p>
+
+</body>
+</html>

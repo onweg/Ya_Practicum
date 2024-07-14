@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Подробнее об ошибках</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Подробнее об ошибках</h1>
+
+<p>Санитайзер — прекрасный инструмент, который выявляет ошибки при работе программы. Делает он это не за просто так. Санитайзер может замедлять программу, но обычно не более, чем в два раза.</p>
+
+<p>В прошлом уроке вы рассматривали один вид ошибок — использование памяти после её освобождения. Но Address sanitizer позволяет найти и другие проблемы.</p>
+
+<h3>Выход за границы диапазона</h3>
+
+<p>Такую ошибку мы уже искали, используя отладочные макроопределения. Однако они сработают только в одном случае — применение <code>operator []</code> у вектора или <code>string</code>. Если обращаетесь по индексу указателя, стандартная библиотека не контролирует этот процесс, а значит, не может сделать никаких проверок:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+template &lt;class T&gt;
+double mean(const std::vector&lt;T&gt;&amp; v) {
+    T acc;
+    const T* v_ptr = v.data();
+
+    for (size_t i = 0; i &lt;= v.size(); ++i) {
+        acc += v_ptr[i];
+    }
+
+    return static_cast&lt;double&gt;(acc) / v.size();
+}
+
+int main() {
+    vector&lt;int&gt; v = {1, 2, 3, 4, 5};
+    cout &lt;&lt; &quot;Mean: &quot;s &lt;&lt; mean(v) &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Запустим с отладочными макроопределениями:</p>
+
+<pre><code class="language-bash">&gt; g++ mean.cpp -o median -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC
+&gt; ./mean
+Mean: 3
+</code></pre>
+
+<p>Ошибка не выводится, хотя вы уже знаете, что она есть. Запустим теперь с санитайзером.</p>
+
+<pre><code class="language-bash">&gt; clang++ mean.cpp -o mean -fsanitize=address -g
+&gt; ./mean
+Mean: =================================================================
+==12504==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x12580b1a0384 at pc 0x7ff704ce39d2 bp 0x00a1ac38f530 sp 0x00a1ac38f578
+READ of size 4 at 0x12580b1a0384 thread T0
+==12504==WARNING: Failed to use and restart external symbolizer!
+    #0 0x7ff704ce39d1 in mean&lt;int&gt; .../mean.cpp:17
+    #1 0x7ff704ce1288 in main .../mean.cpp:29
+    #2 0x7ff704d46b3f in __scrt_common_main_seh ...\exe_common.inl:288
+    #3 0x7ff941a484d3 in BaseThreadInitThunk+0x13 (C:\Windows\System32\KERNEL32.DLL+0x1800084d3)
+    #4 0x7ff942dd1790 in RtlUserThreadStart+0x20 (C:\Windows\SYSTEM32\ntdll.dll+0x180051790)
+</code></pre>
+
+<p>Видим ошибку: heap-buffer-overflow. Она говорит, что мы вышли за пределы допустимого диапазона в куче.</p>
+
+<p>Но учтите, иногда санитайзер может «пропустить» ошибку такого рода: например, если вы зарезервировали место в векторе методом <code>reserve</code>:</p>
+
+<pre><code class="language-cpp">int main() {
+    vector&lt;int&gt; v = {1, 2, 3, 4, 5};
+    v.reserve(10);
+    cout &lt;&lt; &quot;Mean: &quot;s &lt;&lt; mean(v) &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Несмотря на то, что в функции <code>mean</code> по-прежнему есть выход за пределы границ вектора, санитайзер молчит: обращения производятся только к корректной, выделенной памяти. Такую ошибку могли бы выявить отладочные макроопределения.</p>
+
+<p>Другой пример похожей ошибки — выход за пределы стека. Это может произойти при использовании обычных массивов или <code>std::array</code>, которые размещаются в автоматической памяти. Вердикт санитайзера в этом случае будет: stack-buffer-overflow.</p>
+
+<h3>Некорректное или двойное удаление</h3>
+
+<p>Удаление некорректного указателя — это всегда ошибка. Чаще всего она происходит, когда вы пытаетесь вызвать <code>delete</code> для указателя на память, которая уже была освобождена ранее.</p>
+
+<p>Подобное может случиться, например, при некорректном использовании удаления в деструкторе:</p>
+
+<pre><code class="language-cpp">class IntArray {
+public:
+    IntArray(int n)
+        : ptr(new int[n]) {
+    }
+    ~IntArray() {
+        delete[] ptr;
+    }
+
+private:
+    int* ptr;
+};
+
+int main() {
+    IntArray a1(5);
+    IntArray a2(a1);
+}
+</code></pre>
+
+<hr>
+
+<p>Как вы думаете, в чём проблема этой программы?</p>
+
+<ul>
+<li><p>Удаления в деструкторе — некорректная операция, нужно убрать <code>delete</code>.</p></li>
+
+<li><p>В типе <code>ptr</code>. Нужно использовать <code>const int*</code>.</p></li>
+
+<li><p>Два объекта <code>IntArray</code> будут содержать одинаковый указатель <code>ptr</code> и оба попытаются его удалить.</p></li>
+</ul>
+
+<p>При запуске программа, конечно, упадёт, но не выдаст никакого сообщения. Однако если запускать с Address Sanitizer, сообщение будет вполне информативным:</p>
+
+<pre><code class="language-bash">&gt; clang++ array.cpp -fsanitize=address -g -o array -std=c++17
+&gt; ./array
+=================================================================
+==9480==ERROR: AddressSanitizer: attempting double-free on 0x11f2529a0370 in thread T0:
+==9480==WARNING: Failed to use and restart external symbolizer!
+    #0 0x7ff793c7381d in operator delete[] ...\asan\asan_new_delete.cpp:163
+    #1 0x7ff793c312ca in IntArray::~IntArray ...\array.cpp:5
+    #2 0x7ff793c31151 in main ...\array.cpp:15
+    #3 0x7ff793c748d7 in __scrt_common_main_seh ...\exe_common.inl:288
+....
+</code></pre>
+
+<p>Сообщение attempting double-free явно указывает на проблему.</p>
+
+<p>Ещё один пример похожей ошибки происходит, когда пытаетесь удалить память, которая вообще не была выделена.</p>
+
+<p>Пример:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+using namespace std;
+
+struct Point {
+    int x;
+    int y;
+};
+
+class PointHolder {
+public:
+    PointHolder(Point* pt)
+        : pt_(pt) {
+    }
+    ~PointHolder() {
+        delete pt_;
+    }
+    void Print() const {
+        cout &lt;&lt; &quot;(&quot;s &lt;&lt; pt_-&gt;x &lt;&lt; &quot;, &quot;s &lt;&lt; pt_-&gt;y &lt;&lt; &quot;)&quot;s &lt;&lt; endl;
+    }
+
+private:
+    Point* pt_;
+};
+
+int main() {
+    {
+        PointHolder holder(new Point{10, 15});
+        holder.Print();
+    }  // OK
+    {
+        Point pt{10, 15};
+        PointHolder holder(&amp;pt);
+        holder.Print();
+    }  // ошибка: попытка удалить адрес в стеке
+}
+</code></pre>
+
+<p>Вердикт санитайзера: bad-free. То же самое длинно: attempting free on address which was not malloc()-ed.</p>
+
+<h3>Использование стека после удаления</h3>
+
+<p>В прошлом уроке вы видели, как возврат временного объекта из функции приводит к ошибке use-after-free. В том примере временный объект находился в куче. Возможен и другой вариант:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;tuple&gt;
+
+using namespace std;
+
+auto GetTuple(int x, int y) {
+    return tie(x, y);
+}
+
+int main() {
+    auto [x, y] = GetTuple(10, 15);
+    cout &lt;&lt; x &lt;&lt; ' ' &lt;&lt; y &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+
+<p>Компилировать эту программу нужно с параметром <code>-std=c++17</code>, поскольку в ней используются особенности стандарта C++17.</p>
+
+<hr>
+
+<p>В чём состоит ошибка?</p>
+
+<ul>
+<li><p><code>tie</code> нельзя использовать для переменных типа <code>int</code>.</p></li>
+
+<li><p>Функция возвращает ссылку на временные объекты, размещённые в аргументах функции <code>x</code> и <code>y</code>, нужно заменить <code>tie</code> на <code>tuple</code>.</p></li>
+
+<li><p>Функция возвращает ссылку на временные объекты, размещённые в аргументах функции. Нужно заменить тип аргументов на <code>const int&amp;</code>.</p></li>
+</ul>
+
+<p><code>x</code> и <code>y</code> из <code>main</code> будут иметь выведенный тип <code>int&amp;</code>. Функция возвращает ссылку на свои аргументы: <code>x</code> и <code>y</code>, но после её завершения аргументы удалятся, как и другие автоматические переменные функции, и ссылка будет указывать вникуда. Вердикт санитайзера stack-use-after-return. На некоторых операционных системах для выявления этой ошибки требуется определить переменную окружения <code>ASAN_OPTIONS=detect_stack_use_after_return=1</code>. Определить переменную для текущего сеанса и собрать программу под Windows можно так:</p>
+
+<pre><code class="language-bash">&gt; SET ASAN_OPTIONS=detect_stack_use_after_return=1
+&gt; clang++ tuple.cpp -o tuple.exe -std=c++17 -fsanitize=address -g -O1 -fno-omit-frame-pointer -fno-optimize-sibling-calls
+&gt; tuple
+</code></pre>
+
+<p>Под Linux и MacOS:</p>
+
+<pre><code class="language-bash">&gt; export ASAN_OPTIONS=detect_stack_use_after_return=1
+&gt; clang++ tuple.cpp -o tuple -std=c++17 -fsanitize=address -g -O1 -fno-omit-frame-pointer -fno-optimize-sibling-calls
+&gt; ./tuple
+</code></pre>
+
+<p>Ошибкой также будет использование памяти, занимаемой переменной, после того, как программа вышла из области видимости этой переменной. Вердикт санитайзера в этом случае: stack-use-after-scope.</p>
+
+<p>Пример программы:</p>
+
+<pre><code class="language-cpp">#include &lt;functional&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+bool IsPrime(int x) {
+    // чтобы проверить x на простоту
+    // перебираем все числа до корня из x
+    for (int i = 2; i * i &lt;= x; ++i) {
+        if (x % i == 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int main() {
+    // function из &lt;functional&gt; позволяет сохранить объект, 
+    // ведущий себя подобно функции, и вызывать его. Например, лямбда-функцию.
+    // В качестве шаблонного параметра указывается сигнатура нужной функции
+    function&lt;int(int)&gt; mult_prime;
+    static const int N = 100'000;
+
+    // Между числами N и 2N всегда есть простое число.
+    // Найдём самое большое из них в цикле.
+    for (int i = N; i &lt; 2 * N; ++i) {
+        if (IsPrime(i)) {
+            mult_prime = [&amp;](int x) {
+                return x * i;
+            };
+        }
+    }
+
+    // mult_prime должна умножать аргумент на найденное простое число
+    cout &lt;&lt; mult_prime(100) &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Поскольку переменная <code>i</code>, сохранённая в лямбда-функции по ссылке, не существует после завершения цикла, программа, вызывающая эту лямбда функцию, ошибочна. Если собирать без санитайзера, программа, скорее всего, будет завершаться, но умножать не на то число, на которое мы хотели. С санитайзером ошибка с правильной формулировкой: stack-use-after-scope.</p>
+
+<h3>Обращение по некорректному указателю</h3>
+
+<p>Указатели приятны тем, что уже включают в себя функциональность, которая достигается использованием <code>optional</code> — имеют отдельное значение <code>nullptr</code>, означающее отсутствие данных по адресу. Однако если программист в какой-то момент не подумал, что указатель может быть нулевым, и попытался обратиться по нему, возникнет ошибка. Похожая ошибка произойдёт, если адрес вообще некорректный: например, когда вы забыли инициализировать указатель.</p>
+
+<p>Рассмотрим пример:</p>
+
+<pre><code class="language-cpp">#include &lt;algorithm&gt;
+#include &lt;iostream&gt;
+
+using namespace std;
+
+int MyMin(const int* l, const int* r) {
+    if (l == nullptr) {
+        return *r;
+    }
+
+    return min(*l, *r);
+}
+
+int main() {
+    int x = 5, y = 10;
+    cout &lt;&lt; MyMin(&amp;x, &amp;y) &lt;&lt; endl;
+    cout &lt;&lt; MyMin(nullptr, &amp;y) &lt;&lt; endl;
+    cout &lt;&lt; MyMin(&amp;x, nullptr) &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Вывод санитайзера сообщает об ошибке access-violation on unknown address:</p>
+
+<pre><code class="language-bash">=================================================================
+==16200==ERROR: AddressSanitizer: access-violation on unknown address 0x000000000000 (pc 0x7ff76228141c bp 0x00c78c6ffc80 sp 0x00c78c6ffae0 T0)
+==16200==The signal is caused by a READ memory access.
+==16200==Hint: address points to the zero page.
+    #0 0x7ff76228141b in std::min&lt;int&gt; ...\include\algorithm:5393
+    #1 0x7ff762281096 in MyMin ...\badptr.cpp:11
+    #2 0x7ff76228130b in main ...\badptr.cpp:18
+...
+</code></pre>
+
+<h3>Утечка памяти</h3>
+
+<p>Утечка памяти возникает, когда память была выделена конструкцией <code>new</code>, но затем не удалена вызовом <code>delete</code>. Это распространённая ошибка, которую довольно трудно выявить. Такие ошибки может найти Address sanitizer, но к сожалению, эта функция доступна пока что только под Linux или MacOS. Чтобы включить эту опцию, нужно определить системную переменную окружения <code>ASAN_OPTIONS=detect_leaks=1</code>, либо использовать <code>-fsanitize=leak</code> при компиляции.</p>
+
+<p>Рассмотрим такой пример:</p>
+
+<pre><code class="language-cpp">class IntArray {
+public:
+    IntArray()
+        : ptr(nullptr) {
+    }
+    IntArray(int n)
+        : ptr(new int[n]) {
+    }
+    ~IntArray() {
+        delete[] ptr;
+    }
+
+private:
+    int* ptr;
+};
+
+int main() {
+    IntArray a1(5);
+    IntArray a2;
+    a1 = a2;
+}
+</code></pre>
+
+<hr>
+
+<p>В чём проблема этого примера?</p>
+
+<ul>
+<li><p>В переменных <code>a1</code> и <code>a2</code> будет удаляться нулевой указатель, это некорректная операция.</p></li>
+
+<li><p>Как и в прошлом случае <code>a1</code> и <code>a2</code> указывают на одну и ту же память — будет двойное удаление.</p></li>
+
+<li><p>При присваивании <code>a1 = a2</code> происходит стирание указателя из <code>a1</code>, в итоге, он не будет удалён</p></li>
+</ul>
+
+<p>Запустим под санитайзером:</p>
+
+<pre><code class="language-bash">&gt; clang++ leak.cpp -fsanitize=leak -g
+&gt; ./a.out 
+
+=================================================================
+==24449==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 20 byte(s) in 1 object(s) allocated from:
+    #0 0x40d978 in operator new[](unsigned long) (.../a.out+0x40d978)
+    #1 0x43262a in IntArray::IntArray(int) .../leak.cpp:4:27
+    #2 0x432585 in main .../leak.cpp:14:14
+    #3 0x7fd73ffeebf6 in __libc_start_main /build/glibc-S7xCS9/glibc-2.27/csu/../csu/libc-start.c:310
+
+SUMMARY: LeakSanitizer: 20 byte(s) leaked in 1 allocation(s).
+</code></pre>
+
+<p>Вывод информативен. Он содержит как точное место, где была выделена память, так и размер выделенного участка. Мы выделяли пять объектов <code>int</code> по четыре байта, всего 20 байт, как и сообщил санитайзер.</p>
+
+<h3>Использование неинициализированной памяти</h3>
+
+<p>Для выявления этой ошибки используется Memory Sanitizer, который доступен только под Linux. В прошлых уроках мы рассматривали пример для вычисления среднего арифметического. Вернёмся к нему.</p>
+
+<p>Исправим ошибку, которую мы выявили в предыдущих уроках, но на этот раз будем использовать для тестов целочисленный вектор:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+template &lt;class T&gt;
+double mean(const std::vector&lt;T&gt;&amp; v) {
+    T acc;
+    const T* v_ptr = v.data();
+
+    for (size_t i = 0; i &lt; v.size(); ++i) {
+        acc += v_ptr[i];
+    }
+
+    return static_cast&lt;double&gt;(acc) / v.size();
+}
+
+int main() {
+    vector&lt;int&gt; v = {1, 2, 3, 4, 5};
+    cout &lt;&lt; &quot;Mean: &quot;s &lt;&lt; mean(v) &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Компилируем и запускаем:</p>
+
+<pre><code class="language-bash">&gt; g++ mean.cpp -o mean
+&gt; ./mean
+Mean: 6555.2
+</code></pre>
+
+<p>Неправдоподобный ответ. Значит, в нашей программе есть ещё как минимум одна ошибка.</p>
+
+<hr>
+
+<p>В чём, по вашему мнению, она состоит?</p>
+
+<ul>
+<li><p>При выводе ответа используется деление <code>double</code> на целое число, это некорректная операция.</p></li>
+
+<li><p>Мы изменили <code>i &lt;= v.size()</code>, исключив некорректный случай <code>i == v.size()</code>, также нужно исключить <code>i == 0</code>, установив начальное значение в 1.</p></li>
+
+<li><p>Значение переменной <code>acc</code> неинициализировано. В ней изначально может находиться какой-то мусор, который влияет на ответ.</p></li>
+
+<li><p>Программа правильно работает, у этих чисел такое среднее арифметическое</p></li>
+</ul>
+
+<p>К изначальному значению <code>acc</code>, которое было неопределено, мы прибавляем элементы вектора, получая непредсказуемый результат.</p>
+
+<p>Если включить предупреждения ключом <code>-Wall</code>, компилятор сможет найти эту ошибку уже при компиляции. Однако это возможно не всегда. Посмотрим, как обнаружить её санитайзером.</p>
+
+<p>Запустим эту программу, собрав её с <code>-fsanitize=memory</code>:</p>
+
+<pre><code class="language-bash">&gt; clang++ mean.cpp -o mean -fsanitize=memory -g
+&gt; ./mean
+Uninitialized bytes in __interceptor_memcmp at offset 168 inside [0x7fff5bd922a0, 256)
+==24619==WARNING: MemorySanitizer: use-of-uninitialized-value
+    #0 0x7f45ff7b9f6b in std::ctype&lt;char&gt;::_M_widen_init() const (/usr/lib/x86_64-linux-gnu/libstdc++.so.6+0xb8f6b)
+    #1 0x7f45ff815ae7 in std::ostream&amp; std::ostream::_M_insert&lt;double&gt;(double) (/usr/lib/x86_64-linux-gnu/libstdc++.so.6+0x114ae7)
+    #2 0x49734d in main .../mean.cpp:20:22
+    #3 0x7f45fe750bf6 in __libc_start_main /build/glibc-S7xCS9/glibc-2.27/csu/../csu/libc-start.c:310
+    #4 0x41b229 in _start (.../mean+0x41b229)
+
+SUMMARY: MemorySanitizer: use-of-uninitialized-value (/usr/lib/x86_64-linux-gnu/libstdc++.so.6+0xb8f6b) in std::ctype&lt;char&gt;::_M_widen_init() const
+Exiting
+</code></pre>
+
+<p>Санитайзер не показал точное место возникновения ошибки — операцию <code>+=</code>, в которой впервые использовалось неинициализированное значение, но правильно указал суть.</p>
+
+<p>Пример в очередной раз показал, что санитайзер несовершенен, но очень полезен. Как и отладочные макроопределения, он замедлит программу: использовать его при сборке версии для пользователя не рекомендуется. Аналог санитайзера под Windows реализован в пакете Visual Studio, который автоматически выявляет многие ошибки во время запуска отладочной конфигурации. При специальной настройке Visual Studio будет также выявлять утечки памяти, но этот инструмент выходит за рамки нашего курса.</p>
+
+<p>Мы рассмотрели основные проблемы, которые способен выявить Address sanitizer. Впереди вас ждёт небольшой тест, и итоговое задание по этой теме.</p>
+
+</body>
+</html>

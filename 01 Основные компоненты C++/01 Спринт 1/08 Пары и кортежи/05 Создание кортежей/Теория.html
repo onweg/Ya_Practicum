@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Создание кортежей</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr{border:0 none;color:#ccc;height:4px;padding:0}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}</style></head>
+<body>
+
+<h1>Создание кортежей</h1>
+
+<p>Вы научились сравнивать структуры, применяя кортеж. Познакомимся с ним поближе.</p>
+
+<p>При создании кортежа объекты копируются в него:</p>
+
+<pre><code class="language-cpp">string name = &quot;Василий&quot;s;
+const tuple animal_info(name, 5, 4.1);
+name = &quot;Вася&quot;s;  // в animal_info остался Василий
+</code></pre>
+
+<p>У этого есть недостаток. Когда создаём кортеж для немедленного сравнения с другим кортежем, тяжёлые объекты могут скопироваться зря. Так произойдёт и с сортировкой <code>AnimalObservation</code>:</p>
+
+<pre><code class="language-cpp">struct AnimalObservation {
+	string name;
+	int days_ago;
+	int health_level;
+
+	auto MakeKey() const {
+		return tuple(days_ago, health_level, name);
+		// потенциально тяжёлая строка name копируется в создаваемый кортеж
+	}
+};
+
+// ...
+
+sort(observations.begin(), observations.end(),
+	[](const AnimalObservation&amp; lhs, const AnimalObservation&amp; rhs) {
+		return lhs.MakeKey() &lt; rhs.MakeKey();
+	});
+</code></pre>
+
+<p>Чтобы избавиться от лишнего копирования, применим функцию <code>tie</code> из библиотеки <code>&lt;tuple&gt;</code>:</p>
+
+<pre><code class="language-cpp">auto MakeKey() const {
+	return tie(days_ago, health_level, name);
+}
+</code></pre>
+
+<p>Разберёмся, в чём разница. Специально вызовем ошибку компиляции и посмотрим на тип, возвращаемый сейчас методом <code>MakeKey</code>:</p>
+
+<pre><code class="language-cpp">+AnimalObservation{}.MakeKey();  // создали структуру AnimalObservation,
+                                 // не инициализируя поля, сразу вызвали MakeKey(),
+								 // а к результату применили оператор +
+</code></pre>
+
+<p>Бо́льшую часть текста ошибки занимает описание типа, к которому не удалось применить оператор +:</p>
+
+<pre><code>no match for 'operator+'
+(operand type is 'std::tuple&lt;const int&amp;, const int&amp;, const std::__cxx11::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;&amp;&gt;')
+</code></pre>
+
+<p>Функция <code>tie</code> вернула кортеж, хранящий не сами объекты, а ссылки на них: <code>const int&amp;</code>, <code>const int&amp;</code> и <code>const string&amp;</code>. Тип <code>string</code> записан своим оригинальным именем с применением <code>basic_string</code>. Ссылки при этом оказались константными благодаря константности самого метода <code>MakeKey</code>.</p>
+
+<p>Создание кортежа из ссылок не требует копировать объекты. Однако этот подход неуниверсален, поскольку создать ссылку на временный объект нельзя:</p>
+
+<pre><code class="language-cpp">struct Document {
+    int id;
+    Status status;
+    double relevance;
+    int rating;
+    
+    auto MakeKey() const {
+        return tie(status, -rating, -relevance);
+    }
+};
+
+// ошибка компиляции: cannot bind non-const lvalue reference of type 'int&amp;'
+// to an rvalue of type 'int'
+</code></pre>
+
+<p>Ошибка компиляции буквально переводится так: нельзя привязать ссылку <code>int&amp;</code> к временному объекту типа <code>int</code>. Дело в том, что объекты <code>-rating</code> и <code>-relevance</code> создались внутри метода. Они уничтожаются сразу по окончании выражения, где были созданы. Ссылку на такие временные объекты создать нельзя.</p>
+
+<p>Если создаёте кортеж и из ссылок, и из самих значений, укажите типы явно:</p>
+
+<pre><code class="language-cpp">struct AnimalObservation {
+    string name;
+    int days_ago;
+    int health_level;
+
+    // в заголовке метода теперь указан полный тип
+	  tuple&lt;int, int, const string&amp;&gt; MakeKey() const {
+        // создаём и сразу возвращаем объект:
+        // явно указывать его тип не нужно, достаточно указать аргументы конструктора
+        // в фигурных скобках
+        return {days_ago, -health_level, name};
+    }
+};
+</code></pre>
+
+</body>
+</html>

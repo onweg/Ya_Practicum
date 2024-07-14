@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Введение в исключения</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Введение в исключения</h1>
+
+<p>В предыдущем уроке вы использовали <code>optional</code> и упростили код обработки ошибок поисковой системы. Но в таком решении есть ряд недостатков.</p>
+
+<ul>
+<li>Некоторые конструкции могут выглядеть неочевидно из-за приведения значений <code>optional</code> к типу <code>bool</code>. Например, вызов метода <code>FindTopDocuments</code>:</li>
+</ul>
+
+<pre><code class="language-cpp">if (search_server.FindTopDocuments(&quot;кот пушистый&quot;s)) {
+}
+</code></pre>
+
+<p>Этот код воспринимается как «‎Если поисковый сервер нашел документы»‎. Но семантика у него иная: «‎Если поиск документов завершился без ошибок»‎. А чтобы проверить наличие документов, нужно написать:</p>
+
+<pre><code class="language-cpp">if (auto documents = search_server.FindTopDocuments(&quot;кот пушистый&quot;s);
+    documents &amp;&amp; !documents-&gt;empty())
+{
+}
+</code></pre>
+
+<ul>
+<li>Когда важно знать не только о наличии ошибки, но и о её причинах, <code>optional</code> уступает кодам ошибок.</li>
+</ul>
+
+<p>Посмотрим, во что может превратиться программа, использующая коды ошибок:</p>
+
+<pre><code class="language-cpp">struct SomeResult { /*...*/ };
+
+enum class ErrorCode {
+    Success,
+    FailedToSolveQuadraticEquation,
+    FailedToWriteDataToFile,
+};
+// Эта функция может завершиться неудачей по разным причинам, поэтому используем enum
+// для возврата кода ошибок
+ComplexProblemSolvingErrorCode SolveComplexProblem(SomeResult&amp; result) {
+    double a, b, c;
+    /* ... */
+    pair&lt;double, double&gt; roots;
+    // Проверили результат функции, которая может завершиться неудачей
+    if (!SolveQuadraticeEquation(a, b, c, roots)) {
+        return ErrorCode::CantSolveQuadraticEquation;
+    }
+
+    vector&lt;double&gt; numbers = {roots.first, roots.second};
+    // Проверяем результат работы еще одной функции
+    if (!SaveNumbersToFile(numbers, &quot;file.txt&quot;s)) {
+        return ErrorCode::FailedToWriteDataToFile;
+    }
+    /* Еще несколько подобных проверок */
+
+    // Наконец-то собрали результат
+    result = MakeResult(roots.first, roots.second, a + b);
+    // Сообщаем об успешном выходе
+    return ErrorCode::Success;
+}
+</code></pre>
+
+<p>Читаемость сильно пострадала, потому что код, выполняющий полезную работу, перемешался с кодом, который обрабатывает ошибки. Более того, код по-прежнему нельзя назвать надёжным. Ведь приложение реагирует на коды возврата только тогда, когда проверяет их.</p>
+
+<p>В случае с классами коды ошибок работают ещё хуже. Конструкторы, как мы знаем, не имеют возвращаемого значения. Но они должны создать объект, который находится в согласованном состоянии. Это влечёт множество вопросов. А что, если конструктор не может создать такой объект? Например, как параметризованный конструктор класса <code>Rational</code> должен создать дробь, если в качестве знаменателя передали ноль? Проигнорировать ошибку и оставить объект в невалидном состоянии? Превратить число с нулевым знаменателем в 0/1 и притвориться, что ничего не было? Завести у дроби особое состояние вроде <code>nan</code>, усложнив тем самым операции над ним и заставив пользователей класса мучиться с его обработкой?</p>
+
+<pre><code class="language-cpp">class Rational {
+public:
+    Rational(int numerator, int denominator)
+        : numerator_(numerator)
+        , denominator_(denominator)
+    {
+        if (denominator_ == 0) {
+            /* В каком состоянии оставить дробь? */
+        }
+    }
+    ...
+private:
+    int numerator_ = 0;
+    int denominator_ = 1;
+};
+</code></pre>
+
+<p>Беспомощны коды ошибок и при перегрузке операций. В обычные функции можно добавить параметр для возврата кода ошибки, а в операцию — нельзя:</p>
+
+<pre><code class="language-cpp">int main() {
+    Rational x, y;
+    cin &gt;&gt; x &gt;&gt; y;
+    // Неужели перед каждым делением нужно проверять, не делим ли мы на 0?
+    cout &lt;&lt; x / y &lt;&lt; endl;
+}
+</code></pre>
+
+<p>К счастью, создатели языка C++ включили в него мощный механизм исключений. Они исправят недостатки, присущие кодам ошибок. Чтобы начать работать с исключениями, разберём несколько новых понятий и ключевых слов.</p>
+
+<h3>Выбрасывание исключения. Ключевое слово throw</h3>
+
+<p>Сигнализируя о возникновении исключительной ситуации, программа может выбросить исключение. Для этого применяется ключевое слово <code>throw</code>. Синтаксис throw-выражения:</p>
+
+<pre><code class="language-cpp">throw *выражение*
+</code></pre>
+
+<p>При выполнении выражения <code>throw</code>, происходит следующее:</p>
+
+<ul>
+<li>На основе <code>выражения</code> создаётся объект исключительной ситуации;</li>
+<li>Управление передаётся в ближайший обработчик исключений, способный поймать выброшенное исключение;</li>
+<li>Если подходящий обработчик исключения не найден, программа аварийно завершает свою работу.</li>
+</ul>
+
+<p>Например, эта программа не успеет вывести текст и аварийно прекратит работу, потому что возникающие внутри неё исключения никак не обрабатываются:</p>
+
+<pre><code class="language-cpp">int main() {
+    throw 42; // Выбрасываем значения 42 типа int в качестве объекта исключения
+    cout &lt;&lt; &quot;Этот текст не будет выведен&quot;s &lt;&lt; endl;
+}
+</code></pre>
+
+<h3>Обработка исключений в блоке try-catch</h3>
+
+<p>Чтобы программа реагировала на исключительные ситуации, код, выбрасывающий исключения, должен выполняться внутри блока <code>try</code>, за которым следуют один или несколько блоков <code>catch</code>:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+using namespace std;
+
+void ThrowSomething() {
+    int value;
+    cin &gt;&gt; value;
+    throw value;
+}
+
+int main() {
+    // Внутри блока try могут быть выброшены ислючения
+    try {
+        ThrowSomething();
+        cout &lt;&lt; &quot;Этот текст не будет выведен&quot;s &lt;&lt; endl;
+    } catch (int i) {
+        // Это обработчик исключений типа int
+        cout &lt;&lt; &quot;Поймано целое число: &quot;s &lt;&lt; i &lt;&lt; endl;
+    } catch (double d) {
+        cout &lt;&lt; &quot;Поймано вещественное число: &quot;s &lt;&lt; d &lt;&lt; endl;
+    } catch (...) {
+        // В этот обработчик мы попадём, если ни один из предыдущих обработчиков не сработает
+        cout &lt;&lt; &quot;Поймано исключение неизвестного типа&quot;s &lt;&lt; endl;
+    }
+    cout &lt;&lt; &quot;Выход из программы&quot;s &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Запустим программу и проанализируем её работу:</p>
+
+<pre><code>**123**
+Поймано целое число: 123
+Выход из программы
+</code></pre>
+
+<p>В этот раз выражение <code>throw</code> располагается в теле функции <code>ThrowSomething</code>, вызванной внутри блока <code>try</code>. Так как этот try-блок содержит блок <code>catch</code>, способный поймать выброшенное исключение типа <code>int</code>, управление будет передано в блок <code>catch</code>. Внутри него пойманный объект исключения будет доступен по имени <code>i</code>. После выхода из блока <code>catch</code> управление будет передано на ближайшую инструкцию, следующую за блоками <code>try-catch</code>. В данном случае — на вывод строки «Выход из программы».</p>
+
+<p>Обработчик <code>catch (...)</code> способен поймать любые типы исключений, которые не были пойманы предыдущими блоками <code>catch</code>. Например, если бы мы выбросили исключение типа <code>string</code> вместо <code>int</code> или <code>double</code>. Внутри этого обработчика объект пойманного исключения напрямую не доступен, ведь мы не знаем его тип. Поэтому просто сообщаем, что поймали неизвестное исключение.</p>
+
+<h3>Объекты исключительных ситуаций. Стандартные классы исключений</h3>
+
+<p>В примерах выше тип <code>int</code> для наглядности используется как объект, который несёт информацию об исключительной ситуации. На практике в качестве объектов-исключений применяются не примитивные типы, а классы. Это даёт преимущества:</p>
+
+<ul>
+<li>Классы позволяют хранить подробную информацию о возникшей проблеме: понятное сообщение об ошибке, которое можно показать пользователю или записать в файл журнала ошибок, числовой код ошибки, название функции или метода, в котором возникла проблема.</li>
+<li>Разные классы ошибок могут требовать различной реакции, и приложение может использовать для них разные обработчики.</li>
+</ul>
+
+<p>В стандартной библиотеке C++ определены несколько классов стандартных исключений. Они объявлены в файле <code>&lt;stdexcept&gt;</code>. Вот некоторые из них:</p>
+
+<ul>
+<li><a href="https://en.cppreference.com/w/cpp/error/invalid_argument"><code>invalid_argument</code></a>. Исключение связано с некорректным значением аргумента функции или метода.</li>
+<li><a href="https://en.cppreference.com/w/cpp/error/domain_error"><code>domain_error</code></a>. Ошибки, связанные с выходом за пределы области определения функции. Например, этот тип ошибок можно использовать, чтобы сообщить о попытке деления на ноль или найти точку пересечения параллельных прямых.</li>
+<li><a href="https://en.cppreference.com/w/cpp/error/out_of_range"><code>out_of_range</code></a>. Исключение, связанные с обращением к элементам коллекции за пределами указанного диапазона. Именно это исключение выбрасывается методом <code>at</code> в коллекциях <code>map</code> и <code>vector</code> при попытке обратиться к несуществующему элементу.</li>
+<li><a href="https://en.cppreference.com/w/cpp/error/runtime_error"><code>runtime_error</code></a>. Исключения, которые связаны с ошибками, возникающими во время выполнения программы, а не с логикой её работы.</li>
+<li><a href="https://en.cppreference.com/w/cpp/memory/new/bad_alloc"><code>bad_alloc</code></a>. Ошибки, сообщающие о нехватке памяти. Например, при добавлении элемента в контейнер.</li>
+</ul>
+
+<p>Применим механизм исключений и перепишем функцию <code>SolveQuadraticEquation</code>:</p>
+
+<pre><code class="language-cpp">#include &lt;cmath&gt;
+#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+
+using namespace std
+
+pair&lt;double, double&gt; SolveQuadraticEquation(double a, double b, double c) {
+    double discriminant = b * b - 4 * a * c;
+    if (discriminant &lt; 0) {
+        throw domain_error(&quot;квадратное уравнение не имеет действительных корней&quot;s);
+    }
+
+    double x1 = (-b - sqrt(discriminant)) / (2 * a);
+    double x2 = (-b + sqrt(discriminant)) / (2 * a);
+    return {x1, x2};
+}
+</code></pre>
+
+<p>В отличие от версии с кодом возврата, здесь нет ничего лишнего: функция принимает коэффициенты уравнения и возвращает пару корней уравнения. Если найти решение не удаётся, она вместо результата выбрасывает исключение <code>domain_error</code>, содержащее описание возникшей ошибки.</p>
+
+<p>Для перехвата исключения обернём содержимое тела функции <code>main</code> в блок <code>try</code>:</p>
+
+<pre><code class="language-cpp">int main() {
+    try {
+        cout &lt;&lt; &quot;Введите коэффициенты уравнения a*x^2 + b*x + c = 0&quot;s &lt;&lt; endl;
+        double a, b, c;
+        cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+
+        pair&lt;double, double&gt; roots = SolveQuadraticEquation(a, b, c);
+        cout &lt;&lt; &quot;Корни: уравнения &quot;s &lt;&lt; a &lt;&lt; &quot;*x^2 + &quot;s &lt;&lt; b &lt;&lt; &quot;*x + &quot;s &lt;&lt; c &lt;&lt; &quot; = 0&quot;s &lt;&lt; endl;
+        cout &lt;&lt; &quot;  x1=&quot;s &lt;&lt; roots.first &lt;&lt; &quot;; x2=&quot;s &lt;&lt; roots.second &lt;&lt; endl;
+    } catch (const domain_error&amp; error) {
+        // При помощи метода what() можно получить строковое представление текста ошибки
+        cout &lt;&lt; &quot;Ошибка: &quot;s &lt;&lt; error.what() &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Структура функции <code>main</code> изменилась по сравнению с версией, где мы использовали коды возврата. Внутри блока try размещается код, который выполняется, если проблем нет. А обработка исключительной ситуации теперь находится в блоке <code>catch</code>, куда управление попадёт только при возникновении ошибки. Код, выполняющий полезную работу, отделился от кода обработки ошибок. Это улучшило читаемость кода.</p>
+
+<p>Рассмотрим перехват исключений, имеющих тип <code>int</code> и <code>runtime_error</code>, для которых не заданы особые обработчики, в обработчике <code>catch(...)</code>:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main() {
+    try {
+        int x;
+        cin &gt;&gt; x;
+        if (x == 0) {
+            throw invalid_argument(&quot;value is zero&quot;s);
+        } else if (x == 1) {
+            throw domain_error(&quot;value is equal to 1&quot;s);
+        } else if (x == 2) {
+            throw runtime_error(&quot;value is equal to 2&quot;s);
+        } else {
+            throw 42;
+        }
+    } catch (const domain_error&amp; e) {
+        cout &lt;&lt; &quot;Domain error: &quot;s &lt;&lt; e.what() &lt;&lt; endl;
+    } catch (const invalid_argument&amp; e) {
+        cout &lt;&lt; &quot;Invalid argument: &quot;s &lt;&lt; e.what() &lt;&lt; endl;
+    } catch (...) {
+        cout &lt;&lt; &quot;Unknown error&quot;s &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Исключения, типы которых — это классы и структуры, ловите по константной ссылке, а не по значению. Вы подробно разберёте данный вопрос, когда будете изучать наследование. А пока просто запомните. Если обработчик исключения не модифицирует пойманный объект исключения, ссылку следует делать константной.</p>
+
+<p>Механизм исключений языка C++ позволяет разделить путь выполнения программы на две части:</p>
+
+<ul>
+<li>работающую, если программа выполняется успешно;</li>
+<li>работающую, когда нормальный ход выполнения невозможен.</li>
+</ul>
+
+<p>Программа всегда реагирует на исключительную ситуацию. Управление передаётся в подходящий обработчик исключительной ситуации. Если обработчик найден не будет, программа аварийно завершит работу.</p>
+
+</body>
+</html>

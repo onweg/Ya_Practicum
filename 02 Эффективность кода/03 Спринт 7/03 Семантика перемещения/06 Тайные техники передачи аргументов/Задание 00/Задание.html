@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание</h2>
+
+<p>Дан вектор лексем. Напишите функцию, разбивающую лексемы на предложения:</p>
+
+<pre><code class="language-cpp">template &lt;typename Token&gt;
+vector&lt;Sentence&lt;Token&gt;&gt; SplitIntoSentences(vector&lt;Token&gt; tokens);
+</code></pre>
+
+<p><code>Token</code> — шаблонный тип. О нём известно лишь, что он имеет константный метод <code>IsEndSentencePunctuation</code>. Этот метод возвращает <code>true</code>, если лексема — знак пунктуации, заканчивающий предложение. В противном случае он возвращает <code>false</code>. Объекты такого типа могут быть копируемыми, а могут и не быть. Реализуйте функцию так, чтобы при передаче некопируемых объектов не возникало ошибок компиляции.</p>
+
+<p><code>Sentence</code> — синоним для типа <code>vector</code>, объявленный следующим образом:</p>
+
+<pre><code class="language-cpp">// Объявляем Sentence&lt;Token&gt; для произвольного типа Token
+// синонимом vector&lt;Token&gt;.
+// Благодаря этому в качестве возвращаемого значения
+// функции можно указать не малопонятный вектор векторов,
+// а вектор предложений — vector&lt;Sentence&lt;Token&gt;&gt;.
+template &lt;typename Token&gt;
+using Sentence = vector&lt;Token&gt;;
+</code></pre>
+
+<p>Предложением считается последовательность лексем, которая заканчивается одной или несколькими идущими подряд лексемами — знаками пунктуации в конце предложения. Иными словами, любое предложение должно состоять из двух частей:</p>
+
+<ul>
+<li>лексемы, для которых <code>IsEndSentencePunctuation</code> возвращает <code>false</code>. Такие лексемы должны быть в каждом предложении кроме, возможно, первого;</li>
+<li>лексемы, для которых <code>IsEndSentencePunctuation</code> возвращает <code>true</code>. Такие лексемы должны быть в каждом предложении кроме, возможно, последнего.</li>
+</ul>
+
+<p>Сохраните себе решение этой задачи, оно вам ещё понадобится.</p>
+
+<h3><strong>Ограничения</strong></h3>
+
+<p>Максимальное количество лексем — 10^6. Время выполнения одного вызова функции ограничено одной секундой.</p>
+
+<h3>Пример использования</h3>
+
+<p>Допустим, вектор лексем задан так:</p>
+
+<pre><code>{Красиво}{ты}{вошла}{в}{мою}{грешную}{жизнь}{!}{Красиво}{ты}{ушла}{из}{неё}{.}
+</code></pre>
+
+<p>При этом <code>!</code> и <code>.</code> — символы конца предложения, и функция <code>IsEndSentencePunctuation</code> возвращает <code>true</code>. Значит, результирующий вектор предложений будет состоять из двух элементов:</p>
+
+<pre><code>{{Красиво}{ты}{вошла}{в}{мою}{грешную}{жизнь}{!}}
+{{Красиво}{ты}{ушла}{из}{неё}{.}}
+</code></pre>
+
+<p>В прекоде уже есть тест, где используется копируемый тип <code>TestToken</code>. Напишите тест для класса, объекты которого нельзя копировать, и проверьте, что ваша функция работает корректно.</p>
+
+<h3>Подсказка</h3>
+
+<p>Среди стандартных алгоритмов есть удобная функция <code>adjacent_find</code>. Она позволяет искать последовательность из двух элементов, удовлетворяющих условию, которое задано пользователем. Вы можете применить эту функцию, чтобы определить конец предложения.</p>
+
+<p>Найдите конец предложения, потом пройдите по лексемам от начала до конца и переместите значения лексем в предложение. Само предложение после этого можно переместить в вектор результатов.</p>
+
+</body>
+</html>

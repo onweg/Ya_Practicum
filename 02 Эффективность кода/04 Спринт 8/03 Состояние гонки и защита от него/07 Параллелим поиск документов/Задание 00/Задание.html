@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание</h2>
+
+<p>Реализуйте многопоточную версию метода <code>FindTopDocuments</code> в дополнение к однопоточной. Это нужно сделать для всех перегрузок метода: без фильтраций, с фильтрацией по статусу и по произвольному предикату.</p>
+
+<h3>Пример</h3>
+
+<pre><code class="language-cpp">#include &quot;process_queries.h&quot;
+#include &quot;search_server.h&quot;
+
+#include &lt;execution&gt;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+void PrintDocument(const Document&amp; document) {
+    cout &lt;&lt; &quot;{ &quot;s
+         &lt;&lt; &quot;document_id = &quot;s &lt;&lt; document.id &lt;&lt; &quot;, &quot;s
+         &lt;&lt; &quot;relevance = &quot;s &lt;&lt; document.relevance &lt;&lt; &quot;, &quot;s
+         &lt;&lt; &quot;rating = &quot;s &lt;&lt; document.rating &lt;&lt; &quot; }&quot;s &lt;&lt; endl;
+}
+
+int main() {
+    SearchServer search_server(&quot;and with&quot;s);
+
+    int id = 0;
+    for (
+        const string&amp; text : {
+            &quot;white cat and yellow hat&quot;s,
+            &quot;curly cat curly tail&quot;s,
+            &quot;nasty dog with big eyes&quot;s,
+            &quot;nasty pigeon john&quot;s,
+        }
+    ) {
+        search_server.AddDocument(++id, text, DocumentStatus::ACTUAL, {1, 2});
+    }
+
+
+    cout &lt;&lt; &quot;ACTUAL by default:&quot;s &lt;&lt; endl;
+	// последовательная версия
+    for (const Document&amp; document : search_server.FindTopDocuments(&quot;curly nasty cat&quot;s)) {
+        PrintDocument(document);
+    }
+    cout &lt;&lt; &quot;BANNED:&quot;s &lt;&lt; endl;
+	// последовательная версия
+    for (const Document&amp; document : search_server.FindTopDocuments(execution::seq, &quot;curly nasty cat&quot;s, DocumentStatus::BANNED)) {
+        PrintDocument(document);
+    }
+
+    cout &lt;&lt; &quot;Even ids:&quot;s &lt;&lt; endl;
+	// параллельная версия
+    for (const Document&amp; document : search_server.FindTopDocuments(execution::par, &quot;curly nasty cat&quot;s, [](int document_id, DocumentStatus status, int rating) { return document_id % 2 == 0; })) {
+        PrintDocument(document);
+    }
+
+    return 0;
+}
+</code></pre>
+
+<p>Вывод:</p>
+
+<pre><code>ACTUAL by default:
+{ document_id = 2, relevance = 0.866434, rating = 1 }
+{ document_id = 4, relevance = 0.231049, rating = 1 }
+{ document_id = 1, relevance = 0.173287, rating = 1 }
+{ document_id = 3, relevance = 0.173287, rating = 1 }
+BANNED:
+Even ids:
+{ document_id = 2, relevance = 0.866434, rating = 1 }
+{ document_id = 4, relevance = 0.231049, rating = 1 }
+</code></pre>
+
+<h3>Ограничения</h3>
+
+<p>Как и прежде, в метод <code>FindTopDocuments</code> может быть передан любой поисковый запрос.</p>
+
+<h3>Что отправлять на проверку</h3>
+
+<p>Заголовочные файлы и файлы с реализацией, содержащие класс <code>SearchServer</code> и написанные ранее вспомогательные функции. Функция <code>main</code> будет проигнорирована.</p>
+
+<h3>Как будет тестироваться ваш код</h3>
+
+<p>Правильность работы функции будет проверена юнит-тестами.</p>
+
+<p>Производительность всех версий метода будет проверена аналогично бенчмарку, приведённому ниже.</p>
+
+<p>Для многопоточной версии время работы должно быть по крайней мере на 30% меньше, чем для однопоточной версии.</p>
+
+<p>Также ваше решение не должно уступать авторскому сильнее, чем в 1,5 раза для всех соответствующих версий.</p>
+
+<pre><code class="language-cpp">#include &quot;search_server.h&quot;
+
+#include &quot;log_duration.h&quot;
+
+#include &lt;execution&gt;
+#include &lt;iostream&gt;
+#include &lt;random&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+string GenerateWord(mt19937&amp; generator, int max_length) {
+    const int length = uniform_int_distribution(1, max_length)(generator);
+    string word;
+    word.reserve(length);
+    for (int i = 0; i &lt; length; ++i) {
+        word.push_back(uniform_int_distribution('a', 'z')(generator));
+    }
+    return word;
+}
+
+vector&lt;string&gt; GenerateDictionary(mt19937&amp; generator, int word_count, int max_length) {
+    vector&lt;string&gt; words;
+    words.reserve(word_count);
+    for (int i = 0; i &lt; word_count; ++i) {
+        words.push_back(GenerateWord(generator, max_length));
+    }
+    words.erase(unique(words.begin(), words.end()), words.end());
+    return words;
+}
+
+string GenerateQuery(mt19937&amp; generator, const vector&lt;string&gt;&amp; dictionary, int word_count, double minus_prob = 0) {
+    string query;
+    for (int i = 0; i &lt; word_count; ++i) {
+        if (!query.empty()) {
+            query.push_back(' ');
+        }
+        if (uniform_real_distribution&lt;&gt;(0, 1)(generator) &lt; minus_prob) {
+            query.push_back('-');
+        }
+        query += dictionary[uniform_int_distribution&lt;int&gt;(0, dictionary.size() - 1)(generator)];
+    }
+    return query;
+}
+
+vector&lt;string&gt; GenerateQueries(mt19937&amp; generator, const vector&lt;string&gt;&amp; dictionary, int query_count, int max_word_count) {
+    vector&lt;string&gt; queries;
+    queries.reserve(query_count);
+    for (int i = 0; i &lt; query_count; ++i) {
+        queries.push_back(GenerateQuery(generator, dictionary, max_word_count));
+    }
+    return queries;
+}
+
+template &lt;typename ExecutionPolicy&gt;
+void Test(string_view mark, const SearchServer&amp; search_server, const vector&lt;string&gt;&amp; queries, ExecutionPolicy&amp;&amp; policy) {
+    LOG_DURATION(mark);
+    double total_relevance = 0;
+    for (const string_view query : queries) {
+        for (const auto&amp; document : search_server.FindTopDocuments(policy, query)) {
+            total_relevance += document.relevance;
+        }
+    }
+    cout &lt;&lt; total_relevance &lt;&lt; endl;
+}
+
+#define TEST(policy) Test(#policy, search_server, queries, execution::policy)
+
+int main() {
+    mt19937 generator;
+
+    const auto dictionary = GenerateDictionary(generator, 1000, 10);
+    const auto documents = GenerateQueries(generator, dictionary, 10'000, 70);
+
+    SearchServer search_server(dictionary[0]);
+    for (size_t i = 0; i &lt; documents.size(); ++i) {
+        search_server.AddDocument(i, documents[i], DocumentStatus::ACTUAL, {1, 2, 3});
+    }
+
+    const auto queries = GenerateQueries(generator, dictionary, 100, 70);
+
+    TEST(seq);
+    TEST(par);
+}
+</code></pre>
+
+<h3>Подсказка</h3>
+
+<ol>
+<li>Начните с обучения всех версий методов <code>FindTopDocuments</code> и <code>FindAllDocuments</code> приёму аргументов <code>execution::seq</code> и <code>execution::par</code>.</li>
+<li>Попрофилируйте и определите, где узкое место: в сортировке документов или в <code>FindAllDocuments</code> в циклах по плюс- и минус-словам?</li>
+<li>Вам пригодится <code>ConcurrentMap</code> и, возможно, <code>ConcurrentSet</code>.</li>
+</ol>
+
+</body>
+</html>

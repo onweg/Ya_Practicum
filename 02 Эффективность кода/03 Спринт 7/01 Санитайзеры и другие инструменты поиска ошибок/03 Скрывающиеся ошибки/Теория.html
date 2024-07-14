@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Скрывающиеся ошибки</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Скрывающиеся ошибки</h1>
+
+<p>Ошибки бывают очень коварны. Вначале они прячутся, а потом выскакивают в самый неудобный момент. В этом уроке попробуем найти и обезвредить ошибку традиционными способами.</p>
+
+<p>Рассмотрим такой код для вычисления среднего арифметического числового вектора:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+template &lt;class T&gt;
+double mean(const std::vector&lt;T&gt;&amp; v) {
+    T acc;
+
+    for (size_t i = 0; i &lt;= v.size(); ++i) {
+        acc += v[i];
+    }
+
+    return static_cast&lt;double&gt;(acc) / v.size();
+}
+
+int main() {
+    vector&lt;double&gt; u = {1, 2, 3, 4, 5};
+    cout &lt;&lt; &quot;Mean: &quot;s &lt;&lt; mean(u) &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Сохраним этот код в файл <code>mean.cpp</code>. Будем использовать командную строку, поскольку в этой теме вам предстоит много работать с ней. Скомпилируем и запустим программу:</p>
+
+<pre><code>&gt; g++ mean.cpp -o mean
+&gt; ./mean
+Mean: 3
+</code></pre>
+
+<p>Так мы компилируем на UNIX-системах, под Windows мы запускали бы немного проще:</p>
+
+<pre><code>&gt; g++ mean.cpp -o mean
+&gt; mean
+Mean: 3
+</code></pre>
+
+<p>Программа выдала правильный ответ. Посмотрим, означает ли это, что в ней нет ошибок. Попробуем другой компилятор — Clang. Инструкции по его установке будут в одном из следующих уроков.</p>
+
+<pre><code class="language-cpp">&gt; clang++ mean.cpp -o mean
+&gt; ./mean
+Mean: -nan
+</code></pre>
+
+<p>Под Windows был бы такой код:</p>
+
+<pre><code class="language-cpp">&gt; clang++ mean.cpp -o mean.exe
+&gt; mean
+Mean: -nan
+</code></pre>
+
+<p>Как видим, результат уже другой — получилось особое значение, даже не число. Значит, в программе есть ошибки, и выявить их простым тестированием с g++ не получилось..</p>
+
+<p>В этом уроке мы не пользуемся специальными средствами, поэтому остаётся одно «‎народное средство»‎ — добавить отладочные выводы в код программы. Они должны выводить информацию о состоянии программы. Так мы поймём, в какой момент что-то пошло не так.</p>
+
+<pre><code class="language-cpp">template &lt;class T&gt;
+double mean(const std::vector&lt;T&gt;&amp; v) {
+    T acc;
+
+    for (size_t i = 0; i &lt;= v.size(); ++i) {
+        acc += v[i];
+        cout &lt;&lt; &quot;v[&quot;s &lt;&lt; i &lt;&lt; &quot;] = &quot;s &lt;&lt; v[i] &lt;&lt; endl;
+        cout &lt;&lt; &quot;acc: &quot;s &lt;&lt; acc &lt;&lt; endl;
+    }
+
+    return static_cast&lt;double&gt;(acc) / v.size();
+}
+</code></pre>
+
+<p>Запустим программу и посмотрим на вывод:</p>
+
+<pre><code>Mean: v[0] = 1
+acc: 1
+v[1] = 2
+acc: 3
+v[2] = 3
+acc: 6
+v[3] = 4
+acc: 10
+v[4] = 5
+acc: 15
+v[5] = -1.08671e-311
+acc: 15
+3
+</code></pre>
+
+<p>Удивительно, но ответ внезапно стал правильным! Однако ошибка всё равно обнаружена: мы прибавляем лишнее слагаемое <code>v[5]</code>, которое вообще отсутствует в векторе и имеет странное значение.</p>
+
+<p>Мы обратились к несуществующему элементу вектора и не только не получили сообщения об ошибке, но даже в ряде случаев увидели правильный ответ. Значит, <code>operator []</code> для вектора не имеет никакого контроля ошибок. Сделано это из принципа нулевого оверхеда: проверка значения на соответствие диапазону создавала бы условный переход. Такая операция, как вы знаете из темы о профилировке, довольно затратна для процессора.</p>
+
+<p>Чтобы избежать ошибок, можно перед каждым обращением к вектору вставить <code>assert</code>, проверяющий корректность индекса. Либо использовать метод <code>at</code>, который сгенерирует исключение при попытке обратиться к неверному индексу:</p>
+
+<pre><code class="language-cpp">template &lt;class T&gt;
+double mean(const std::vector&lt;T&gt;&amp; v) {
+    T acc;
+
+    for (size_t i = 0; i &lt;= v.size(); ++i) {
+        acc += v.at(i);
+    }
+
+    return static_cast&lt;double&gt;(acc) / v.size();
+}
+</code></pre>
+
+<p>Поскольку исключение мы не ловим, при попытке запуска программа будет падать, сообщая о том, что в ней есть баг:</p>
+
+<p><img src="data:image/png;base64,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" alt="image" /></p>
+
+<p>В консоли можно увидеть такое сообщение:</p>
+
+<pre><code class="language-cpp">&gt; g++ mean.cpp -o mean
+&gt; ./mean
+Mean: terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check: __n (which is 5) &gt;= this-&gt;size() (which is 5)
+
+This application has requested the Runtime to terminate it in an unusual way.
+Please contact the application's support team for more information.
+</code></pre>
+
+<p>Оно говорит, что проблема в обращении к несуществующему элементу вектора, и даже приводит некоторую конкретику: индекс элемента, размер вектора. Но из сообщения ничего не понятно о том, где именно баг в коде.</p>
+
+<p>Чтобы найти проблемное место, соберём программу с отладочной информацией и без оптимизации. Затем запустим gdb и добавим команду <code>break abort</code>, чтобы отладчик остановил выполнение при возникновении исключения. После остановки воспользуемся командой <code>bt</code> для нахождения места ошибки.</p>
+
+<pre><code class="language-cpp">&gt; g++ mean.cpp -o mean -g -O0
+&gt; gdb mean
+(gdb) break abort
+Breakpoint 1 at 0x6144d595
+(gdb) r
+Mean:
+Thread 1 hit Breakpoint 1, 0x000000006144d595 in msvcrt!abort ()
+(gdb) bt
+...
+#8  0x0000000000402e38 in mean&lt;double&gt; (v=std::vector of length 5, capacity 5 = {...}) at mean.cpp:16
+#9  0x0000000000401605 in main () at mean.cpp:25
+</code></pre>
+
+<p>Восьмой фрейм показывает точное место ошибки — файл и номер строки.</p>
+
+<p>Как видите, выявлять ошибки вручную довольно сложно. Нам повезло, что мы догадались использовать <code>at</code> в нужном месте.</p>
+
+<hr>
+
+<p>Теперь представьте, что перед вами большая программа: сотни файлов и везде используются векторы. Но что-то в ней идёт не так, ответ выдаётся неверный. Вы подозреваете, что где-нибудь есть выход за пределы диапазона вектора. Подумайте, как можно обнаружить эту проблему?</p>
+
+<ul>
+<li><p>Это делать не нужно, компилятор скомпилировал программу</p></li>
+
+<li><p>Компилятор должен найти выход за границы вектора и сообщить об ошибке</p></li>
+
+<li><p>Достаточно лишь заменить все операторы индексации на вызовы метода <code>at</code></p></li>
+
+<li><p>Вы шутите? Нужен какой-то нормальный выход</p></li>
+</ul>
+
+<p>Об этом выходе вы узнаете в следующем уроке.</p>
+
+</body>
+</html>

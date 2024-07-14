@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание 2</h2>
+
+<p>Вы хорошо потрудились — нарисовали линии маршрутов. В этом задании вам предстоит нанести обозначения маршрутов и остановок на карту, чтобы ей было удобно пользоваться.</p>
+
+<p>Карта состоит из четырёх типов объектов. Порядок их вывода в SVG-документ:</p>
+
+<ol>
+<li>ломаные линии маршрутов,</li>
+<li>названия маршрутов,</li>
+<li>круги, обозначающие остановки,</li>
+<li>названия остановок.</li>
+</ol>
+
+<p>Ваша программа умеет рисовать первый слой. Теперь вы научите её рисовать остальные слои.</p>
+
+<p>JSON-документ ниже содержит:</p>
+
+<ul>
+<li>описание пяти остановок и двух маршрутов,</li>
+<li>настройки, управляющие визуализацией карты.</li>
+</ul>
+
+<p>Алгоритм визуализации карты рассматривается на примере этого документа.</p>
+
+<p>🔗 input.json</p>
+
+<h3>Названия маршрутов</h3>
+
+<p>Название маршрута должно отрисовываться у каждой из его конечных остановок. В кольцевом маршруте — когда <code>&quot;is_roundtrip&quot;: true</code> — конечной считается первая остановка маршрута. А в некольцевом — первая и последняя.</p>
+
+<p>Названия маршрутов должны быть нарисованы в алфавитном порядке. Для каждого маршрута сначала выводится название для его первой конечной остановки, а затем, если маршрут некольцевой и конечные не совпадают, — для второй конечной.</p>
+
+<p>Если остановок у маршрута нет, его название выводиться не должно.</p>
+
+<p>Для каждого названия у конечной выведите два текстовых объекта: подложку и саму надпись.</p>
+
+<p>Общие свойства обоих объектов:</p>
+
+<ul>
+<li><code>x</code> и <code>y</code> — координаты соответствующей остановки;</li>
+<li>смещение <code>dx</code> и <code>dy</code> равно настройке <code>bus_label_offset</code>;</li>
+<li>размер шрифта <code>font-size</code> равен настройке <code>bus_label_font_size</code>;</li>
+<li>название шрифта <code>font-family</code> — <code>&quot;Verdana&quot;</code>;</li>
+<li>толщина шрифта <code>font-weight</code> — <code>&quot;bold&quot;</code>.</li>
+<li>содержимое — название автобуса.</li>
+</ul>
+
+<p>Дополнительные свойства подложки:</p>
+
+<ul>
+<li>цвет заливки <code>fill</code> и цвет линий <code>stroke</code> равны настройке <code>underlayer_color</code>;</li>
+<li>толщина линий <code>stroke-width</code> равна настройке <code>underlayer_width</code>;</li>
+<li>формы конца линии <code>stroke-linecap</code> и соединений <code>stroke-linejoin</code> равны <code>round</code>.</li>
+</ul>
+
+<p>Дополнительное свойство самой надписи:</p>
+
+<ul>
+<li>Цвет заливки <code>fill</code> равен цвету соответствующего автобусного маршрута из палитры.</li>
+</ul>
+
+<p>Для JSON-документа из примера ожидаемый вывод такой:</p>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot;&gt;
+  &lt;polyline points=&quot;99.2283,329.5 50,232.18 99.2283,329.5&quot; fill=&quot;none&quot; stroke=&quot;green&quot; stroke-width=&quot;14&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;
+  &lt;polyline points=&quot;550,190.051 279.22,50 333.61,269.08 550,190.051&quot; fill=&quot;none&quot; stroke=&quot;rgb(255,160,0)&quot; stroke-width=&quot;14&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;
+  &lt;text fill=&quot;rgba(255,255,255,0.85)&quot; stroke=&quot;rgba(255,255,255,0.85)&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; x=&quot;99.2283&quot; y=&quot;329.5&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;114&lt;/text&gt;
+  &lt;text fill=&quot;green&quot; x=&quot;99.2283&quot; y=&quot;329.5&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;114&lt;/text&gt;
+  &lt;text fill=&quot;rgba(255,255,255,0.85)&quot; stroke=&quot;rgba(255,255,255,0.85)&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; x=&quot;50&quot; y=&quot;232.18&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;114&lt;/text&gt;
+  &lt;text fill=&quot;green&quot; x=&quot;50&quot; y=&quot;232.18&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;114&lt;/text&gt;
+  &lt;text fill=&quot;rgba(255,255,255,0.85)&quot; stroke=&quot;rgba(255,255,255,0.85)&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; x=&quot;550&quot; y=&quot;190.051&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;14&lt;/text&gt;
+  &lt;text fill=&quot;rgb(255,160,0)&quot; x=&quot;550&quot; y=&quot;190.051&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;14&lt;/text&gt;
+&lt;/svg&gt;
+</code></pre>
+
+<p>Этот документ содержит три пары <code>&lt;text&gt;</code>, следующие сразу за ломаными линиями маршрутов:</p>
+
+<ul>
+<li>Подложка и надпись “114” рядом с начальной остановкой “Morskoy vokzal” с координатами (99.2283, 329.5).</li>
+<li>Подложка и надпись “114” рядом с конечной остановкой “Rivierskiy most” с координатами (50, 232.18).</li>
+<li>Подложка и надпись “14” рядом с начальной остановкой “Ulitsa Lizy Chaikinoi” с координатами (550, 190.051).</li>
+</ul>
+
+<p>Эти надписи выводятся со смещениями dx=7 и dy=15, которые заданы в словаре <code>render_settings</code>.</p>
+
+<p><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiID8+DQo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSItNTAgLTUwIDcwMCA1MDAiPg0KICA8cG9seWxpbmUgcG9pbnRzPSI5OS4yMjgzLDMyOS41IDUwLDIzMi4xOCA5OS4yMjgzLDMyOS41IiBmaWxsPSJub25lIiBzdHJva2U9ImdyZWVuIiBzdHJva2Utd2lkdGg9IjE0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4NCiAgPHBvbHlsaW5lIHBvaW50cz0iNTUwLDE5MC4wNTEgMjc5LjIyLDUwIDMzMy42MSwyNjkuMDggNTUwLDE5MC4wNTEiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiKDI1NSwxNjAsMCkiIHN0cm9rZS13aWR0aD0iMTQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPg0KICA8dGV4dCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuODUpIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC44NSkiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiB4PSI5OS4yMjgzIiB5PSIzMjkuNSIgZHg9IjciIGR5PSIxNSIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiIGZvbnQtd2VpZ2h0PSJib2xkIj4xMTQ8L3RleHQ+DQogIDx0ZXh0IGZpbGw9ImdyZWVuIiB4PSI5OS4yMjgzIiB5PSIzMjkuNSIgZHg9IjciIGR5PSIxNSIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiIGZvbnQtd2VpZ2h0PSJib2xkIj4xMTQ8L3RleHQ+DQogIDx0ZXh0IGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC44NSkiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjg1KSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHg9IjUwIiB5PSIyMzIuMTgiIGR4PSI3IiBkeT0iMTUiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJWZXJkYW5hIiBmb250LXdlaWdodD0iYm9sZCI+MTE0PC90ZXh0Pg0KICA8dGV4dCBmaWxsPSJncmVlbiIgeD0iNTAiIHk9IjIzMi4xOCIgZHg9IjciIGR5PSIxNSIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiIGZvbnQtd2VpZ2h0PSJib2xkIj4xMTQ8L3RleHQ+DQogIDx0ZXh0IGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC44NSkiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjg1KSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHg9IjU1MCIgeT0iMTkwLjA1MSIgZHg9IjciIGR5PSIxNSIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiIGZvbnQtd2VpZ2h0PSJib2xkIj4xNDwvdGV4dD4NCiAgPHRleHQgZmlsbD0icmdiKDI1NSwxNjAsMCkiIHg9IjU1MCIgeT0iMTkwLjA1MSIgZHg9IjciIGR5PSIxNSIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiIGZvbnQtd2VpZ2h0PSJib2xkIj4xNDwvdGV4dD4NCjwvc3ZnPg==" alt="image" />
+<em>Надписи не сливаются с линиями благодаря белой подложке с обводкой</em></p>
+
+<h3>Символы остановок</h3>
+
+<p>Каждая остановка маршрута изображается на карте в виде кружочков белого цвета. Их нужно отрисовать для всех маршрутов, где есть остановки. Одна остановка — один кружочек. Выводите их по одному в порядке возрастания названия остановки, независимо от количества маршрутов, которые через неё проходят. Остановки, через которые не проходит ни один автобус, выводиться не должны.</p>
+
+<p>Атрибуты окружности:</p>
+
+<ul>
+<li>координаты центра <code>cx</code> и <code>cy</code> — координаты соответствующей остановки на карте;</li>
+<li>радиус <code>r</code> равен настройке <code>stop_radius</code> из словаря <code>render_settings</code>;</li>
+<li>цвет заливки <code>fill</code> — <code>&quot;white&quot;</code>.</li>
+</ul>
+
+<p>Для JSON документа из примера вывод ожидается такой:</p>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot;&gt;
+  &lt;polyline points=&quot;99.2283,329.5 50,232.18 99.2283,329.5&quot; fill=&quot;none&quot; stroke=&quot;green&quot; stroke-width=&quot;14&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;
+  &lt;polyline points=&quot;550,190.051 279.22,50 333.61,269.08 550,190.051&quot; fill=&quot;none&quot; stroke=&quot;rgb(255,160,0)&quot; stroke-width=&quot;14&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;
+  &lt;text fill=&quot;rgba(255,255,255,0.85)&quot; stroke=&quot;rgba(255,255,255,0.85)&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; x=&quot;99.2283&quot; y=&quot;329.5&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;114&lt;/text&gt;
+  &lt;text fill=&quot;green&quot; x=&quot;99.2283&quot; y=&quot;329.5&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;114&lt;/text&gt;
+  &lt;text fill=&quot;rgba(255,255,255,0.85)&quot; stroke=&quot;rgba(255,255,255,0.85)&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; x=&quot;50&quot; y=&quot;232.18&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;114&lt;/text&gt;
+  &lt;text fill=&quot;green&quot; x=&quot;50&quot; y=&quot;232.18&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;114&lt;/text&gt;
+  &lt;text fill=&quot;rgba(255,255,255,0.85)&quot; stroke=&quot;rgba(255,255,255,0.85)&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; x=&quot;550&quot; y=&quot;190.051&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;14&lt;/text&gt;
+  &lt;text fill=&quot;rgb(255,160,0)&quot; x=&quot;550&quot; y=&quot;190.051&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;14&lt;/text&gt;
+  &lt;circle cx=&quot;279.22&quot; cy=&quot;50&quot; r=&quot;5&quot; fill=&quot;white&quot;/&gt;
+  &lt;circle cx=&quot;99.2283&quot; cy=&quot;329.5&quot; r=&quot;5&quot; fill=&quot;white&quot;/&gt;
+  &lt;circle cx=&quot;50&quot; cy=&quot;232.18&quot; r=&quot;5&quot; fill=&quot;white&quot;/&gt;
+  &lt;circle cx=&quot;333.61&quot; cy=&quot;269.08&quot; r=&quot;5&quot; fill=&quot;white&quot;/&gt;
+  &lt;circle cx=&quot;550&quot; cy=&quot;190.051&quot; r=&quot;5&quot; fill=&quot;white&quot;/&gt;
+&lt;/svg&gt;
+</code></pre>
+
+<p>В этом документе SVG следом за текстами с названиями маршрутов содержатся пять тегов <code>&lt;circle&gt;</code>, нарисованных в остановках:</p>
+
+<ul>
+<li>“Elektroseti”</li>
+<li>“Morskoy vokzal”</li>
+<li>“Rivierskiy most”</li>
+<li>“Ulitsa Dokuchaeva”</li>
+<li>“Ulitsa Lizy Chaikinoi”</li>
+</ul>
+
+<p><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiID8+DQo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSItNTAgLTUwIDcwMCA1MDAiPg0KICA8cG9seWxpbmUgcG9pbnRzPSI5OS4yMjgzLDMyOS41IDUwLDIzMi4xOCA5OS4yMjgzLDMyOS41IiBmaWxsPSJub25lIiBzdHJva2U9ImdyZWVuIiBzdHJva2Utd2lkdGg9IjE0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4NCiAgPHBvbHlsaW5lIHBvaW50cz0iNTUwLDE5MC4wNTEgMjc5LjIyLDUwIDMzMy42MSwyNjkuMDggNTUwLDE5MC4wNTEiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiKDI1NSwxNjAsMCkiIHN0cm9rZS13aWR0aD0iMTQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPg0KICA8dGV4dCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuODUpIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC44NSkiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiB4PSI5OS4yMjgzIiB5PSIzMjkuNSIgZHg9IjciIGR5PSIxNSIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiIGZvbnQtd2VpZ2h0PSJib2xkIj4xMTQ8L3RleHQ+DQogIDx0ZXh0IGZpbGw9ImdyZWVuIiB4PSI5OS4yMjgzIiB5PSIzMjkuNSIgZHg9IjciIGR5PSIxNSIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiIGZvbnQtd2VpZ2h0PSJib2xkIj4xMTQ8L3RleHQ+DQogIDx0ZXh0IGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC44NSkiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjg1KSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHg9IjUwIiB5PSIyMzIuMTgiIGR4PSI3IiBkeT0iMTUiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJWZXJkYW5hIiBmb250LXdlaWdodD0iYm9sZCI+MTE0PC90ZXh0Pg0KICA8dGV4dCBmaWxsPSJncmVlbiIgeD0iNTAiIHk9IjIzMi4xOCIgZHg9IjciIGR5PSIxNSIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiIGZvbnQtd2VpZ2h0PSJib2xkIj4xMTQ8L3RleHQ+DQogIDx0ZXh0IGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC44NSkiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjg1KSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHg9IjU1MCIgeT0iMTkwLjA1MSIgZHg9IjciIGR5PSIxNSIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiIGZvbnQtd2VpZ2h0PSJib2xkIj4xNDwvdGV4dD4NCiAgPHRleHQgZmlsbD0icmdiKDI1NSwxNjAsMCkiIHg9IjU1MCIgeT0iMTkwLjA1MSIgZHg9IjciIGR5PSIxNSIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiIGZvbnQtd2VpZ2h0PSJib2xkIj4xNDwvdGV4dD4NCiAgPGNpcmNsZSBjeD0iMjc5LjIyIiBjeT0iNTAiIHI9IjUiIGZpbGw9IndoaXRlIi8+DQogIDxjaXJjbGUgY3g9Ijk5LjIyODMiIGN5PSIzMjkuNSIgcj0iNSIgZmlsbD0id2hpdGUiLz4NCiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIyMzIuMTgiIHI9IjUiIGZpbGw9IndoaXRlIi8+DQogIDxjaXJjbGUgY3g9IjMzMy42MSIgY3k9IjI2OS4wOCIgcj0iNSIgZmlsbD0id2hpdGUiLz4NCiAgPGNpcmNsZSBjeD0iNTUwIiBjeT0iMTkwLjA1MSIgcj0iNSIgZmlsbD0id2hpdGUiLz4NCjwvc3ZnPg==" alt="image" />
+<em>Карта с обозначениями остановок</em></p>
+
+<h3>Названия остановок</h3>
+
+<p>Названия остановок выводятся в лексикографическом порядке, под одному на каждую остановку, независимо от количества автобусов, которые через неё проходят. Названия остановок, через которые не проходит ни один маршрут, отрисовывать не надо.</p>
+
+<p>Для каждой остановки выведите два текстовых объекта: подложку и саму надпись.</p>
+
+<p>Общие свойства обоих объектов:</p>
+
+<ul>
+<li><code>x</code> и <code>y</code> — координаты соответствующей остановки;</li>
+<li>смещение <code>dx</code> и <code>dy</code> равно настройке <code>stop_label_offset</code>;</li>
+<li>размер шрифта <code>font-size</code> равен настройке <code>stop_label_font_size</code>;</li>
+<li>название шрифта <code>font-family</code> — <code>&quot;Verdana&quot;</code>;</li>
+<li>свойства <code>font-weight</code> быть не должно;</li>
+<li>содержимое — название остановки.</li>
+</ul>
+
+<p>Дополнительные свойства подложки:</p>
+
+<ul>
+<li>цвет заливки <code>fill</code> и цвет линий <code>stroke</code> равны настройке <code>underlayer_color</code>;</li>
+<li>толщина линий <code>stroke-width</code> равна настройке <code>underlayer_width</code>;</li>
+<li>формы конца линии <code>stroke-linecap</code> и соединений <code>stroke-linejoin</code> равны <code>&quot;round&quot;</code>.</li>
+</ul>
+
+<p>Дополнительное свойство самой надписи:</p>
+
+<ul>
+<li>цвет заливки <code>fill</code> — <code>&quot;black&quot;</code>.</li>
+</ul>
+
+<p>Для JSON-документа из примера ожидаемый вывод такой:</p>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot;&gt;
+  &lt;polyline points=&quot;99.2283,329.5 50,232.18 99.2283,329.5&quot; fill=&quot;none&quot; stroke=&quot;green&quot; stroke-width=&quot;14&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;
+  &lt;polyline points=&quot;550,190.051 279.22,50 333.61,269.08 550,190.051&quot; fill=&quot;none&quot; stroke=&quot;rgb(255,160,0)&quot; stroke-width=&quot;14&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;
+  &lt;text fill=&quot;rgba(255,255,255,0.85)&quot; stroke=&quot;rgba(255,255,255,0.85)&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; x=&quot;99.2283&quot; y=&quot;329.5&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;114&lt;/text&gt;
+  &lt;text fill=&quot;green&quot; x=&quot;99.2283&quot; y=&quot;329.5&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;114&lt;/text&gt;
+  &lt;text fill=&quot;rgba(255,255,255,0.85)&quot; stroke=&quot;rgba(255,255,255,0.85)&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; x=&quot;50&quot; y=&quot;232.18&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;114&lt;/text&gt;
+  &lt;text fill=&quot;green&quot; x=&quot;50&quot; y=&quot;232.18&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;114&lt;/text&gt;
+  &lt;text fill=&quot;rgba(255,255,255,0.85)&quot; stroke=&quot;rgba(255,255,255,0.85)&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; x=&quot;550&quot; y=&quot;190.051&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;14&lt;/text&gt;
+  &lt;text fill=&quot;rgb(255,160,0)&quot; x=&quot;550&quot; y=&quot;190.051&quot; dx=&quot;7&quot; dy=&quot;15&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot; font-weight=&quot;bold&quot;&gt;14&lt;/text&gt;
+  &lt;circle cx=&quot;279.22&quot; cy=&quot;50&quot; r=&quot;5&quot; fill=&quot;white&quot;/&gt;
+  &lt;circle cx=&quot;99.2283&quot; cy=&quot;329.5&quot; r=&quot;5&quot; fill=&quot;white&quot;/&gt;
+  &lt;circle cx=&quot;50&quot; cy=&quot;232.18&quot; r=&quot;5&quot; fill=&quot;white&quot;/&gt;
+  &lt;circle cx=&quot;333.61&quot; cy=&quot;269.08&quot; r=&quot;5&quot; fill=&quot;white&quot;/&gt;
+  &lt;circle cx=&quot;550&quot; cy=&quot;190.051&quot; r=&quot;5&quot; fill=&quot;white&quot;/&gt;
+  &lt;text fill=&quot;rgba(255,255,255,0.85)&quot; stroke=&quot;rgba(255,255,255,0.85)&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; x=&quot;279.22&quot; y=&quot;50&quot; dx=&quot;7&quot; dy=&quot;-3&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot;&gt;Elektroseti&lt;/text&gt;
+  &lt;text fill=&quot;black&quot; x=&quot;279.22&quot; y=&quot;50&quot; dx=&quot;7&quot; dy=&quot;-3&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot;&gt;Elektroseti&lt;/text&gt;
+  &lt;text fill=&quot;rgba(255,255,255,0.85)&quot; stroke=&quot;rgba(255,255,255,0.85)&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; x=&quot;99.2283&quot; y=&quot;329.5&quot; dx=&quot;7&quot; dy=&quot;-3&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot;&gt;Morskoy vokzal&lt;/text&gt;
+  &lt;text fill=&quot;black&quot; x=&quot;99.2283&quot; y=&quot;329.5&quot; dx=&quot;7&quot; dy=&quot;-3&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot;&gt;Morskoy vokzal&lt;/text&gt;
+  &lt;text fill=&quot;rgba(255,255,255,0.85)&quot; stroke=&quot;rgba(255,255,255,0.85)&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; x=&quot;50&quot; y=&quot;232.18&quot; dx=&quot;7&quot; dy=&quot;-3&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot;&gt;Rivierskiy most&lt;/text&gt;
+  &lt;text fill=&quot;black&quot; x=&quot;50&quot; y=&quot;232.18&quot; dx=&quot;7&quot; dy=&quot;-3&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot;&gt;Rivierskiy most&lt;/text&gt;
+  &lt;text fill=&quot;rgba(255,255,255,0.85)&quot; stroke=&quot;rgba(255,255,255,0.85)&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; x=&quot;333.61&quot; y=&quot;269.08&quot; dx=&quot;7&quot; dy=&quot;-3&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot;&gt;Ulitsa Dokuchaeva&lt;/text&gt;
+  &lt;text fill=&quot;black&quot; x=&quot;333.61&quot; y=&quot;269.08&quot; dx=&quot;7&quot; dy=&quot;-3&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot;&gt;Ulitsa Dokuchaeva&lt;/text&gt;
+  &lt;text fill=&quot;rgba(255,255,255,0.85)&quot; stroke=&quot;rgba(255,255,255,0.85)&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; x=&quot;550&quot; y=&quot;190.051&quot; dx=&quot;7&quot; dy=&quot;-3&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot;&gt;Ulitsa Lizy Chaikinoi&lt;/text&gt;
+  &lt;text fill=&quot;black&quot; x=&quot;550&quot; y=&quot;190.051&quot; dx=&quot;7&quot; dy=&quot;-3&quot; font-size=&quot;20&quot; font-family=&quot;Verdana&quot;&gt;Ulitsa Lizy Chaikinoi&lt;/text&gt;
+&lt;/svg&gt;
+</code></pre>
+
+<p><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiID8+DQo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSItNTAgLTUwIDkwMCA1MDAiPg0KICA8cG9seWxpbmUgcG9pbnRzPSI5OS4yMjgzLDMyOS41IDUwLDIzMi4xOCA5OS4yMjgzLDMyOS41IiBmaWxsPSJub25lIiBzdHJva2U9ImdyZWVuIiBzdHJva2Utd2lkdGg9IjE0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4NCiAgPHBvbHlsaW5lIHBvaW50cz0iNTUwLDE5MC4wNTEgMjc5LjIyLDUwIDMzMy42MSwyNjkuMDggNTUwLDE5MC4wNTEiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiKDI1NSwxNjAsMCkiIHN0cm9rZS13aWR0aD0iMTQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPg0KICA8dGV4dCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuODUpIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC44NSkiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiB4PSI5OS4yMjgzIiB5PSIzMjkuNSIgZHg9IjciIGR5PSIxNSIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiIGZvbnQtd2VpZ2h0PSJib2xkIj4xMTQ8L3RleHQ+DQogIDx0ZXh0IGZpbGw9ImdyZWVuIiB4PSI5OS4yMjgzIiB5PSIzMjkuNSIgZHg9IjciIGR5PSIxNSIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiIGZvbnQtd2VpZ2h0PSJib2xkIj4xMTQ8L3RleHQ+DQogIDx0ZXh0IGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC44NSkiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjg1KSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHg9IjUwIiB5PSIyMzIuMTgiIGR4PSI3IiBkeT0iMTUiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJWZXJkYW5hIiBmb250LXdlaWdodD0iYm9sZCI+MTE0PC90ZXh0Pg0KICA8dGV4dCBmaWxsPSJncmVlbiIgeD0iNTAiIHk9IjIzMi4xOCIgZHg9IjciIGR5PSIxNSIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiIGZvbnQtd2VpZ2h0PSJib2xkIj4xMTQ8L3RleHQ+DQogIDx0ZXh0IGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC44NSkiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjg1KSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHg9IjU1MCIgeT0iMTkwLjA1MSIgZHg9IjciIGR5PSIxNSIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiIGZvbnQtd2VpZ2h0PSJib2xkIj4xNDwvdGV4dD4NCiAgPHRleHQgZmlsbD0icmdiKDI1NSwxNjAsMCkiIHg9IjU1MCIgeT0iMTkwLjA1MSIgZHg9IjciIGR5PSIxNSIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiIGZvbnQtd2VpZ2h0PSJib2xkIj4xNDwvdGV4dD4NCiAgPGNpcmNsZSBjeD0iMjc5LjIyIiBjeT0iNTAiIHI9IjUiIGZpbGw9IndoaXRlIi8+DQogIDxjaXJjbGUgY3g9Ijk5LjIyODMiIGN5PSIzMjkuNSIgcj0iNSIgZmlsbD0id2hpdGUiLz4NCiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIyMzIuMTgiIHI9IjUiIGZpbGw9IndoaXRlIi8+DQogIDxjaXJjbGUgY3g9IjMzMy42MSIgY3k9IjI2OS4wOCIgcj0iNSIgZmlsbD0id2hpdGUiLz4NCiAgPGNpcmNsZSBjeD0iNTUwIiBjeT0iMTkwLjA1MSIgcj0iNSIgZmlsbD0id2hpdGUiLz4NCiAgPHRleHQgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjg1KSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuODUpIiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgeD0iMjc5LjIyIiB5PSI1MCIgZHg9IjciIGR5PSItMyIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiPkVsZWt0cm9zZXRpPC90ZXh0Pg0KICA8dGV4dCBmaWxsPSJibGFjayIgeD0iMjc5LjIyIiB5PSI1MCIgZHg9IjciIGR5PSItMyIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiPkVsZWt0cm9zZXRpPC90ZXh0Pg0KICA8dGV4dCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuODUpIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC44NSkiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiB4PSI5OS4yMjgzIiB5PSIzMjkuNSIgZHg9IjciIGR5PSItMyIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiPk1vcnNrb3kgdm9remFsPC90ZXh0Pg0KICA8dGV4dCBmaWxsPSJibGFjayIgeD0iOTkuMjI4MyIgeT0iMzI5LjUiIGR4PSI3IiBkeT0iLTMiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJWZXJkYW5hIj5Nb3Jza295IHZva3phbDwvdGV4dD4NCiAgPHRleHQgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjg1KSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuODUpIiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgeD0iNTAiIHk9IjIzMi4xOCIgZHg9IjciIGR5PSItMyIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiPlJpdmllcnNraXkgbW9zdDwvdGV4dD4NCiAgPHRleHQgZmlsbD0iYmxhY2siIHg9IjUwIiB5PSIyMzIuMTgiIGR4PSI3IiBkeT0iLTMiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJWZXJkYW5hIj5SaXZpZXJza2l5IG1vc3Q8L3RleHQ+DQogIDx0ZXh0IGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC44NSkiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjg1KSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHg9IjMzMy42MSIgeT0iMjY5LjA4IiBkeD0iNyIgZHk9Ii0zIiBmb250LXNpemU9IjIwIiBmb250LWZhbWlseT0iVmVyZGFuYSI+VWxpdHNhIERva3VjaGFldmE8L3RleHQ+DQogIDx0ZXh0IGZpbGw9ImJsYWNrIiB4PSIzMzMuNjEiIHk9IjI2OS4wOCIgZHg9IjciIGR5PSItMyIgZm9udC1zaXplPSIyMCIgZm9udC1mYW1pbHk9IlZlcmRhbmEiPlVsaXRzYSBEb2t1Y2hhZXZhPC90ZXh0Pg0KICA8dGV4dCBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuODUpIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC44NSkiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiB4PSI1NTAiIHk9IjE5MC4wNTEiIGR4PSI3IiBkeT0iLTMiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJWZXJkYW5hIj5VbGl0c2EgTGl6eSBDaGFpa2lub2k8L3RleHQ+DQogIDx0ZXh0IGZpbGw9ImJsYWNrIiB4PSI1NTAiIHk9IjE5MC4wNTEiIGR4PSI3IiBkeT0iLTMiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtZmFtaWx5PSJWZXJkYW5hIj5VbGl0c2EgTGl6eSBDaGFpa2lub2k8L3RleHQ+DQo8L3N2Zz4=" alt="image" />
+<em>Карта с названиями остановок</em></p>
+
+<h3>Как будет тестироваться ваш код</h3>
+
+<p>Тренажёр подаст на stdin программы валидный JSON документ и сравнит выведенное в stdout SVG-изображение с ожидаемым по тем же принципам, что и в задачах по разработке SVG-библиотеки.</p>
+
+<p>Гарантируется, что названия маршрутов и остановок в JSON будут содержать только цифры, буквы английского алфавита и пробелы.</p>
+
+<p>Чтобы ваш код прошёл тесты, соблюдайте порядок отрисовки и алгоритм проекции остановок на плоскую карту.</p>
+
+<h3>Подсказка</h3>
+
+<ul>
+<li>Выполняйте задание по частям. Как только добьётесь сходства своего SVG-изображения с примером, приступайте к визуализации следующего слоя.</li>
+<li>Соблюдайте указанный в условии порядок рисования остановок, линий маршрутов и надписей. Иначе тренажёр будет считать результат визуализации некорректным.</li>
+</ul>
+
+</body>
+</html>

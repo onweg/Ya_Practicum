@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание 3</h2>
+
+<p>Вы только что реализовали визуализацию карты маршрутов в виде SVG-изображения. Пора вернуться к выводу JSON. В этом задании нужно добавить обработку нового типа запросов к транспортному справочнику — запрос на построение карты.</p>
+
+<p>В массиве <code>stat_requests</code> добавляется запрос на получение изображения, который имеет следующий вид:</p>
+
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;Map&quot;,
+  &quot;id&quot;: 11111
+}
+</code></pre>
+
+<p>Ответ на этот запрос отдаётся в виде словаря с ключами <code>request_id</code> и <code>map</code>:</p>
+
+<pre><code class="language-json">{
+  &quot;map&quot;: &quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot; ?&gt;\n&lt;svg xmlns=\&quot;http://www.w3.org/2000/svg\&quot; version=\&quot;1.1\&quot;&gt;\n  &lt;polyline points=\&quot;100.817,170 30,30 100.817,170\&quot; fill=\&quot;none\&quot; stroke=\&quot;green\&quot; stroke-width=\&quot;14\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot;/&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;100.817\&quot; y=\&quot;170\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;114&lt;/text&gt;\n  &lt;text fill=\&quot;green\&quot; x=\&quot;100.817\&quot; y=\&quot;170\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;114&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;30\&quot; y=\&quot;30\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;114&lt;/text&gt;\n  &lt;text fill=\&quot;green\&quot; x=\&quot;30\&quot; y=\&quot;30\&quot; dx=\&quot;7\&quot; dy=\&quot;15\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot; font-weight=\&quot;bold\&quot;&gt;114&lt;/text&gt;\n  &lt;circle cx=\&quot;100.817\&quot; cy=\&quot;170\&quot; r=\&quot;5\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;circle cx=\&quot;30\&quot; cy=\&quot;30\&quot; r=\&quot;5\&quot; fill=\&quot;white\&quot;/&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;100.817\&quot; y=\&quot;170\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot;&gt;Морской вокзал&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;100.817\&quot; y=\&quot;170\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot;&gt;Морской вокзал&lt;/text&gt;\n  &lt;text fill=\&quot;rgba(255,255,255,0.85)\&quot; stroke=\&quot;rgba(255,255,255,0.85)\&quot; stroke-width=\&quot;3\&quot; stroke-linecap=\&quot;round\&quot; stroke-linejoin=\&quot;round\&quot; x=\&quot;30\&quot; y=\&quot;30\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot;&gt;Ривьерский мост&lt;/text&gt;\n  &lt;text fill=\&quot;black\&quot; x=\&quot;30\&quot; y=\&quot;30\&quot; dx=\&quot;7\&quot; dy=\&quot;-3\&quot; font-size=\&quot;20\&quot; font-family=\&quot;Verdana\&quot;&gt;Ривьерский мост&lt;/text&gt;\n&lt;/svg&gt;&quot;,
+  &quot;request_id&quot;: 11111
+}
+</code></pre>
+
+<p>Ключ <code>map</code> — строка с изображением карты в формате SVG. Следующие спецсимволы при выводе строк в JSON нужно экранировать:</p>
+
+<ul>
+<li>двойные кавычки<code>&quot;</code>;</li>
+<li>обратный слэш <code>\</code>;</li>
+<li>символы возврата каретки и перевода строки.</li>
+</ul>
+
+<p>Ваша JSON-библиотека на это способна.</p>
+
+<h3>Примеры входных и выходных данных</h3>
+
+<p>Входной файл <code>input.json</code> содержит</p>
+
+<ol>
+<li>описание маршрута «114», который соединяет остановки «Морской вокзал» и «‎Ривьерский мост»;</li>
+<li>настройки визуализации карты;</li>
+<li>запросы на визуализацию и получение информации о маршруте «114» и остановке «‎Ривьерский мост».</li>
+</ol>
+
+<p>🔗 input.json</p>
+
+<p>Ожидаемый вывод:</p>
+
+<p>🔗 output.json</p>
+
+<p>Не меняйте семантику JSON-документа и SVG-изображения в нём. Вывод вашей программы может отличаться:</p>
+
+<ul>
+<li>в отступах и форматировании;</li>
+<li>в порядке ключей в словаре, но не в порядке элементов массива;</li>
+<li>в форматировании тегов внутри SVG-документа и в порядке атрибутов тегов.</li>
+</ul>
+
+<p>В файле ниже — примеры случайно сгенерированных входных файлов и корректных выводов для них.</p>
+
+<p>🔗 s10_final_opentest</p>
+
+<h3>Как будет тестироваться ваш код</h3>
+
+<p>Программе из stdin поступают валидные JSON-документы с описанием маршрутов и запросов к справочнику. Данные в stdout будут сравниваться с ожидаемым значением. Вывод вещественных чисел должен осуществляться стандартно, без модификаторов вывода.</p>
+
+<h3>Подсказка</h3>
+
+<p>В ответ на запрос <code>&quot;Map&quot;</code>, выведите SVG-изображение карты в поток <code>std::ostringstream</code>. Затем извлеките строку из этого потока и сохраните в качестве ключа <code>&quot;map&quot;</code>.</p>
+
+</body>
+</html>

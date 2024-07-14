@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h3>Задание</h3>
+
+<p>Вы устроились на новую работу и подключились к давно существующему проекту. Проект состоит в исследовании различных результатов переписи населения. Как это часто бывает, проект начинался как простая система, которая решала одну задачу, но со временем в неё стали добавлять новые функции. Делалось это традиционно — в аврале и в последний момент.</p>
+
+<p>Первой задачей проекта было моделирование изменения возраста совершеннолетия. Экспериментаторы вводили различные значения возраста совершеннолетия и изучали, сколько в каждом случае в обществе будет совершеннолетних людей. Исходя из этого рассчитывались годовые бюджеты и планы по сбору налога на доходы физических лиц.</p>
+
+<p>Первая версия программы принимала на вход список всех людей, которые живут в государстве и поучаствовали в переписи населения. Затем ей на вход подавался поток команд вида <strong>AGE N</strong>. Для каждой такой строки программа вычисляла количество совершеннолетних для данного порога и выводила в стандартный вывод сообщение “There are X adult people for maturity age N”. Программа отлично работала и справлялась со списком в несколько миллионов людей.</p>
+
+<p>Но потом начальство срочно захотело больше функций. Появилась новая команда — <strong>WEALTHY M</strong>, в ответ на которую программа должна была выводить суммарный доход <code>M</code> богатейших людей общества в виде “Top-M people have total income X”.</p>
+
+<p>Когда тестирование новой функциональности ещё не было окончено, руководство потребовало немедленно поддержать команду <strong>POPULAR_NAME M/W</strong>, в ответ на которую программа сообщала самое популярное женское или мужское имя в виде “Most popular name among people of gender M is Ivan”.</p>
+
+<p>Предыдущая команда быстро реализовала эту функциональность за два часа до дедлайна, убедилась, что на простейших тестах она корректно работает, и поставила программу заказчику. Естественно, программа у заказчика не заработала, и он попросил её исправить, прислав подробнейшее описание найденных ошибок со всеми деталями. Выглядело оно так: «Ваша программа вообще не работает! Все наши вычисления неверны из-за вашей программы! Срочно исправляйте».</p>
+
+<p>Прежнюю команду, естественно, тут же уволили и наняли вас. Итак, вам дана программа и единственный тест, при помощи которого её проверяли. Проведите больше тестов и разберитесь, что конкретно не работает. Поправьте решение так, чтобы заказчик получил верные данные и остался доволен вашей работой.</p>
+
+<h3>Формат входных данных</h3>
+
+<p>На вход программе поступает число <code>N</code> — количество людей. Далее идут <code>N</code> строк в формате <code>Имя Возраст Доход Пол</code>. Далее идут сами команды, по одной в строке.</p>
+
+<p>Виды команд:</p>
+
+<ul>
+<li><code>AGE N</code>, где <code>N</code> — число типа <code>int</code>;</li>
+<li><code>WEALTHY M</code>, где <code>M</code> — число типа <code>int</code>;</li>
+<li><code>POPULAR_NAME G</code>, где <code>G</code> — символ, который может принимать значения <code>M</code> (man) или <code>W</code> (woman).</li>
+</ul>
+
+<h3>Формат выходных данных</h3>
+
+<p>В зависимости от введённой команды программа должна выводить результат в следующем формате:</p>
+
+<ul>
+<li><code>AGE N</code> — в ответ на неё в отдельной строке программа должна вывести сообщение “There are X adult people for maturity age N”, где <code>X</code> — количество людей, возраст которых не меньше <code>N</code>.</li>
+<li><code>WEALTHY M</code> — в ответ на неё в отдельной строке программа должна вывести сообщение “Top-M people have total income X”, где <code>X</code> — суммарный доход первых <code>M</code> богатейших людей.</li>
+<li><code>POPULAR_NAME M</code> — в ответ на неё в отдельной строке программа должна вывести сообщение “Most popular name among people of gender M is S”, где <code>S</code> — мужское имя, которое встречается больше всего раз. Если таких имён несколько, программа должна вывести лексикографически минимальное. Если таких имён нет, должно быть выведено “No people of gender M”.</li>
+<li><code>POPULAR_NAME W</code> — в ответ на неё в отдельной строке программа должна вывести сообщение “Most popular name among people of gender W is S”, где <code>S</code> — женское имя, которое встречается больше всего раз. Если таких имён несколько, программа должна вывести лексикографически минимальное. Если таких имён нет, должно быть выведено “No people of gender W”.</li>
+</ul>
+
+<h3>Пример ввода</h3>
+
+<pre><code>11
+Ivan 25 1000 M
+Olga 30 623 W
+Sergey 24 825 M
+Maria 42 1254 W
+Mikhail 15 215 M
+Oleg 18 230 M
+Denis 53 8965 M
+Maxim 37 9050 M
+Ivan 47 19050 M
+Ivan 17 50 M
+Olga 23 550 W
+AGE 18
+AGE 25
+WEALTHY 5
+POPULAR_NAME M
+</code></pre>
+
+<h3>Пример вывода</h3>
+
+<pre><code>There are 9 adult people for maturity age 18
+There are 6 adult people for maturity age 25
+Top-5 people have total income 39319
+Most popular name among people of gender M is Ivan
+</code></pre>
+
+<h3>Что отправлять на проверку</h3>
+
+<p>Исправленное решение, корректно обрабатывающее все входные запросы.</p>
+
+<h3>Как будет тестироваться ваш код</h3>
+
+<p>Вашей программе будет отправлено несколько последовательностей команд, которые могут включать как одну команду, так и их последовательности. Внутри последовательностей команды могу повторяться, в том числе одна и та же команда может быть отправлена несколько раз подряд.</p>
+
+<h3>Подсказка</h3>
+
+<p>Чтобы разобраться, что неверно в программе, попробуйте следующий тест:</p>
+
+<pre><code>2
+Maria 30 1000 W
+Semen 5 1000 M
+WEALTHY 2
+WEALTHY 2
+WEALTHY 2
+WEALTHY 2
+</code></pre>
+
+<p>Чтобы убрать причину подобного поведения программы, нужно спрятать все данные в константный объект. Все данные о жителях будут считаны и обработаны внутри инициализации этого объекта и гарантированно не смогут быть изменены в процессе работы программы.</p>
+
+</body>
+</html>

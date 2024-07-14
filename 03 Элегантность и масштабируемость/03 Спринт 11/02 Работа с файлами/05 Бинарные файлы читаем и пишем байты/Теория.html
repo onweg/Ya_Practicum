@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Бинарные файлы: читаем и пишем байты</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Бинарные файлы: читаем и пишем байты</h1>
+
+<p>В файлах хранятся байты. Поэтому не всегда удобно использовать операции <code>&gt;&gt;</code> и <code>&lt;&lt;</code>, которые читают и пишут данные определённого формата. Иногда задача в том, чтобы прочитать или записать определённое количество байтов.</p>
+
+<p>В потоках чтения есть метод <code>get</code>. Если вызвать его без параметров, он прочтёт один байт и возвратит <code>int</code>. Обычно <code>int</code> находится в пределах от 0 до 255, но если достигнут конец файла или произошла ошибка, это число равно специальному отрицательному значению, которое можно получить вызовом <code>istream::char_traits::eof()</code>. Название этого метода — аббревиатура от “end of file”.</p>
+
+<p>Чтобы прочитать <code>n</code> байт, можно использовать такой цикл:</p>
+
+<pre><code class="language-cpp">size_t ReadExact(istream&amp; input, char* dst, size_t count) {
+    for (size_t i = 0; i &lt; count; ++i) {
+        int c = input.get();
+        if (c == istream::traits_type::eof() || !input) {
+            return i;
+        }
+        dst[i] = static_cast&lt;char&gt;(c);
+    }
+
+    return count;
+}
+</code></pre>
+
+<p>Указатель здесь позволяет не ограничиваться определённой структурой данных. Можно вызывать этот метод для чтения в <code>string</code>, <code>vector&lt;char&gt;</code>, <code>array&lt;char, N&gt;</code> и другие типы. Однако у сырого указателя есть свои минусы: даже при включении отладочных определений выход за пределы памяти не будет обнаружен. Подобная концепция идёт ещё из языка C, она будет подробно разобрана в спринте 12.</p>
+
+<p>Делать свою функцию <code>ReadExact</code> необязательно — для чтения определённого количества байтов у потока <code>istream</code> есть специальный метод <code>read</code>. Он устроен аналогично, за исключением типа возврата — результатом будет не количество прочитанных символов, как в функции <code>ReadExact</code>, а сам поток, как во многих других методах потоков. Чтобы узнать количество прочитанных символов, после <code>read</code> вызовите метод <code>gcount</code>. Сравним по скорости собственную реализацию, использующую <code>get</code>, со встроенным методом <code>read</code>:</p>
+
+<pre><code class="language-cpp">#include &quot;log_duration.h&quot;
+
+#include &lt;fstream&gt;
+#include &lt;iostream&gt;
+#include &lt;random&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+size_t ReadExact(istream&amp; input, char* dst, size_t count) {
+    for (size_t i = 0; i &lt; count; ++i) {
+        int c = input.get();
+        if (c == istream::traits_type::eof() || !input) {
+            return i;
+        }
+        dst[i] = static_cast&lt;char&gt;(c);
+    }
+
+    return count;
+}
+
+string GenerateRandomString(size_t size) {
+    string random_str(size, 0);
+    static mt19937 engine;
+
+    for (char&amp; c : random_str) {
+        c = static_cast&lt;char&gt;(uniform_int_distribution&lt;int&gt;('A', 'Z')(engine));
+    }
+
+    return random_str;
+}
+
+int main() {
+    // размер файла 10 мегабайт
+    static const int FILE_SIZE = 10 * 1024 * 1024;
+    static const int READ_COUNT = 10;
+
+    // создаём файл нужного размера
+    {
+        ofstream test_out(&quot;test.txt&quot;);
+        test_out &lt;&lt; GenerateRandomString(FILE_SIZE);
+    }
+
+    vector&lt;char&gt; buffer(FILE_SIZE);
+
+    // прочитаем его заданное количество раз двумя способами
+    {
+        LOG_DURATION(&quot;multiple get&quot;);
+        ifstream test_in(&quot;test.txt&quot;);
+        for (int i = 0; i &lt; READ_COUNT; ++i) {
+            test_in.seekg(0);
+            ReadExact(test_in, buffer.data(), FILE_SIZE);
+        }
+    }
+
+    {
+        LOG_DURATION(&quot;stream read&quot;);
+        ifstream test_in(&quot;test.txt&quot;);
+        for (int i = 0; i &lt; READ_COUNT; ++i) {
+            test_in.seekg(0);
+            test_in.read(buffer.data(), FILE_SIZE);
+        }
+    }
+}
+</code></pre>
+
+<p>Каждым методом прочитано в общей сложности 100 мегабайт. Посмотрим на результат:</p>
+
+<pre><code class="language-cpp">multiple get: 8933 ms
+stream read: 351 ms
+</code></pre>
+
+<p>В этом примере метод <code>read</code> читает со скоростью примерно 280 Мбит/с, а многократные <code>get</code> показывают всего 11 Мбит/с.</p>
+
+<p>Справедливости ради стоит отметить, что измерение скорости операций с файлом не всегда надёжно. Из-за особенностей диска время может сильно варьироваться. Чтение даже одного байта в некоторых ситуациях может занимать десятки секунд. Напротив, если файл был недавно прочитан, его содержимое, скорее всего, находится в кэше диска, и чтение будет очень быстрым. Но в нашем случае результат воспроизводимый.</p>
+
+<p>Можно сделать такой вывод: <code>get</code> хорош, если требуется ровно один символ, в зависимости от которого нужно решить, что делать дальше. Но для чтения большого файла он не годится. Можно также использовать знакомый <code>getline</code>, чтобы прочитать всё до определённого символа. Запомните: каждая потоковая операция выполняет несколько вспомогательных вызовов, обрабатывает флаги ошибок и требует немалых накладных расходов. Следует свести количество потоковых операций к минимуму.</p>
+
+<p>Также <code>get</code> неприемлем, если нужно прочитать файл целиком и что-нибудь сделать с каждым символом. Вместо этого используйте буфер — не слишком маленький, но и не занимающий много памяти. Хороший размер буфера — один килобайт. В этом случае накладные расходы сокращаются более чем в тысячу раз и становятся незначительными по сравнению с самим чтением данных.</p>
+
+<p>Аналоги <code>get</code> и <code>read</code> для записи — методы <code>put</code> и <code>write</code>. На них распространяются те же правила, что и на методы чтения: не следует использовать <code>put</code> для записи многих символов подряд. Напишем собственную версию утилиты <code>cp</code>, которая копирует файлы. При этом применим буфер:</p>
+
+<pre><code class="language-cpp">#include &lt;array&gt;
+#include &lt;fstream&gt;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+
+using namespace std;
+
+int main(int argc, const char** argv) {
+    // при неверных аргументах выводим ошибку и выходим с кодом
+    if (argc != 3) {
+        cerr &lt;&lt; &quot;Usage: &quot;sv &lt;&lt; argv[0] &lt;&lt; &quot; &lt;in file&gt; &lt;out file&gt;&quot;sv &lt;&lt; endl;
+        return 1;
+    }
+
+    ifstream in_file(argv[1]);
+    if (!in_file) {
+        cerr &lt;&lt; &quot;Can't open input file&quot;sv &lt;&lt; endl;
+        return 2;
+    }
+
+    ofstream out_file(argv[2]);
+    if (!out_file) {
+        cerr &lt;&lt; &quot;Can't open output file&quot;sv &lt;&lt; endl;
+        return 2;
+    }
+
+    // размер буфера один килобайт
+    static const int BUFF_SIZE = 1024;
+    std::array&lt;char, BUFF_SIZE&gt; buffer;
+
+    do {
+        in_file.read(buffer.data(), BUFF_SIZE);
+        out_file.write(buffer.data(), in_file.gcount());
+    } while (in_file);
+}
+</code></pre>
+
+<hr>
+
+<p>Почему открытие файлов написано не так?</p>
+
+<pre><code class="language-cpp">    ifstream in_file(argv[1]);
+    ofstream out_file(argv[2]);
+
+    if (!in_file) {
+        cerr &lt;&lt; &quot;Can't open input file&quot;sv &lt;&lt; endl;
+        return 2;
+    }
+
+    if (!out_file) {
+        cerr &lt;&lt; &quot;Can't open output file&quot;sv &lt;&lt; endl;
+        return 2;
+    }
+</code></pre>
+
+<ul>
+<li><p>Так захотелось, никакой разницы нет.</p></li>
+
+<li><p>Чтобы не портить и не создавать выходной файл при ошибке открытия входного.</p></li>
+
+<li><p>Код из примера более эффективный, чем код из вопроса.</p></li>
+
+<li><p>Если сразу сделать <code>return</code> в первом <code>if</code>, может оказаться, что выходной файл не закрыли, и возникнет утечка ресурсов.</p></li>
+</ul>
+
+<p>В таком варианте всегда производится попытка открыть выходной файл. Если входной файл не был открыт, будет создан ненужный пустой файл. Хуже того, такой код может обнулить существующий выходной файл и ничего в него не записать. Это приведёт к очень неприятным последствиям, если, например, перепутать входной и выходной файл при запуске утилиты.</p>
+
+<hr>
+
+<p>Вам могло показаться странным, что сначала прочитанное пишется в файл, и только потом проверяется корректность операции чтения. Но таковы особенности работы с <code>read</code> — операция считается успешной, только если прочитано ровно столько символов, сколько мы запросили. Последняя часть файла, скорее всего, окажется меньше буфера, и поток будет считать, что <code>read</code> не удался. Надёжный способ узнать, сколько символов прочитано, — метод <code>gcount</code>. Даже если случилась какая-либо ошибка во время чтения, его значение будет 0, и <code>write</code> ничего не запишет.</p>
+
+<p>Протестируем программу, назвав её my_cp. Копируем текстовый файл canterburry.txt и сравним его с исходным утилитой diff:</p>
+
+<pre><code class="language-cpp">my_cp canterburry.txt canterburry-copy.txt
+diff canterburry.txt canterburry-copy.txt
+</code></pre>
+
+<p>Вывод diff пуст, значит, файл скопировался правильно. Пусть теперь программа копирует саму себя:</p>
+
+<pre><code class="language-cpp">my_cp &quot;my_cp.exe&quot; &quot;my_cp_copy.exe&quot;
+my_cp_copy &quot;canterburry.txt&quot; &quot;canterburry-copy.txt&quot;
+</code></pre>
+
+<p>При попытке запуска этих команд под Windows выскакивает такое сообщение:</p>
+
+<p><img src="data:image/png;base64,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" alt="image" /></p>
+
+<p>Файл скопировался неправильно. Выходит, программа работает некорректно и не может скопировать бинарный файл.</p>
+
+<p>Это опасная ошибка, которая исправляется добавлением флага <code>binary</code> при открытии обоих файлов — входного и выходного. Без этого флага поток может вносить некоторые изменения в данные при чтении и записи. Например, автоматически исправлять концы строк или пропускать некоторые непечатные символы. Используйте <code>binary</code> везде, кроме случаев, когда вы уверены, что придётся работать именно с текстовым файлом.</p>
+
+<p>Нужно модифицировать две строки с объявлением потоковых переменных, добавив в вызов конструктора второй параметр:</p>
+
+<pre><code class="language-cpp">    ifstream in_file(argv[1], ios::in | ios::binary);
+    if (!in_file) {
+        cerr &lt;&lt; &quot;Can't open input file&quot;sv &lt;&lt; endl;
+        return 2;
+    }
+
+    ofstream out_file(argv[2], ios::out | ios::binary);
+    if (!out_file) {
+        cerr &lt;&lt; &quot;Can't open output file&quot;sv &lt;&lt; endl;
+        return 2;
+    }
+</code></pre>
+
+</body>
+</html>

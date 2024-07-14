@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Юнит-тестирование функции</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1><p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p> Юнит-тестирование функции</h1>
+
+<p>Выполняя ручное тестирование программы в прошлом уроке, вы наверняка отметили следующее:</p>
+
+<ul>
+<li>Даже для такой простой программы как «‎Выбор наименьшей строки» понадобилось шесть наборов тестов. Чем сложнее ваша программа, тем больше тестов придётся делать.</li>
+<li>Полностью тестировать код вручную после каждого изменения — трудоёмкое занятие. Мотивации оно не прибавит.</li>
+</ul>
+
+<p>Эффективнее провести юнит-тестирование. Это подход в разработке, позволяющий автоматизировать проверку отдельных модулей программы. В роли модулей, как правило, выступают классы и функции.</p>
+
+<p>Тестирование отдельных компонентов программы заключается в том, что дополнительно к основному коду пишут модульные тесты — вспомогательный код, проверяющий поведение классов и функций. Напишете тесты один раз — сможете запускать их регулярно и за доли секунды проверять, как работают модули. Юнит-тесты можно использовать сколько угодно раз и сразу получать обратную связь о том, как изменения в коде программы повлияли на её работу.</p>
+
+<p>Разработаем юнит-тесты для программы «‎Выбор наименьшей строки». Чтобы сделать это, код сначала нужно декомпозировать.</p>
+
+<h3><p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p> Декомпозиция</h3>
+
+<p>Код программы «‎Выбор наименьшей строки» мы написали в прошлом уроке:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main() {
+    string a, b, c;
+
+    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+
+    if (a &lt;= b &amp;&amp; a &lt;= c) {  // Первая строка минимальная?
+        cout &lt;&lt; a &lt;&lt; endl;
+    } else if (b &lt;= a &amp;&amp; b &lt;= c) {  // Вторая строка минимальная?
+        cout &lt;&lt; b &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; c &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Её работу можно условно разделить на две части:</p>
+
+<ol>
+<li>Ввод и вывод данных. Этот код разбирает запросы, поступающие со стандартного ввода, и выводит результаты;</li>
+<li>Нахождение минимальной из трёх строк.</li>
+</ol>
+
+<p><p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p> Мы разграничили пользовательский интерфейс и логику программы. Благодаря этому стало возможным менять интерфейс, не меняя логику. Тестировать код тоже будет проще.</p>
+
+<p>Выполним декомпозицию программы: выделим функцию нахождения минимальной строки:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+const string&amp; FindMinStr(const string&amp; a, const string&amp; b, const string&amp; c) {
+    if (a &lt;= b &amp;&amp; a &lt;= c) {
+        return a;
+    } else if (b &lt;= a &amp;&amp; b &lt;= c) {
+        return b;
+    }
+    return c;
+}
+
+int main() {
+    string a, b, c;
+
+    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+
+    cout &lt;&lt; FindMinStr(a, b, c) &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Упростился код программы в целом и функции <code>main</code> в частности. Код нахождения минимальной строки выделен в функцию с понятным именем.</p>
+
+<p>Предварительная декомпозиция на отдельные классы и функции облегчает не только тестирование, но и читаемость кода. В нашем случае имя функции <code>FindMinStr</code> однозначно говорит, что она делает. Поэтому необходимость комментариев сведена к минимуму.</p>
+
+<h2><p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p> Пишем первый модульный тест</h2>
+
+<p>Теперь напишем для функции модульный тест. Он должен вызывать функцию <code>FindMinStr</code> с некоторыми параметрами и сравнивать её результат с ожидаемым значением. Для проверок воспользуемся макросом <a href="https://en.cppreference.com/w/cpp/error/assert">assert</a>.</p>
+
+<p>Макросы — специальные конструкции языка C++. Как <code>#include</code>, они выполняются на этапе предварительной обработки исходного текста программы. Макросы позволяют заменить одну последовательность символов исходного кода на другую. Применив макрос  <code>assert</code>, можем «вставить» в код проверку логического условия. Если во время выполнения программы условие будет истинно, она продолжит работать. Если нет — программа выведет диагностическую информацию и аварийно завершит работу. Макрос <code>assert</code> проверяет условия, нарушение которых говорит об ошибках в программе. Подключается он директивой <code>#include &lt;cassert&gt;</code>.</p>
+
+<p>Код нашего теста будет размещаться в функции <code>TestFindMinStr</code>, вызываемой в начале функции <code>main</code>. Тест проверит работу функции <code>FindMinStr</code> на тех же классах входных данных, что и при ручном тестировании. Чтобы проконтролировать поведение функции на граничных условиях, добавим дополнительные проверки на пустых строках:</p>
+
+<pre><code class="language-cpp">#include &lt;cassert&gt;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+const string&amp; FindMinStr(const string&amp; a, const string&amp; b, const string&amp; c) {
+    if (a &lt;= b &amp;&amp; a &lt;= c) {
+        return a;
+    } else if (b &lt;= a &amp;&amp; b &lt;= c) {
+        return b;
+    }
+    return c;
+}
+
+void TestFindMinStr() {
+    assert(FindMinStr(&quot;alpha&quot;s, &quot;beta&quot;s, &quot;gamma&quot;s) == &quot;alpha&quot;s);
+    assert(FindMinStr(&quot;beta&quot;s, &quot;alpha&quot;s, &quot;gamma&quot;s) == &quot;alpha&quot;s);
+    assert(FindMinStr(&quot;gamma&quot;s, &quot;beta&quot;s, &quot;alpha&quot;s) == &quot;alpha&quot;s);
+
+    assert(FindMinStr(&quot;alpha&quot;s, &quot;beta&quot;s, &quot;alpha&quot;s) == &quot;alpha&quot;s);
+    assert(FindMinStr(&quot;beta&quot;s, &quot;alpha&quot;s, &quot;alpha&quot;s) == &quot;alpha&quot;s);
+    assert(FindMinStr(&quot;alpha&quot;s, &quot;alpha&quot;s, &quot;beta&quot;s) == &quot;alpha&quot;s);
+
+    assert(FindMinStr(&quot;alpha&quot;s, &quot;alpha&quot;s, &quot;alpha&quot;s) == &quot;alpha&quot;s);
+
+    assert(FindMinStr(&quot;&quot;s, &quot;alpha&quot;s, &quot;beta&quot;s) == &quot;&quot;s);
+    assert(FindMinStr(&quot;beta&quot;s, &quot;&quot;s, &quot;alpha&quot;s) == &quot;&quot;s);
+    assert(FindMinStr(&quot;beta&quot;s, &quot;alpha&quot;s, &quot;&quot;s) == &quot;&quot;s);
+
+    cout &lt;&lt; &quot;TestFindMinStr is OK&quot;s &lt;&lt; endl;
+}
+
+int main() {
+    TestFindMinStr();
+
+    string a, b, c;
+
+    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+
+    cout &lt;&lt; FindMinStr(a, b, c) &lt;&lt; endl;
+}
+</code></pre>
+
+<p><p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p> Скомпилируем и запустим программу. Она выведет сообщение <code>TestFindMinStr OK</code> и будет ожидать ввод данных от пользователя. Вывод сообщения показывает, что мы не забыли вызвать тест. Убедившись в этом, можем убрать вывод сообщения и не засорять вывод программы служебными данными. Первый модульный тест прошёл успешно.</p>
+
+<p>Но наибольшую пользу модульные тесты приносят, когда падают, обнаружив ошибку. Воспроизведём эту ситуацию, умышленно изменив <code>&lt;=</code> на <code>&lt;</code> в условных выражениях:</p>
+
+<pre><code class="language-cpp">const string&amp; FindMinStr(const string&amp; a, const string&amp; b, const string&amp; c) {
+    if (a &lt; b &amp;&amp; a &lt; c) {
+        return a;
+    } else if (b &lt; a &amp;&amp; b &lt; c) {
+        return b;
+    }
+    return c;
+}
+</code></pre>
+
+<p>Программа выведет сообщение об ошибке и аварийно завершит работу, так как одна из проверок кончилась неудачей:</p>
+
+<pre><code>minstr.cpp:23: void TestFindMinStr(): Assertion `FindMinStr(&quot;alpha&quot;s, &quot;alpha&quot;s, &quot;beta&quot;s) == &quot;alpha&quot;s' failed.
+</code></pre>
+
+<p><p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p> Диагностическая информация, выведенная макросом <code>assert</code>, содержит имя файла и номер строки с условием, не прошедшим проверку. Также здесь указан фрагмент исходного кода, расположенный внутри параметров макроса. Это поможет проанализировать причины возникновения ошибки и исправить её.</p>
+
+<p>Юнит-тест автоматически проверил работу функции <code>FindMinStr</code>. Тестировать её вручную после каждого внесённого изменения уже не нужно.</p>
+
+<hr>
+
+<p><p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p> Чем юнит-тесты полезны при отладке программы? Выберите несколько ответов.</p>
+
+<ul>
+<li><p>Юнит-тесты позволяют выполнить программу по шагам.</p></li>
+
+<li><p>Их несложно придумать, так как они тестируют отдельную часть большой программы.</p></li>
+
+<li><p>Юнит-тесты сами находят данные, на которых программа работает неверно.</p></li>
+
+<li><p>Упавшие юнит-тесты указывают, в каком компоненте программы есть ошибка.</p></li>
+
+<li><p>Юнит-тесты позволяют проверить работоспособность каждого компонента программы на крайних случаях входных данных.</p></li>
+
+<li><p>Успешно выполнившиеся юнит-тесты гарантируют, что тестируемая ими функция или класс не содержит ошибок.</p></li>
+</ul>
+
+<hr>
+
+<p><p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p> Что надо сделать, если юнит-тесты нашли ошибку в решении задачи?</p>
+
+<ul>
+<li><p>Исправить ошибку и отправить решение на проверку.</p></li>
+
+<li><p>Отправить решение на проверку.</p></li>
+
+<li><p>Исправить ошибку и повторно протестировать программу на всём наборе тестов. Если новых ошибок нет, отправить решение на проверку.</p></li>
+</ul>
+
+<hr>
+
+<p><p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p> Зачем декомпозировать программу? Выберите несколько ответов.</p>
+
+<ul>
+<li><p>Декомпозиция упрощает отладку программы.</p></li>
+
+<li><p>Декомпозиция программы гарантирует её корректность.</p></li>
+
+<li><p>Разбиение программы на отдельные блоки позволяет протестировать каждый из них изолированно.</p></li>
+
+<li><p>Декомпозиция кода упрощает его чтение, так как вводит понятные имена функций и классов.</p></li>
+
+<li><p>Программа, разбитая на отдельные блоки, работает быстрее.</p></li>
+</ul>
+
+</body>
+</html>
+<p>Скачано с сайта - <a href=https://supersliv.biz/>https://supersliv.biz – Присоединяйся к лучшим</a></p>

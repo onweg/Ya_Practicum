@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Полиморфизм</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Полиморфизм</h1>
+
+<p>В прошлом уроке вы узнали о наследовании — механизме, который позволяет производному классу сохранять данные и поведение родительского класса. Наиболее распространённая форма наследования — это публичное наследование, его ещё называют наследованием интерфейса.</p>
+
+<p>В жизни мы часто используем устройства, использующие стандартные интерфейсы:  электрические розетки, разъёмы USB и HDMI. При этом один и тот же интерфейс позволяет подключать совершенно непохожие друг на друга устройства. Например, USB позволяет подключить к компьютеру как флэш-накопитель, так и мышь и веб-камеру.</p>
+
+<p>В этом уроке вы научитесь использовать полиморфизм — один из важнейших механизмов объектно-ориентированного программирования, который позволяет работать через один интерфейс со множеством реализаций.</p>
+
+<h3>Приведение типа вверх по иерархии класса</h3>
+
+<p>При публичном наследовании между классом-наследником и классом-родителем возникает отношение «является». При этом ссылки и указатели на дочерний класс могут неявно преобразовываться к ссылкам и указателям на родительский класс. Это позволяет наследнику сохранять интерфейс родителя — везде, где ожидается ссылка или указатель на родительский класс, можно использовать класс-наследник.</p>
+
+<p>Рассмотрим эту возможность на примере иерархии классов <code>Person</code> и <code>Worker</code>:</p>
+
+<pre><code class="language-cpp">class Person {
+public:
+    Person(const string&amp; name, int age)
+        : name_(name)
+        , age_(age) {
+    }
+
+    int GetAge() const { return age_; }
+    const string&amp; GetName() const { return name_; }
+    void Dance() const {
+        cout &lt;&lt; name_ &lt;&lt; &quot; is dancing&quot;s &lt;&lt; endl;
+    }
+
+private:
+    string name_;
+    int age_;
+};
+
+enum class WorkerSpeciality { BLACKSMITH, CARPENTER, WOOD_CHOPPER, ENGINEER, PLUMBER };
+
+class Worker : public Person {
+public:
+    Worker(const string&amp; name, int age, WorkerSpeciality speciality)
+        : Person(name, age)
+        , speciality_(speciality) {
+    }
+    void Work() {
+        cout &lt;&lt; GetName() &lt;&lt; &quot; is working&quot;s &lt;&lt; endl;
+    }
+
+private:
+    WorkerSpeciality speciality_;
+};
+</code></pre>
+
+<p>Совершеннолетний человек может прийти в ночной клуб, чтобы потанцевать:</p>
+
+<pre><code class="language-cpp">void VisitNightClub(const Person&amp; person) {
+    if (person.GetAge() &gt;= 18) {
+        person.Dance();
+    } else {
+        cout &lt;&lt; person.GetName() &lt;&lt; &quot; is too young to visit night clubs&quot;s &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Функция <code>VisitNightClub</code> зависит от общего типа <code>Person</code> и может принимать не только экземпляры класса <code>Person</code>, но и других классов, публично унаследованных от него. Таким образом, наследование способствует повторному использованию кода:</p>
+
+<pre><code class="language-cpp">int main() {
+    Person boy(&quot;Harry Potter&quot;s, 11);
+    VisitNightClub(boy);
+
+    Worker worker(&quot;Mario&quot;s, 40, WorkerSpeciality::PLUMBER);
+    VisitNightClub(worker);
+}
+</code></pre>
+
+<pre><code>Harry Potter is too young to visit night clubs
+Mario is dancing
+</code></pre>
+
+<p>Публичное наследование позволяет приводить тип ссылок и указателей, ссылающихся на экземпляры классов-наследников, вверх по иерархии классов и тем самым одинаково работать с наследниками через указатели и ссылки на родительский класс.</p>
+
+<p>Благодаря этому можно в одном контейнере хранить указатели типа <code>Person*</code>, которые в действительности могут ссылаться на любой из его наследников:</p>
+
+<pre><code class="language-cpp">int main() {
+    Person boy(&quot;Harry Potter&quot;s, 11);
+    Worker worker(&quot;Mario&quot;s, 40, WorkerSpeciality::PLUMBER);
+    vector&lt;const Person*&gt; people{&amp;boy, &amp;worker};
+
+    for (const Person* person : people) {
+        VisitNightClub(*person);
+    }
+}
+</code></pre>
+
+<p>В этом примере вектор указателей <code>people</code> можно сравнить с очередью посетителей в ночной клуб. В ней могут стоять разные люди вне зависимости от их профессиональной деятельности. Единственный критерий допуска для них — совершеннолетие.</p>
+
+<p>Рассмотрим, за счёт чего происходит преобразование типа ссылок и указателей вверх по иерархии классов. Внутри блока данных класса-наследника содержится порция данных класса-родителя. Например, в начале блока данных класса <code>Worker</code> может находиться блок данных его родителя, класса <code>Person</code>.</p>
+
+<p><img src="data:image/png;base64,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" alt="image" /></p>
+
+<p>Благодаря одинаковому расположению полей <code>name_</code> и <code>age_</code> в самом классе <code>Person</code> и в его наследниках, функция <code>VisitNigthClub</code> может работать с <code>Person</code> и его наследниками через ссылку на базовый класс.</p>
+
+<h3>Виртуальные методы. Полиморфизм</h3>
+
+<p>Наследование позволяет наследникам не только использовать методы класса родителя, но и заменять их поведение на собственное.</p>
+
+<p>Рассмотрим эту возможность на следующем примере: сделаем, чтобы Рабочий во время танца от восторга выкрикивал «‎Оп-па!»‎. При этом обычные экземпляры <code>Person</code> должны танцевать по-старому.</p>
+
+<p>Метод класса-родителя, который может переопределять классы-наследники, в C++ должен быть объявлен виртуальным. Для этого используют ключевое слово <code>virtual</code>:</p>
+
+<pre><code class="language-cpp">class Person {
+public:
+    ...    
+    // Реализация виртуального метода может быть переопределена в классах-наследниках
+    virtual void Dance() const { 
+        cout &lt;&lt; name_ &lt;&lt; &quot; is dancing&quot;s &lt;&lt; endl;
+    }
+
+private:
+    string name_;
+    int age_;
+};
+</code></pre>
+
+<p>В классе-наследнике переопределяемый виртуальный метод объявляется со спецификатором <code>override</code>. При необходимости внутри метода класса-наследника можно вызвать реализацию метода родительского класса, написав перед именем вызываемого метода <code>ИмяКлассаРодителя::</code>. В нашем случае прежде чем выкрикнуть «‎Оп-па!»‎, рабочий вызывает реализацию метода <code>Dance</code> класса <code>Person</code>, чтобы рабочий станцевал как обычный человек:</p>
+
+<pre><code class="language-cpp">class Worker : public Person {
+public:
+    ...
+    // Метод Dance переопределяет (override) реализацию базового класса
+    void Dance() const override {
+        // Сначала вызываем метод Dance родительского класса
+        Person::Dance();
+        // Добавляем дополнительное поведение
+        cout &lt;&lt; &quot;Oppa!&quot;s &lt;&lt; endl;
+    }
+
+private:
+    WorkerSpeciality speciality_;
+};
+</code></pre>
+
+<p>Благодаря тому, что метод <code>Dance</code> виртуальный, при его вызове даже с использованием ссылки на базовый класс будет вызвана реализация класса наследника:</p>
+
+<pre><code class="language-cpp">int main() {
+    Person person(&quot;Ivan Ivanov&quot;s, 30);
+    VisitNightClub(person);
+
+    Worker worker(&quot;Mario&quot;s, 40, WorkerSpeciality::PLUMBER);
+    VisitNightClub(worker);
+}
+</code></pre>
+
+<p>Теперь в ночном клубе <code>Person</code> и <code>Worker</code> будут танцевать по-разному:</p>
+
+<pre><code>Ivan Ivanov is dancing
+Mario is dancing
+Oppa!
+</code></pre>
+
+<p>Возможность работы с разными реализациями через один и тот же интерфейс называется <strong>полиморфизм</strong>. В данном случае речь идёт о полиморфизме времени выполнения: реализация вызываемого метода выбирается во время работы программы. С другим вариантом полиморфизма — полиморфизмом времени компиляции — вы познакомились раньше, когда проходили шаблоны и перегрузку функций и операторов.</p>
+
+<p>Чтобы полиморфизм времени выполнения корректно работал, метод родительского класса, который можно переопределить в наследниках, должен быть объявлен виртуальным. Только в этом случае компилятор будет знать, что у этого метода возможны несколько реализаций в классах наследниках. Тогда компилятор поместит в объект дополнительную информацию, которая позволит во время выполнения вызвать верную реализацию метода.</p>
+
+<p>Не менее важно в методе наследника указывать спецификатор <code>override</code> у переопределяемого метода. Во-первых, при чтении кода будет видно, что данный метод переопределяет метод класса-родителя. Во-вторых, <code>override</code> требует, чтобы в одном из родительских классов был виртуальный метод с идентичной сигнатурой. Это позволяет обнаружить ошибку, описанную далее.</p>
+
+<p>Если метод <code>Person::Dance</code> не объявить виртуальным, метод <code>Dance</code> класса <code>Worker</code> лишь скроет одноимённый метод родителя:</p>
+
+<pre><code class="language-cpp">class Person {
+public:
+    ...    
+    // Метод Dance умышленно объявлен невиртуальным
+    void Dance() const { 
+        cout &lt;&lt; name_ &lt;&lt; &quot; is dancing&quot;s &lt;&lt; endl;
+    }
+};
+
+class Worker : public Person {
+public:
+    ...
+    // Метод Dance класса Worker замещает собой невиртуальный метод Dance родительского класса
+    void Dance() const {
+        Person::Dance();
+        cout &lt;&lt; &quot;Oppa!&quot;s &lt;&lt; endl;
+    }
+};
+</code></pre>
+
+<p>Результат вызова невиртуального метода <code>Dance</code> у одного и того же объекта будет зависеть от типа ссылки или указателя на объект, которые используются для вызова метода.</p>
+
+<pre><code class="language-cpp">void VisitNightClub(const Person&amp; person) {
+    if (person.GetAge() &gt;= 18) {
+        // Компилятор вызовет метод Person::Dance, так как он не виртуальный
+        person.Dance();
+    } else {
+        cout &lt;&lt; person.GetName() &lt;&lt; &quot; is too young to visit night club&quot;s &lt;&lt; endl;
+    }
+}
+
+int main() {
+    Worker worker(&quot;Mario&quot;s, 40, WorkerSpeciality::PLUMBER);
+    // Здесь будет вызван метод Worker::Dance, так он вызывается у переменной типа Worker
+    worker.Dance();
+
+    VisitNightClub(worker);
+}
+</code></pre>
+
+<p>Внутри функции <code>VisitNightClub</code> переменная <code>person</code> будет ссылкой на <code>Person</code>, поэтому будет вызван метод <code>Person::Dance</code>. Внутри функции <code>main</code> компилятор знает реальный тип переменной <code>worker</code>, поэтому будет вызван метод <code>Worker::Dance</code>:</p>
+
+<pre><code>Mario is dancing
+Oppa!
+Mario is dancing
+</code></pre>
+
+<p>Эту ошибку можно обнаружить во время компиляции, указав спецификатор <code>override</code> у метода <code>Worker::Dance</code>. В этом случае компилятор выдал бы ошибку при попытке переопределить невиртуальный метод.</p>
+
+<p>По умолчанию в C++ методы класса невиртуальные, так как их вызов проще и быстрее вызова виртуальных методов. Кроме того, объект без виртуальных методов занимает меньше места в памяти. Это соответствует философии C++: «Вы не платите за те функции языка, которые не используете».</p>
+
+<p>Подведём итоги.</p>
+
+<ul>
+<li>Объявляйте метод родительского класса виртуальным, если нужно дать подклассам переопределять реализацию этого метода. В дочерних классах используйте спецификатор <code>override</code>, когда метод переопределяет реализацию родителя.</li>
+<li>Если возможность переопределения метода в подклассах не требуется, не объявляйте метод виртуальным, а в классах-наследниках не объявляйте методов с таким же именем.</li>
+<li>Метод класса, который объявлен виртуальным в родительском классе, остаётся виртуальным и во всех его наследниках.</li>
+</ul>
+
+</body>
+</html>

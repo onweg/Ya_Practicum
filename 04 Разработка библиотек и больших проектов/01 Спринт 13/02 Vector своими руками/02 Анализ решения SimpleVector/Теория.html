@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Анализ решения SimpleVector</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Анализ решения SimpleVector</h1>
+
+<p>В шестом и седьмом спринтах вы познакомились с указателями и динамической памятью и самостоятельно разработали класс <code>SimpleVector</code>. Этот шаблонный класс инкапсулировал работу с массивом в динамической памяти, предоставляя сходный с классом <code>vector</code> набор операций.</p>
+
+<p>Вы, вероятно, задавались вопросом, насколько <code>SimpleVector</code> эффективен по сравнению с вектором из стандартной библиотеки. В этом уроке возьмём одну из возможных реализаций <code>SimpleVector</code> ****и проверим.</p>
+
+<p>Используем вспомогательную структуру, которая подсчитывает вызовы конструкторов, операций присваивания и деструкторов:</p>
+
+<pre><code class="language-cpp">struct C {
+    C() noexcept {
+        ++def_ctor;
+    }
+    C(const C&amp; /*other*/) noexcept {
+        ++copy_ctor;
+    }
+    C(C&amp;&amp; /*other*/) noexcept {
+        ++move_ctor;
+    }
+    C&amp; operator=(const C&amp; other) noexcept {
+        if (this != &amp;other) {
+            ++copy_assign;
+        }
+        return *this;
+    }
+    C&amp; operator=(C&amp;&amp; /*other*/) noexcept {
+        ++move_assign;
+        return *this;
+    }
+    ~C() {
+        ++dtor;
+    }
+
+    static void Reset() {
+        def_ctor = 0;
+        copy_ctor = 0;
+        move_ctor = 0;
+        copy_assign = 0;
+        move_assign = 0;
+        dtor = 0;
+    }
+
+    inline static size_t def_ctor = 0;
+    inline static size_t copy_ctor = 0;
+    inline static size_t move_ctor = 0;
+    inline static size_t copy_assign = 0;
+    inline static size_t move_assign = 0;
+    inline static size_t dtor = 0;
+};
+
+void Dump() {
+    using namespace std;
+    cout &lt;&lt; &quot;Def ctors: &quot;sv &lt;&lt; C::def_ctor              //
+         &lt;&lt; &quot;, Copy ctors: &quot;sv &lt;&lt; C::copy_ctor          //
+         &lt;&lt; &quot;, Move ctors: &quot;sv &lt;&lt; C::move_ctor          //
+         &lt;&lt; &quot;, Copy assignments: &quot;sv &lt;&lt; C::copy_assign  //
+         &lt;&lt; &quot;, Move assignments: &quot;sv &lt;&lt; C::move_assign  //
+         &lt;&lt; &quot;, Dtors: &quot;sv &lt;&lt; C::dtor &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Исходный код класса <code>SimpleVector</code> содержится в файле <code>simple_vector.h</code>.</p>
+
+<ul>
+<li><p><code>simple_vector.h</code></p>
+
+<pre><code class="language-cpp">#pragma once
+#include &lt;algorithm&gt;
+#include &lt;cassert&gt;
+#include &lt;cstdlib&gt;
+#include &lt;stdexcept&gt;
+#include &lt;utility&gt;
+
+
+template &lt;typename Type&gt;
+class ArrayPtr {
+public:
+    ArrayPtr() = default;
+
+
+    explicit ArrayPtr(size_t size)
+        : raw_ptr_(size != 0 ? new Type[size] : nullptr) {
+    }
+
+
+    explicit ArrayPtr(Type* raw_ptr) noexcept
+        : raw_ptr_(raw_ptr) {
+    }
+
+
+    ArrayPtr(const ArrayPtr&amp;) = delete;
+
+
+    ArrayPtr(ArrayPtr&amp;&amp; other) {
+        raw_ptr_ = std::exchange(other.raw_ptr_, nullptr);
+    }
+
+
+    ~ArrayPtr() {
+        delete[] raw_ptr_;
+    }
+
+
+    ArrayPtr&amp; operator=(const ArrayPtr&amp;) = delete;
+
+
+    ArrayPtr&amp; operator=(ArrayPtr&amp;&amp; other) {
+        raw_ptr_ = std::exchange(other.raw_ptr_, nullptr);
+        return *this;
+    }
+
+
+    Type* Release() noexcept {
+        Type* p = raw_ptr_;
+        raw_ptr_ = nullptr;
+        return p;
+    }
+
+
+    Type&amp; operator[](size_t index) noexcept {
+        return raw_ptr_[index];
+    }
+
+
+    const Type&amp; operator[](size_t index) const noexcept {
+        return raw_ptr_[index];
+    }
+
+
+    explicit operator bool() const {
+        return raw_ptr_ != nullptr;
+    }
+
+
+    Type* Get() const noexcept {
+        return raw_ptr_;
+    }
+
+
+    void swap(ArrayPtr&amp; other) noexcept {
+        std::swap(raw_ptr_, other.raw_ptr_);
+    }
+
+
+private:
+    Type* raw_ptr_ = nullptr;
+};
+
+
+struct ReserveProxyObj {
+    explicit ReserveProxyObj(size_t capacity_to_reserve)
+        : capacity(capacity_to_reserve) {
+    }
+    size_t capacity;
+};
+
+
+ReserveProxyObj Reserve(size_t capacity_to_reserve) {
+    return ReserveProxyObj(capacity_to_reserve);
+}
+
+
+template &lt;typename Type&gt;
+class SimpleVector {
+    using ItemsPtr = ArrayPtr&lt;Type&gt;;
+
+
+public:
+    using Iterator = Type*;
+    using ConstIterator = const Type*;
+
+
+    SimpleVector() noexcept = default;
+
+
+    // Создаёт вектор из size элементов, инициализированных значением по умолчанию
+    explicit SimpleVector(size_t size)
+        : SimpleVector(size,
+                       Type{})  // Делегируем инициализацию конструктору, принимающему size и value
+    {
+    }
+
+
+    // Создаёт вектор из size элементов, инициализированных значением value
+    SimpleVector(size_t size, const Type&amp; value)
+        : items_(size)  // может бросить исключение
+        , size_(size)
+        , capacity_(size)  //
+    {
+        std::fill(items_.Get(), items_.Get() + size_, value);  // Может бросить исключение
+    }
+
+
+    // Создаёт вектор из initializer_list
+    SimpleVector(std::initializer_list&lt;Type&gt; init)
+        : items_(init.size())  // Может бросить исключение
+        , size_(init.size())
+        , capacity_(init.size())  //
+    {
+        std::copy(init.begin(), init.end(), items_.Get());
+    }
+
+
+    SimpleVector(ReserveProxyObj reserved)
+        : items_(reserved.capacity)
+        , size_(0)
+        , capacity_(reserved.capacity) {
+    }
+
+
+    SimpleVector(const SimpleVector&amp; other)
+        : items_(other.size_)  // может бросить исключение
+        , size_(other.size_)
+        , capacity_(other.size_)  //
+    {
+        std::copy(other.items_.Get(), other.items_.Get() + size_,
+                  items_.Get());  // может бросить исключение
+    }
+
+
+    SimpleVector&amp; operator=(const SimpleVector&amp; rhs) {
+        if (&amp;rhs != this) {  // оптимизация присваивания вектора самому себе
+            if (rhs.IsEmpty()) {
+                // Оптимизация для случая присваивания пустого вектора
+                Clear();
+            } else {
+                // Применяем идиому Copy-and-swap
+                SimpleVector rhs_copy(rhs);  // может бросить исключение
+                swap(rhs_copy);
+            }
+        }
+        return *this;
+    }
+
+
+    // Возвращает количество элементов в массиве
+    size_t GetSize() const noexcept {
+        return size_;
+    }
+
+
+    // Возвращает вместимость массива
+    size_t GetCapacity() const noexcept {
+        return capacity_;
+    }
+
+
+    // Сообщает, пустой ли массив
+    bool IsEmpty() const noexcept {
+        return size_ == 0;
+    }
+
+
+    // Возвращает ссылку на элемент с индексом index
+    Type&amp; operator[](size_t index) noexcept {
+        assert(index &lt; size_);
+        return items_[index];
+    }
+
+
+    // Возвращает константную ссылку на элемент с индексом index
+    const Type&amp; operator[](size_t index) const noexcept {
+        assert(index &lt; size_);
+        return items_[index];
+    }
+
+
+    // Возвращает константную ссылку на элемент с индексом index
+    // Выбрасывает исключение std::out_of_range, если index &gt;= size
+    Type&amp; At(size_t index) {
+        if (index &gt;= size_) {
+            using namespace std;
+            throw out_of_range(&quot;Item index is out of range&quot;s);
+        }
+        return items_[index];
+    }
+
+
+    // Возвращает константную ссылку на элемент с индексом index
+    // Выбрасывает исключение std::out_of_range, если index &gt;= size
+    const Type&amp; At(size_t index) const {
+        if (index &gt;= size_) {
+            using namespace std;
+            throw out_of_range(&quot;Item index is out of range&quot;s);
+        }
+        return items_[index];
+    }
+
+
+    // Обнуляет размер массива, не изменяя его вместимость
+    void Clear() noexcept {
+        size_ = 0;
+    }
+
+
+    void Reserve(size_t new_capacity) {
+        if (new_capacity &gt; capacity_) {
+            auto new_items = ReallocateCopy(new_capacity);  // может бросить исключение
+
+
+            items_.swap(new_items);
+            capacity_ = new_capacity;
+        }
+    }
+
+
+    // Изменяет размер массива.
+    // При увеличении размера новые элементы получают значение по умолчанию для типа Type
+    void Resize(size_t new_size) {
+        if (new_size &gt; capacity_) {
+            // Вычисляем вместимость вектора
+            const size_t new_capacity = std::max(capacity_ * 2, new_size);
+
+
+            // Копируем существующие элементы вектора на новое место
+            auto new_items = ReallocateCopy(new_capacity);  // может бросить исключение
+            // заполняем добавленные элементы значением по умолчанию
+            std::fill(new_items.Get() + size_, new_items.Get() + new_size,
+                      Type{});  // может бросить исключение
+
+
+            items_.swap(new_items);
+            capacity_ = new_capacity;
+        } else if (new_size &gt; size_) {
+            assert(new_size &lt;= capacity_);
+            std::fill(items_.Get() + size_, items_.Get() + new_size,
+                      Type{});  // может бросить исключение
+        }
+        size_ = new_size;
+    }
+
+
+    // Добавляет элемент в конец вектора
+    // При нехватке места увеличивает вдвое вместимость вектора
+    void PushBack(const Type&amp; item) {
+        const size_t new_size = size_ + 1;
+        if (new_size &gt; capacity_) {
+            const size_t new_capacity = std::max(capacity_ * 2, new_size);
+
+
+            auto new_items = ReallocateCopy(new_capacity);  // может бросить исключение
+            new_items.Get()[size_] = item;  // может бросить исключение
+
+
+            capacity_ = new_capacity;
+            items_.swap(new_items);
+        } else {
+            items_.Get()[size_] = item;
+        }
+        size_ = new_size;
+    }
+
+
+    // Вставляет значение value в позицию pos.
+    // Возвращает итератор на вставленное значение
+    // Если перед вставкой значения вектор был заполнен полностью,
+    // вместимость вектора должна увеличиться вдвое, а для вектора вместимостью 0 стать равной 1
+    Iterator Insert(ConstIterator pos, const Type&amp; value) {
+        assert(begin() &lt;= pos &amp;&amp; pos &lt;= end());
+        size_t new_size = size_ + 1;
+        size_t new_item_offset = pos - cbegin();
+        if (new_size &lt;= capacity_) {  // Вместимость вектора достаточна для вставки элемента
+            Iterator mutable_pos = begin() + new_item_offset;
+
+
+            // Копируем элементы, начиная с последнего, чтобы перенести «хвост» вправо
+            std::copy_backward(pos, cend(),
+                               end() + 1);  // может выбросить исключение
+            *mutable_pos = value;           // может выбросить исключение
+
+
+        } else {  // Требуется перевыделить память
+            size_t new_capacity = std::max(capacity_ * 2, new_size);
+
+
+            ItemsPtr new_items(new_capacity);  // может выбросить исключение
+            Iterator new_items_pos = new_items.Get() + new_item_offset;
+
+
+            // Копируем элементы, предшествующие вставляемому
+            std::copy(cbegin(), pos, new_items.Get());  // может выбросить исключение
+            // Вставляем элемент в позицию вставки
+            *new_items_pos = value;  // может выбросить исключение
+            // Копируем элементы, следующие за вставляемым
+            std::copy(pos, cend(), new_items_pos + 1);  // может выбросить исключение
+
+
+            items_.swap(new_items);
+            capacity_ = new_capacity;
+        }
+        size_ = new_size;
+        return begin() + new_item_offset;
+    }
+
+
+    // «Удаляет» элемент с конца вектора, не уменьшая его вместимость
+    void PopBack() noexcept {
+        assert(!IsEmpty());
+        --size_;
+    }
+
+
+    // Удаляет элемент вектора в позиции pos, сдвигая следующие элементы на его место.
+    // Итератор pos должен быть итератором, ссылающимся на существующий элемент вектора.
+    // Возвращает итератор на элемент, который следует за последним удалённым элементом.
+    // Если был удалён последний элемент, должен вернуться итератор end().
+    Iterator Erase(ConstIterator pos) {
+        assert(begin() &lt;= pos &amp;&amp; pos &lt; end());
+        Iterator mutable_pos = begin() + (pos - cbegin());
+
+
+        // Переносим «хвост» влево, на место удаляемого элемента
+        std::copy(mutable_pos + 1, end(), mutable_pos);  // может выбросить исключение
+
+
+        --size_;
+        return mutable_pos;
+    }
+
+
+    // Обменивает значение с другим вектором
+    void swap(SimpleVector&amp; other) noexcept {
+        items_.swap(other.items_);
+        std::swap(size_, other.size_);
+        std::swap(capacity_, other.capacity_);
+    }
+
+
+    // Возвращает итератор на начало массива
+    // Для пустого массива может быть равен (или не равен) nullptr
+    Iterator begin() noexcept {
+        return items_.Get();
+    }
+
+
+    // Возвращает итератор на элемент, следующий за последним
+    // Для пустого массива может быть равен (или не равен) nullptr
+    Iterator end() noexcept {
+        return items_.Get() + size_;
+    }
+
+
+    // Возвращает константный итератор на начало массива
+    // Для пустого массива может быть равен (или не равен) nullptr
+    ConstIterator begin() const noexcept {
+        return items_.Get();
+    }
+
+
+    // Возвращает итератор на элемент, следующий за последним
+    // Для пустого массива может быть равен (или не равен) nullptr
+    ConstIterator end() const noexcept {
+        return items_.Get() + size_;
+    }
+
+
+    // Возвращает константный итератор на начало массива
+    // Для пустого массива может быть равен (или не равен) nullptr
+    ConstIterator cbegin() const noexcept {
+        return items_.Get();
+    }
+
+
+    // Возвращает итератор на элемент, следующий за последним
+    // Для пустого массива может быть равен (или не равен) nullptr
+    ConstIterator cend() const noexcept {
+        return items_.Get() + size_;
+    }
+
+
+private:
+    // Выделяет копию текущего массива с заданной вместимостью
+    ItemsPtr ReallocateCopy(size_t new_capacity) const {
+        ItemsPtr new_items(new_capacity);  // может бросить исключение
+        size_t copy_size = std::min(new_capacity, size_);
+        std::copy(items_.Get(), items_.Get() + copy_size,
+                  new_items.Get());  // может бросить исключение
+        return ItemsPtr(new_items.Release());
+    }
+
+
+    ItemsPtr items_;
+    size_t size_ = 0;
+    size_t capacity_ = 0;
+};
+
+
+template &lt;typename Type&gt;
+inline bool operator==(const SimpleVector&lt;Type&gt;&amp; lhs, const SimpleVector&lt;Type&gt;&amp; rhs) {
+    return (lhs.GetSize() == rhs.GetSize())
+        &amp;&amp; std::equal(lhs.begin(), lhs.end(), rhs.begin());  // может бросить исключение
+}
+
+
+template &lt;typename Type&gt;
+inline bool operator!=(const SimpleVector&lt;Type&gt;&amp; lhs, const SimpleVector&lt;Type&gt;&amp; rhs) {
+    return !(lhs == rhs);  // может бросить исключение
+}
+
+
+template &lt;typename Type&gt;
+inline bool operator&lt;(const SimpleVector&lt;Type&gt;&amp; lhs, const SimpleVector&lt;Type&gt;&amp; rhs) {
+    return std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(),
+                                        rhs.end());  // может бросить исключение
+}
+
+
+template &lt;typename Type&gt;
+inline bool operator&lt;=(const SimpleVector&lt;Type&gt;&amp; lhs, const SimpleVector&lt;Type&gt;&amp; rhs) {
+    return !(rhs &lt; lhs);  // может бросить исключение
+}
+
+
+template &lt;typename Type&gt;
+inline bool operator&gt;(const SimpleVector&lt;Type&gt;&amp; lhs, const SimpleVector&lt;Type&gt;&amp; rhs) {
+    return rhs &lt; lhs;  // может бросить исключение
+}
+
+
+template &lt;typename Type&gt;
+inline bool operator&gt;=(const SimpleVector&lt;Type&gt;&amp; lhs, const SimpleVector&lt;Type&gt;&amp; rhs) {
+    return rhs &lt;= lhs;  // может бросить исключение
+}
+</code></pre></li>
+</ul>
+
+<hr>
+
+<p>Создадим два динамических массива структур <code>C</code>, используя <code>SimpleVector</code> и <code>std::vector</code> размером в десять элементов. Затем добавим в конец коллекции один элемент, используя методы <code>PushBack</code> и <code>push_back</code> соответственно:</p>
+
+<pre><code class="language-cpp">int main() {
+    using namespace std;
+    try {
+        const size_t NUM = 10;
+        C c;
+        {
+            cout &lt;&lt; &quot;SimpleVector:&quot;sv &lt;&lt; endl;
+            C::Reset();
+            SimpleVector&lt;C&gt; v(NUM);
+            Dump();
+            v.PushBack(c);
+        }
+        Dump();
+        {
+            cout &lt;&lt; &quot;std::vector:&quot;sv &lt;&lt; endl;
+            C::Reset();
+            vector&lt;C&gt; v(NUM);
+            Dump();
+            v.push_back(c);
+        }
+        Dump();
+    } catch (...) {
+    }
+}
+</code></pre>
+
+<p>Разница будет существенная, как в количестве, так и в типах операций:</p>
+
+<pre><code>SimpleVector:
+  After construction: Def ctors: 11, Copy ctors: 0, Move ctors: 0, Copy assignments: 10, Move assignments: 0, Dtors: 1
+  After push: Def ctors: 31, Copy ctors: 0, Move ctors: 0, Copy assignments: 21, Move assignments: 0, Dtors: 11
+  After destruction: Def ctors: 31, Copy ctors: 0, Move ctors: 0, Copy assignments: 21, Move assignments: 0, Dtors: 31
+std::vector:
+  After construction: Def ctors: 10, Copy ctors: 0, Move ctors: 0, Copy assignments: 0, Move assignments: 0, Dtors: 0
+  After push: Def ctors: 10, Copy ctors: 1, Move ctors: 10, Copy assignments: 0, Move assignments: 0, Dtors: 10
+  After destruction: Def ctors: 10, Copy ctors: 1, Move ctors: 10, Copy assignments: 0, Move assignments: 0, Dtors: 21
+</code></pre>
+
+<hr>
+
+<p>Какое суммарное количество вызовов конструкторов, операций присваивания и деструкторов структуры <code>C</code> потребуется на вызов метода <code>SimpleVector&lt;C&gt;::PushBack</code> у полностью заполненного контейнера из десяти элементов?</p>
+
+<hr>
+
+<p>Какое суммарное количество вызовов конструкторов, операций присваивания и деструкторов структуры <code>C</code> потребуется на вызов метода <code>std::vector&lt;C&gt;::push_back</code> у полностью заполненного контейнера из десяти элементов?</p>
+
+<hr>
+
+<p>Какое суммарное количество экземпляров структуры <code>C</code> будет существовать в контейнере <code>vector&lt;C&gt;</code> после вызова метода <code>push_back</code> у полностью заполненного контейнера из десяти элементов?</p>
+
+<p>Разница в количестве вызываемых конструкторов и операций присваивания вызвана тем, что при выполнении <code>PushBack</code> у заполненного контейнера <code>SimpleVector</code> не просто выделяет вдвое больший объём памяти в куче, но и инициализирует её значениями по умолчанию. Такова особенность работы операции <code>new[]</code>. Затем значения массива из прежней области памяти копируются, поэтому элементам присваиваются новые значения. Этот процесс можно сравнить с проведением капитального ремонта сразу после покупки новой квартиры с отделкой — много денег выбрасывается на ветер.</p>
+
+<p>Класс <code>vector</code> действует умнее: он просто резервирует «сырую» память, а элементы конструирует в ней только по мере надобности. Ещё <code>vector</code> по возможности использует операцию перемещения объектов, а не копирования. Перемещение «тяжёлого»‎ объекта часто эффективнее, чем копирование.</p>
+
+<p>Использование оператора <code>new[]</code> привязывает <code>SimpleVector</code> к конструктору по умолчанию и имеет ещё один отрицательный эффект — в <code>SimpleVector</code> не получится хранить объекты, не имеющие конструктора по умолчанию:</p>
+
+<pre><code class="language-cpp">void WillNotCompile() {
+    class NoDefaultCtor {
+    public:
+        explicit NoDefaultCtor(int val)
+            : val_(val) {
+        }
+
+        [[nodiscard]] int GetVal() const {
+            return val_;
+        }
+
+    private:
+        int val_;
+    };
+
+    SimpleVector&lt;NoDefaultCtor&gt; v;
+    NoDefaultCtor val(1);
+    v.PushBack(val);
+} 
+</code></pre>
+
+<p>Если попытаетесь скомпилировать этот код, произойдёт ошибка. Потому что в нём нет конструктора по умолчанию, вызываемого операцией <code>new[]</code>:</p>
+
+<pre><code>In file included from main.cpp:1:
+./simple_vector.h:14:36: fatal error: no matching constructor for initialization of 'NoDefaultCtor []'
+        : raw_ptr_(size != 0 ? new Type[size] : nullptr) {
+</code></pre>
+
+<p>Класс <code>vector</code> справится с этой задачей, пусть даже и с некоторыми ограничениями на использование методов, вызывающих конструктор по умолчанию, вроде недоступности метода <code>resize</code>.</p>
+
+<p>Когда разрабатываете похожий на <code>vector</code> контейнер с шаблонным параметром <code>T</code>, будьте готовы ожидать от типа <code>T</code> худшего.</p>
+
+<p>Конструктор копирования и оператор копирующего присваивания у типа <code>T</code> могут быть «дорогими»‎, а конструктор по умолчанию — вообще отсутствовать. Ещё эти операции могут выбрасывать исключения.</p>
+
+<p>Зато деструкторы, как правило, не выбрасывают исключений, и контейнер <code>std::vector</code> это явно требует от своих элементов. То же самое часто, хоть и не всегда, касается операции перемещения, которая у тяжёлых объектов может быть гораздо дешевле операции копирования. Надёжная реализация вектора должна учитывать особенности типа <code>T</code>.</p>
+
+<p>В следующих уроках вы напишете версию класса <code>Vector</code>, которая будет сравнима по эффективности со стандартным классом <code>vector</code>. Для этого вы изучите несколько новых конструкций языка.</p>
+
+</body>
+</html>

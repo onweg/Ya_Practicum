@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Не очень чистые функции — побочные эффекты</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Ответы на задания</h1>
+
+<hr>
+
+<p>Каким может быть побочный эффект функции? Выберите один или несколько вариантов.</p>
+
+<ul>
+<li><strong>(+)</strong> Изменение глобальной переменной.</li>
+</ul>
+
+<blockquote>
+<p>Надеемся, что вы ими не пользуетесь.</p>
+</blockquote>
+
+<ul>
+<li><strong>(+)</strong> Изменение поля класса неконстантным методом.</li>
+</ul>
+
+<blockquote>
+<p>Это типичный пример побочного эффекта.</p>
+</blockquote>
+
+<ul>
+<li><strong>(+)</strong> Изменение <code>mutable</code> поля класса константным методом.</li>
+</ul>
+
+<blockquote>
+<p>Несмотря на то, что метод константный, он может иметь побочный эффект.</p>
+</blockquote>
+
+<ul>
+<li><strong>(+)</strong> Прямое или косвенное изменение статического поля класса или статической переменной.</li>
+</ul>
+
+<blockquote>
+<p>Даже константный метод класса может поменять статическую переменную, создав побочный эффект.</p>
+</blockquote>
+
+<ul>
+<li><strong>(+)</strong> Изменение параметра, переданного по неконстантной ссылке или указателю.</li>
+</ul>
+
+<blockquote>
+<p>Значения, переданные в функцию по ссылке, — это тоже внешний мир для неё.</p>
+</blockquote>
+
+<ul>
+<li><strong>(+)</strong> Запись в поток ввода-вывода.</li>
+</ul>
+
+<blockquote>
+<p>Поток наверняка что-нибудь меняет во внешнем мире, например выводит данные на экран или в файл.</p>
+</blockquote>
+
+<ul>
+<li><strong>(+)</strong> Чтение из потока.</li>
+</ul>
+
+<blockquote>
+<p>Следующее чтение прочтёт уже новые данные. А значит, чтение что-нибудь меняет во внешнем мире.</p>
+</blockquote>
+
+<hr>
+
+<p>Какой <code>mutable</code> объект приходится использовать в методе без побочных эффектов при многопоточной работе?</p>
+
+<ul>
+<li><p><strong>(-)</strong> <code>std::vector</code></p></li>
+
+<li><p><strong>(-)</strong> <code>std::shared_ptr</code></p></li>
+
+<li><p><strong>(+)</strong> <code>std::mutex</code></p></li>
+</ul>
+
+<hr>
+
+<p>Хорошая ли сигнатура у метода <code>std::map::insert</code>?</p>
+
+<pre><code class="language-cpp">std::pair&lt;iterator,bool&gt; insert(const value_type&amp; value);
+std::pair&lt;iterator,bool&gt; insert(value_type&amp;&amp; value);
+</code></pre>
+
+<ul>
+<li><p><strong>(-)</strong> Да, ни убавить, ни прибавить.</p></li>
+
+<li><p><strong>(-)</strong> Нет, нужно принимать параметр по неконстантной ссылке.</p></li>
+</ul>
+
+<blockquote>
+<p>С параметром тут всё хорошо.</p>
+</blockquote>
+
+<ul>
+<li><strong>(+)</strong> Возвращаемый тип невнятный, лучше было оформить его структурой.</li>
+</ul>
+
+<hr>
+
+<p>Что указывает на наличие побочного эффекта этой функции?</p>
+
+<ul>
+<li><strong>(-)</strong> Возвращается вектор по значению, а не по ссылке.</li>
+</ul>
+
+<blockquote>
+<p>Вычисляющие функции тоже могут возвращать результат вычисления по значению.</p>
+</blockquote>
+
+<ul>
+<li><p><strong>(+)</strong> Метод не константный.</p></li>
+
+<li><p><strong>(-)</strong> Ничего не указывает.</p></li>
+</ul>
+
+<blockquote>
+<p>Метод без побочных эффектов нужно обязательно помечать как <code>const</code>, чтобы это было видно.</p>
+</blockquote>
+
+<hr>
+
+<p>Какие из этих функций и методов содержат побочный эффект? Выберите один или несколько вариантов.</p>
+
+<ul>
+<li><strong>(+)</strong> <code>std::ofstream::open</code></li>
+</ul>
+
+<blockquote>
+<p>Побочный эффект — файл создан или очищен.</p>
+</blockquote>
+
+<ul>
+<li><strong>(+)</strong> <code>std::ifstream::open</code></li>
+</ul>
+
+<blockquote>
+<p>Побочный эффект — файл открыт операционной системой.</p>
+</blockquote>
+
+<ul>
+<li><strong>(+)</strong> <code>std::istream&amp; operator&gt;&gt; (const istream&amp;, int&amp;)</code></li>
+</ul>
+
+<blockquote>
+<p>Побочный эффект — из потока изъяты данные.</p>
+</blockquote>
+
+<ul>
+<li><strong>(-)</strong> <code>std::sin</code></li>
+</ul>
+
+<blockquote>
+<p>Побочного эффекта нет — чистая функция.</p>
+</blockquote>
+
+<ul>
+<li><strong>(-)</strong> <code>std::chrono::system_clock::now</code></li>
+</ul>
+
+<blockquote>
+<p>Побочного эффекта нет, но функция возвращает разное каждый раз.</p>
+</blockquote>
+
+<hr>
+
+<p>Укажите недостатки такой реализации:</p>
+
+<ul>
+<li><strong>(+)</strong> Нет возможности NRVO для диплома.</li>
+</ul>
+
+<blockquote>
+<p>NRVO возможно только для значения, возвращаемого через <code>return</code>.</p>
+</blockquote>
+
+<ul>
+<li><strong>(+)</strong> Нужно иметь уже сконструированный диплом для вызова функции.</li>
+</ul>
+
+<blockquote>
+<p>Ссылка, которую передали в функцию, требует, чтобы объект уже существовал.</p>
+</blockquote>
+
+<ul>
+<li><strong>(-)</strong> Из сигнатуры функции не ясно, что она возвращает данные в параметр.</li>
+</ul>
+
+<blockquote>
+<p>Неконстантная ссылка указывает на то, что объект будут менять. Вполне логично, что функция будет возвращать диплом именно через параметр.</p>
+</blockquote>
+
+<ul>
+<li><strong>(-)</strong> Функция обязана даже в случае ошибки создать объект <code>Diploma</code> и возвратить его.</li>
+</ul>
+
+<blockquote>
+<p>Она может не менять объект <code>out_diploma</code>.</p>
+</blockquote>
+
+<ul>
+<li><strong>(+)</strong> Из кода вызова метода не ясно, что возврат производится в параметр.</li>
+</ul>
+
+<blockquote>
+<p>Пример будет чуть ниже.</p>
+</blockquote>
+
+<ul>
+<li><strong>(-)</strong> У такого метода нет недостатков, он идеален.</li>
+</ul>
+
+<blockquote>
+<p>Увы, есть, и немало.</p>
+</blockquote>
+
+<hr>
+
+<p>Как ещё можно улучшить эффективность этой функции, если на этапе написания кода вызова уже известно, какие статистики надо вычислить для каждого конкретного случая?</p>
+
+<ul>
+<li><strong>(-)</strong> Разбить на несколько функций для вычисления каждой статистики.</li>
+</ul>
+
+<blockquote>
+<p>Как было сказано, это только замедлит.</p>
+</blockquote>
+
+<ul>
+<li><strong>(-)</strong> Поменять <code>float*</code> на <code>bool</code>, означающий нужность вычисления, и возвращать <code>tuple</code> значений.</li>
+</ul>
+
+<blockquote>
+<p>Скорее всего, на производительность это не повлияет никак. Но создаст простор для ошибок: порядок <code>float</code> в возвращаемом значении должен будет строго соответствовать порядку <code>bool</code> в аргументах.</p>
+</blockquote>
+
+<ul>
+<li><strong>(+)</strong> Использовать шаблонные параметры для определения нужности вычисления.</li>
+</ul>
+
+<hr>
+
+<p>Мы чуть не забыли важный аспект любой программы — тестирование. Подумайте, как юнит-тесты должны взаимодействовать с побочным эффектом?</p>
+
+<ul>
+<li><p><strong>(-)</strong> Никак, юнит-тесты и побочный эффект — это ортогональные понятия.</p></li>
+
+<li><p><strong>(-)</strong> Юнит-тесты проверяют вычисления, которые могут нарушиться, если побочный эффект неверный.</p></li>
+
+<li><p><strong>(+)</strong> Корректность побочного эффекта должна быть проверена юнит-тестами наравне с корректностью возвращаемого значения.</p></li>
+</ul>
+
+<hr>
+
+<p>Какие из этих функций и методов имеют побочный эффект? Их писал грамотный программист, и побочный эффект определяется сигнатурой функции. Глобальные переменные этот программист не использует. И вы тоже так делайте.</p>
+
+<ul>
+<li><strong>(+)</strong> Функция <code>void Swap(int&amp; l, int&amp; r);</code></li>
+</ul>
+
+<blockquote>
+<p>Функция принимает параметр по неконстантной ссылке — признак побочного эффекта.</p>
+</blockquote>
+
+<ul>
+<li><strong>(-)</strong> Функция <code>int SecretOperation(int l, const std::vector&lt;int&gt;&amp; r);</code></li>
+</ul>
+
+<blockquote>
+<p>Функция принимает параметры по значениям или константным ссылкам — побочного эффекта быть не должно.</p>
+</blockquote>
+
+<ul>
+<li><strong>(+)</strong> Функция <code>char RemoveLastChar(std::string&amp; str);</code></li>
+</ul>
+
+<blockquote>
+<p>Несмотря на наличие возвращаемого значения, функция имеет побочный эффект.</p>
+</blockquote>
+
+<ul>
+<li><strong>(+)</strong>  Метод класса</li>
+</ul>
+
+<pre><code class="language-cpp">class Park {
+public:
+    std::vector&lt;Tickets&gt; Enter(const std::vector&lt;Person&gt;&amp; who, 
+                               std::chrono::system_clock::time_point when);
+};
+</code></pre>
+
+<blockquote>
+<p>Метод принимает параметры по значению и константной ссылке, но он не константный — побочный эффект.</p>
+</blockquote>
+
+<ul>
+<li><strong>(-)</strong>  Метод класса</li>
+</ul>
+
+<pre><code class="language-cpp">class Park {
+public:
+    static bool ObserveCarousel() const;
+};
+</code></pre>
+
+<blockquote>
+<p>Метод константный, параметров нет — нет указаний на побочный эффект.</p>
+</blockquote>
+
+<ul>
+<li><strong>(-)</strong>  Метод класса</li>
+</ul>
+
+<pre><code class="language-cpp">class Park {
+public:
+    static std::vector&lt;Tickets&gt; PrintTickets(const std::vector&lt;Person&gt;&amp; who);
+};
+</code></pre>
+
+<blockquote>
+<p>Метод статический, он не может быть константным, параметр принимает по константной ссылке — нет указаний на побочный эффект.</p>
+</blockquote>
+
+</body>
+</html>

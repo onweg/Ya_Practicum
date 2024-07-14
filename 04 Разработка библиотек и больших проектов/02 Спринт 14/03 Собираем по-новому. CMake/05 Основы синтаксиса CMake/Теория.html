@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Основы синтаксиса CMake</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Основы синтаксиса CMake</h1>
+
+<p>Создать простую программу с CMake — это цветочки. Ну а ягодки в том, что CMake — мощная система, поддерживающая переменные, функции, макросы. Подробно разбирать синтаксис в курсе не будем, но важные и хитрые основы затронем.</p>
+
+<h3>Переменные CMake</h3>
+
+<p>CMake позволяет создавать переменные. Некоторые из них имеют специальный смысл, но можно создавать переменные и для своих целей. Вы знакомы уже с двумя:</p>
+
+<ul>
+<li><code>CMAKE_CXX_STANDARD</code> — определяет стандарт C++, влияет на параметры компиляции;</li>
+<li><code>CMAKE_BUILD_TYPE</code> — определяет конфигурацию сборки.</li>
+</ul>
+
+<p>Эти переменные заданы разными способами: одна через команду <code>set</code>, вторая через параметры командной строки. При задании через <code>set</code> переменную нужно указать первым параметром, а всё остальное содержимое скобок станет её значением:</p>
+
+<pre><code class="language-makefile"># создаём переменную HELLO_WORLD. Её значением 
+# будет список из слов “Hello” и “world”
+set(HELLO_WORLD Hello world)
+</code></pre>
+
+<p>По стайлгайду курса будем называть переменные CMake заглавными буквами — использовать SCREAMING_SNAKE_CASE.</p>
+
+<p>Создавать переменные увлекательно, но в этом не было бы смысла, если бы их нельзя было использовать. В C++, чтобы прочитать значение переменной, мы пишем её название. В CMake этого недостаточно, потому что название переменной — всего лишь строковый литерал. Для чтения значения применяется операция <code>${}</code>. Командой <code>message</code> можно вывести значение в консоль:</p>
+
+<pre><code class="language-makefile">set(HELLO_WORLD Hello world)
+
+# Первый параметр команды message задаёт тип сообщения.
+# STATUS указывает, что это простое информационное сообщение.
+message(STATUS &quot;Value of HELLO_WORLD: &quot; ${HELLO_WORLD})
+</code></pre>
+
+<p>Важно понимать, что команды, записанные в файле CMakeLists.txt, выполняются на этапе генерации. То есть на первом этапе работы CMake. На этапе сборки они меняться не могут.</p>
+
+<p>Первым параметром в <code>message</code> указан тип сообщения — <code>STATUS</code>. Он запрашивает вывод информации в штатном режиме. Помимо <code>STATUS</code> есть и другие типы, например, для предупреждений или ошибок. Все типы сообщений ищите в <a href="https://cmake.org/cmake/help/latest/command/message.html">документации по CMake</a>. Добавим этот код в наш файл CMakeLists.txt и выполним в папке hello_cmake_build команду:</p>
+
+<pre><code>cmake .
+</code></pre>
+
+<p>В качестве параметра мы указали <code>.</code>, то есть путь к текущей папке, где уже есть сгенерированные файлы CMake. Это позволяет просто перезапустить генерацию, заново читая файл CMakeLists.txt.</p>
+
+<p>В выводе CMake будет такая строчка:</p>
+
+<pre><code>Value of HELLO_WORLD: Helloworld
+</code></pre>
+
+<hr>
+
+<p>Куда делся пробел между словами “Hello” и “world”?</p>
+
+<ul>
+<li><p>CMake игнорирует все пробелы при выводе.</p></li>
+
+<li><p>Эти слова — разные аргументы команды <code>set</code>.</p></li>
+
+<li><p>Вероятно, баг CMake.</p></li>
+</ul>
+
+<p>Команда <code>message</code> выводит свои аргументы без пробелов. У CMake есть особенность: если в команду подставляется список, его элементы становятся отдельными аргументами. Так два элемента списка <code>HELLO_WORLD</code> стали двумя аргументами команды <code>set</code>.</p>
+
+<p>Сделаем значение переменной одним аргументом, заключив его в кавычки. В CMake это самый верный способ разделять аргументы:</p>
+
+<pre><code class="language-makefile">set(HELLO_WORLD Hello world)
+message(STATUS &quot;Value of HELLO_WORLD: &quot; &quot;${HELLO_WORLD}&quot;)
+</code></pre>
+
+<p>Перезапустим генерацию командой <code>cmake .</code> и увидим такой вывод:</p>
+
+<pre><code>Value of HELLO_WORLD: Hello;world
+</code></pre>
+
+<p>Это не то, что мы хотели, но так поступает CMake при конвертации списка в строку. Можно даже встроить значение переменной в литерал и ещё уменьшить количество аргументов <code>message</code>:</p>
+
+<pre><code class="language-makefile">message(STATUS &quot;Value of HELLO_WORLD: ${HELLO_WORLD}&quot;)
+</code></pre>
+
+<p>Результат будет аналогичный. В <code>message</code> всегда можно обойтись двумя аргументами, заключая всё в кавычки.</p>
+
+<hr>
+
+<p>Как нужно поменять команду <code>set</code>, чтобы <code>HELLO_WORLD</code> стало строкой, а не списком, и команда  <code>message</code> выводила <code>Hello world</code> с пробелом?</p>
+
+<ul>
+<li><p><code>set(HELLO_WORLD &quot;Hello&quot; &quot;world&quot;)</code></p></li>
+
+<li><p><code>set(HELLO_WORLD &quot;Hello&quot; &quot; &quot; &quot;world&quot;)</code></p></li>
+
+<li><p><code>set(HELLO_WORLD &quot;Hello world&quot;)</code></p></li>
+</ul>
+
+<hr>
+
+<p>В конструкции ${} указывается любая строка, которая может даже содержать значения других переменных. Если переменной не существует, она раскрывается в пустую строку. Какой будет результат у следующего фрагмента?</p>
+
+<pre><code class="language-cpp">set(VAR1 15)
+set(VAR2 3)
+set(VAR15 &quot;Pussy&quot;)
+message(STATUS &quot;${VAR${VAR1}} ${VAR${VAR2}}cat&quot;)
+</code></pre>
+
+<ul>
+<li><p><code>cat</code></p></li>
+
+<li><p><code>Pussy 3cat</code></p></li>
+
+<li><p><code>Pussy cat</code></p></li>
+
+<li><p>Ошибка генерации</p></li>
+</ul>
+
+<p>Вначале CMake вычисляет содержимое скобок — <code>VAR${VAR1}</code>, что становится <code>VAR15</code>, а затем подставляет значение переменной с таким именем. Вторая часть содержит выражение <code>${VAR${VAR2}}</code>, которое превратится в <code>${VAR3}</code> и затем в пустоту, поскольку переменной <code>VAR3</code> не существует. Таким образом, название переменной может меняться динамически. Жаль, что в C++ так нельзя!</p>
+
+<hr>
+
+<h3>Переменные на практике</h3>
+
+<p>Вряд ли единственным назначением переменных будет вывод текста на экран. Их можно с тем же успехом использовать и в других командах, например в <code>add_executable</code>:</p>
+
+<pre><code>set(SOURCE_DIR src)
+add_executable(hello &quot;${SOURCE_DIR}/main.cpp&quot; &quot;${SOURCE_DIR}/hello_printer.h&quot; 
+               &quot;${SOURCE_DIR}/hello_printer.cpp&quot;)
+</code></pre>
+
+<hr>
+
+<p>Обязательны ли тут кавычки? Эта команда должна работать корректно, даже если в будущем кто-то изменит значение <code>SOURCE_DIR</code>. Если вы не уверены в ответе, протестируйте самостоятельно.</p>
+
+<ul>
+<li><p>Нет, <code>${SOURCE_DIR}/main.cpp</code> не содержит пробелов, это всегда отдельный аргумент.</p></li>
+
+<li><p>Да, так как без кавычек <code>${SOURCE_DIR}</code> может создать лишние аргументы.</p></li>
+
+<li><p>Да, но они поставлены неправильно, нужно так:</p></li>
+</ul>
+
+<pre><code>add_executable(hello &quot;${SOURCE_DIR}/main.cpp ${SOURCE_DIR}/hello_printer.h ${SOURCE_DIR}/hello_printer.cpp&quot;)
+</code></pre>
+
+<p>Может быть непривычно, что значение одной переменной задаёт сразу несколько аргументов команды, но этим можно пользоваться. Например, создавать списки файлов:</p>
+
+<pre><code>set(SOURCE_DIR src)
+set(FILES_PRINTER &quot;${SOURCE_DIR}/hello_printer.h&quot; &quot;${SOURCE_DIR}/hello_printer.cpp&quot;)
+set(FILES_MAIN &quot;${SOURCE_DIR}/main.cpp&quot;)
+add_executable(hello ${FILES_PRINTER} ${FILES_MAIN})
+</code></pre>
+
+<hr>
+
+<p>Нужны ли кавычки в команде <code>add_executable</code>?</p>
+
+<ul>
+<li><p>Не нужны, написано верно.</p></li>
+
+<li><p>Необязательно, но можно и написать: <code>add_executable(hello &quot;${FILES_PRINTER}&quot; &quot;${FILES_MAIN}&quot;)</code>.</p></li>
+
+<li><p>Они обязательны.</p></li>
+</ul>
+
+<p>Списки файлов делают конфигурацию более прозрачной. Кроме того, они помогут задавать группировку файлов в IDE. Добавим в CMakeLists.txt такие команды:</p>
+
+<pre><code>source_group(&quot;Printer&quot; FILES ${FILES_PRINTER})
+source_group(&quot;Main file&quot; FILES ${FILES_MAIN})
+</code></pre>
+
+<p>Если после этого попросить CMake сгенерировать проект для Visual Studio, дерево файлов получившегося проекта будет таким:</p>
+
+<p><img src="data:image/png;base64,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" alt="image" /></p>
+
+<p>CMake помог распределить файлы исходного кода по группам. Для проекта из трёх файлов это, конечно, избыточно. Но может упростить разработку больших программ.</p>
+
+<h3>Кэш CMake</h3>
+
+<p>Выше говорилось, что помимо <code>set</code> есть ещё один способ задания переменных — через аргумент командной строки CMake. При задании через командную строку к имени переменной нужно приписать <code>-D</code>. Так, аргументом <code>-DCMAKE_BUILD_TYPE=Debug</code> мы определили переменную <code>CMAKE_BUILD_TYPE</code> со значением <code>Debug</code>. Такая переменная попадает в <strong>кэш CMake</strong> — это значит, что её значение сохранится, и она будет существовать при следующем запуске CMake, даже если не была задана повторно.</p>
+
+<p>Переменные кэша — это своего рода опции сборки вашей программы, которые должны быть заданы при генерации. Их поддерживают графические утилиты для работы с CMake, например cmake-gui. Не следует слишком увлекаться переменными кэша, иначе первый запуск CMake будет довольно затруднительным.</p>
+
+<p>Задать переменную кэша можно и через <code>set</code>. Для этого добавьте в <code>set</code> дополнительные аргументы:</p>
+
+<pre><code># Присвоить переменной кэша SOURCE_PATH значение src.
+# Переменная имеет тип STRING и описание &quot;Path of source files&quot;.
+set(SOURCE_PATH &quot;src&quot; CACHE STRING &quot;Path of source files&quot;)
+</code></pre>
+
+<p>Тип переменной <code>STRING</code> влияет на то, как оно будет отображаться в графических утилитах. Полный список типов смотрите в <a href="https://cmake.org/cmake/help/v3.0/command/set.html">документации</a>. Описание для переменных кэша задавать обязательно. Оно будет отображаться в программе cmake-gui и подскажет, как правильно задавать значения переменных кэша при первом запуске.</p>
+
+<p>Значения переменных кэша можно получить тем же способом — операцией <code>${}</code>. Протестируем её:</p>
+
+<pre><code>set(SOURCE_DIR &quot;src&quot; CACHE STRING &quot;Path of source files&quot;)
+message(STATUS &quot;SOURCE_DIR value: ${SOURCE_DIR}&quot;)
+
+set(SOURCE_DIR &quot;src2&quot; CACHE STRING &quot;Path of source files&quot;)
+message(STATUS &quot;SOURCE_DIR value after another set: ${SOURCE_DIR}&quot;)
+</code></pre>
+
+<p>Перегенерируем сборочные файлы командой <code>cmake .</code>. В процессе её работы увидим такой текст:</p>
+
+<pre><code>-- SOURCE_DIR value: src
+-- SOURCE_DIR value after another set: src
+</code></pre>
+
+<p>Почему-то второй <code>set</code> не изменил значение <code>SOURCE_DIR</code>. Изменим команду генерации и установим эту переменную через командную строку: <code>cmake . -DSOURCE_DIR=src3</code>. Вывод стал другим:</p>
+
+<pre><code>-- SOURCE_DIR value: src3
+-- SOURCE_DIR value after another set: src3
+</code></pre>
+
+<p>Теперь уже не сработали оба вызова <code>set</code>. Изменим код на такой:</p>
+
+<pre><code>set(SOURCE_DIR &quot;another_src&quot; CACHE STRING &quot;Path of source files&quot;)
+message(STATUS &quot;SOURCE_DIR value: ${SOURCE_DIR}&quot;)
+
+set(SOURCE_DIR &quot;another_src2&quot; CACHE STRING &quot;Path of source files&quot;)
+message(STATUS &quot;SOURCE_DIR value after another set: ${SOURCE_DIR}&quot;)
+</code></pre>
+
+<p>И выполним <code>cmake .</code> без явного задания значения <code>SOURCE_DIR</code>. Удивительно, но вывод не поменялся:</p>
+
+<pre><code>-- SOURCE_DIR value: src3
+-- SOURCE_DIR value after another set: src3
+</code></pre>
+
+<p>Всем этим странностям есть объяснение: в случае переменных кэша <code>set</code> игнорируется, если переменной уже присвоено значение. Благодаря этому задание через аргумент командной строки имеет приоритет. Кроме того, значение переменной кэша сохраняется на последующие запуски. Последний раз мы задали <code>SOURCE_DIR</code> в аргументе команды <code>cmake . -DSOURCE_DIR=src3</code>. И это значение сохранилось, несмотря на то, что в последующий раз оно нигде не было указано.</p>
+
+<p>Но на этом странности не заканчиваются. Дополним наш скрипт ещё одним присваиванием:</p>
+
+<pre><code>set(SOURCE_DIR &quot;another_src&quot; CACHE STRING &quot;Path of source files&quot;)
+message(STATUS &quot;SOURCE_DIR value: ${SOURCE_DIR}&quot;)
+
+set(SOURCE_DIR &quot;another_src2&quot; CACHE STRING &quot;Path of source files&quot;)
+message(STATUS &quot;SOURCE_DIR value after another set: ${SOURCE_DIR}&quot;)
+
+# Дополним командой set без опции CACHE
+set(SOURCE_DIR &quot;no_cache&quot;)
+message(STATUS &quot;SOURCE_DIR value after another set: ${SOURCE_DIR}&quot;)
+</code></pre>
+
+<p>Запускаем <code>cmake .</code> и видим текст</p>
+
+<pre><code>-- SOURCE_DIR value: src
+-- SOURCE_DIR value after another set: src
+-- SOURCE_DIR value after another set: no_cache
+</code></pre>
+
+<p>Выглядит, будто последний <code>set</code> смог то, что не смогли предыдущие, — переписать переменную кэша. Но на самом деле это не так: он лишь создал новую временную переменную, которая имеет приоритет над переменной кэша. Чтобы убедиться в этом, изменим команды <code>set</code>:</p>
+
+<pre><code>message(STATUS &quot;SOURCE_DIR value before first set: ${SOURCE_DIR}&quot;)
+
+set(SOURCE_DIR &quot;no_cache&quot;)
+message(STATUS &quot;SOURCE_DIR value after first set: ${SOURCE_DIR}&quot;)
+
+# И снова попытаемся установить переменную кэша
+set(SOURCE_DIR &quot;another_src&quot; CACHE STRING &quot;Path of source files&quot;)
+message(STATUS &quot;SOURCE_DIR value after cache set: ${SOURCE_DIR}&quot;)
+</code></pre>
+
+<p>Вывод, который вы получите, запустив <code>cmake .</code>, вряд ли можно понять без объяснения:</p>
+
+<pre><code>-- SOURCE_DIR value before first set: src
+-- SOURCE_DIR value after first set: no_cache
+-- SOURCE_DIR value after cache set: src
+</code></pre>
+
+<p>Вторая команда <code>set</code> изменила значение переменной, но не на то, которое ей присваивалось, а на то, которое было в ней до этого. Дело в том, что установка переменной кэша удаляет временную переменную, если та существует.</p>
+
+<p>Кэш CMake содержит много вспомогательных и полезных переменных. Их можно посмотреть в файле CMakeCache.txt. Он находится в папке, в которой запускалась команда генерации CMake.</p>
+
+<p>Как видно из этого урока, переменные в CMake имеют много нюансов. О них не обязательно знать при разработке простых проектов, но в более сложных случаях эти особенности могут быть полезны.</p>
+
+<h3>Конструкция if</h3>
+
+<p>В предыдущем уроке был совет вставить команду <code>target_link_libraries(negate -lstdc++)</code> при компиляции в MinGW. Но тогда нужны разные файлы CMakeList.txt под разные платформы, что противоречит идеологии CMake. Попробуем решить эту задачу универсальным способом.</p>
+
+<p>Тут не обойтись без <code>if</code>. В CMake он напоминает <code>if</code> из C++. Отличие — в отсутствии фигурных скобок после <code>if</code> и <code>else</code> и наличии круглых скобок после <code>else</code>. Конец определяется командой <code>endif</code>, после которой также нужно написать пустые круглые скобки.</p>
+
+<p>Самый простой вариант условия — проверить существование переменной:</p>
+
+<pre><code>if(MY_BEAUTIFUL_VARIABLE)
+    message(STATUS &quot;MY_BEAUTIFUL_VARIABLE exists and equals ${MY_BEAUTIFUL_VARIABLE}&quot;)
+else()
+    message(STATUS &quot;MY_BEAUTIFUL_VARIABLE does not exist or equals OFF. Miss it.&quot;)
+endif()
+</code></pre>
+
+<p>Однако это условие будет не выполнено, если переменная с таким именем существует, но равна <code>OFF</code> — аналогу <code>false</code> из C++.</p>
+
+<p>Для нашей цели нужно определить, что сборка производится на MinGW. Для этого возьмём встроенную переменную <code>CMAKE_SYSTEM_NAME</code>. Используем регулярное выражение, чтобы проверить, что её значение начинается со слов <code>MINGW</code>:</p>
+
+<pre><code>if(CMAKE_SYSTEM_NAME MATCHES &quot;^MINGW&quot;)
+    set(SYSTEM_LIBS -lstdc++)
+else()
+    set(SYSTEM_LIBS)
+endif()
+</code></pre>
+
+<p>Слово <code>MATCHES</code> в условии указывает, что нужно проверить значение переменной на соответствие регулярному выражению.</p>
+
+<p>Затем используем установленную переменную в команде <code>target_link_libraries</code>:</p>
+
+<pre><code>target_link_libraries(negate ${SYSTEM_LIBS})
+</code></pre>
+
+<p>Подробнее о синтаксисе команды <code>if</code> читайте в <a href="https://cmake.org/cmake/help/latest/command/if.html">документации</a>. В CMake также есть циклы <a href="https://cmake.org/cmake/help/latest/command/foreach.html">foreach</a> и <a href="https://cmake.org/cmake/help/latest/command/while.html">while</a>, которые выходят за рамки нашего курса.</p>
+
+</body>
+</html>

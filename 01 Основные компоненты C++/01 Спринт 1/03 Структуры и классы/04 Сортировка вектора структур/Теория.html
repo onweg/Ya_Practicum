@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Сортировка вектора структур</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr{border:0 none;color:#ccc;height:4px;padding:0}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}</style></head>
+<body>
+
+<h1>Сортировка вектора структур</h1>
+
+<p>Вы начали внедрять структуру <code>Document</code> в код поисковой системы. С функцией <code>FindAllDocuments</code> справились. Пора научить поисковую систему выводить сначала самые релевантные документы. Для этого нужно написать основную функцию — <code>FindTopDocuments</code>:</p>
+
+<pre><code class="language-cpp">// For each document returns its id and relevance
+vector&lt;pair&lt;int, int&gt;&gt; FindTopDocuments(
+				const map&lt;string, set&lt;int&gt;&gt;&amp; word_to_documents,
+				const set&lt;string&gt;&amp; stop_words,
+				const string&amp; query) {
+			
+		auto matched_documents = FindAllDocuments(word_to_documents, stop_words, query);
+		
+		// сортировка по убыванию релевантности
+	  // раньше тут были sort и reverse	
+	
+		if (matched_documents.size() &gt; MAX_RESULT_DOCUMENT_COUNT) {
+				matched_documents.resize(MAX_RESULT_DOCUMENT_COUNT);
+		}
+	
+		// исправление порядка полей в парах
+	
+		return matched_documents;
+}
+</code></pre>
+
+<p>Теперь везде вместо пар структура, поэтому исправлять порядок полей в конце функции больше не придётся. Зато надо сортировать структуры в определённом порядке. Попробуйте просто взять и вызвать <code>sort</code> для вектора документов:</p>
+
+<pre><code class="language-cpp">#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+struct Document {
+    int id;
+    int relevance;
+};
+
+int main() {
+    vector&lt;Document&gt; documents;
+    sort(documents.begin(), documents.end());
+}
+</code></pre>
+
+<p>Сообщение об ошибке будет громоздким:</p>
+
+<pre><code>In file included from &lt;...&gt;/include/c++/bits/stl_algobase.h:71,
+                 from &lt;...&gt;/include/c++/algorithm:61,
+                 from test.cpp:1:
+&lt;...&gt;/include/c++/bits/predefined_ops.h: In instantiation of 'constexpr bool __gnu_cxx::__ops::_Iter_less_iter::operator()(_Iterator1, _Iterator2) const [with _Iterator1 = __gnu_cxx::__normal_iterator&lt;Document*, std::vector&lt;Document&gt; &gt;; _Iterator2 = __gnu_cxx::__normal_iterator&lt;Document*, std::vector&lt;Document&gt; &gt;]':
+&lt;...&gt;/include/c++/bits/stl_algo.h:81:17:   required from 'void std::__move_median_to_first(_Iterator, _Iterator, _Iterator, _Iterator, _Compare) [with _Iterator = __gnu_cxx::__normal_iterator&lt;Document*, std::vector&lt;Document&gt; &gt;; _Compare = __gnu_cxx::__ops::_Iter_less_iter]'
+&lt;...&gt;/include/c++/bits/stl_algo.h:1921:34:   required from '_RandomAccessIterator std::__unguarded_partition_pivot(_RandomAccessIterator, _RandomAccessIterator, _Compare) [with _RandomAccessIterator = __gnu_cxx::__normal_iterator&lt;Document*, std::vector&lt;Document&gt; &gt;; _Compare = __gnu_cxx::__ops::_Iter_less_iter]'
+&lt;...&gt;/include/c++/bits/stl_algo.h:1953:38:   required from 'void std::__introsort_loop(_RandomAccessIterator, _RandomAccessIterator, _Size, _Compare) [with _RandomAccessIterator = __gnu_cxx::__normal_iterator&lt;Document*, std::vector&lt;Document&gt; &gt;; _Size = long long int; _Compare = __gnu_cxx::__ops::_Iter_less_iter]'
+&lt;...&gt;/include/c++/bits/stl_algo.h:1968:25:   required from 'void std::__sort(_RandomAccessIterator, _RandomAccessIterator, _Compare) [with _RandomAccessIterator = __gnu_cxx::__normal_iterator&lt;Document*, std::vector&lt;Document&gt; &gt;; _Compare = __gnu_cxx::__ops::_Iter_less_iter]'
+&lt;...&gt;/include/c++/bits/stl_algo.h:4834:18:   required from 'void std::sort(_RAIter, _RAIter) [with _RAIter = __gnu_cxx::__normal_iterator&lt;Document*, std::vector&lt;Document&gt; &gt;]'
+test.cpp:13:44:   required from here
+&lt;...&gt;/include/c++/bits/predefined_ops.h:43:23: error: no match for 'operator&lt;' (operand types are 'Document' and 'Document')
+       { return *__it1 &lt; *__it2; }
+                ~~~~~~~^~~~~~~~
+In file included from &lt;...&gt;/include/c++/bits/stl_algobase.h:67,
+&lt;...&gt;
+</code></pre>
+
+<p>Ошибка в 13-й строке test.cpp — вызов <code>sort</code>.</p>
+
+<pre><code>&lt;...&gt;
+&lt;...&gt;/include/c++/bits/stl_algo.h:4834:18:   required from 'void std::sort(_RAIter, _RAIter) [with _RAIter = __gnu_cxx::__normal_iterator&lt;Document*, std::vector&lt;Document&gt; &gt;]'
+test.cpp:13:44:   required from here
+</code></pre>
+
+<p>В сообщении говорится: вызвана функция <code>std::sort</code>, из неё — <code>std::__sort</code>, затем <code>std::__introsort_loop</code>. Писать <code>sort</code> вместо <code>std::sort</code> позволяет <code>using namespace std;</code>. То, как реализация сортировки разбита на подфункции, сейчас неважно. Основная проблема — в сообщении ниже:</p>
+
+<pre><code>&lt;...&gt;/include/c++/bits/predefined_ops.h:43:23: error: no match for 'operator&lt;' (operand types are 'Document' and 'Document')
+       { return *__it1 &lt; *__it2; }
+                ~~~~~~~^~~~~~~~
+</code></pre>
+
+<p>Где-то в коде сортировки оператор <strong><code>&lt;</code></strong> сравнивает два документа со странными названиями <code>*__it1</code> и <code>*__it2</code>. На звёздочки пока не обращайте внимания. Важна фраза <code>no match for 'operator&lt;' (operand types are 'Document' and 'Document')</code>: не найден оператор <code>&lt;</code> для объектов <code>Document</code> и <code>Document</code>.</p>
+
+<p>Для сортировки документов достаточно уточнить, в каком случае считается, что один из них меньше другого. После сортировки меньшие документы будут в начале, а бóльшие — в конце.</p>
+
+<p>В коде ниже — функция-компаратор, которая принимает два документа по константной ссылке. Первый документ называется <code>lhs</code>, а второй <code>rhs</code>. Функция возвращает <code>true</code>, если <code>lhs</code> меньше <code>rhs</code>:</p>
+
+<pre><code class="language-cpp">bool HasDocumentLessId(const Document&amp; lhs, const Document&amp; rhs) {
+		return lhs.id &lt; rhs.id;
+}
+</code></pre>
+
+<p>Название у функции говорящее: «правда ли id документа меньше». Теперь, чтобы  отсортировать документы по возрастанию <code>id</code>, нужно вызвать сортировку:</p>
+
+<pre><code class="language-cpp">sort(documents.begin(), documents.end(), HasDocumentLessId);
+</code></pre>
+
+<p>Строго говоря, сортировка будет не по возрастанию, а по неубыванию. Некоторые документы могут иметь одинаковый <code>id</code>. После сортировки они будут расположены в произвольном порядке. Подумайте, важно ли это, когда сортируете только по одному из полей. Сортировка по нескольким полям будет рассмотрена позже.</p>
+
+<p>Допустим, вы поменяли <code>&lt;</code> на <code>&gt;</code> в функции-компараторе: <code>return lhs.id &gt; rhs.id;</code>. Тогда произойдёт сортировка по убыванию — точнее, по невозрастанию. Меньшими будут считаться документы с бо́льшим id, поэтому они окажутся в начале вектора. Но смысл функции поменяется — значит, ей нужно другое название, например <code>HasDocumentGreaterId</code>.</p>
+
+</body>
+</html>

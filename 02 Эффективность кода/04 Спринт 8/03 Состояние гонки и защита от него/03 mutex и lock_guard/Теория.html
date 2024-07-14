@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>mutex и lock_guard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>mutex и lock_guard</h1>
+
+<p>Разберёмся, как быть с классом <code>Account</code> и его методом <code>TrySpend</code>, если хочется вызывать его параллельно из разных потоков, но не порождать состояния гонки. Вспомним, как выглядит этот метод, и задумаемся, чего дополнительно мы от него ждём:</p>
+
+<pre><code class="language-cpp">bool Account::TrySpend(int plan) {
+    if (value_ &lt; plan) {
+        return false;
+    } else {
+        value_ -= plan;
+        return true;
+    }
+}
+</code></pre>
+
+<p>Во-первых, хочется защититься от одновременного выполнения вычитания разными потоками. Во-вторых, нужно, чтобы между проверкой условия и последующим действием никто не поменял <code>value_</code>.</p>
+
+<p>Проще говоря, надо запретить нескольким потокам одновременно выполнять тело этого метода. Области программы, в которые нельзя заходить нескольким потокам, называются критическими секциями. Сейчас вы узнаете, как это организовать.</p>
+
+<p>Критическая секция контролируется специальным объектом — мьютексом. Одна критическая секция — один мьютекс. Работает он следующим образом.</p>
+
+<ol>
+<li>Подключите библиотеку <code>&lt;mutex&gt;</code>.</li>
+<li>Создайте объект <code>mutex m;</code>, соответствующий конкретной критической секции. Этот объект должен быть общим для всех потоков, которые в неё заходят.</li>
+<li>Перед входом в критическую секцию захватите блокировку вызовом <code>m.lock();</code>. Если блокировка уже захвачена — как правило, другим потоком — метод <code>lock</code> не завершится, пока мьютекс не освободится.</li>
+<li>При выходе из критической секции отпустите блокировку вызовом <code>m.unlock();</code>. Этот метод не будет ничего ожидать, зато в результате другой ожидающий освобождения поток сможет взять блокировку.</li>
+</ol>
+
+<p>Если каждый поток будет вести себя хорошо, то есть блокировать мьютекс при входе и разблокировать при выходе, проблем не возникнет.</p>
+
+<p>Класс <code>Account</code> здесь можно сравнить с общим кошельком. Как правило, он лежит на тумбочке в прихожей. Это значит, что он свободен. Если хочешь воспользоваться, возьми себе — захвати блокировку. Проверь, сколько там денег, потрать и верни на место — отпусти блокировку.</p>
+
+<hr>
+
+<p>Как нужно объявить объект мьютекса?</p>
+
+<ul>
+<li><p>Локальной переменной в методе <code>TrySpend</code>.</p></li>
+
+<li><p>Полем класса <code>Account</code>.</p></li>
+
+<li><p>Статическим полем класса <code>Account</code> или глобальной переменной.</p></li>
+</ul>
+
+<p>В коде это будет выглядеть так:</p>
+
+<pre><code class="language-cpp">#include &lt;mutex&gt;
+
+// ...
+
+class Account {
+public:
+    explicit Account(int value) : value_(value) {}
+    int GetValue() const { return value_; }
+    bool TrySpend(int plan) {
+        value_mutex_.lock();  // вход в критическую секцию
+        if (value_ &lt; plan) {
+            value_mutex_.unlock();  // выход из критической секции
+            return false;
+        } else {
+            value_ -= plan;
+            value_mutex_.unlock();  // выход из критической секции
+            return true;
+        }
+    }
+private:
+    int value_;
+    mutex value_mutex_;
+};
+</code></pre>
+
+<hr>
+
+<p>Какие проблемы вы видите в этом коде? Выберите несколько вариантов ответа.</p>
+
+<ul>
+<li><p>Проверка условия <code>value_ &lt; plan</code> сама по себе может быть выполнена параллельно, так что её можно вынести из критической секции.</p></li>
+
+<li><p>Можно случайно добавить содержательный код перед <code>lock</code>.</p></li>
+
+<li><p>Можно случайно добавить содержательный код после <code>unlock</code>.</p></li>
+
+<li><p>Нужно не забыть отпустить блокировку в каждой ветке выхода из функции.</p></li>
+</ul>
+
+<p>Самая большая проблема — высокий риск забыть отпустить блокировку при выходе из функции. Причём это может произойти не только по <code>return</code>, но и при выбросе исключения.  Если забыть, случится так называемый deadlock: все потоки будут ждать на своих методах <code>lock</code>, а освободить будет уже некому.</p>
+
+<p>Вспомним пример с кошельком: если кто-либо, не обнаружив достаточного количества денег, забудет вернуть кошелёк на тумбочку, остальные члены семьи соберутся вокруг неё и будут ждать — надеясь, что деньги ещё остались. Неприятная ситуация!</p>
+
+<p>Не допустить таких ошибок поможет класс <code>lock_guard</code>: при создании ему передаётся ссылка на нужный мьютекс, и в конструкторе он берёт блокировку. В деструкторе же — отпускает. Код становится компактнее и безопаснее:</p>
+
+<pre><code class="language-cpp">bool TrySpend(int plan) {
+    lock_guard guard(value_mutex_);
+    if (value_ &lt; plan) {
+        return false;
+    } else {
+        value_ -= plan;
+        return true;
+    }
+}
+</code></pre>
+
+<p>Класс <code>lock_guard</code> шаблонный по типу мьютекса, но при таком его использовании тип выводится автоматически из типа аргумента конструктора.</p>
+
+<p>Теперь программа будет выводить разумные числа, которые в сумме дают 1 000 000:</p>
+
+<pre><code>Spent 239753
+Spent 226058
+Spent 337955
+Spent 196234
+0
+</code></pre>
+
+<h2>Фреймворк для тестирования</h2>
+
+<p>Юнит-тесты в некоторых задачах курса используют фреймворк, подобный тому, что вы разработали во втором спринте. Кроме уже знакомых вам <code>ASSERT</code> и <code>ASSERT_EQUAL</code> в этом фреймворке есть макросы, которые проверяют выбрасывание исключений и облегчают запуск тестов. Следующая задача — как раз такая.</p>
+
+<p>Весь фреймворк находится в единственном заголовочном файле <code>test_framework.h</code>. Вы можете скачать его по ссылке ниже и проверять функции и классы вне тренажёра, на своём компьютере. Чтобы использовать фреймворк, положите <code>test_framework.h</code> в один каталог с файлами вашего проекта и подключите его директивой <code>#include &quot;test_framework.h&quot;</code>.</p>
+
+<p>📎 test_framework.h</p>
+
+</body>
+</html>

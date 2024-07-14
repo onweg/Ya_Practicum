@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание 1</h2>
+
+<p>Это задание — часть итогового проекта десятого спринта. Не забудьте сохранить исходные файлы задания у себя на компьютере.</p>
+
+<p>Текущая версия SVG-библиотеки для хранения цвета использует тип <code>Color</code>, объявленный как синоним типа <code>string</code>. Используя строку, легко задать статическое значение цвета. Однако это становится неудобным, если значение цвета требуется вычислять динамически:</p>
+
+<pre><code class="language-cpp">// Выполняет линейную интерполяцию значения от from до to в зависимости от параметра t.
+uint8_t Lerp(uint8_t from, uint8_t to, double t) {
+    return static_cast&lt;uint8_t&gt;(std::round((to - from) * t + from));
+}
+
+int main() {
+    using namespace svg;
+    using namespace std;
+
+    const uint8_t start_r = 0;
+    const uint8_t end_r = 20;
+    const uint8_t start_g = 255;
+    const uint8_t end_g = 20;
+    const uint8_t start_b = 30;
+    const uint8_t end_b = 150;
+
+    const int num_circles = 10;
+    Document doc;
+    for (int i = 0; i &lt; num_circles; ++i) {
+        const double t = double(i) / (num_circles - 1);
+
+        const string r = to_string(Lerp(start_r, end_r, t));
+        const string g = to_string(Lerp(start_g, end_g, t));
+        const string b = to_string(Lerp(start_b, end_b, t));
+
+        string fill_color = &quot;rgb(&quot;s + r + &quot;,&quot;s + g + &quot;,&quot;s + b + &quot;)&quot;s;
+        doc.Add(Circle()
+                    .SetFillColor(fill_color)
+                    .SetStrokeColor(&quot;black&quot;s)
+                    .SetCenter({i * 20.0 + 40, 40.0})
+                    .SetRadius(15));
+    }
+    doc.Render(cout);
+}
+</code></pre>
+
+<p><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiID8+DQo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIj4NCiAgPGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iMTUiIGZpbGw9InJnYigwLDI1NSwzMCkiIHN0cm9rZT0iYmxhY2siLz4NCiAgPGNpcmNsZSBjeD0iNjAiIGN5PSI0MCIgcj0iMTUiIGZpbGw9InJnYigyLDIyOSw0MykiIHN0cm9rZT0iYmxhY2siLz4NCiAgPGNpcmNsZSBjeD0iODAiIGN5PSI0MCIgcj0iMTUiIGZpbGw9InJnYig0LDIwMyw1NykiIHN0cm9rZT0iYmxhY2siLz4NCiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iNDAiIHI9IjE1IiBmaWxsPSJyZ2IoNywxNzcsNzApIiBzdHJva2U9ImJsYWNrIi8+DQogIDxjaXJjbGUgY3g9IjEyMCIgY3k9IjQwIiByPSIxNSIgZmlsbD0icmdiKDksMTUxLDgzKSIgc3Ryb2tlPSJibGFjayIvPg0KICA8Y2lyY2xlIGN4PSIxNDAiIGN5PSI0MCIgcj0iMTUiIGZpbGw9InJnYigxMSwxMjQsOTcpIiBzdHJva2U9ImJsYWNrIi8+DQogIDxjaXJjbGUgY3g9IjE2MCIgY3k9IjQwIiByPSIxNSIgZmlsbD0icmdiKDEzLDk4LDExMCkiIHN0cm9rZT0iYmxhY2siLz4NCiAgPGNpcmNsZSBjeD0iMTgwIiBjeT0iNDAiIHI9IjE1IiBmaWxsPSJyZ2IoMTYsNzIsMTIzKSIgc3Ryb2tlPSJibGFjayIvPg0KICA8Y2lyY2xlIGN4PSIyMDAiIGN5PSI0MCIgcj0iMTUiIGZpbGw9InJnYigxOCw0NiwxMzcpIiBzdHJva2U9ImJsYWNrIi8+DQogIDxjaXJjbGUgY3g9IjIyMCIgY3k9IjQwIiByPSIxNSIgZmlsbD0icmdiKDIwLDIwLDE1MCkiIHN0cm9rZT0iYmxhY2siLz4NCjwvc3ZnPg==" alt="image" /></p>
+
+<p>Доработайте SVG-библиотеку — добавьте новые способы задавать цвет:</p>
+
+<pre><code class="language-cpp">svg::Color color1;                               // none
+svg::Color color2 = svg::Rgb{215, 30, 25};       // rgb(215,30,25)
+svg::Color color3 = svg::NoneColor;              // none
+svg::Color color4 = svg::Rgba{15, 15, 25, 0.7};  // rgba(15,15,25,0.7)
+svg::Color color5 = &quot;red&quot;s;                      // red
+svg::Color color6 = svg::Rgb{};                  // rgb(0,0,0)
+svg::Color color7 = svg::Rgba{};                 // rgba(0,0,0,1.0);
+</code></pre>
+
+<p>Для этого объявите в библиотеке тип <code>svg::Color</code> как <code>std::variant</code>, который объединяет типы <code>std::monostate</code>, <code>std::string</code>, <code>svg::Rgb</code> и <code>svg::Rgba</code>. Значение <code>std::monostate</code> обозначает отсутствующий цвет, который выводится в виде строки &ldquo;none&rdquo;.</p>
+
+<h3>Требования к классам и структурам</h3>
+
+<p><code>**svg::Rgb**</code></p>
+
+<p>Задаёт цвет в формате RGB, в виде трёх компонент <code>red</code>, <code>green</code>, <code>blue</code> типа <code>uint8_t</code>. Пример использования:</p>
+
+<pre><code class="language-cpp">// Задаёт цвет в виде трех компонент в таком порядке: red, green, blue
+svg::Rgb rgb{255, 0, 100};
+assert(rgb.red == 255);
+assert(rgb.green == 0);
+assert(rgb.blue == 100);
+
+// Задаёт цвет по умолчанию: red=0, green=0, blue=0
+svg::Rgb color;
+assert(color.red == 0 &amp;&amp; color.green == 0 &amp;&amp; color.blue == 0);
+</code></pre>
+
+<p><code>**svg::Rgba**</code></p>
+
+<p>Задаёт цвет в формате RGBA, в виде трёх компонент <code>red</code>, <code>green</code>, <code>blue</code> типа <code>uint8_t</code> и компоненты <code>opacity</code> типа <code>double</code>. Компонента opacity или альфа-канал задаёт степень непрозрачности цвета от 0.0 (абсолютно прозрачно) до 1.0 (абсолютно непрозрачный цвет). Пример использования:</p>
+
+<pre><code class="language-cpp">// Задаёт цвет в виде четырёх компонент: red, green, blue, opacity
+svg::Rgba rgba{100, 20, 50, 0.3};
+assert(rgba.red == 100);
+assert(rgba.green == 20);
+assert(rgba.blue == 50);
+assert(rgba.opacity == 0.3);
+
+// Чёрный непрозрачный цвет: red=0, green=0, blue=0, alpha=1.0
+svg::Rgba color;
+assert(color.red == 0 &amp;&amp; color.green == 0 &amp;&amp; color.blue == 0 &amp;&amp; color.opacity == 1.0);
+</code></pre>
+
+<p>Теперь задавать цвет динамически станет удобнее:</p>
+
+<pre><code class="language-cpp">// Выполняет линейную интерполяцию значения от from до to в зависимости от параметра t
+uint8_t Lerp(uint8_t from, uint8_t to, double t) {
+    return static_cast&lt;uint8_t&gt;(std::round((to - from) * t + from));
+}
+
+// Выполняет линейную интерполяцию Rgb цвета от from до to в зависимости от параметра t
+svg::Rgb Lerp(svg::Rgb from, svg::Rgb to, double t) {
+    return {Lerp(from.red, to.red, t), Lerp(from.green, to.green, t), Lerp(from.blue, to.blue, t)};
+}
+
+int main() {
+    using namespace svg;
+    using namespace std;
+
+    Rgb start_color{0, 255, 30};
+    Rgb end_color{20, 20, 150};
+
+    const int num_circles = 10;
+    Document doc;
+    for (int i = 0; i &lt; num_circles; ++i) {
+        const double t = double(i) / (num_circles - 1);
+
+        const Rgb fill_color = Lerp(start_color, end_color, t);
+
+        doc.Add(Circle()
+                    .SetFillColor(fill_color)
+                    .SetStrokeColor(&quot;black&quot;s)
+                    .SetCenter({i * 20.0 + 40, 40.0})
+                    .SetRadius(15));
+    }
+    doc.Render(cout);
+}
+</code></pre>
+
+<h3>Описание формата выходных данных</h3>
+
+<p>Требования к методу <code>svg::Document::Render</code> такие же, как в задании предыдущего урока. Значения типа <code>Color</code> должны выводиться так:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+#include &quot;svg.h&quot;
+
+int main() {
+    using namespace svg;
+    using namespace std;
+
+    Color none_color;
+    cout &lt;&lt; none_color &lt;&lt; endl; // none
+    
+    Color purple{&quot;purple&quot;s};
+    cout &lt;&lt; purple &lt;&lt; endl; // purple
+    
+    Color rgb = Rgb{100, 200, 255};
+    cout &lt;&lt; rgb &lt;&lt; endl; // rgb(100,200,255)
+
+    Color rgba = Rgba{100, 200, 255, 0.5};
+    cout &lt;&lt; rgba &lt;&lt; endl; // rgba(100,200,255,0.5)
+
+    Circle c;
+    c.SetRadius(3.5).SetCenter({1.0, 2.0});
+    c.SetFillColor(rgba);
+    c.SetStrokeColor(purple);
+    
+    Document doc;
+    doc.Add(std::move(c));
+    doc.Render(cout);
+}
+</code></pre>
+
+<p>Ожидаемый вывод этой программы:</p>
+
+<pre><code>none
+purple
+rgb(100,200,255)
+rgba(100,200,255,0.5)
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot;&gt;
+  &lt;circle cx=&quot;1&quot; cy=&quot;2&quot; r=&quot;3.5&quot; fill=&quot;rgba(100,200,255,0.5)&quot; stroke=&quot;purple&quot;/&gt;
+&lt;/svg&gt;
+</code></pre>
+
+<h3>Что отправлять на проверку</h3>
+
+<p>Код библиотеки должен располагаться в файлах <code>svg.h</code> и <code>svg.cpp</code>. Файл <code>main.cpp</code> должен содержать классы <code>Triangle</code>, <code>Snowman</code> и <code>Star</code> в пространстве имён <code>shapes</code> и необходимые для их работы функции.</p>
+
+<h3>Как будет тестироваться ваш код</h3>
+
+<p>Тренажёр проверит классы <code>svg::Rgb</code> и <code>svg::Rgba</code>, методы задания цвета у объектов библиотеки <code>svg</code> и вывод объектов <code>svg::Color</code>.</p>
+
+<p>Гарантируется, что при тестировании тренажёр будет передавать валидные параметры в методы классов и их конструкторы. Поэтому усложнять код проверками не нужно.</p>
+
+<p>Функция <code>main</code> будет заменена на версию из тренажёра.</p>
+
+<h3>Подсказка</h3>
+
+<ul>
+<li>Чтобы тип <code>Color</code> по умолчанию хранил значение <code>monostate</code>, разместите <code>monostate</code> первым в списке типов <code>variant</code>.</li>
+<li>Используйте <code>std::visit</code> для вывода цвета в <code>ostream</code> любым из способов, показанных в теоретической части урока.</li>
+</ul>
+
+</body>
+</html>

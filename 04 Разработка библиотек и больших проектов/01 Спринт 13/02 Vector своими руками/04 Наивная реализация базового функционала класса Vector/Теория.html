@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Наивная реализация базового функционала класса Vector</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Наивная реализация базового функционала класса Vector</h1>
+
+<p>В этом уроке вы начнёте писать с нуля класс <code>Vector</code>. Вам предстоит реализовать его конструкторы, деструкторы и метод <code>Reserve</code>. Для простоты изложения вопрос безопасности <code>Vector</code> к возникновению исключений рассматривать не будем.</p>
+
+<p>Во внутреннем представлении класс <code>std::vector</code> хранит указатель на область памяти, в которой непрерывным блоком размещаются элементы динамического массива, вместимость вектора и его размер.</p>
+
+<p>Выберем аналогичный подход в своей реализации класса <code>Vector</code>. На рисунке показан вектор вместимостью 10, содержащий 4 элемента.</p>
+
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjIzNSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgb3ZlcmZsb3c9ImhpZGRlbiI+PGRlZnM+PGNsaXBQYXRoIGlkPSJjbGlwMCI+PHJlY3QgeD0iLTEiIHk9IjIyNyIgd2lkdGg9IjUxMiIgaGVpZ2h0PSIyMzUiLz48L2NsaXBQYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY2xpcDApIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxIC0yMjcpIj48cmVjdCB4PSIyNDYuNSIgeT0iMjI5LjUiIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjNDQ3MkM0Ii8+PHJlY3QgeD0iMjcyLjUiIHk9IjIyOS41IiB3aWR0aD0iMjciIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjxyZWN0IHg9IjI5OS41IiB5PSIyMjkuNSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjI2IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiM0NDcyQzQiLz48cmVjdCB4PSIzMjUuNSIgeT0iMjI5LjUiIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjNDQ3MkM0Ii8+PHJlY3QgeD0iMzUxLjUiIHk9IjIyOS41IiB3aWR0aD0iMjciIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjM3OC41IiB5PSIyMjkuNSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjI2IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48cmVjdCB4PSI0MDQuNSIgeT0iMjI5LjUiIHdpZHRoPSIyNyIgaGVpZ2h0PSIyNiIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRTdFNkU2Ii8+PHJlY3QgeD0iNDMxLjUiIHk9IjIyOS41IiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjQ1Ny41IiB5PSIyMjkuNSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjI2IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48cmVjdCB4PSI0ODMuNSIgeT0iMjI5LjUiIHdpZHRoPSIyNyIgaGVpZ2h0PSIyNiIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRTdFNkU2Ii8+PHJlY3QgeD0iMC41MDAwNTMiIHk9IjI5NC41IiB3aWR0aD0iMjExIiBoZWlnaHQ9IjE2NyIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRTdFNkU2Ii8+PHJlY3QgeD0iMTMuNTAwMSIgeT0iMzA1LjUiIHdpZHRoPSIxODUiIGhlaWdodD0iNDMiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjx0ZXh0IGZpbGw9IiNGRkZGRkYiIGZvbnQtZmFtaWx5PSJDYWxpYnJpLENhbGlicmlfTVNGb250U2VydmljZSxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iNDAwIiBmb250LXNpemU9IjI0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3OC4wMTMxIDMzNSkiPmRhdGFfPC90ZXh0PjxyZWN0IHg9IjEzLjUwMDEiIHk9IjM1My41IiB3aWR0aD0iMTg1IiBoZWlnaHQ9IjQzIiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiM0NDcyQzQiLz48dGV4dCBmaWxsPSIjRkZGRkZGIiBmb250LWZhbWlseT0iQ2FsaWJyaSxDYWxpYnJpX01TRm9udFNlcnZpY2Usc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zaXplPSIyNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDEuMzI5MiAzODIpIj5jYXBhY2l0eV86IDEwPC90ZXh0PjxyZWN0IHg9IjEzLjUwMDEiIHk9IjQwMS41IiB3aWR0aD0iMTg1IiBoZWlnaHQ9IjQzIiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiM0NDcyQzQiLz48dGV4dCBmaWxsPSIjRkZGRkZGIiBmb250LWZhbWlseT0iQ2FsaWJyaSxDYWxpYnJpX01TRm9udFNlcnZpY2Usc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zaXplPSIyNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjkuNTgyNiA0MzApIj5zaXplXzogNDwvdGV4dD48cGF0aCBkPSJNMTAyLjA5MSAzMTMuNTgzIDEwNi45MTYgMzAzLjA1NyAxMTIuMzI0IDI5Mi44NjkgMTE1LjQyOCAyODguMDU1IDExOC45MTUgMjgzLjM2MyAxMjIuODU3IDI3OS4wNCAxMjcuMzY1IDI3NC45NzYgMTMyLjMwNCAyNzEuMzAzIDEzNy42NzYgMjY3LjgyNyAxNDMuMzU1IDI2NC43MzUgMTQ5LjQ2OCAyNjEuNzc0IDE1NS45NTMgMjU5LjEyOSAxNjIuODY3IDI1Ni42MTUgMTcwLjA5MSAyNTQuMzUzIDE3Ny43NSAyNTIuMjE5IDE4NS45MTYgMjUwLjI3MiAxOTQuNTc5IDI0OC42NCAyMDMuNjA1IDI0Ny4xOTggMjEzLjA2OCAyNDUuOTQ1IDIzMi43MTQgMjQzLjgxNyAyNTAuOTM4IDI0Mi4xODEgMjUxLjExNyAyNDQuMTczIDIzMi45MDIgMjQ1LjgwOCAyMzIuOTIgMjQ1LjgwNyAyMTMuMjk1IDI0Ny45MzIgMjEzLjMxOSAyNDcuOTI5IDIwMy44ODEgMjQ5LjE3OSAyMDMuOTA4IDI0OS4xNzUgMTk0LjkwOCAyNTAuNjEyIDE5NC45MzUgMjUwLjYwOCAxODYuMzEgMjUyLjIzMyAxODYuMzU3IDI1Mi4yMjMgMTc4LjIzMiAyNTQuMTYgMTc4LjI2OCAyNTQuMTUxIDE3MC42NDMgMjU2LjI3NiAxNzAuNjc0IDI1Ni4yNjcgMTYzLjQ4NiAyNTguNTE3IDE2My41MjkgMjU4LjUwMiAxNTYuNjU0IDI2MS4wMDIgMTU2LjY5IDI2MC45ODggMTUwLjI1MyAyNjMuNjEzIDE1MC4zMTEgMjYzLjU4NyAxNDQuMjQ5IDI2Ni41MjUgMTQ0LjI5MSAyNjYuNTAzIDEzOC42NjYgMjY5LjU2NiAxMzguNzMxIDI2OS41MjcgMTMzLjQxOCAyNzIuOTY1IDEzMy40NzIgMjcyLjkyNyAxMjguNTk3IDI3Ni41NTIgMTI4LjY3IDI3Ni40OTMgMTI0LjIzMiAyODAuNDkzIDEyNC4zMDEgMjgwLjQyNCAxMjAuNDI2IDI4NC42NzQgMTIwLjQ5IDI4NC41OTcgMTE3LjA1MyAyODkuMjIyIDExNy4wOSAyODkuMTY3IDExNC4wMjggMjkzLjkxNyAxMTQuMDcxIDI5My44NDQgMTA4LjY5NiAzMDMuOTY5IDEwOC43MjIgMzAzLjkxNyAxMDMuOTA5IDMxNC40MTdaTTI0My4wNjcgMjM4LjMzOSAyNTMuMDA1IDI0MyAyNDQuMDU2IDI0OS4zNTZDMjQzLjYwNiAyNDkuNjc2IDI0Mi45ODIgMjQ5LjU3IDI0Mi42NjIgMjQ5LjEyIDI0Mi4zNDIgMjQ4LjY2OSAyNDIuNDQ4IDI0OC4wNDUgMjQyLjg5OCAyNDcuNzI1TDI1MC40NDkgMjQyLjM2MiAyNTAuNjAzIDI0NC4wODIgMjQyLjIxOCAyNDAuMTVDMjQxLjcxOCAyMzkuOTE1IDI0MS41MDMgMjM5LjMyIDI0MS43MzcgMjM4LjgyIDI0MS45NzIgMjM4LjMyIDI0Mi41NjcgMjM4LjEwNSAyNDMuMDY3IDIzOC4zMzlaIi8+PC9nPjwvc3ZnPg==" alt="image" /></p>
+
+<p>Начнём с заготовки шаблонного класса <code>Vector</code> с полями <code>data_</code>, <code>capacity_</code> и <code>size_</code>. Класс будет иметь вспомогательные методы <code>Size</code> и <code>Capacity</code>, а также две версии оператора <code>[]</code> для доступа к элементам вектора:</p>
+
+<pre><code class="language-cpp">template &lt;typename T&gt;
+class Vector {
+public:
+    size_t Size() const noexcept {
+        return size_;
+    }
+
+    size_t Capacity() const noexcept {
+        return capacity_;
+    }
+
+    const T&amp; operator[](size_t index) const noexcept {
+        return const_cast&lt;Vector&amp;&gt;(*this)[index];
+    }
+
+    T&amp; operator[](size_t index) noexcept {
+        assert(index &lt; size_);
+        return data_(index);
+    }
+private:
+    T* data_ = nullptr;
+    size_t capacity_ = 0;
+    size_t size_ = 0;
+};
+</code></pre>
+
+<p>В константном операторе <code>[]</code> используется оператор  <a href="https://en.cppreference.com/w/cpp/language/const_cast"><code>const_cast</code></a>, чтобы снять константность с ссылки на текущий объект и вызвать неконстантную версию оператора <code>[]</code>. Так получится избавиться от дублирования проверки <code>assert(index &lt; size)</code>. Оператор <code>const_cast</code> позволяет сделать то, что нельзя, но, если очень хочется, можно. В данном случае нельзя вызвать неконстантный метод из константного. Но неконстантный оператор <code>[]</code> тут не модифицирует состояние объекта, поэтому его можно вызвать, предварительно сняв константность с объекта.</p>
+
+<p>Конструктор по умолчанию у вектора будет инициализировать вектор нулевого размера и вместимости, данные которого указывают на <code>nullptr</code>. Если не обращаться к его элементам, он уже вполне работоспособен:</p>
+
+<pre><code class="language-cpp">int main() {
+    Vector&lt;int&gt; v;
+    assert(v.Size() == 0);
+    assert(v.Capacity() == 0);
+} 
+</code></pre>
+
+<p>Создадим вспомогательные статические методы <code>Allocate</code> и <code>Deallocate</code>, чтобы выделить и освободить сырую память. Для этого используем функции <code>operator new</code> и <code>operator delete</code>, изученные в прошлом уроке:</p>
+
+<pre><code class="language-cpp">template &lt;typename T&gt;
+class Vector {
+public:
+    ...
+private:
+    // Выделяет сырую память под n элементов и возвращает указатель на неё
+    static T* Allocate(size_t n) {
+        return n != 0 ? static_cast&lt;T*&gt;(operator new(n * sizeof(T))) : nullptr;
+    }
+
+    // Освобождает сырую память, выделенную ранее по адресу buf при помощи Allocate
+    static void Deallocate(T* buf) noexcept {
+        operator delete(buf);
+    }
+    ...
+};
+</code></pre>
+
+<p>Если размер выделяемого массива нулевой, функция <code>Allocate</code> не выделяет память, а просто возвращает <code>nullptr</code>. Такая оптимизация направлена на экономию памяти — нет смысла выделять динамическую память под хранение пустого массива и зря расходовать память под служебные данные.</p>
+
+<p>Следующие вспомогательные методы предназначены для конструирования и разрушения массивов объектов в сырой памяти:</p>
+
+<pre><code class="language-cpp">template &lt;typename T&gt;
+class Vector {
+public:
+    ...
+private:
+    // Вызывает деструкторы n объектов массива по адресу buf
+    static void DestroyN(T* buf, size_t n) noexcept {
+        for (size_t i = 0; i != n; ++i) {
+            Destroy(buf + i);
+        }
+    }
+
+    // Создаёт копию объекта elem в сырой памяти по адресу buf
+    static void CopyConstruct(T* buf, const T&amp; elem) {
+        new (buf) T(elem);
+    }
+
+    // Вызывает деструктор объекта по адресу buf
+    static void Destroy(T* buf) noexcept {
+        buf-&gt;~T();
+    }
+    ...
+};
+</code></pre>
+
+<p>Функция <code>operator delete</code> не выбрасывает исключений. Это же требование можно предъявить и к шаблонному параметру <code>T</code>, поэтому смело объявляйте функции <code>Destroy</code> и <code>Deallocate</code> как <code>noexcept</code>.</p>
+
+<p>Теперь используем эти вспомогательные функции, чтобы написать конструктор, создающий вектор заданного размера. Все элементы такого вектора будут проинициализированы значением по умолчанию для типа <code>T</code>:</p>
+
+<pre><code class="language-cpp">template &lt;typename T&gt;
+class Vector {
+public:
+    Vector() = default;
+
+    explicit Vector(size_t size)
+        : data_(Allocate(size))
+        , capacity_(size)
+        , size_(size)  //
+    {
+        for (size_t i = 0; i != size; ++i) {
+            new (data_ + i) T();
+        }
+    }
+    ...
+};
+</code></pre>
+
+<p>Этот конструктор сначала выделяет в сырой памяти буфер, достаточный для хранения  элементов в количестве, равном <code>size</code>. Затем конструирует в сырой памяти элементы массива. Для этого он вызывает их конструктор по умолчанию, используя размещающий оператор <code>new</code>.</p>
+
+<hr>
+
+<p>Выберите корректную реализацию деструктора для контейнера <code>Vector</code>.</p>
+
+<ul>
+<li>
+<pre><code class="language-cpp">template &lt;typename T&gt;
+class Vector {
+public:
+...
+~Vector() {
+    Deallocate(data_);
+}
+...
+}; 
+</code></pre></li>
+
+<li>
+<pre><code class="language-cpp">template &lt;typename T&gt;
+class Vector {
+public:
+...
+~Vector() {
+    DestroyN(data_, size_);
+}
+...
+}; 
+</code></pre></li>
+
+<li>
+<pre><code class="language-cpp">template &lt;typename T&gt;
+class Vector {
+public:
+...
+~Vector() {
+    DestroyN(data_, capacity_);
+    Deallocate(data_);
+}
+...
+}; 
+</code></pre></li>
+
+<li>
+<pre><code class="language-cpp">template &lt;typename T&gt;
+class Vector {
+public:
+...
+~Vector() {
+    Destroy(data_);
+    Deallocate(data_);
+}
+...
+};
+</code></pre></li>
+
+<li>
+<pre><code class="language-cpp">template &lt;typename T&gt;
+class Vector {
+public:
+...
+~Vector() {
+    DestroyN(data_, size_);
+    Deallocate(data_);
+}
+...
+}; 
+</code></pre></li>
+
+<li>
+<pre><code class="language-cpp">template &lt;typename T&gt;
+class Vector {
+public:
+...
+~Vector() {
+    Deallocate(data_);
+    DestroyN(data_, size_);
+}
+...
+}; 
+</code></pre></li>
+
+<li>
+<pre><code class="language-cpp">template &lt;typename T&gt;
+class Vector {
+public:
+...
+~Vector() {
+    delete[] data_;
+}
+...
+};
+</code></pre></li>
+</ul>
+
+<p>Для корректного разрушения контейнера <code>Vector</code> нужно сначала вызвать <code>DestroyN</code>, передав ей указатель <code>data_</code> и количество элементов <code>size_</code>, а затем <code>Deallocate</code>, чтобы вернуть память обратно в кучу:</p>
+
+<pre><code class="language-cpp">template &lt;typename T&gt;
+class Vector {
+public:
+    ...
+    ~Vector() {
+        DestroyN(data_, size_);
+        Deallocate(data_);
+    }
+    ...
+}; 
+</code></pre>
+
+<p>Чтобы создать копию контейнера <code>Vector</code>, выделим память под нужное количество элементов, а затем сконструируем в ней копию элементов оригинального контейнера, используя функцию <code>CopyConstruct</code>:</p>
+
+<pre><code class="language-cpp">template &lt;typename T&gt;
+class Vector {
+public:
+    Vector(const Vector&amp; other)
+        : data_(Allocate(other.size_))
+        , capacity_(other.size_)
+        , size_(other.size_)  //
+    {
+        for (size_t i = 0; i != other.size_; ++i) {
+            CopyConstruct(data_ + i, other.data_[i]);
+        }
+    }
+    ...
+};
+</code></pre>
+
+<p>Здесь вместимость копии равна размеру оригинального вектора. Это экономит память: независимо от вместимости оригинального вектора копия будет занимать столько памяти, сколько нужно для хранения его элементов. Кроме того, если оригинальный вектор был пустым, функция <code>Allocate</code> не станет выделять память в куче вообще.</p>
+
+<p>Метод <code>Reserve</code> предназначен для заблаговременного резервирования памяти под элементы вектора, когда известно их примерное количество.</p>
+
+<pre><code class="language-cpp">template &lt;typename T&gt;
+class Vector {
+public:
+    ...
+    void Reserve(size_t new_capacity) {
+        if (new_capacity &lt;= capacity_) {
+            return;
+        }
+        T* new_data = Allocate(new_capacity);
+        for (size_t i = 0; i != size_; ++i) {
+            CopyConstruct(new_data + i, data_[i]);
+        }
+        DestroyN(data_, size_);
+        Deallocate(data_);
+
+        data_ = new_data;
+        capacity_ = new_capacity;
+    }
+    ...
+};
+</code></pre>
+
+<p>Если требуемая вместимость больше текущей, <code>Reserve</code> выделяет нужный объём сырой памяти.</p>
+
+<p>На следующем шаге из массива <code>data_</code> копируются значения в только что выделенную область памяти.</p>
+
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjI4IiBoZWlnaHQ9IjI4MyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgb3ZlcmZsb3c9ImhpZGRlbiI+PGRlZnM+PGNsaXBQYXRoIGlkPSJjbGlwMCI+PHJlY3QgeD0iNjMyIiB5PSI2IiB3aWR0aD0iNjI4IiBoZWlnaHQ9IjI4MyIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMCkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC02MzIgLTYpIj48cmVjdCB4PSI4ODkuNSIgeT0iNy41MDAwNSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjI3IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiM0NDcyQzQiLz48cmVjdCB4PSI5MTUuNSIgeT0iNy41MDAwNSIgd2lkdGg9IjI3IiBoZWlnaHQ9IjI3IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiM0NDcyQzQiLz48cmVjdCB4PSI5NDIuNSIgeT0iNy41MDAwNSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjI3IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiM0NDcyQzQiLz48cmVjdCB4PSI5NjguNSIgeT0iNy41MDAwNSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjI3IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiM0NDcyQzQiLz48cmVjdCB4PSI5OTQuNSIgeT0iNy41MDAwNSIgd2lkdGg9IjI3IiBoZWlnaHQ9IjI3IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48cmVjdCB4PSIxMDIxLjUiIHk9IjcuNTAwMDUiIHdpZHRoPSIyNS45OTk5IiBoZWlnaHQ9IjI3IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48cmVjdCB4PSIxMDQ3LjUiIHk9IjcuNTAwMDUiIHdpZHRoPSIyNyIgaGVpZ2h0PSIyNyIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRTdFNkU2Ii8+PHJlY3QgeD0iMTA3NC41IiB5PSI3LjUwMDA1IiB3aWR0aD0iMjYiIGhlaWdodD0iMjciIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjExMDAuNSIgeT0iNy41MDAwNSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjI3IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48cmVjdCB4PSIxMTI2LjUiIHk9IjcuNTAwMDUiIHdpZHRoPSIyNyIgaGVpZ2h0PSIyNyIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRTdFNkU2Ii8+PHJlY3QgeD0iNjQzLjUiIHk9IjczLjUwMDEiIHdpZHRoPSIyMTEiIGhlaWdodD0iMTY2IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48cmVjdCB4PSI2NTYuNSIgeT0iODQuNTAwMSIgd2lkdGg9IjE4NSIgaGVpZ2h0PSI0MyIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjNDQ3MkM0Ii8+PHRleHQgZmlsbD0iI0ZGRkZGRiIgZm9udC1mYW1pbHk9IkNhbGlicmksQ2FsaWJyaV9NU0ZvbnRTZXJ2aWNlLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc2l6ZT0iMjQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDcyMS4wNTMgMTEzKSI+ZGF0YV88L3RleHQ+PHJlY3QgeD0iNjU2LjUiIHk9IjEzMi41IiB3aWR0aD0iMTg1IiBoZWlnaHQ9IjQzIiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiM0NDcyQzQiLz48dGV4dCBmaWxsPSIjRkZGRkZGIiBmb250LWZhbWlseT0iQ2FsaWJyaSxDYWxpYnJpX01TRm9udFNlcnZpY2Usc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zaXplPSIyNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjg0LjM2OSAxNjEpIj5jYXBhY2l0eV86IDEwPC90ZXh0PjxyZWN0IHg9IjY1Ni41IiB5PSIxODAuNSIgd2lkdGg9IjE4NSIgaGVpZ2h0PSI0MyIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjNDQ3MkM0Ii8+PHRleHQgZmlsbD0iI0ZGRkZGRiIgZm9udC1mYW1pbHk9IkNhbGlicmksQ2FsaWJyaV9NU0ZvbnRTZXJ2aWNlLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc2l6ZT0iMjQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDcxMi42MjIgMjA5KSI+c2l6ZV86IDQ8L3RleHQ+PHBhdGggZD0iTTc0NS4wOTEgOTIuNTgzMyA3NDkuOTE2IDgyLjA1NjggNzU1LjMyNCA3MS44Njg3IDc1OC40MjggNjcuMDU1MiA3NjEuOTE1IDYyLjM2MzMgNzY1Ljg1NyA1OC4wNCA3NzAuMzY1IDUzLjk3NTcgNzc1LjMwNCA1MC4zMDMxIDc4MC42NzYgNDYuODI3MyA3ODYuMzU1IDQzLjczNTQgNzkyLjQ2OCA0MC43NzM2IDc5OC45NTMgMzguMTI5MyA4MDUuODY3IDM1LjYxNDkgODEzLjA5MSAzMy4zNTM0IDgyMC43NSAzMS4yMTkxIDgyOC45MTYgMjkuMjcxNyA4MzcuNTc5IDI3LjYzOTcgODQ2LjYwNSAyNi4xOTc5IDg1Ni4wNjggMjQuOTQ0NiA4NzUuNzE0IDIyLjgxNzMgODkzLjkzOCAyMS4xODExIDg5NC4xMTcgMjMuMTczMSA4NzUuOTAyIDI0LjgwODUgODc1LjkyIDI0LjgwNjcgODU2LjI5NSAyNi45MzE3IDg1Ni4zMTkgMjYuOTI4OCA4NDYuODgxIDI4LjE3ODggODQ2LjkwOCAyOC4xNzUgODM3LjkwOCAyOS42MTI1IDgzNy45MzUgMjkuNjA3NyA4MjkuMzEgMzEuMjMyNyA4MjkuMzU3IDMxLjIyMjcgODIxLjIzMiAzMy4xNjAyIDgyMS4yNjggMzMuMTUwOCA4MTMuNjQzIDM1LjI3NTggODEzLjY3NCAzNS4yNjY4IDgwNi40ODYgMzcuNTE2OCA4MDYuNTI5IDM3LjUwMjMgNzk5LjY1NCA0MC4wMDIzIDc5OS42OSAzOS45ODg1IDc5My4yNTMgNDIuNjEzNSA3OTMuMzExIDQyLjU4NzQgNzg3LjI0OSA0NS41MjQ5IDc4Ny4yOTEgNDUuNTAzMyA3ODEuNjY2IDQ4LjU2NTggNzgxLjczMSA0OC41MjcxIDc3Ni40MTggNTEuOTY0NiA3NzYuNDcyIDUxLjkyNzUgNzcxLjU5NyA1NS41NTI1IDc3MS42NyA1NS40OTI4IDc2Ny4yMzIgNTkuNDkyOCA3NjcuMzAxIDU5LjQyMzggNzYzLjQyNiA2My42NzM4IDc2My40OSA2My41OTY1IDc2MC4wNTMgNjguMjIxNSA3NjAuMDkgNjguMTY2OSA3NTcuMDI4IDcyLjkxNjkgNzU3LjA3MSA3Mi44NDM5IDc1MS42OTYgODIuOTY4OSA3NTEuNzIyIDgyLjkxNjcgNzQ2LjkwOSA5My40MTY2Wk04ODYuMDY3IDE3LjMzOTEgODk2LjAwNSAyMS45OTk2IDg4Ny4wNTYgMjguMzU1N0M4ODYuNjA2IDI4LjY3NTUgODg1Ljk4MiAyOC41Njk4IDg4NS42NjIgMjguMTE5NSA4ODUuMzQyIDI3LjY2OTMgODg1LjQ0OCAyNy4wNDUgODg1Ljg5OCAyNi43MjUyTDg5My40NDkgMjEuMzYxOCA4OTMuNjAzIDIzLjA4MjQgODg1LjIxOCAxOS4xNDk4Qzg4NC43MTggMTguOTE1MyA4ODQuNTAzIDE4LjMxOTkgODg0LjczNyAxNy44MTk5IDg4NC45NzIgMTcuMzE5OCA4ODUuNTY3IDE3LjEwNDYgODg2LjA2NyAxNy4zMzkxWiIvPjxyZWN0IHg9Ijg4OS41IiB5PSI5NS41MDAxIiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjxyZWN0IHg9IjkxNS41IiB5PSI5NS41MDAxIiB3aWR0aD0iMjciIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjxyZWN0IHg9Ijk0Mi41IiB5PSI5NS41MDAxIiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjxyZWN0IHg9Ijk2OC41IiB5PSI5NS41MDAxIiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjxyZWN0IHg9Ijk5NC41IiB5PSI5NS41MDAxIiB3aWR0aD0iMjciIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjEwMjEuNSIgeT0iOTUuNTAwMSIgd2lkdGg9IjI1Ljk5OTkiIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjEwNDcuNSIgeT0iOTUuNTAwMSIgd2lkdGg9IjI3IiBoZWlnaHQ9IjI2IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48cmVjdCB4PSIxMDc0LjUiIHk9Ijk1LjUwMDEiIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRTdFNkU2Ii8+PHJlY3QgeD0iMTEwMC41IiB5PSI5NS41MDAxIiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjExMjYuNSIgeT0iOTUuNTAwMSIgd2lkdGg9IjI3IiBoZWlnaHQ9IjI2IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48cmVjdCB4PSIxMTUzLjUiIHk9Ijk1LjUwMDEiIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRTdFNkU2Ii8+PHJlY3QgeD0iMTE3OS41IiB5PSI5NS41MDAxIiB3aWR0aD0iMjciIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjEyMDYuNSIgeT0iOTUuNTAwMSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjI2IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48cmVjdCB4PSIxMjMyLjUiIHk9Ijk1LjUwMDEiIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRTdFNkU2Ii8+PHRleHQgZm9udC1mYW1pbHk9IkNhbGlicmksQ2FsaWJyaV9NU0ZvbnRTZXJ2aWNlLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc2l6ZT0iMjQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDg5OC40NDMgMjExKSI+bmV3X2RhdGE8L3RleHQ+PHBhdGggZD0iTTg4OC40NCAyMDIuMzU2IDg4NC45MzIgMTkzLjE0NiA4ODEuODQ2IDE4My43MDEgODc5LjY5OCAxNzMuOTA3IDg3OS4xODkgMTY4LjgxMiA4NzkuMDYyIDE2My41NSA4NzkuNTY2IDE1My4zNTEgODgwLjE5OSAxNDguMjgxIDg4MS4yMTEgMTQzLjAzMyA4ODIuNiAxMzcuNTM5IDg4NC40OTEgMTMxLjU1IDg4Ni45NDYgMTI0Ljk0MiA4ODkuMzAyIDExOS40MjggODkxLjE0MSAxMjAuMjE0IDg4OC43OTUgMTI1LjcwNSA4ODguODEyIDEyNS42NjEgODg2LjM3NSAxMzIuMjIzIDg4Ni4zOTEgMTMyLjE3NiA4ODQuNTE2IDEzOC4xMTQgODg0LjUzMiAxMzguMDU4IDg4My4xNTcgMTQzLjQ5NSA4ODMuMTY5IDE0My40MzkgODgyLjE2OSAxNDguNjI3IDg4Mi4xOCAxNDguNTYyIDg4MS41NTUgMTUzLjU2MiA4ODEuNTYxIDE1My40ODcgODgxLjA2MSAxNjMuNjEyIDg4MS4wNjIgMTYzLjUzOCA4ODEuMTg3IDE2OC43MjYgODgxLjE4MyAxNjguNjUgODgxLjY4MyAxNzMuNjUgODgxLjY2NCAxNzMuNTM2IDg4My43ODkgMTgzLjIyMyA4ODMuNzYzIDE4My4xMjcgODg2LjgyNiAxOTIuNTAyIDg4Ni44MSAxOTIuNDU2IDg5MC4zMSAyMDEuNjQ0Wk04ODIuMTkxIDEyNC41NCA4OTEuMDAyIDExNy45OTYgODkyLjM2MiAxMjguODg3Qzg5Mi40MyAxMjkuNDM1IDg5Mi4wNDEgMTI5LjkzNSA4OTEuNDkzIDEzMC4wMDMgODkwLjk0NSAxMzAuMDcyIDg5MC40NDUgMTI5LjY4MyA4OTAuMzc3IDEyOS4xMzVMODg5LjIzIDExOS45NDUgODkwLjgxOCAxMjAuNjIzIDg4My4zODMgMTI2LjE0NkM4ODIuOTQgMTI2LjQ3NSA4ODIuMzEzIDEyNi4zODMgODgxLjk4NCAxMjUuOTQgODgxLjY1NSAxMjUuNDk2IDg4MS43NDcgMTI0Ljg3IDg4Mi4xOTEgMTI0LjU0WiIvPjx0ZXh0IGZvbnQtZmFtaWx5PSJDb25zb2xhcyxDb25zb2xhc19NU0ZvbnRTZXJ2aWNlLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc2l6ZT0iMjQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDY0Ny4yIDI2OCkiPlZlY3RvciZsdDtpbnQmZ3Q7PHRzcGFuIGZvbnQtc2l6ZT0iMjQiIHg9IjE1OCIgeT0iMCI+djwvdHNwYW4+PHRzcGFuIGZvbnQtc2l6ZT0iMjQiIHg9IjE3MS4xNjciIHk9IjAiPjs8L3RzcGFuPjwvdGV4dD48L2c+PC9zdmc+" alt="image" /></p>
+
+<p>После копирования элементы в прежнем массиве разрушаются.</p>
+
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjI3IiBoZWlnaHQ9IjI4MyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgb3ZlcmZsb3c9ImhpZGRlbiI+PGRlZnM+PGNsaXBQYXRoIGlkPSJjbGlwMCI+PHJlY3QgeD0iNjM4IiB5PSIzNjAiIHdpZHRoPSI2MjciIGhlaWdodD0iMjgzIi8+PC9jbGlwUGF0aD48L2RlZnM+PGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwKSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTYzOCAtMzYwKSI+PHJlY3QgeD0iODk0LjUiIHk9IjM2MS41IiB3aWR0aD0iMjciIGhlaWdodD0iMjciIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjxyZWN0IHg9IjkyMS41IiB5PSIzNjEuNSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjI3IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiM0NDcyQzQiLz48cmVjdCB4PSI5NDcuNSIgeT0iMzYxLjUiIHdpZHRoPSIyNyIgaGVpZ2h0PSIyNyIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjNDQ3MkM0Ii8+PHJlY3QgeD0iOTczLjUiIHk9IjM2MS41IiB3aWR0aD0iMjciIGhlaWdodD0iMjciIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjxyZWN0IHg9IjEwMDAuNSIgeT0iMzYxLjUiIHdpZHRoPSIyNS45OTk5IiBoZWlnaHQ9IjI3IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48cmVjdCB4PSIxMDI2LjUiIHk9IjM2MS41IiB3aWR0aD0iMjciIGhlaWdodD0iMjciIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjEwNTMuNSIgeT0iMzYxLjUiIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNyIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRTdFNkU2Ii8+PHJlY3QgeD0iMTA3OS41IiB5PSIzNjEuNSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjI3IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48cmVjdCB4PSIxMTA1LjUiIHk9IjM2MS41IiB3aWR0aD0iMjciIGhlaWdodD0iMjciIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjExMzIuNSIgeT0iMzYxLjUiIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNyIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRTdFNkU2Ii8+PHJlY3QgeD0iNjQ4LjUiIHk9IjQyNy41IiB3aWR0aD0iMjEyIiBoZWlnaHQ9IjE2NyIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRTdFNkU2Ii8+PHJlY3QgeD0iNjYyLjUiIHk9IjQzOC41IiB3aWR0aD0iMTg0IiBoZWlnaHQ9IjQzIiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiM0NDcyQzQiLz48dGV4dCBmaWxsPSIjRkZGRkZGIiBmb250LWZhbWlseT0iQ2FsaWJyaSxDYWxpYnJpX01TRm9udFNlcnZpY2Usc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zaXplPSIyNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzI2LjQ5MiA0NjcpIj5kYXRhXzwvdGV4dD48cmVjdCB4PSI2NjIuNSIgeT0iNDg2LjUiIHdpZHRoPSIxODQiIGhlaWdodD0iNDMiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjx0ZXh0IGZpbGw9IiNGRkZGRkYiIGZvbnQtZmFtaWx5PSJDYWxpYnJpLENhbGlicmlfTVNGb250U2VydmljZSxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iNDAwIiBmb250LXNpemU9IjI0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2ODkuODA5IDUxNSkiPmNhcGFjaXR5XzogMTA8L3RleHQ+PHJlY3QgeD0iNjYyLjUiIHk9IjUzNC41IiB3aWR0aD0iMTg0IiBoZWlnaHQ9IjQzIiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiM0NDcyQzQiLz48dGV4dCBmaWxsPSIjRkZGRkZGIiBmb250LWZhbWlseT0iQ2FsaWJyaSxDYWxpYnJpX01TRm9udFNlcnZpY2Usc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zaXplPSIyNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzE4LjA2MiA1NjMpIj5zaXplXzogNDwvdGV4dD48cGF0aCBkPSJNNzUwLjA5MSA0NDYuNTgzIDc1NC45MTYgNDM2LjA1NyA3NjAuMzI0IDQyNS44NjkgNzYzLjQyOCA0MjEuMDU1IDc2Ni45MTUgNDE2LjM2MyA3NzAuODU3IDQxMi4wNCA3NzUuMzY1IDQwNy45NzYgNzgwLjMwNCA0MDQuMzAzIDc4NS42NzYgNDAwLjgyNyA3OTEuMzU1IDM5Ny43MzUgNzk3LjQ2OCAzOTQuNzc0IDgwMy45NTMgMzkyLjEyOSA4MTAuODY3IDM4OS42MTUgODE4LjA5MSAzODcuMzUzIDgyNS43NSAzODUuMjE5IDgzMy45MTYgMzgzLjI3MiA4NDIuNTc5IDM4MS42NCA4NTEuNjA1IDM4MC4xOTggODYxLjA2OCAzNzguOTQ1IDg4MC43MTQgMzc2LjgxNyA4OTguOTM4IDM3NS4xODEgODk5LjExNyAzNzcuMTczIDg4MC45MDIgMzc4LjgwOSA4ODAuOTIgMzc4LjgwNyA4NjEuMjk1IDM4MC45MzIgODYxLjMxOSAzODAuOTI5IDg1MS44ODEgMzgyLjE3OSA4NTEuOTA4IDM4Mi4xNzUgODQyLjkwOCAzODMuNjEyIDg0Mi45MzUgMzgzLjYwOCA4MzQuMzEgMzg1LjIzMyA4MzQuMzU3IDM4NS4yMjMgODI2LjIzMiAzODcuMTYgODI2LjI2OCAzODcuMTUxIDgxOC42NDMgMzg5LjI3NiA4MTguNjc0IDM4OS4yNjcgODExLjQ4NiAzOTEuNTE3IDgxMS41MjkgMzkxLjUwMiA4MDQuNjU0IDM5NC4wMDIgODA0LjY5IDM5My45ODggNzk4LjI1MyAzOTYuNjEzIDc5OC4zMTEgMzk2LjU4NyA3OTIuMjQ5IDM5OS41MjUgNzkyLjI5MSAzOTkuNTAzIDc4Ni42NjYgNDAyLjU2NiA3ODYuNzMxIDQwMi41MjcgNzgxLjQxOCA0MDUuOTY1IDc4MS40NzIgNDA1LjkyNyA3NzYuNTk3IDQwOS41NTIgNzc2LjY3IDQwOS40OTMgNzcyLjIzMiA0MTMuNDkzIDc3Mi4zMDEgNDEzLjQyNCA3NjguNDI2IDQxNy42NzQgNzY4LjQ5IDQxNy41OTcgNzY1LjA1MyA0MjIuMjIyIDc2NS4wOSA0MjIuMTY3IDc2Mi4wMjggNDI2LjkxNyA3NjIuMDcxIDQyNi44NDQgNzU2LjY5NiA0MzYuOTY5IDc1Ni43MjIgNDM2LjkxNyA3NTEuOTA5IDQ0Ny40MTdaTTg5MS4wNjcgMzcxLjMzOSA5MDEuMDA1IDM3NiA4OTIuMDU2IDM4Mi4zNTZDODkxLjYwNiAzODIuNjc2IDg5MC45ODIgMzgyLjU3IDg5MC42NjIgMzgyLjEyIDg5MC4zNDIgMzgxLjY2OSA4OTAuNDQ4IDM4MS4wNDUgODkwLjg5OCAzODAuNzI1TDg5OC40NDkgMzc1LjM2MiA4OTguNjAzIDM3Ny4wODIgODkwLjIxOCAzNzMuMTVDODg5LjcxOCAzNzIuOTE1IDg4OS41MDMgMzcyLjMyIDg4OS43MzcgMzcxLjgyIDg4OS45NzIgMzcxLjMyIDg5MC41NjcgMzcxLjEwNSA4OTEuMDY3IDM3MS4zMzlaIi8+PHJlY3QgeD0iODk0LjUiIHk9IjQ0OS41IiB3aWR0aD0iMjciIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjxyZWN0IHg9IjkyMS41IiB5PSI0NDkuNSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjI2IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiM0NDcyQzQiLz48cmVjdCB4PSI5NDcuNSIgeT0iNDQ5LjUiIHdpZHRoPSIyNyIgaGVpZ2h0PSIyNiIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjNDQ3MkM0Ii8+PHJlY3QgeD0iOTczLjUiIHk9IjQ0OS41IiB3aWR0aD0iMjciIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjxyZWN0IHg9IjEwMDAuNSIgeT0iNDQ5LjUiIHdpZHRoPSIyNS45OTk5IiBoZWlnaHQ9IjI2IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48cmVjdCB4PSIxMDI2LjUiIHk9IjQ0OS41IiB3aWR0aD0iMjciIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjEwNTMuNSIgeT0iNDQ5LjUiIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRTdFNkU2Ii8+PHJlY3QgeD0iMTA3OS41IiB5PSI0NDkuNSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjI2IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48cmVjdCB4PSIxMTA1LjUiIHk9IjQ0OS41IiB3aWR0aD0iMjciIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjExMzIuNSIgeT0iNDQ5LjUiIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRTdFNkU2Ii8+PHJlY3QgeD0iMTE1OC41IiB5PSI0NDkuNSIgd2lkdGg9IjI3IiBoZWlnaHQ9IjI2IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48cmVjdCB4PSIxMTg1LjUiIHk9IjQ0OS41IiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjEyMTEuNSIgeT0iNDQ5LjUiIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiIgc3Ryb2tlPSIjMkY1MjhGIiBzdHJva2Utd2lkdGg9IjEuMzMzMzMiIHN0cm9rZS1taXRlcmxpbWl0PSI4IiBmaWxsPSIjRTdFNkU2Ii8+PHJlY3QgeD0iMTIzNy41IiB5PSI0NDkuNSIgd2lkdGg9IjI3IiBoZWlnaHQ9IjI2IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48dGV4dCBmb250LWZhbWlseT0iQ2FsaWJyaSxDYWxpYnJpX01TRm9udFNlcnZpY2Usc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zaXplPSIyNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOTAzLjg4MyA1NjUpIj5uZXdfZGF0YTwvdGV4dD48cGF0aCBkPSJNODk0LjQ0IDU1Ni4zNTYgODkwLjkzMiA1NDcuMTQ2IDg4Ny44NDYgNTM3LjcwMSA4ODUuNjk4IDUyNy45MDcgODg1LjE4OSA1MjIuODEyIDg4NS4wNjIgNTE3LjU1IDg4NS41NjYgNTA3LjM1MSA4ODYuMTk5IDUwMi4yODEgODg3LjIxMSA0OTcuMDMzIDg4OC42IDQ5MS41MzkgODkwLjQ5MSA0ODUuNTUgODkyLjk0NiA0NzguOTQyIDg5NS4zMDIgNDczLjQyOCA4OTcuMTQxIDQ3NC4yMTQgODk0Ljc5NSA0NzkuNzA1IDg5NC44MTIgNDc5LjY2MSA4OTIuMzc1IDQ4Ni4yMjMgODkyLjM5MSA0ODYuMTc2IDg5MC41MTYgNDkyLjExNCA4OTAuNTMyIDQ5Mi4wNTggODg5LjE1NyA0OTcuNDk1IDg4OS4xNjkgNDk3LjQzOSA4ODguMTY5IDUwMi42MjcgODg4LjE4IDUwMi41NjIgODg3LjU1NSA1MDcuNTYyIDg4Ny41NjEgNTA3LjQ4NyA4ODcuMDYxIDUxNy42MTIgODg3LjA2MiA1MTcuNTM4IDg4Ny4xODcgNTIyLjcyNiA4ODcuMTgzIDUyMi42NTEgODg3LjY4MyA1MjcuNjUxIDg4Ny42NjQgNTI3LjUzNiA4ODkuNzg5IDUzNy4yMjMgODg5Ljc2MyA1MzcuMTI3IDg5Mi44MjYgNTQ2LjUwMiA4OTIuODEgNTQ2LjQ1NiA4OTYuMzEgNTU1LjY0NFpNODg4LjE5MSA0NzguNTQgODk3LjAwMiA0NzEuOTk2IDg5OC4zNjIgNDgyLjg4N0M4OTguNDMgNDgzLjQzNSA4OTguMDQxIDQ4My45MzUgODk3LjQ5MyA0ODQuMDAzIDg5Ni45NDUgNDg0LjA3MiA4OTYuNDQ1IDQ4My42ODMgODk2LjM3NyA0ODMuMTM1TDg5NS4yMyA0NzMuOTQ1IDg5Ni44MTggNDc0LjYyMyA4ODkuMzgzIDQ4MC4xNDZDODg4Ljk0IDQ4MC40NzUgODg4LjMxMyA0ODAuMzgzIDg4Ny45ODQgNDc5Ljk0IDg4Ny42NTUgNDc5LjQ5NiA4ODcuNzQ3IDQ3OC44NyA4ODguMTkxIDQ3OC41NFoiLz48dGV4dCBmb250LWZhbWlseT0iQ29uc29sYXMsQ29uc29sYXNfTVNGb250U2VydmljZSxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iNDAwIiBmb250LXNpemU9IjI0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2NTIuNjQgNjIyKSI+VmVjdG9yJmx0O2ludCZndDs8dHNwYW4gZm9udC1zaXplPSIyNCIgeD0iMTU4IiB5PSIwIj52PC90c3Bhbj48dHNwYW4gZm9udC1zaXplPSIyNCIgeD0iMTcxLjE2NyIgeT0iMCI+OzwvdHNwYW4+PC90ZXh0PjxwYXRoIGQ9Ik04OTQuNTI1IDM3MC44NDcgODk5Ljg0NyAzNjUuNTI1IDkwNS41IDM3MS4xNzggOTExLjE1MyAzNjUuNTI1IDkxNi40NzUgMzcwLjg0NyA5MTAuODIyIDM3Ni41IDkxNi40NzUgMzgyLjE1MyA5MTEuMTUzIDM4Ny40NzUgOTA1LjUgMzgxLjgyMiA4OTkuODQ3IDM4Ny40NzUgODk0LjUyNSAzODIuMTUzIDkwMC4xNzggMzc2LjVaIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNGRjAwMDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjxwYXRoIGQ9Ik05MjMuNTI1IDM3MC44NDcgOTI4Ljg0NyAzNjUuNTI1IDkzNC41IDM3MS4xNzggOTQwLjE1MyAzNjUuNTI1IDk0NS40NzUgMzcwLjg0NyA5MzkuODIyIDM3Ni41IDk0NS40NzUgMzgyLjE1MyA5NDAuMTUzIDM4Ny40NzUgOTM0LjUgMzgxLjgyMiA5MjguODQ3IDM4Ny40NzUgOTIzLjUyNSAzODIuMTUzIDkyOS4xNzggMzc2LjVaIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNGRjAwMDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjxwYXRoIGQ9Ik05NTAuNTI1IDM3MC44NDcgOTU1Ljg0NyAzNjUuNTI1IDk2MS41IDM3MS4xNzggOTY3LjE1MyAzNjUuNTI1IDk3Mi40NzUgMzcwLjg0NyA5NjYuODIyIDM3Ni41IDk3Mi40NzUgMzgyLjE1MyA5NjcuMTUzIDM4Ny40NzUgOTYxLjUgMzgxLjgyMiA5NTUuODQ3IDM4Ny40NzUgOTUwLjUyNSAzODIuMTUzIDk1Ni4xNzggMzc2LjVaIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNGRjAwMDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjxwYXRoIGQ9Ik05NzYuNTI1IDM3MC44NDcgOTgxLjg0NyAzNjUuNTI1IDk4Ny41IDM3MS4xNzggOTkzLjE1MyAzNjUuNTI1IDk5OC40NzUgMzcwLjg0NyA5OTIuODIyIDM3Ni41IDk5OC40NzUgMzgyLjE1MyA5OTMuMTUzIDM4Ny40NzUgOTg3LjUgMzgxLjgyMiA5ODEuODQ3IDM4Ny40NzUgOTc2LjUyNSAzODIuMTUzIDk4Mi4xNzggMzc2LjVaIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNGRjAwMDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvZz48L3N2Zz4=" alt="image" /></p>
+
+<p>В конце прежняя область памяти освобождается, и вектор начинает указывать на новую область памяти. Также обновляется значение поля <code>capacity_</code>.</p>
+
+<p><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjI4IiBoZWlnaHQ9IjIzNSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgb3ZlcmZsb3c9ImhpZGRlbiI+PGRlZnM+PGNsaXBQYXRoIGlkPSJjbGlwMCI+PHJlY3QgeD0iLTYiIHk9Ii0yIiB3aWR0aD0iNjI4IiBoZWlnaHQ9IjIzNSIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMCkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYgMikiPjxyZWN0IHg9IjUuNTAwMDUiIHk9IjE3LjUwMDEiIHdpZHRoPSIyMTIiIGhlaWdodD0iMTY2IiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiNFN0U2RTYiLz48cmVjdCB4PSIxOS41MDAxIiB5PSIyOC41MDAxIiB3aWR0aD0iMTg0IiBoZWlnaHQ9IjQzIiBzdHJva2U9IiMyRjUyOEYiIHN0cm9rZS13aWR0aD0iMS4zMzMzMyIgc3Ryb2tlLW1pdGVybGltaXQ9IjgiIGZpbGw9IiM0NDcyQzQiLz48dGV4dCBmaWxsPSIjRkZGRkZGIiBmb250LWZhbWlseT0iQ2FsaWJyaSxDYWxpYnJpX01TRm9udFNlcnZpY2Usc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zaXplPSIyNCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODMuNDUyOCA1NykiPmRhdGFfPC90ZXh0PjxyZWN0IHg9IjE5LjUwMDEiIHk9Ijc2LjUwMDEiIHdpZHRoPSIxODQiIGhlaWdodD0iNDMiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjx0ZXh0IGZpbGw9IiNGRkZGRkYiIGZvbnQtZmFtaWx5PSJDYWxpYnJpLENhbGlicmlfTVNGb250U2VydmljZSxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iNDAwIiBmb250LXNpemU9IjI0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0Ni43Njg5IDEwNSkiPmNhcGFjaXR5XzogPHRzcGFuIGZvbnQtc2l6ZT0iMjQiIHg9IjEwNC4xMzMiIHk9IjAiPjE0PC90c3Bhbj48L3RleHQ+PHJlY3QgeD0iMTkuNTAwMSIgeT0iMTI0LjUiIHdpZHRoPSIxODQiIGhlaWdodD0iNDMiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjx0ZXh0IGZpbGw9IiNGRkZGRkYiIGZvbnQtZmFtaWx5PSJDYWxpYnJpLENhbGlicmlfTVNGb250U2VydmljZSxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iNDAwIiBmb250LXNpemU9IjI0IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3NS4wMjIzIDE1MykiPnNpemVfOiA0PC90ZXh0PjxyZWN0IHg9IjI1MS41IiB5PSIzOS41MDAxIiB3aWR0aD0iMjciIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjxyZWN0IHg9IjI3OC41IiB5PSIzOS41MDAxIiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjxyZWN0IHg9IjMwNC41IiB5PSIzOS41MDAxIiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjxyZWN0IHg9IjMzMC41IiB5PSIzOS41MDAxIiB3aWR0aD0iMjciIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iIzQ0NzJDNCIvPjxyZWN0IHg9IjM1Ny41IiB5PSIzOS41MDAxIiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjM4My41IiB5PSIzOS41MDAxIiB3aWR0aD0iMjciIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjQxMC41IiB5PSIzOS41MDAxIiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjQzNi41IiB5PSIzOS41MDAxIiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjQ2Mi41IiB5PSIzOS41MDAxIiB3aWR0aD0iMjciIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjQ4OS41IiB5PSIzOS41MDAxIiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjUxNS41IiB5PSIzOS41MDAxIiB3aWR0aD0iMjciIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjU0Mi41IiB5PSIzOS41MDAxIiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjU2OC41IiB5PSIzOS41MDAxIiB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjxyZWN0IHg9IjU5NC41IiB5PSIzOS41MDAxIiB3aWR0aD0iMjciIGhlaWdodD0iMjYiIHN0cm9rZT0iIzJGNTI4RiIgc3Ryb2tlLXdpZHRoPSIxLjMzMzMzIiBzdHJva2UtbWl0ZXJsaW1pdD0iOCIgZmlsbD0iI0U3RTZFNiIvPjx0ZXh0IGZvbnQtZmFtaWx5PSJDb25zb2xhcyxDb25zb2xhc19NU0ZvbnRTZXJ2aWNlLHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc2l6ZT0iMjQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDkuNiAyMTIpIj5WZWN0b3ImbHQ7aW50Jmd0OyB2OzwvdGV4dD48cGF0aCBkPSJNMTMyLjQ0MSAzMy4xMDg2IDE0Ny44MjYgMjIuNzI2NiAxNTUuNDcyIDE3LjgzOCAxNjMuMDY2IDEzLjI1NjggMTcwLjYwOCA5LjE3MTI5IDE3Ny45NzggNS42NDQwMSAxODUuMzA3IDIuODAwNjYgMTkyLjQ2OCAwLjc3MjcyNCAxOTkuNjk2LTAuNDMxODE1IDIwNy4wMzctMC45MzgwOTQgMjE0LjM3NC0wLjgxMTU5NSAyMjEuNTg2LTAuMDUyNDQwMSAyMjguNDI3IDEuMjc3ODggMjM0Ljc3MiAzLjE4MTM1IDI0MC41MDQgNS41Mzc5OCAyNDUuNTE1IDguNDI4NjUgMjQ5LjcxNiAxMS45ODMzIDI1My4xOTcgMTYuMjM3OSAyNTYuMDc3IDIxLjEwMjYgMjU4LjQzMyAyNi4zODU5IDI2MC4zMzQgMzIuMDI3NSAyNjEuODUzIDM3LjkxMTcgMjYzLjYzNiA0Ny44NzQ4IDI2MS42NjcgNDguMjI3MSAyNTkuODkxIDM4LjMwMTEgMjU5LjkwNyAzOC4zNzQ5IDI1OC40MDcgMzIuNTYyNCAyNTguNDI3IDMyLjYzMTkgMjU2LjU1MiAyNy4wNjk0IDI1Ni41ODcgMjcuMTU3MiAyNTQuMjc0IDIxLjk2OTcgMjU0LjMyNyAyMi4wNzIgMjUxLjUxNSAxNy4zMjIgMjUxLjYwMSAxNy40NDU3IDI0OC4yMjYgMTMuMzIwNyAyNDguMzU0IDEzLjQ1MDkgMjQ0LjI5MiAxMC4wMTM0IDI0NC40MzggMTAuMTE2MiAyMzkuNTYzIDcuMzAzNjkgMjM5LjY4MiA3LjM2MjM5IDIzNC4wNTcgNS4wNDk4OSAyMzQuMTUgNS4wODI4MyAyMjcuOSAzLjIwNzgzIDIyNy45OTcgMy4yMzE2MiAyMjEuMjQ3IDEuOTE5MTIgMjIxLjMzMyAxLjkzMjAxIDIxNC4yMDggMS4xODIwMSAyMTQuMjk1IDEuMTg3MzUgMjA3LjA0NSAxLjA2MjM1IDIwNy4xMzEgMS4wNjAxMyAxOTkuODgxIDEuNTYwMTMgMTk5Ljk3NyAxLjU0ODg5IDE5Mi44NTIgMi43MzYzOSAxOTIuOTYgMi43MTIxNiAxODUuODk3IDQuNzEyMTYgMTg1Ljk4NyA0LjY4MjMxIDE3OC43MzcgNy40OTQ4MSAxNzguODA3IDcuNDY0NSAxNzEuNDk0IDEwLjk2NDUgMTcxLjUzOSAxMC45NDE4IDE2NC4wMzkgMTUuMDA0MyAxNjQuMDc5IDE0Ljk4MTIgMTU2LjUxNyAxOS41NDM3IDE1Ni41MzkgMTkuNTMgMTQ4LjkxNCAyNC40MDUgMTQ4LjkzNCAyNC4zOTE0IDEzMy41NTkgMzQuNzY2NFpNMjY2Ljc3NSAzOS42OTc4IDI2My4wMDEgNTAuMDA0NiAyNTUuODg3IDQxLjY0NjJDMjU1LjUyOSA0MS4yMjU3IDI1NS41OCA0MC41OTQ1IDI1NiA0MC4yMzY2IDI1Ni40MjEgMzkuODc4NiAyNTcuMDUyIDM5LjkyOTQgMjU3LjQxIDQwLjM0OTlMMjYzLjQxMyA0Ny40MDI4IDI2MS43MTIgNDcuNzA3MSAyNjQuODk3IDM5LjAxMDJDMjY1LjA4NyAzOC40OTE2IDI2NS42NjEgMzguMjI1MSAyNjYuMTggMzguNDE1IDI2Ni42OTggMzguNjA0OSAyNjYuOTY1IDM5LjE3OTIgMjY2Ljc3NSAzOS42OTc4WiIvPjwvZz48L3N2Zz4=" alt="image" /></p>
+
+<p>Так реализуются конструкторы, деструкторы и метод <code>Reserve</code> у класса <code>Vector</code>. Теперь вам предстоит собрать класс <code>Vector</code> из имеющихся фрагментов.</p>
+
+</body>
+</html>

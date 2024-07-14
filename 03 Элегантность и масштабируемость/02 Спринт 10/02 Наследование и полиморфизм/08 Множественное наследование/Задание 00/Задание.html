@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание</h2>
+
+<p>Добавьте к классам <code>Text</code>, <code>Circle</code> и <code>Polyline</code> SVG-библиотеки поддержку следующих методов:</p>
+
+<ul>
+<li><code>SetFillColor(Color color)</code> задаёт значение свойства <a href="https://www.w3.org/TR/SVG/painting.html#FillProperty"><code>fill</code></a> — цвет заливки. По умолчанию свойство не выводится.</li>
+<li><code>SetStrokeColor(Color color)</code> задаёт значение свойства <a href="https://www.w3.org/TR/SVG/painting.html#StrokeProperty"><code>stroke</code></a> — цвет контура. По умолчанию свойство не выводится.</li>
+<li><code>SetStrokeWidth(double width)</code> задаёт значение свойства <a href="https://www.w3.org/TR/SVG/painting.html#StrokeWidthProperty"><code>stroke-width</code></a> — толщину линии. По умолчанию свойство не выводится.</li>
+<li><code>SetStrokeLineCap(StrokeLineCap line_cap)</code> задаёт значение свойства <a href="https://www.w3.org/TR/SVG/painting.html#StrokeLinecapProperty"><code>stroke-linecap</code></a> — тип формы конца линии. По умолчанию свойство не выводится.</li>
+<li><code>SetStrokeLineJoin(StrokeLineJoin line_join)</code> задаёт значение свойства <a href="https://www.w3.org/TR/SVG/painting.html#StrokeLinejoinProperty"><code>stroke-linejoin</code></a> — тип формы соединения линий. По умолчанию свойство не выводится.</li>
+</ul>
+
+<p>Эти методы должны поддерживать method chaining, то есть возвращать ссылку на тип объекта, у которого были вызваны.</p>
+
+<p>Тип <code>Color</code> объявите на основе типа <code>std::string</code>. Также объявите константу <code>NoneColor</code>, имеющую значение <code>none</code>:</p>
+
+<pre><code class="language-cpp">namespace svg {
+...
+using Color = std::string;
+
+// Объявив в заголовочном файле константу со спецификатором inline,
+// мы сделаем так, что она будет одной на все единицы трансляции,
+// которые подключают этот заголовок.
+// В противном случае каждая единица трансляции будет использовать свою копию этой константы
+inline const Color NoneColor{&quot;none&quot;};
+...
+}
+</code></pre>
+
+<p>Типы <code>StrokeLineCap</code> и <code>StrokeLineJoin</code> объявляются с использованием <code>enum</code>:</p>
+
+<pre><code class="language-cpp">namespace svg {
+...
+enum class StrokeLineCap {
+    BUTT,
+    ROUND,
+    SQUARE,
+};
+
+enum class StrokeLineJoin {
+    ARCS,
+    BEVEL,
+    MITER,
+    MITER_CLIP,
+    ROUND,
+};
+...
+} // namespace svg
+</code></pre>
+
+<p>Класс <code>shapes::Snowman</code> должен использовать следующие цвета:</p>
+
+<ul>
+<li>Заливка: <code>rgb(240,240,240)</code></li>
+<li>Контур: <code>black</code></li>
+</ul>
+
+<p>Класс <code>shapes::Star</code> должен использовать следующие цвета:</p>
+
+<ul>
+<li>Заливка: <code>red</code></li>
+<li>Контур: <code>black</code></li>
+</ul>
+
+<p>Класс <code>shapes::Triangle</code> оставьте без изменений.</p>
+
+<p>Пример использования:</p>
+
+<pre><code class="language-cpp">int main() {
+    using namespace svg;
+    using namespace shapes;
+    using namespace std;
+
+    vector&lt;unique_ptr&lt;svg::Drawable&gt;&gt; picture;
+    picture.emplace_back(make_unique&lt;Triangle&gt;(Point{100, 20}, Point{120, 50}, Point{80, 40}));
+    picture.emplace_back(make_unique&lt;Star&gt;(Point{50.0, 20.0}, 10.0, 4.0, 5));
+    picture.emplace_back(make_unique&lt;Snowman&gt;(Point{30, 20}, 10.0));
+
+    svg::Document doc;
+    DrawPicture(picture, doc);
+
+    const Text base_text =  //
+        Text()
+            .SetFontFamily(&quot;Verdana&quot;s)
+            .SetFontSize(12)
+            .SetPosition({10, 100})
+            .SetData(&quot;Happy New Year!&quot;s);
+    doc.Add(Text{base_text}
+                .SetStrokeColor(&quot;yellow&quot;s)
+                .SetFillColor(&quot;yellow&quot;s)
+                .SetStrokeLineJoin(StrokeLineJoin::ROUND)
+                .SetStrokeLineCap(StrokeLineCap::ROUND)
+                .SetStrokeWidth(3));
+    doc.Add(Text{base_text}.SetFillColor(&quot;red&quot;s));
+
+    doc.Render(cout);
+}
+</code></pre>
+
+<p>Ожидаемый результат (порядок перечисления атрибутов может отличаться):</p>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; version=&quot;1.1&quot;&gt;
+  &lt;polyline points=&quot;100,20 120,50 80,40 100,20&quot; /&gt;
+  &lt;polyline points=&quot;50,10 52.3511,16.7639 59.5106,16.9098 53.8042,21.2361 55.8779,28.0902 50,24 44.1221,28.0902 46.1958,21.2361 40.4894,16.9098 47.6489,16.7639 50,10&quot; fill=&quot;red&quot; stroke=&quot;black&quot;/&gt;
+  &lt;circle cx=&quot;30&quot; cy=&quot;70&quot; r=&quot;20&quot; fill=&quot;rgb(240,240,240)&quot; stroke=&quot;black&quot;/&gt;
+  &lt;circle cx=&quot;30&quot; cy=&quot;40&quot; r=&quot;15&quot; fill=&quot;rgb(240,240,240)&quot; stroke=&quot;black&quot;/&gt;
+  &lt;circle cx=&quot;30&quot; cy=&quot;20&quot; r=&quot;10&quot; fill=&quot;rgb(240,240,240)&quot; stroke=&quot;black&quot;/&gt;
+  &lt;text fill=&quot;yellow&quot; stroke=&quot;yellow&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; x=&quot;10&quot; y=&quot;100&quot; dx=&quot;0&quot; dy=&quot;0&quot; font-size=&quot;12&quot; font-family=&quot;Verdana&quot;&gt;Happy New Year!&lt;/text&gt;
+  &lt;text fill=&quot;red&quot; x=&quot;10&quot; y=&quot;100&quot; dx=&quot;0&quot; dy=&quot;0&quot; font-size=&quot;12&quot; font-family=&quot;Verdana&quot;&gt;Happy New Year!&lt;/text&gt;
+&lt;/svg&gt;
+</code></pre>
+
+<p><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiID8+DQo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIj4NCiAgPHBvbHlsaW5lIHBvaW50cz0iMTAwLDIwIDEyMCw1MCA4MCw0MCAxMDAsMjAiIC8+DQogIDxwb2x5bGluZSBwb2ludHM9IjUwLDEwIDUyLjM1MTEsMTYuNzYzOSA1OS41MTA2LDE2LjkwOTggNTMuODA0MiwyMS4yMzYxIDU1Ljg3NzksMjguMDkwMiA1MCwyNCA0NC4xMjIxLDI4LjA5MDIgNDYuMTk1OCwyMS4yMzYxIDQwLjQ4OTQsMTYuOTA5OCA0Ny42NDg5LDE2Ljc2MzkgNTAsMTAiIGZpbGw9InJlZCIgc3Ryb2tlPSJibGFjayIvPg0KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjcwIiByPSIyMCIgZmlsbD0icmdiKDI0MCwyNDAsMjQwKSIgc3Ryb2tlPSJibGFjayIvPg0KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjQwIiByPSIxNSIgZmlsbD0icmdiKDI0MCwyNDAsMjQwKSIgc3Ryb2tlPSJibGFjayIvPg0KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjIwIiByPSIxMCIgZmlsbD0icmdiKDI0MCwyNDAsMjQwKSIgc3Ryb2tlPSJibGFjayIvPg0KICA8dGV4dCBmaWxsPSJ5ZWxsb3ciIHN0cm9rZT0ieWVsbG93IiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgeD0iMTAiIHk9IjEwMCIgZHg9IjAiIGR5PSIwIiBmb250LXNpemU9IjEyIiBmb250LWZhbWlseT0iVmVyZGFuYSI+SGFwcHkgTmV3IFllYXIhPC90ZXh0Pg0KICA8dGV4dCBmaWxsPSJyZWQiIHg9IjEwIiB5PSIxMDAiIGR4PSIwIiBkeT0iMCIgZm9udC1zaXplPSIxMiIgZm9udC1mYW1pbHk9IlZlcmRhbmEiPkhhcHB5IE5ldyBZZWFyITwvdGV4dD4NCjwvc3ZnPg==" alt="image" /></p>
+
+<h3>Описание формата выходных данных</h3>
+
+<p>Требования к содержимому, выводимому методом <code>svg::Document::Render</code>, аналогичны требованиям из предыдущего урока.</p>
+
+<h3>Ограничения</h3>
+
+<p>Ограничения допускают любое адекватное линейное решение: за одну секунду нужно обрабатывать порядка 10 000 вызовов конструкторов объектов и методов выставления свойств, а также один вызов метода <code>svg::Document::Render</code>.</p>
+
+<p>Гарантируется, что при тестировании тренажёр будет передавать валидные параметры в методы классов и их конструкторы. Поэтому усложнять код проверками не нужно.</p>
+
+<h3>Что отправлять на проверку</h3>
+
+<p>Код библиотеки должен располагаться в файлах <code>svg.h</code> и <code>svg.cpp</code>. Файл <code>main.cpp</code> должен содержать классы <code>Triangle</code>, <code>Snowman</code> и <code>Star</code> в пространстве имён <code>shapes</code> и необходимые для их работы функции. Функция <code>main</code> будет заменена на версию из тренажёра.</p>
+
+<h3>Как будет тестироваться ваш код</h3>
+
+<p>Тренажёр проверит работу классов <code>shapes::Triangle</code>, <code>shapes::Snowman</code> и <code>shapes::Star</code>, а также классов объектов библиотеки <code>svg</code>.</p>
+
+<h3>Подсказка</h3>
+
+<ul>
+<li>Добавьте <code>PathProps</code> в качестве родителя к классам <code>Circle</code>, <code>Text</code>, <code>Polyline</code>, чтобы наделить их свойствами этого класса.</li>
+<li>Чтобы сохранять значения новых свойств класса <code>PathProps</code> только при вызове соответствующих Set-методов, храните значения свойств в <code>optional</code>. Для тех свойств, значения которых равны <code>std::nullopt</code>, Set-методы не вызывались. Значит, выводить их в выходной поток не нужно.</li>
+<li>Для вывода значений <code>StrokeLineCap</code> и <code>StrokeLineJoin</code> перегрузите оператор вывода в поток.</li>
+</ul>
+
+</body>
+</html>

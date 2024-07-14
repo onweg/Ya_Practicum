@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Перегрузка методов по rvalue-ссылке</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Перегрузка методов по rvalue-ссылке</h1>
+
+<p>В этом уроке вы узнаете, как избежать избыточного копирования содержимого объектов, используя перегрузку методов и операций по rvalue-ссылке.</p>
+
+<p>Рассмотрим мотивирующий пример — класс <code>Gold</code>, который моделирует золотой слиток заданного объёма:</p>
+
+<pre><code class="language-cpp">class Gold {
+public:
+    int GetAmount() const noexcept {
+        return amount_;
+    }
+private:
+    int amount_ = 0;
+};
+</code></pre>
+
+<p>Золото нельзя создать из ничего. Его можно только добыть. Для этого объявим конструктор класса приватным, чтобы он не был доступен коду вне класса. Для добычи золота создадим статический метод <code>Mine</code>. Так как запасы золота на планете ограниченны, при его нехватке метод <code>Mine</code> выбросит исключение:</p>
+
+<pre><code class="language-cpp">class Gold {
+public:
+    static Gold Mine(int amount) {
+        if (amount &lt;= 0) {
+            throw std::out_of_range(&quot;Invalid amount of gold.&quot;s);
+        }
+        cout &lt;&lt; &quot;Mine &quot;sv &lt;&lt; amount &lt;&lt; &quot; units of gold. &quot;sv;
+        if (amount &gt; available_) {
+            // Недостаточно золота в недрах планеты
+            ostringstream msg;
+            msg &lt;&lt; &quot;Out of gold. Only &quot;sv &lt;&lt; available_ &lt;&lt; &quot; units are available.&quot;sv;
+            throw runtime_error(msg.str());
+        }
+        available_ -= amount;
+        cout &lt;&lt; available_ &lt;&lt; &quot; units left.&quot;sv &lt;&lt; endl;
+        return Gold(amount);
+    }
+
+    static int GetAvailableAmount() {
+        return available_;
+    }
+    ...
+private:
+    // Конструктор объявлен приватным, чтобы создание золота было возможным только путём его добычи
+    explicit Gold(int amount) noexcept
+        : amount_(amount) {
+    }
+
+    // Количество золота в недрах Земли
+    static inline int available_ = 100;
+};
+</code></pre>
+
+<p>При разрушении объектов <code>Gold</code> золото возвращается в недра Земли:</p>
+
+<pre><code class="language-cpp">class Gold {
+public:
+    ...
+    ~Gold() {
+        Dispose();
+    }
+private:
+    void Dispose() noexcept {
+        if (amount_ != 0) {
+            available_ += amount_;
+            cout &lt;&lt; &quot;Dispose &quot;sv &lt;&lt; amount_ &lt;&lt; &quot; units of gold. &quot;sv &lt;&lt; available_
+                 &lt;&lt; &quot; units available.&quot;sv &lt;&lt; endl;
+            amount_ = 0;
+        }
+    }
+    ...
+};
+</code></pre>
+
+<p>Чтобы создать копию слитка золота, нужно добыть его из недр Земли. Зато перемещение содержимого одного объекта <code>Gold</code> к другому — дешёвая операция. Когда золото присваивают, прежнее количество золота возвращается в недра, а затем происходит добыча или перемещение:</p>
+
+<pre><code class="language-cpp">class Gold {
+public:
+    // Чтобы скопировать золото, нужно его добыть
+    Gold(const Gold&amp; other) {
+        *this = Mine(other.amount_);
+    }
+    // Просто перемещаем золото из одного места в другое
+    Gold(Gold&amp;&amp; other) noexcept
+        : amount_(other.amount_)  //
+    {
+        other.amount_ = 0;
+    }
+
+    Gold&amp; operator=(const Gold&amp; rhs) {
+        if (this != &amp;rhs) {
+            Dispose();  // Возвращаем прежнее количество золота
+            *this = Mine(rhs.amount_); // И добываем новое
+        }
+        return *this;
+    }
+    Gold&amp; operator=(Gold&amp;&amp; rhs) noexcept {
+        Dispose(); // Возвращаем прежнее количества золота
+        // ... и забираем содержимое rhs
+        amount_ = rhs.amount_;
+        rhs.amount_ = 0;
+        return *this;
+    }
+    ...
+};
+</code></pre>
+
+<p>Из объекта <code>Gold</code> можно извлекать куски методом <code>Take</code>, пока золото не закончится:</p>
+
+<pre><code class="language-cpp">class Gold {
+public:
+    [[nodiscard]] Gold Take(int amount) {
+        if (amount &gt; amount_ || amount &lt; 0) {
+            throw std::invalid_argument(&quot;Invalid gold amount&quot;s);
+        }
+        amount_ -= amount;
+        return Gold(amount);
+    }
+    ...
+};
+</code></pre>
+
+<p>Получился класс <code>Gold</code> с дорогими операциями копирования и дешёвыми операциями перемещения. На его основе создадим класс <code>Person</code>, владеющий золотом. Метод <code>GetGold</code> возвращает константную ссылку, чтобы никто не мог посягнуть на золотой запас владельца:</p>
+
+<pre><code class="language-cpp">class Person {
+public:
+    Person(string name, Gold gold)
+        : name_(move(name))
+        , gold_(move(gold))  //
+    {
+        cout &lt;&lt; &quot;Person &quot;sv &lt;&lt; name_ &lt;&lt; &quot; was created with &quot;sv &lt;&lt; gold_.GetAmount()
+             &lt;&lt; &quot; units of gold.&quot;sv &lt;&lt; endl;
+    }
+
+    // Запрещаем клонирование людей
+    Person(const Person&amp; other) = delete;
+    Person&amp; operator=(const Person&amp;) = delete;
+
+    ~Person() {
+        cout &lt;&lt; &quot;Person &quot;sv &lt;&lt; name_ &lt;&lt; &quot; died.&quot;sv &lt;&lt; endl;
+    }
+
+    const Gold&amp; GetGold() const {
+        return gold_;
+    }
+private:
+    string name_;
+    Gold gold_;
+}; 
+</code></pre>
+
+<p>Смоделируем ситуацию, в которой Скрудж МакДак перед смертью завещал 50 единиц золота Чипу, Дейлу и Дональду Даку в размере 20, 20 и 10 единиц соответственно:</p>
+
+<pre><code class="language-cpp">Person MakePersonWithGold() {
+    return Person(&quot;Scrooge McDuck&quot;s, Gold::Mine(50));
+}
+
+int main() {
+    try {
+        Gold gold = MakePersonWithGold().GetGold();
+        Person chip(&quot;Chip&quot;s, gold.Take(20));
+        Person dale(&quot;Dale&quot;s, gold.Take(20));
+        Person donald(&quot;Donald Duck&quot;s, gold.Take(10));
+    } catch (const exception&amp; e) {
+        cout &lt;&lt; e.what() &lt;&lt; endl;
+    }
+
+    cout &lt;&lt; Gold::GetAvailableAmount() &lt;&lt; &quot; units of gold left.&quot;s &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Запустим программу и увидим круговорот золота в природе:</p>
+
+<pre><code>Mine 50 units of gold. 50 units left.
+Person Scrooge McDuck was created with 50 units of gold.
+
+// При копировании состояния Скруджа из недр Земли происходит добыча 50 единиц золота.
+Mine 50 units of gold. 0 units left.
+Person Scrooge McDuck died.
+Dispose 50 units of gold. 50 units available.
+
+// Делёжка наследства.
+Person Chip was created with 20 units of gold.
+Person Dale was created with 20 units of gold.
+Person Donald Duck was created with 10 units of gold.
+
+// После смерти наследников золото вернулось обратно в недра планеты.
+Person Donald Duck died.
+Dispose 10 units of gold. 60 units available.
+Person Dale died.
+Dispose 20 units of gold. 80 units available.
+Person Chip died.
+Dispose 20 units of gold. 100 units available.
+</code></pre>
+
+<p>Немного изменим начальные данные, чтобы Скрудж владел 60 единицами золота, которые нужно поровну разделить между наследниками:</p>
+
+<pre><code class="language-cpp">Person MakePersonWithGold() {
+    return Person(&quot;Scrooge McDuck&quot;s, Gold::Mine(60)); // Было раньше 50
+}
+
+int main() {
+    try {
+        Gold gold = MakePersonWithGold().GetGold();
+        Person chip(&quot;Chip&quot;s, gold.Take(20));
+        Person dale(&quot;Dale&quot;s, gold.Take(20));
+        Person donald(&quot;Donald Duck&quot;s, gold.Take(20)); // Было раньше 10
+    } catch (const exception&amp; e) {
+        cout &lt;&lt; e.what() &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>При запуске программы выбросится исключение из-за нехватки золота:</p>
+
+<pre><code>Mine 60 units of gold. 40 units left.
+Person Scrooge McDuck was created with 60 units of gold.
+Mine 60 units of gold. Person Scrooge McDuck died.
+Dispose 60 units of gold. 100 units available.
+Out of gold. Only 40 units are available.
+</code></pre>
+
+<p>Чтобы разобраться в причинах проблемы, взглянем на строку:</p>
+
+<pre><code class="language-cpp">        Gold gold = MakePersonWithGold().GetGold();
+</code></pre>
+
+<p>Сначала у <code>Person</code> вызывается метод <code>GetGold</code>, возвращающий константную ссылку на объект <code>Gold</code>. Затем вызывается конструктор копирования, добывающий 60 единиц золота. Так как в недрах планеты осталось только 40 единиц золота, выбрасывается исключение, и происходит раскрутка стека. В процессе раскрутки стека Скрудж МакДак умирает, его золото возвращается в недра планеты, но ситуация уже произошла — делёжка денег завершилась неудачей.</p>
+
+<p>Когда объект, владеющий ресурсом, вот-вот будет разрушен, оптимальнее будет не копировать этот ресурс, а переместить к новому владельцу. Разберёмся, почему здесь не сработала семантика перемещения.</p>
+
+<p>Метод <code>Person::GetGold</code> возвращает <code>const Gold&amp;</code>, а не <code>Gold&amp;&amp;</code>, поэтому у переменной <code>gold</code> вызывается конструктор копирования. Наивным решением будет добавить неконстантную версию метода <code>GetGold</code> и использовать <code>move</code> для перемещения:</p>
+
+<pre><code class="language-cpp">class Person {
+public:
+    const Gold&amp; GetGold() const {
+        return gold_; // Создаётся копия золота
+    }
+    Gold&amp; GetGold() {
+        return gold_;
+    }
+    ...
+};
+int main() {
+    // move превратит Gold&amp; в Gold&amp;&amp;, и результат переместится в переменную gold
+    Gold gold = move(MakePersonWithGold().GetGold());
+}
+</code></pre>
+
+<p>Запустим и убедимся, что вместо копирования золота используется перемещение и нехватка золота не возникает:</p>
+
+<pre><code>// Жизнь и смерть Скруджа МакДака
+Mine 60 units of gold. 40 units left.
+Person Scrooge McDuck was created with 60 units of gold.
+Person Scrooge McDuck died.
+
+// Делим золото между наследниками
+Person Chip was created with 20 units of gold.
+Person Dale was created with 20 units of gold.
+Person Donald Duck was created with 20 units of gold.
+
+// Все умирают
+Person Donald Duck died.
+Dispose 20 units of gold. 60 units available.
+Person Dale died.
+Dispose 20 units of gold. 80 units available.
+Person Chip died.
+Dispose 20 units of gold. 100 units available.
+</code></pre>
+
+<hr>
+
+<p>Какие недостатки есть у этого решения? Можно выбрать несколько вариантов.</p>
+
+<ul>
+<li><p>Неидиоматичное использование функции <code>move</code>.</p></li>
+
+<li><p>Неконстантный метод <code>GetGold</code> нарушает инкапсуляцию.</p></li>
+
+<li><p>Вызывать метод <code>GetGold</code> у временного объекта опасно.</p></li>
+</ul>
+
+<p>Чтобы безопасно получить ресурс у временного объекта в C++, применяйте перегрузку методов по rvalue-ссылке. Для этого метод объектов, доступных по rvalue-ссылке, дополнительно помечается символами <code>&amp;&amp;</code>. Метод, который должен вызываться у именованных объектов, помечается символом <code>&amp;</code>:</p>
+
+<pre><code class="language-cpp">class Person {
+public:
+    // Метод вызывается у объектов, доступных по обычной lvalue-ссылке
+    [[nodiscard]] const Gold&amp; GetGold() const&amp; {
+        return gold_;
+    }
+    // Метод вызывается у объектов, доступных по rvalue-ссылке
+    [[nodiscard]] Gold GetGold() &amp;&amp; {
+        return std::move(gold_);
+    }
+    ...
+};
+</code></pre>
+
+<p>Метод <code>GetGold</code>, возвращающий константную ссылку, может быть вызван у обычных экземпляров, а метод <code>GetGold</code>, возвращающий золото по значению, — у объектов, которые доступны по rvalue-ссылке.</p>
+
+<pre><code class="language-cpp">int main() {
+    Person person(&quot;Grigory Rasputin&quot;s, Gold::Mine(10));
+    // Объект g1 будет инициализирован конструктором копирования
+    Gold g1 = person.GetGold();
+
+    // g2 будет проинициализирован конструктором перемещения
+    Gold g2 = Person(&quot;Ivan Susanin&quot;s, Gold::Mine(10)).GetGold();
+
+    // g3 будет проинициализирован конструктором перемещения
+    Gold g3 = move(person).GetGold();
+    assert(person.GetGold().GetAmount() == 0); // Золото перемещено от объекта person в g3
+
+    // Ссылка g4 продлит жизнь золотому слитку, полученному у лепрекона до конца блока
+    const Gold&amp; g4 = Person(&quot;Leprechaun&quot;s, Gold::Mine(15)).GetGold();
+    assert(g4.GetAmount() == 15);
+}
+</code></pre>
+
+<p>Вернём код функции <code>main</code> в исходное состояние и проверим его работу:</p>
+
+<pre><code class="language-cpp">int main() {
+    try {
+        Gold gold = MakePersonWithGold().GetGold();
+        Person chip(&quot;Chip&quot;s, gold.Take(20));
+        Person dale(&quot;Dale&quot;s, gold.Take(20));
+        Person donald(&quot;Donald Duck&quot;s, gold.Take(20));
+    } catch (const exception&amp; e) {
+        cout &lt;&lt; e.what() &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<pre><code>// Жизнь и карьера Скруджа МакДака
+Mine 60 units of gold. 40 units left.
+Person Scrooge McDuck was created with 60 units of gold.
+Person Scrooge McDuck died.
+
+// Делёжка наследства
+Person Chip was created with 20 units of gold.
+Person Dale was created with 20 units of gold.
+Person Donald Duck was created with 20 units of gold.
+
+// И никого не стало...
+Person Donald Duck died.
+Dispose 20 units of gold. 60 units available.
+Person Dale died.
+Dispose 20 units of gold. 80 units available.
+Person Chip died.
+Dispose 20 units of gold. 100 units available.
+</code></pre>
+
+<p>Методы, перегруженные для lvalue и rvalue-ссылок, можно делать недоступными для вызова. Для этого используют <code>= delete</code>:</p>
+
+<pre><code class="language-cpp">class Person {
+public:
+    // Метод вызывается у объектов, доступных по обычной lvalue-ссылке
+    [[nodiscard]] const Gold&amp; GetGold() const&amp; {
+        return gold_;
+    }
+    // Запрещаем вызов метод GetGold у временных объектов
+    [[nodiscard]] Gold GetGold() &amp;&amp; = delete;
+    ...
+};
+
+int main() {
+    // Ошибка: error: use of deleted function 'Gold Person::GetGold() &amp;&amp;'
+    Gold gold = Person(&quot;Scrooge McDuck&quot;s, Gold::Mine(10)).GetGold();
+}
+</code></pre>
+
+<p>Этот приём помогает защититься от случайного получения ссылок и указателей на ресурсы, которые удалятся вместе с объектом.</p>
+
+<p>В задании вам предстоит применить перегрузку методов и операторов по <code>rvalue</code> и <code>lvalue</code>-ссылкам в классе <code>Optional</code>, чтобы избежать избыточных копирований.</p>
+
+</body>
+</html>

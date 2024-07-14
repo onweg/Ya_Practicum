@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Описание языка Mython</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Описание языка Mython</h1>
+
+<p>В Mython есть классы и наследование, а все методы — виртуальные, так что в процессе реализации интерпретатора вы самостоятельно напишете таблицу виртуальных методов, с которой познакомились в прошлом спринте.</p>
+
+<p>Разработка современных компиляторов и интерпретаторов — интересная и сложная задача, которая требует большой практической и теоретической подготовки. Однако написать интерпретатор простого языка программирования под силу программисту даже с небольшим опытом.</p>
+
+<p>Вы можете удивиться, зачем создавать интерпретатор «игрушечного» языка программирования, когда есть «‎нормальные»‎ языки. Во-первых, вы закрепите на практике знания, которые получили в этом курсе. Во-вторых, опыт разработки языка программирования вам пригодится, когда нужно будет создать собственный DSL. Примеры задач, решаемых DSL:</p>
+
+<ul>
+<li>управление действиями персонажей в компьютерных играх;</li>
+<li>язык формул в редакторах электронных таблиц;</li>
+<li>описания правил для брандмауэра;</li>
+<li>конфигурационный файл приложения;</li>
+<li>управление устройствами «умного дома».</li>
+</ul>
+
+<p>Этот урок посвящён синтаксису и семантике Mython.</p>
+
+<h3>Числа</h3>
+
+<p>В языке Mython используются только целые числа. С ними можно выполнять обычные арифметические операции: сложение, вычитание, умножение, целочисленное деление.</p>
+
+<h3>Строки</h3>
+
+<p>Строковая константа в Mython — это последовательность произвольных символов, размещающаяся на одной строке и ограниченная двойными кавычками <code>&quot;</code> или одинарными <code>'</code>. Поддерживается экранирование спецсимволов <code>'\n'</code>, <code>'\t'</code>, <code>'\''</code> и <code>'\&quot;'</code>. Примеры строк в Mython:</p>
+
+<ul>
+<li><code>&quot;hello&quot;</code></li>
+<li><code>'world'</code></li>
+<li><code>'long string with a double quote &quot; inside'</code></li>
+<li><code>&quot;another long string with a single quote ' inside&quot;</code></li>
+<li><code>&quot;string with a double quote \&quot; inside&quot;</code></li>
+<li><code>'string with a single quote \' inside'</code></li>
+<li><code>''</code>, <code>&quot;&quot;</code> — пустые строки.</li>
+</ul>
+
+<p>Строки в Mython — неизменяемые.</p>
+
+<h3>Логические константы и None</h3>
+
+<p>Кроме строковых и целочисленных значений язык Mython поддерживает логические значения <code>True</code> и <code>False</code>. Есть также специальное значение <code>None</code>, аналог <code>nullptr</code> в С++. В отличие от C++, логические константы пишутся с большой буквы.</p>
+
+<h3>Комментарии</h3>
+
+<p>Mython поддерживает однострочные комментарии, начинающиеся с символа <code>#</code>. Весь следующий текст до конца текущей строки игнорируется. <code>#</code> внутри строк считается обычным символом.</p>
+
+<pre><code class="language-python"># это комментарий
+x = 5 #это тоже комментарий
+# в следующей строке # - обычный символ
+hashtag = &quot;#природа&quot;
+</code></pre>
+
+<h3>Идентификаторы</h3>
+
+<p>Идентификаторы в Mython используются для обозначения имён переменных, классов и методов. Об этом далее. Идентификаторы формируются так же, как в большинстве других языков программирования: начинаются со строчной или заглавной латинской буквы либо с символа подчёркивания. Потом следует произвольная последовательность, состоящая из цифр, букв и символа подчёркивания.</p>
+
+<p>Примеры правильных идентификаторов: <code>x</code>, <code>_42</code>, <code>do_something</code>, <code>int2str</code>. Примеры неправильных идентификаторов:</p>
+
+<ul>
+<li><code>4four</code> — начинается с цифры;</li>
+<li><code>one;two</code> — содержит символ, который не относится к цифрам, буквам или знакам подчёркивания.</li>
+</ul>
+
+<h3>Классы</h3>
+
+<p>В Mython можно определить свой тип, создав класс. Как и в С++, класс имеет поля и методы, но, в отличие от С++, поля не надо объявлять заранее.</p>
+
+<p>Объявление класса начинается с ключевого слова <code>class</code>, за которым следует <strong>идентификатор</strong> имени и объявление методов класса. Пример класса «Прямоугольник»:</p>
+
+<pre><code class="language-python">class Rect:
+  def __init__(w, h):
+    self.w = w
+    self.h = h
+
+  def area():
+    return self.w * self.h
+</code></pre>
+
+<p>Важные отличия классов в Mython от классов в C++:</p>
+
+<ul>
+<li>Специальный метод <code>__init__</code> играет роль конструктора — он автоматически вызывается при создании нового объекта класса. Метод <code>__init__</code> может отсутствовать.</li>
+<li>Неявный параметр всех методов — специальный параметр <code>self</code>, аналог указателя <code>this</code> в C++. Параметр <code>self</code> ссылается на текущий объект класса.</li>
+<li>Поля не объявляются заранее, а добавляются в объект класса при первом присваивании. Поэтому обращения к полям класса всегда надо начинать с <code>self.</code>, чтобы отличать их от локальных переменных.</li>
+<li>Все поля объекта — публичные.</li>
+</ul>
+
+<p>Новый объект ранее объявленного класса создаётся так же, как в C++: указанием имени класса, за которым в скобках идут параметры, передаваемые методу <code>__init__</code>.</p>
+
+<pre><code class="language-python">r = Rect(10, 5)
+</code></pre>
+
+<p>В этой программе создаётся новый объект класса <code>Rect</code>. При вызове метода <code>__init__</code> параметр <code>w</code> будет иметь значение 10, а параметр <code>h</code> — 5. Созданный прямоугольник будет доступен в переменной <code>r</code>.</p>
+
+<h3>Типизация</h3>
+
+<p>В отличие от C++, Mython — это язык с динамической типизацией. В нём тип каждой переменной определяется во время исполнения программы и может меняться в ходе её работы. Поэтому вместо «присваивания переменной значения» лучше говорить о «связывании значения с некоторым именем». Благодаря динамической типизации при первом использовании переменной не надо указывать её тип. Пример:</p>
+
+<pre><code class="language-python">x = 4        # переменная x связывается с целочисленным значением 4
+# следующей командой переменная x связывается со значением 'hello'
+x = 'hello'
+y = True
+x = y
+</code></pre>
+
+<h3>Операции</h3>
+
+<p>В Mython определены:</p>
+
+<ul>
+<li>Арифметические операции для целых чисел, деление выполняется нацело. Деление на ноль вызывает ошибку времени выполнения.</li>
+<li>Операция конкатенации строк, например: <code>s = 'hello, ' + 'world'</code>.</li>
+<li>Операции сравнения строк и целых чисел <code>==</code>, <code>!=</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&gt;</code>; сравнение строк выполняется лексикографически.</li>
+<li>Логические операции <code>and</code>, <code>or</code>, <code>not</code>.</li>
+<li>Унарный минус.</li>
+</ul>
+
+<p>Приоритет операций (в порядке убывания приоритета):</p>
+
+<ul>
+<li>Унарный минус.</li>
+<li>Умножение и деление.</li>
+<li>Сложение и вычитание.</li>
+<li>Операции сравнения.</li>
+<li>Логические операции.</li>
+</ul>
+
+<p>Порядок вычисления выражений может быть изменён скобками:</p>
+
+<pre><code class="language-python">print 2 + 3 * 4   # выведет 14
+print (2 + 3) * 4 # выведет 20
+</code></pre>
+
+<p>В Mython операция сложения кроме чисел и строк применима к объектам классов со специальным методом <code>__add__</code>:</p>
+
+<pre><code class="language-jsx">class Fire:
+  def __init__(obj):
+    self.obj = obj
+
+  def __str__():
+    return &quot;Burnt &quot; + str(self.obj)
+
+class Tree:
+  def __str__():
+    return &quot;tree&quot;
+
+class Matches: # Спички
+  # операция сложения спичек с другими объектами превращает их в огонь
+  def __add__(smth):
+    return Fire(smth)
+
+result = Matches() + Tree()
+print result             # Выведет Burnt tree
+print Matches() + result # Выведет Burnt Burnt tree
+</code></pre>
+
+<p>Операции сравнения применяются не только к числам и строкам, но и к объектам классов, имеющих методы <code>__eq__</code> (проверка «равно») и <code>__lt__</code> (проверка «меньше»). Используя эти методы, можно реализовать все операции сравнения.</p>
+
+<pre><code class="language-python">class Person:
+  def __init__(name, age):
+    self.name = name
+    self.age = age
+  def __eq__(rhs):
+    return self.name == rhs.name and self.age == rhs.age
+  def __lt__(rhs):
+    if self.name &lt; rhs.name:
+        return True
+    return self.name == rhs.name and self.age &lt; rhs.age
+
+print Person(&quot;Ivan&quot;, 10) &lt;= Person(&quot;Sergey&quot;, 10) # True
+print Person(&quot;Ivan&quot;, 10) &lt;= Person(&quot;Sergey&quot;, 9)  # False
+</code></pre>
+
+<h3>Функция str</h3>
+
+<p>Функция <code>str</code> преобразует переданный ей аргумент в строку. Если аргумент — объект класса, она вызывает у него специальный метод <code>__str__</code> и возвращает результат. Если метода <code>__str__</code> в классе нет, функция возвращает строковое представление адреса объекта в памяти. Примеры:</p>
+
+<ul>
+<li><code>str('Hello')</code> вернёт строку <code>Hello</code>;</li>
+<li><code>str(100500)</code> вернёт строку <code>100500</code>;</li>
+<li><code>str(False)</code> вернёт строку <code>False</code>;</li>
+<li><code>str(Rect(3, 4))</code> вернёт адрес объекта в памяти, например <code>0x2056fd0</code>.</li>
+</ul>
+
+<p>Пример класса с методом <code>__str__</code>:</p>
+
+<pre><code class="language-python">class Rect(Shape):
+  def __init__(w, h):
+    self.w = w
+    self.h = h
+
+  def __str__():
+    return &quot;Rect(&quot; + str(self.w) + 'x' + str(self.h) + ')'
+</code></pre>
+
+<p>Выражение <code>str(Rect(3, 4))</code> вернёт строку <code>Rect(3x4)</code>.</p>
+
+<h3>Команда print</h3>
+
+<p>Специальная команда <code>print</code> принимает набор аргументов, разделённых запятой, печатает их в стандартный вывод и дополнительно выводит перевод строки. Посмотрите на этот код:</p>
+
+<pre><code class="language-python">x = 4
+w = 'world'
+print x, x + 6, 'Hello, ' + w
+</code></pre>
+
+<p>Он выведет:</p>
+
+<pre><code>4 10 Hello, world
+</code></pre>
+
+<p>Команда <code>print</code> вставляет пробел между выводимыми значениями. Если ей не передать аргументы, она просто выведет перевод строки.</p>
+
+<p>Чтобы преобразовать каждый свой аргумент в строку, команда <code>print</code> вызывает для него функцию <code>str</code>. Таким образом, команда <code>print Rect(20, 15)</code> выведет в <code>stdout</code> строку <code>Rect(20x15)</code>.</p>
+
+<h3>Условный оператор</h3>
+
+<p>В Mython есть условный оператор. Его синтаксис:</p>
+
+<pre><code class="language-python">if &lt;условие&gt;:
+  &lt;действие 1&gt;
+  &lt;действие 2&gt;
+  ...
+  &lt;действие N&gt;
+else:
+  &lt;действие 1&gt;
+  &lt;действие 2&gt;
+  ...
+  &lt;действие M&gt;
+</code></pre>
+
+<p><code>&lt;условие&gt;</code> — это произвольное выражение, за которым следует двоеточие. Если условие истинно, выполняются действия под веткой <code>if</code>, если ложно — действия под веткой <code>else</code>. Наличие ветки <code>else</code> необязательно.</p>
+
+<p><code>&lt;условие&gt;</code> может содержать сравнения, а также логические операции <code>and</code>, <code>or</code> и <code>not</code>. Условие будет истинным или ложным в зависимости от того, какой тип имеет вычисленное выражение.</p>
+
+<p>Если результат вычисления условия — значение логического типа, для проверки истинности условия используется именно оно. Примеры:</p>
+
+<ul>
+<li><code>if x &gt; 0:</code></li>
+<li><code>if s != 'Jack' and s != 'Ann':</code></li>
+</ul>
+
+<p>Если результат вычисления условия — число, условие истинно тогда и только тогда, когда это число не равно нулю, как в C/C++, например, <code>if x + y:</code>.</p>
+
+<p>Если результат вычисления условия — строка, условие истинно тогда и только тогда, когда эта строка имеет ненулевую длину.</p>
+
+<p>Если результат вычисления условия — объект класса, условие истинно.</p>
+
+<p>Если результат вычисления условия — <code>None</code>, условие ложно.</p>
+
+<p>Действия в ветках <code>if</code> и <code>else</code> набраны с отступом в два пробела. В отличие от C++, в котором блоки кода обрамляются фигурными скобками, в языке Mython команды объединяются в блоки отступами. Один отступ равен двум пробелам. Отступ в нечётное количество пробелов считается некорректным. Сравните:</p>
+
+<pre><code class="language-python">if x &gt; 0:
+  x = x + 1
+print x
+
+if x &gt; 0:
+  x = x + 1
+  print x
+</code></pre>
+
+<p>Первая команда <code>print x</code> будет выполняться всегда, вторая — только если <code>x</code> больше 0.
+Вложенность условий может быть произвольной:</p>
+
+<pre><code class="language-python">if x &gt; 0:
+  if y &gt; 0:
+    print &quot;Эта строка выведется, если x и y положительные&quot;
+else:
+  print &quot;Эта строка выведется, если x &lt;= 0&quot;
+</code></pre>
+
+<h3>Наследование</h3>
+
+<p>В языке Mython у класса может быть один родительский класс. Если он есть, он указывается в скобках после имени класса и до символа двоеточия. В примере ниже класс <code>Rect</code> наследуется от класса <code>Shape</code>:</p>
+
+<pre><code class="language-python">class Shape:
+  def __str__():
+    return &quot;Shape&quot;
+
+  def area():
+    return 'Not implemented'
+
+class Rect(Shape):
+  def __init__(w, h):
+    self.w = w
+    self.h = h
+
+  def __str__():
+    return &quot;Rect(&quot; + str(self.w) + 'x' + str(self.h) + ')'
+
+  def area():
+    return self.w * self.h
+</code></pre>
+
+<p>Наследование в Mython работает так же, как в C++, — все методы родительского класса становятся доступны классу-потомку. При этом все методы публичные и виртуальные. Например, код ниже выведет <code>Hello, John</code>:</p>
+
+<pre><code class="language-python">class Greeting:
+  def greet():
+    return &quot;Hello, &quot; + self.name()
+
+  def name():
+    return 'Noname'
+
+class HelloJohn(Greeting):
+  def name():
+    return 'John'
+
+greet_john = HelloJohn()
+print greet_john.greet()
+</code></pre>
+
+<h3>Методы</h3>
+
+<p>Как вы могли заметить, методы в Mython имеют синтаксис:</p>
+
+<pre><code class="language-python">def &lt;имя метода&gt;(&lt;список параметров&gt;):
+  &lt;действие 1&gt;
+  &lt;действие 2&gt;
+  ...
+  &lt;действие N&gt;
+</code></pre>
+
+<p>Ключевое слово <code>def</code> располагается с отступом в два пробела относительно класса. Инструкции, составляющие тело метода, имеют отступ в два пробела относительно ключевого слова <code>def</code>.</p>
+
+<p>Как и в случае полей класса, обращения к полям и методам текущего класса надо начинать с <code>self.</code>:</p>
+
+<pre><code class="language-python">class Factorial:
+  def calc(n):
+    if n == 0:
+      return 1
+    return n * self.calc(n - 1)
+
+fact = Factorial()
+print fact.calc(4) # Prints 24
+</code></pre>
+
+<p>Этот пример также показывает поддержку рекурсии, которая компенсирует отсутствие циклов в языке.</p>
+
+<p>Команда <code>return</code> завершает выполнение метода и возвращает из него результат вычисления своего аргумента. Если исполнение метода не достигает команды <code>return</code>, метод возвращает <code>None</code>.</p>
+
+<h3>Семантика присваивания</h3>
+
+<p>Как сказано выше, Mython — это язык с динамической типизацией, поэтому операция присваивания имеет семантику не копирования значения в область памяти, а связывания имени переменной со значением. Как следствие, переменные только ссылаются на значения, а не содержат их копии. Говоря терминологией С++, переменные в Mython — указатели. Аналог <code>nullptr</code> — значение <code>None</code>. Код ниже выведет <code>2</code>, так как переменные <code>x</code> и <code>y</code> ссылаются на один и тот же объект:</p>
+
+<pre><code class="language-python">class Counter:
+  def __init__():
+    self.value = 0
+
+  def add():
+    self.value = self.value + 1
+
+x = Counter()
+y = x
+x.add()
+y.add()
+print x.value
+</code></pre>
+
+<h3>Прочие ограничения</h3>
+
+<p>Результат вызова метода или конструктора в Mython — терминальная операция. Её результат можно присвоить переменной или использовать в виде параметра функции или команды, но обратиться к полям и методам возвращённого объекта напрямую нельзя:</p>
+
+<pre><code class="language-python"># Так нельзя
+print Rect(10, 5).w
+# А вот так можно
+r = Rect(10, 5)
+print r.w
+</code></pre>
+
+<p>Итак, с описанием языка Mython покончено. В следующем уроке вы узнаете об устройстве интерпретатора.</p>
+
+</body>
+</html>

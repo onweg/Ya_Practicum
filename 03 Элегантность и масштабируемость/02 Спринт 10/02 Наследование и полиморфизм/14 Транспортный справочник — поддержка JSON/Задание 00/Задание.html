@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание</h2>
+
+<p>Это задание — итоговый проект десятого спринта. Вы будете сдавать его на проверку через репозиторий на GitHub. Не забудьте сохранить верное решение.</p>
+
+<p>Задание посвящено переводу приложения на ввод-вывод в формате JSON.</p>
+
+<h3>Формат входных данных</h3>
+
+<p>Данные поступают из stdin в формате JSON-объекта. Его верхнеуровневая структура:</p>
+
+<pre><code class="language-json">{
+  &quot;base_requests&quot;: [ ... ],
+  &quot;stat_requests&quot;: [ ... ]
+}
+</code></pre>
+
+<p>Это словарь, содержащий ключи:</p>
+
+<ul>
+<li><code>base_requests</code> — массив с описанием автобусных маршрутов и остановок,</li>
+<li><code>stat_requests</code> — массив с запросами к транспортному справочнику.</li>
+</ul>
+
+<p>Внимание, JSON может быть отформатирован произвольным образом: использовать или не использовать пробелы для отступов, ключи объектов могут быть расположены в разных строках или в одной. Следующие JSON-данные эквивалентны:</p>
+
+<pre><code class="language-json">{&quot;base_requests&quot;:[],&quot;stat_requests&quot;:[]}
+</code></pre>
+
+<pre><code class="language-json">{
+  &quot;stat_requests&quot;: [],
+  &quot;base_requests&quot;: []
+}
+</code></pre>
+
+<pre><code class="language-json">{
+    &quot;base_requests&quot;:     [
+]
+,
+&quot;stat_requests&quot;:[]
+}
+</code></pre>
+
+<p>Иными словами, разделительные пробелы, табуляции и символы перевода строки внутри JSON могут располагаться произвольным образом или вообще отсутствовать.</p>
+
+<h3>Описание базы маршрутов</h3>
+
+<p>Массив <code>base_requests</code> содержит элементы двух типов: маршруты и остановки. Они перечисляются в произвольном порядке.</p>
+
+<p>Пример описания остановки:</p>
+
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;Stop&quot;,
+  &quot;name&quot;: &quot;Электросети&quot;,
+  &quot;latitude&quot;: 43.598701,
+  &quot;longitude&quot;: 39.730623,
+  &quot;road_distances&quot;: {
+    &quot;Улица Докучаева&quot;: 3000,
+    &quot;Улица Лизы Чайкиной&quot;: 4300
+  }
+}
+</code></pre>
+
+<p><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI1OTNweCIgaGVpZ2h0PSIzNTNweCIgdmlld0JveD0iLTAuNSAtMC41IDU5MyAzNTMiPjxkZWZzLz48Zz48ZWxsaXBzZSBjeD0iMzI0IiBjeT0iNzAiIHJ4PSIyMCIgcnk9IjIwIiBmaWxsPSIjZmYzMzMzIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSlzY2FsZSgyKSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6IHZpc2libGU7IHRleHQtYWxpZ246IGxlZnQ7IiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogZmxleDsgYWxpZ24taXRlbXM6IHVuc2FmZSBjZW50ZXI7IGp1c3RpZnktY29udGVudDogdW5zYWZlIGZsZXgtc3RhcnQ7IHdpZHRoOiAyMnB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDM1cHg7IG1hcmdpbi1sZWZ0OiAxNzRweDsiPjxkaXYgc3R5bGU9ImJveC1zaXppbmc6IGJvcmRlci1ib3g7IGZvbnQtc2l6ZTogMDsgdGV4dC1hbGlnbjogbGVmdDsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPtCt0LvQtdC60YLRgNC+0YHQtdGC0Lg8L2Rpdj48L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iMTc0IiB5PSIzOSIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4Ij7QrdC70LXQutGC0YDQvtGB0LXRgtC4PC90ZXh0Pjwvc3dpdGNoPjwvZz48ZWxsaXBzZSBjeD0iNDg0IiBjeT0iMjEwIiByeD0iMjAiIHJ5PSIyMCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMC41IC0wLjUpc2NhbGUoMikiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgZmxleC1zdGFydDsganVzdGlmeS1jb250ZW50OiB1bnNhZmUgY2VudGVyOyB3aWR0aDogMThweDsgaGVpZ2h0OiAxcHg7IHBhZGRpbmctdG9wOiAxMjJweDsgbWFyZ2luLWxlZnQ6IDIzM3B4OyI+PGRpdiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgZm9udC1zaXplOiAwOyB0ZXh0LWFsaWduOiBjZW50ZXI7ICI+PGRpdiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiAjMDAwMDAwOyBsaW5lLWhlaWdodDogMS4yOyBwb2ludGVyLWV2ZW50czogYWxsOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXdyYXA6IG5vcm1hbDsgIj7Qo9C70LjRhtCwINCU0L7QutGD0YfQsNC10LLQsDwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSIyNDIiIHk9IjEzNCIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7Qo9C70LjRhtCwINCU0L7QutGD0YfQsNC10LLQsDwvdGV4dD48L3N3aXRjaD48L2c+PGVsbGlwc2UgY3g9IjEwNCIgY3k9IjE3MCIgcng9IjIwIiByeT0iMjAiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuNSAtMC41KXNjYWxlKDIpIj48c3dpdGNoPjxmb3JlaWduT2JqZWN0IHN0eWxlPSJvdmVyZmxvdzogdmlzaWJsZTsgdGV4dC1hbGlnbjogbGVmdDsiIHBvaW50ZXItZXZlbnRzPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiByZXF1aXJlZEZlYXR1cmVzPSJodHRwOi8vd3d3LnczLm9yZy9UUi9TVkcxMS9mZWF0dXJlI0V4dGVuc2liaWxpdHkiPjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIHN0eWxlPSJkaXNwbGF5OiBmbGV4OyBhbGlnbi1pdGVtczogdW5zYWZlIGZsZXgtc3RhcnQ7IGp1c3RpZnktY29udGVudDogdW5zYWZlIGNlbnRlcjsgd2lkdGg6IDE4cHg7IGhlaWdodDogMXB4OyBwYWRkaW5nLXRvcDogMTAycHg7IG1hcmdpbi1sZWZ0OiA0M3B4OyI+PGRpdiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgZm9udC1zaXplOiAwOyB0ZXh0LWFsaWduOiBjZW50ZXI7ICI+PGRpdiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiAjMDAwMDAwOyBsaW5lLWhlaWdodDogMS4yOyBwb2ludGVyLWV2ZW50czogYWxsOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXdyYXA6IG5vcm1hbDsgIj7Qo9C70LjRhtCwINCb0LjQt9GLINCn0LDQudC60LjQvdC+0Lk8L2Rpdj48L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iNTIiIHk9IjExNCIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7Qo9C70LjRhtCwINCb0LjQt9GLINCn0LDQudC60LjQvdC+0Lk8L3RleHQ+PC9zd2l0Y2g+PC9nPjxwYXRoIGQ9Ik0gMzM5LjA1IDgzLjE3IEwgNDU5LjM2IDE4OC40NCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9InN0cm9rZSIvPjxwYXRoIGQ9Ik0gNDY3LjI3IDE5NS4zNiBMIDQ1Mi4xMiAxOTEuNDEgTCA0NTkuMzYgMTg4LjQ0IEwgNDYxLjM0IDE4MC44NyBaIiBmaWxsPSIjMDAwMDAwIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuNSAtMC41KXNjYWxlKDIpIj48c3dpdGNoPjxmb3JlaWduT2JqZWN0IHN0eWxlPSJvdmVyZmxvdzogdmlzaWJsZTsgdGV4dC1hbGlnbjogbGVmdDsiIHBvaW50ZXItZXZlbnRzPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiByZXF1aXJlZEZlYXR1cmVzPSJodHRwOi8vd3d3LnczLm9yZy9UUi9TVkcxMS9mZWF0dXJlI0V4dGVuc2liaWxpdHkiPjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIHN0eWxlPSJkaXNwbGF5OiBmbGV4OyBhbGlnbi1pdGVtczogdW5zYWZlIGNlbnRlcjsganVzdGlmeS1jb250ZW50OiB1bnNhZmUgY2VudGVyOyB3aWR0aDogMXB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDcwcHg7IG1hcmdpbi1sZWZ0OiAyMDJweDsiPjxkaXYgc3R5bGU9ImJveC1zaXppbmc6IGJvcmRlci1ib3g7IGZvbnQtc2l6ZTogMDsgdGV4dC1hbGlnbjogY2VudGVyOyAiPjxkaXYgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgZm9udC1zaXplOiAxMXB4OyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBjb2xvcjogIzAwMDAwMDsgbGluZS1oZWlnaHQ6IDEuMjsgcG9pbnRlci1ldmVudHM6IGFsbDsgYmFja2dyb3VuZC1jb2xvcjogI2ZmZmZmZjsgd2hpdGUtc3BhY2U6IG5vd3JhcDsgIj4zMDAwIG08L2Rpdj48L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iMjAyIiB5PSI3MyIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMXB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zMDAwIG08L3RleHQ+PC9zd2l0Y2g+PC9nPjxwYXRoIGQ9Ik0gMzA1Ljc2IDc4LjIxIEwgMTMzLjggMTU2LjQ1IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ic3Ryb2tlIi8+PHBhdGggZD0iTSAxMjQuMjQgMTYwLjggTCAxMzQuMDkgMTQ4LjYzIEwgMTMzLjggMTU2LjQ1IEwgMTM5Ljg4IDE2MS4zNyBaIiBmaWxsPSIjMDAwMDAwIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuNSAtMC41KXNjYWxlKDIpIj48c3dpdGNoPjxmb3JlaWduT2JqZWN0IHN0eWxlPSJvdmVyZmxvdzogdmlzaWJsZTsgdGV4dC1hbGlnbjogbGVmdDsiIHBvaW50ZXItZXZlbnRzPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiByZXF1aXJlZEZlYXR1cmVzPSJodHRwOi8vd3d3LnczLm9yZy9UUi9TVkcxMS9mZWF0dXJlI0V4dGVuc2liaWxpdHkiPjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIHN0eWxlPSJkaXNwbGF5OiBmbGV4OyBhbGlnbi1pdGVtczogdW5zYWZlIGNlbnRlcjsganVzdGlmeS1jb250ZW50OiB1bnNhZmUgY2VudGVyOyB3aWR0aDogMXB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDYwcHg7IG1hcmdpbi1sZWZ0OiAxMDdweDsiPjxkaXYgc3R5bGU9ImJveC1zaXppbmc6IGJvcmRlci1ib3g7IGZvbnQtc2l6ZTogMDsgdGV4dC1hbGlnbjogY2VudGVyOyAiPjxkaXYgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgZm9udC1zaXplOiAxMXB4OyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBjb2xvcjogIzAwMDAwMDsgbGluZS1oZWlnaHQ6IDEuMjsgcG9pbnRlci1ldmVudHM6IGFsbDsgYmFja2dyb3VuZC1jb2xvcjogI2ZmZmZmZjsgd2hpdGUtc3BhY2U6IG5vd3JhcDsgIj40MzAwIG08L2Rpdj48L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iMTA3IiB5PSI2MyIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMXB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj40MzAwIG08L3RleHQ+PC9zd2l0Y2g+PC9nPjwvZz48c3dpdGNoPjxnIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSIvPjxhIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsLTUpIiB4bGluazpocmVmPSJodHRwczovL3d3dy5kaWFncmFtcy5uZXQvZG9jL2ZhcS9zdmctZXhwb3J0LXRleHQtcHJvYmxlbXMiIHRhcmdldD0iX2JsYW5rIj48dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwcHgiIHg9IjUwJSIgeT0iMTAwJSI+Vmlld2VyIGRvZXMgbm90IHN1cHBvcnQgZnVsbCBTVkcgMS4xPC90ZXh0PjwvYT48L3N3aXRjaD48L3N2Zz4=" alt="image" />
+<em>Остановка «Электросети»</em></p>
+
+<p>Описание остановки — словарь с ключами:</p>
+
+<ul>
+<li><code>type</code> — строка, равная <code>&quot;Stop&quot;</code>. Означает, что словарь описывает остановку;</li>
+<li><code>name</code> — название остановки;</li>
+<li><code>latitude</code> и <code>longitude</code> — широта и долгота остановки — числа с плавающей запятой;</li>
+<li><code>road_distances</code> — словарь, задающий дорожное расстояние от этой остановки до соседних. Каждый ключ в этом словаре — название соседней остановки, значение — целочисленное расстояние в метрах.</li>
+</ul>
+
+<p>Пример описания автобусного маршрута:</p>
+
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;Bus&quot;,
+  &quot;name&quot;: &quot;14&quot;,
+  &quot;stops&quot;: [
+    &quot;Улица Лизы Чайкиной&quot;,
+    &quot;Электросети&quot;,
+    &quot;Улица Докучаева&quot;,
+    &quot;Улица Лизы Чайкиной&quot;
+  ],
+  &quot;is_roundtrip&quot;: true
+}
+</code></pre>
+
+<p><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI2MjBweCIgaGVpZ2h0PSIzNTNweCIgdmlld0JveD0iLTAuNSAtMC41IDYyMCAzNTMiPjxkZWZzLz48Zz48ZWxsaXBzZSBjeD0iMzUwIiBjeT0iNzAiIHJ4PSIyMCIgcnk9IjIwIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSlzY2FsZSgyKSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6IHZpc2libGU7IHRleHQtYWxpZ246IGxlZnQ7IiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogZmxleDsgYWxpZ24taXRlbXM6IHVuc2FmZSBjZW50ZXI7IGp1c3RpZnktY29udGVudDogdW5zYWZlIGZsZXgtc3RhcnQ7IHdpZHRoOiAyMnB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDM1cHg7IG1hcmdpbi1sZWZ0OiAxODdweDsiPjxkaXYgc3R5bGU9ImJveC1zaXppbmc6IGJvcmRlci1ib3g7IGZvbnQtc2l6ZTogMDsgdGV4dC1hbGlnbjogbGVmdDsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPtCt0LvQtdC60YLRgNC+0YHQtdGC0Lg8L2Rpdj48L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iMTg3IiB5PSIzOSIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4Ij7QrdC70LXQutGC0YDQvtGB0LXRgtC4PC90ZXh0Pjwvc3dpdGNoPjwvZz48ZWxsaXBzZSBjeD0iNTEwIiBjeT0iMjEwIiByeD0iMjAiIHJ5PSIyMCIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMC41IC0wLjUpc2NhbGUoMikiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgZmxleC1zdGFydDsganVzdGlmeS1jb250ZW50OiB1bnNhZmUgY2VudGVyOyB3aWR0aDogMThweDsgaGVpZ2h0OiAxcHg7IHBhZGRpbmctdG9wOiAxMjJweDsgbWFyZ2luLWxlZnQ6IDI0NnB4OyI+PGRpdiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgZm9udC1zaXplOiAwOyB0ZXh0LWFsaWduOiBjZW50ZXI7ICI+PGRpdiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiAjMDAwMDAwOyBsaW5lLWhlaWdodDogMS4yOyBwb2ludGVyLWV2ZW50czogYWxsOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXdyYXA6IG5vcm1hbDsgIj7Qo9C70LjRhtCwINCU0L7QutGD0YfQsNC10LLQsDwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSIyNTUiIHk9IjEzNCIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7Qo9C70LjRhtCwINCU0L7QutGD0YfQsNC10LLQsDwvdGV4dD48L3N3aXRjaD48L2c+PGVsbGlwc2UgY3g9IjEzMCIgY3k9IjE3MCIgcng9IjIwIiByeT0iMjAiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuNSAtMC41KXNjYWxlKDIpIj48c3dpdGNoPjxmb3JlaWduT2JqZWN0IHN0eWxlPSJvdmVyZmxvdzogdmlzaWJsZTsgdGV4dC1hbGlnbjogbGVmdDsiIHBvaW50ZXItZXZlbnRzPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiByZXF1aXJlZEZlYXR1cmVzPSJodHRwOi8vd3d3LnczLm9yZy9UUi9TVkcxMS9mZWF0dXJlI0V4dGVuc2liaWxpdHkiPjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIHN0eWxlPSJkaXNwbGF5OiBmbGV4OyBhbGlnbi1pdGVtczogdW5zYWZlIGZsZXgtc3RhcnQ7IGp1c3RpZnktY29udGVudDogdW5zYWZlIGNlbnRlcjsgd2lkdGg6IDE4cHg7IGhlaWdodDogMXB4OyBwYWRkaW5nLXRvcDogMTAycHg7IG1hcmdpbi1sZWZ0OiA1NnB4OyI+PGRpdiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgZm9udC1zaXplOiAwOyB0ZXh0LWFsaWduOiBjZW50ZXI7ICI+PGRpdiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiAjMDAwMDAwOyBsaW5lLWhlaWdodDogMS4yOyBwb2ludGVyLWV2ZW50czogYWxsOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXdyYXA6IG5vcm1hbDsgIj7Qo9C70LjRhtCwINCb0LjQt9GLINCn0LDQudC60LjQvdC+0Lk8L2Rpdj48L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iNjUiIHk9IjExNCIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7Qo9C70LjRhtCwINCb0LjQt9GLINCn0LDQudC60LjQvdC+0Lk8L3RleHQ+PC9zd2l0Y2g+PC9nPjxwYXRoIGQ9Ik0gMzY1LjA1IDgzLjE3IEwgNDg1LjM2IDE4OC40NCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9InN0cm9rZSIvPjxwYXRoIGQ9Ik0gNDkzLjI3IDE5NS4zNiBMIDQ3OC4xMiAxOTEuNDEgTCA0ODUuMzYgMTg4LjQ0IEwgNDg3LjM0IDE4MC44NyBaIiBmaWxsPSIjMDAwMDAwIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHBhdGggZD0iTSAxNDguMjQgMTYxLjc5IEwgMzIwLjIgODMuNTUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJzdHJva2UiLz48cGF0aCBkPSJNIDMyOS43NiA3OS4yIEwgMzE5LjkxIDkxLjM3IEwgMzIwLjIgODMuNTUgTCAzMTQuMTIgNzguNjMgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxwYXRoIGQ9Ik0gNDkwLjEgMjA4LjAxIEwgMTYyLjU2IDE3My40MyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9InN0cm9rZSIvPjxwYXRoIGQ9Ik0gMTUyLjExIDE3Mi4zMyBMIDE2Ni43NyAxNjYuODQgTCAxNjIuNTYgMTczLjQzIEwgMTY1LjMgMTgwLjc2IFoiIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIyMDAiIGhlaWdodD0iNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSlzY2FsZSgyKSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6IHZpc2libGU7IHRleHQtYWxpZ246IGxlZnQ7IiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogZmxleDsgYWxpZ24taXRlbXM6IHVuc2FmZSBjZW50ZXI7IGp1c3RpZnktY29udGVudDogdW5zYWZlIGZsZXgtc3RhcnQ7IHdpZHRoOiA5OHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDM1cHg7IG1hcmdpbi1sZWZ0OiAyN3B4OyI+PGRpdiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgZm9udC1zaXplOiAwOyB0ZXh0LWFsaWduOiBsZWZ0OyAiPjxkaXYgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgZm9udC1zaXplOiAxMnB4OyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBjb2xvcjogIzAwMDAwMDsgbGluZS1oZWlnaHQ6IDEuMjsgcG9pbnRlci1ldmVudHM6IGFsbDsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC13cmFwOiBub3JtYWw7ICI+0JzQsNGA0YjRgNGD0YIgwqsxNMK7PC9kaXY+PC9kaXY+PC9kaXY+PC9mb3JlaWduT2JqZWN0Pjx0ZXh0IHg9IjI3IiB5PSIzOSIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4Ij7QnNCw0YDRiNGA0YPRgiDCqzE0wrs8L3RleHQ+PC9zd2l0Y2g+PC9nPjwvZz48c3dpdGNoPjxnIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSIvPjxhIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsLTUpIiB4bGluazpocmVmPSJodHRwczovL3d3dy5kaWFncmFtcy5uZXQvZG9jL2ZhcS9zdmctZXhwb3J0LXRleHQtcHJvYmxlbXMiIHRhcmdldD0iX2JsYW5rIj48dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwcHgiIHg9IjUwJSIgeT0iMTAwJSI+Vmlld2VyIGRvZXMgbm90IHN1cHBvcnQgZnVsbCBTVkcgMS4xPC90ZXh0PjwvYT48L3N3aXRjaD48L3N2Zz4=" alt="image" />
+<em>Описание кольцевого маршрута «14 »</em></p>
+
+<p>Описание автобусного маршрута — словарь с ключами:</p>
+
+<ul>
+<li><code>type</code> — строка <code>&quot;Bus&quot;</code>. Означает, что словарь описывает автобусный маршрут;</li>
+<li><code>name</code> — название маршрута;</li>
+<li><code>stops</code> — массив с названиями остановок, через которые проходит маршрут. У кольцевого маршрута название последней остановки дублирует название первой. Например: <code>[&quot;stop1&quot;, &quot;stop2&quot;, &quot;stop3&quot;, &quot;stop1&quot;]</code>;</li>
+<li><code>is_roundtrip</code> — значение типа <code>bool</code>. <code>true</code>, если маршрут кольцевой.</li>
+</ul>
+
+<h3>Формат запросов к транспортному справочнику и ответов на них</h3>
+
+<p>Запросы хранятся в массиве <code>stat_requests</code>. В ответ на них программа должна вывести в stdout JSON-массив ответов:</p>
+
+<pre><code class="language-json">[
+  { ответ на первый запрос },
+  { ответ на второй запрос },
+  ...
+  { ответ на последний запрос }
+]
+</code></pre>
+
+<p>Каждый запрос — словарь с обязательными ключами <code>id</code> и <code>type</code>. Они задают уникальный числовой идентификатор запроса и его тип. В словаре могут быть и другие ключи, специфичные для конкретного типа запроса.</p>
+
+<p>В выходном JSON-массиве на каждый запрос <code>stat_requests</code> должен быть ответ в виде словаря с обязательным ключом <code>request_id</code>. Значение ключа должно быть равно <code>id</code> соответствующего запроса. В словаре возможны и другие ключи, специфичные для конкретного типа ответа.</p>
+
+<p>Порядок следования ответов на запросы в выходном массиве должен совпадать с порядком запросов в массиве <code>stat_requests</code>.</p>
+
+<h3>Получение информации о маршруте</h3>
+
+<p>Формат запроса:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: 12345678,
+  &quot;type&quot;: &quot;Bus&quot;,
+  &quot;name&quot;: &quot;14&quot;
+}
+</code></pre>
+
+<p>Ключ <code>type</code> имеет значение “Bus”. По нему можно определить, что это запрос на получение информации о маршруте.</p>
+
+<p>Ключ <code>name</code> задаёт название маршрута, для которого приложение должно вывести статистическую информацию.</p>
+
+<p>Ответ на этот запрос должен быть дан в виде словаря:</p>
+
+<pre><code class="language-json">{
+  &quot;curvature&quot;: 2.18604,
+  &quot;request_id&quot;: 12345678,
+  &quot;route_length&quot;: 9300,
+  &quot;stop_count&quot;: 4,
+  &quot;unique_stop_count&quot;: 3
+}
+</code></pre>
+
+<p>Ключи словаря:</p>
+
+<ul>
+<li><code>curvature</code> — извилистость маршрута. Она равна отношению длины дорожного расстояния маршрута к длине географического расстояния. Число типа <code>double</code>;</li>
+<li><code>request_id</code> — должен быть равен <code>id</code> соответствующего запроса <code>Bus</code>. Целое число;</li>
+<li><code>route_length</code> — длина дорожного расстояния маршрута в метрах, целое число;</li>
+<li><code>stop_count</code> — количество остановок на маршруте;</li>
+<li><code>unique_stop_count</code> — количество уникальных остановок на маршруте.</li>
+</ul>
+
+<p>Например, на кольцевом маршруте с остановками A, B, C, A четыре остановки. Три из них уникальные.</p>
+
+<p>На некольцевом маршруте с остановками A, B и C пять остановок (A, B, C, B, A). Три из них уникальные.</p>
+
+<p>Если в справочнике нет маршрута с указанным названием, ответ должен быть таким:</p>
+
+<pre><code class="language-json">{
+  &quot;request_id&quot;: 12345678,
+  &quot;error_message&quot;: &quot;not found&quot;
+}
+</code></pre>
+
+<h3>Получение информации об остановке</h3>
+
+<p>Формат запроса:</p>
+
+<pre><code class="language-json">{
+  &quot;id&quot;: 12345,
+  &quot;type&quot;: &quot;Stop&quot;,
+  &quot;name&quot;: &quot;Улица Докучаева&quot;
+}
+</code></pre>
+
+<p>Ключ <code>name</code> задаёт название остановки.</p>
+
+<p>Ответ на запрос:</p>
+
+<pre><code class="language-json">{
+  &quot;buses&quot;: [
+      &quot;14&quot;, &quot;22к&quot;
+  ],
+  &quot;request_id&quot;: 12345
+}
+</code></pre>
+
+<p>Значение ключей ответа:</p>
+
+<ul>
+<li><code>buses</code> — массив названий маршрутов, которые проходят через эту остановку. Названия отсортированы в лексикографическом порядке.</li>
+<li><code>request_id</code> — целое число, равное <code>id</code> соответствующего запроса <code>Stop</code>.</li>
+</ul>
+
+<p>Если в справочнике нет остановки с переданным названием, ответ на запрос должен быть такой:</p>
+
+<pre><code class="language-json">{
+  &quot;request_id&quot;: 12345,
+  &quot;error_message&quot;: &quot;not found&quot;
+}
+</code></pre>
+
+<h3>Примеры входных и выходных данных</h3>
+
+<p>Этот JSON-документ содержит:</p>
+
+<ul>
+<li>описание маршрута «114», который соединяет две остановки: «Морской вокзал»‎ и «Ривьерский мост»‎,</li>
+<li>запросы на получение информации о маршруте «114» и остановке «Ривьерский мост».</li>
+</ul>
+
+<p><code>input.json</code></p>
+
+<pre><code class="language-json">{
+  &quot;base_requests&quot;: [
+    {
+      &quot;type&quot;: &quot;Bus&quot;,
+      &quot;name&quot;: &quot;114&quot;,
+      &quot;stops&quot;: [&quot;Морской вокзал&quot;, &quot;Ривьерский мост&quot;],
+      &quot;is_roundtrip&quot;: false
+    },
+    {
+      &quot;type&quot;: &quot;Stop&quot;,
+      &quot;name&quot;: &quot;Ривьерский мост&quot;,
+      &quot;latitude&quot;: 43.587795,
+      &quot;longitude&quot;: 39.716901,
+      &quot;road_distances&quot;: {&quot;Морской вокзал&quot;: 850}
+    },
+    {
+      &quot;type&quot;: &quot;Stop&quot;,
+      &quot;name&quot;: &quot;Морской вокзал&quot;,
+      &quot;latitude&quot;: 43.581969,
+      &quot;longitude&quot;: 39.719848,
+      &quot;road_distances&quot;: {&quot;Ривьерский мост&quot;: 850}
+    }
+  ],
+  &quot;stat_requests&quot;: [
+    { &quot;id&quot;: 1, &quot;type&quot;: &quot;Stop&quot;, &quot;name&quot;: &quot;Ривьерский мост&quot; },
+    { &quot;id&quot;: 2, &quot;type&quot;: &quot;Bus&quot;, &quot;name&quot;: &quot;114&quot; }
+  ]
+}
+</code></pre>
+
+<p><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI2NzhweCIgaGVpZ2h0PSIyNThweCIgdmlld0JveD0iLTAuNSAtMC41IDY3OCAyNTgiPjxkZWZzLz48Zz48ZWxsaXBzZSBjeD0iMTcyIiBjeT0iNzgiIHJ4PSIyMCIgcnk9IjIwIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSlzY2FsZSgyKSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6IHZpc2libGU7IHRleHQtYWxpZ246IGxlZnQ7IiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogZmxleDsgYWxpZ24taXRlbXM6IHVuc2FmZSBjZW50ZXI7IGp1c3RpZnktY29udGVudDogdW5zYWZlIGZsZXgtZW5kOyB3aWR0aDogMjJweDsgaGVpZ2h0OiAxcHg7IHBhZGRpbmctdG9wOiAzOXB4OyBtYXJnaW4tbGVmdDogNTJweDsiPjxkaXYgc3R5bGU9ImJveC1zaXppbmc6IGJvcmRlci1ib3g7IGZvbnQtc2l6ZTogMDsgdGV4dC1hbGlnbjogcmlnaHQ7ICI+PGRpdiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiAjMDAwMDAwOyBsaW5lLWhlaWdodDogMS4yOyBwb2ludGVyLWV2ZW50czogYWxsOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXdyYXA6IG5vcm1hbDsgIj7QnNC+0YDRgdC60L7QuSDQstC+0LrQt9Cw0Ls8L2Rpdj48L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iNzQiIHk9IjQzIiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJlbmQiPtCc0L7RgNGB0LrQvtC5INCy0L7QutC30LDQuzwvdGV4dD48L3N3aXRjaD48L2c+PGVsbGlwc2UgY3g9IjQ3MiIgY3k9IjE3OCIgcng9IjIwIiByeT0iMjAiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuNSAtMC41KXNjYWxlKDIpIj48c3dpdGNoPjxmb3JlaWduT2JqZWN0IHN0eWxlPSJvdmVyZmxvdzogdmlzaWJsZTsgdGV4dC1hbGlnbjogbGVmdDsiIHBvaW50ZXItZXZlbnRzPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiByZXF1aXJlZEZlYXR1cmVzPSJodHRwOi8vd3d3LnczLm9yZy9UUi9TVkcxMS9mZWF0dXJlI0V4dGVuc2liaWxpdHkiPjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIHN0eWxlPSJkaXNwbGF5OiBmbGV4OyBhbGlnbi1pdGVtczogdW5zYWZlIGNlbnRlcjsganVzdGlmeS1jb250ZW50OiB1bnNhZmUgZmxleC1zdGFydDsgd2lkdGg6IDIycHg7IGhlaWdodDogMXB4OyBwYWRkaW5nLXRvcDogODlweDsgbWFyZ2luLWxlZnQ6IDI0OHB4OyI+PGRpdiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgZm9udC1zaXplOiAwOyB0ZXh0LWFsaWduOiBsZWZ0OyAiPjxkaXYgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgZm9udC1zaXplOiAxMnB4OyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBjb2xvcjogIzAwMDAwMDsgbGluZS1oZWlnaHQ6IDEuMjsgcG9pbnRlci1ldmVudHM6IGFsbDsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC13cmFwOiBub3JtYWw7ICI+0KDQuNCy0YzQtdGA0YHQutC40Lkg0LzQvtGB0YI8L2Rpdj48L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iMjQ4IiB5PSI5MyIgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgZm9udC1zaXplPSIxMnB4Ij7QoNC40LLRjNC10YDRgdC60LjQuSDQvNC+0YHRgjwvdGV4dD48L3N3aXRjaD48L2c+PHBhdGggZD0iTSAxOTIgNzggTCA0NDUuNzQgMTU5Ljk0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0ic3Ryb2tlIi8+PHBhdGggZD0iTSA0NTUuNzMgMTYzLjE3IEwgNDQwLjI2IDE2NS41MyBMIDQ0NS43NCAxNTkuOTQgTCA0NDQuNTYgMTUyLjIxIFoiIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48cGF0aCBkPSJNIDQ1MiAxNzggTCAxOTguMjYgOTYuMDYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJzdHJva2UiLz48cGF0aCBkPSJNIDE4OC4yNyA5Mi44MyBMIDIwMy43NCA5MC40NyBMIDE5OC4yNiA5Ni4wNiBMIDE5OS40NCAxMDMuNzkgWiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSlzY2FsZSgyKSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6IHZpc2libGU7IHRleHQtYWxpZ246IGxlZnQ7IiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogZmxleDsgYWxpZ24taXRlbXM6IHVuc2FmZSBjZW50ZXI7IGp1c3RpZnktY29udGVudDogdW5zYWZlIGNlbnRlcjsgd2lkdGg6IDFweDsgaGVpZ2h0OiAxcHg7IHBhZGRpbmctdG9wOiA2N3B4OyBtYXJnaW4tbGVmdDogMTU5cHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTFweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IGJhY2tncm91bmQtY29sb3I6ICNmZmZmZmY7IHdoaXRlLXNwYWNlOiBub3dyYXA7ICI+ODUwbTwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSIxNTkiIHk9IjcxIiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjExcHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjg1MG08L3RleHQ+PC9zd2l0Y2g+PC9nPjxyZWN0IHg9IjM3MiIgeT0iNTgiIHdpZHRoPSIyMDAiIGhlaWdodD0iNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSlzY2FsZSgyKSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6IHZpc2libGU7IHRleHQtYWxpZ246IGxlZnQ7IiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogZmxleDsgYWxpZ24taXRlbXM6IHVuc2FmZSBjZW50ZXI7IGp1c3RpZnktY29udGVudDogdW5zYWZlIGZsZXgtc3RhcnQ7IHdpZHRoOiA5OHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDM5cHg7IG1hcmdpbi1sZWZ0OiAxODhweDsiPjxkaXYgc3R5bGU9ImJveC1zaXppbmc6IGJvcmRlci1ib3g7IGZvbnQtc2l6ZTogMDsgdGV4dC1hbGlnbjogbGVmdDsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPtCc0LDRgNGI0YDRg9GCwqDCqzExNMK7PC9kaXY+PC9kaXY+PC9kaXY+PC9mb3JlaWduT2JqZWN0Pjx0ZXh0IHg9IjE4OCIgeT0iNDMiIGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIGZvbnQtc2l6ZT0iMTJweCI+0JzQsNGA0YjRgNGD0YLCoMKrMTE0wrs8L3RleHQ+PC9zd2l0Y2g+PC9nPjwvZz48c3dpdGNoPjxnIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSIvPjxhIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsLTUpIiB4bGluazpocmVmPSJodHRwczovL3d3dy5kaWFncmFtcy5uZXQvZG9jL2ZhcS9zdmctZXhwb3J0LXRleHQtcHJvYmxlbXMiIHRhcmdldD0iX2JsYW5rIj48dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEwcHgiIHg9IjUwJSIgeT0iMTAwJSI+Vmlld2VyIGRvZXMgbm90IHN1cHBvcnQgZnVsbCBTVkcgMS4xPC90ZXh0PjwvYT48L3N3aXRjaD48L3N2Zz4=" alt="image" />
+<em>Схематическое представление маршрута «114»</em></p>
+
+<p>Ожидаемый вывод программы:</p>
+
+<p><code>output.json</code></p>
+
+<pre><code class="language-json">[
+    {
+        &quot;buses&quot;: [
+            &quot;114&quot;
+        ],
+        &quot;request_id&quot;: 1
+    },
+    {
+        &quot;curvature&quot;: 1.23199,
+        &quot;request_id&quot;: 2,
+        &quot;route_length&quot;: 1700,
+        &quot;stop_count&quot;: 3,
+        &quot;unique_stop_count&quot;: 2
+    }
+]
+</code></pre>
+
+<p>Семантика JSON-документа не должна меняться. Ваш вывод может отличаться:</p>
+
+<ul>
+<li>В отступах и форматировании;</li>
+<li>В порядке ключей в словаре. Элементов массива это не касается.</li>
+</ul>
+
+<p>Вещественные числа выводите стандартно, без модификаторов.</p>
+
+<h3>Примечания</h3>
+
+<p>В примерах названия написаны кириллицей для простоты. Вы можете работать со строками, как раньше. Если на вашем компьютере названия из примера выводятся некорректно, замените буквы латинскими. Тесты в тренажёре содержат только буквы английского алфавита.</p>
+
+<h3>Перенаправление ввода-вывода в файл</h3>
+
+<p>Чтобы не вводить каждый раз содержимое JSON-документа вручную, сохраните входной JSON-документ в файл и запускайте программу с перенаправлением ввода из этого файла:</p>
+
+<pre><code class="language-bash">program.exe &lt;input.json
+</code></pre>
+
+<p>Программа будет считывать стандартный ввод не из консоли, а из файла <code>input.json</code>. При необходимости stdout программы тоже можно перенаправить в файл:</p>
+
+<pre><code class="language-bash">program.exe &lt;input.json &gt;output.json
+</code></pre>
+
+<p>Перенаправить в файл можно и стандартный поток ошибок:</p>
+
+<ul>
+<li>для потока stderr поставьте перед именем файла <code>2&gt;</code>;</li>
+<li>для потока stdout поставьте перед именем файла <code>1&gt;</code>.</li>
+</ul>
+
+<pre><code class="language-bash">program.exe &lt;input.json 1&gt;stdout.txt 2&gt;stderr.txt
+</code></pre>
+
+<p>Так, в программе ввод из <code>cin</code> будет считывать содержимое <code>input.json</code>, вывод в <code>cout</code> станет записываться в файл <code>stdout.txt</code>, а вывод в <code>cerr</code> — записываться в файл <code>stderr.txt</code>.</p>
+
+<p>При работе в IDE перенаправление потоков ввода можно настроить в параметрах запуска или отладки.</p>
+
+<h3>Рекомендации по архитектуре</h3>
+
+<p>Вам предстоит разработать объёмное приложение. Оно решает такие задачи:</p>
+
+<ul>
+<li>парсинг JSON и вывод JSON;</li>
+<li>построение базы маршрутов;</li>
+<li>обработка запросов к справочнику и формирование ответов на них.</li>
+</ul>
+
+<p>Чтобы поддерживать приложение было легко, подумайте об архитектуре. Разбейте код на модули, каждый из которых решает определённую задачу. Под модулем здесь понимается пара файлов <code>.h</code>/<code>.cpp</code> с классами и функциями. Код в одном модуле может зависеть от кода других модулей. Некоторые модули могут быть самостоятельными.</p>
+
+<p>Предлагаем вам организовать структуру программы в виде следующих модулей:</p>
+
+<ul>
+<li><code>geo</code> — объявляет координаты на земной поверхности и вычисляет расстояние между ними;</li>
+<li><code>domain</code> — классы основных сущностей, описывают автобусы и остановки;</li>
+<li><code>transport_catalogue</code> — модуль транспортного каталога;</li>
+<li><code>request_handler</code> — обрабатывает запросы. Играет роль <a href="https://is.gd/8mZiM2">Фасада</a>, который упрощает взаимодействие с транспортным каталогом;</li>
+<li><code>json</code> — ваша улучшенная библиотека для парсинга и вывода JSON;</li>
+<li><code>json_reader</code> — выполняет разбор JSON-данных, построенных в ходе парсинга, и формирует массив JSON-ответов;</li>
+<li><code>main</code> — основной модуль.</li>
+</ul>
+
+<p>В заготовке кода — файлы других модулей: <code>svg</code> и <code>map_renderer</code>. Они понадобятся в следующем уроке.</p>
+
+<p>На схеме — рекомендуемая карта зависимостей между модулями программы. Один модуль зависит от другого, когда использует его функции и классы или наследуется от классов, объявленных в другом модуле.</p>
+
+<p><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSIxNzMycHgiIGhlaWdodD0iMTE0MnB4IiB2aWV3Qm94PSItMC41IC0wLjUgMTczMiAxMTQyIj48ZGVmcy8+PGc+PHBhdGggZD0iTSAxNDc2IDczNiBMIDE2OTYgNzM2IEwgMTY5NiA4MzYgTCAxNDc2IDgzNiBMIDE0NzYgODE2IEwgMTQ1NiA4MTYgTCAxNDU2IDc5NiBMIDE0NzYgNzk2IEwgMTQ3NiA3NzYgTCAxNDU2IDc3NiBMIDE0NTYgNzU2IEwgMTQ3NiA3NTYgWiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxwYXRoIGQ9Ik0gMTQ3NiA3NTYgTCAxNDk2IDc1NiBMIDE0OTYgNzc2IEwgMTQ3NiA3NzYgTSAxNDc2IDc5NiBMIDE0OTYgNzk2IEwgMTQ5NiA4MTYgTCAxNDc2IDgxNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjRweCI+PHRleHQgeD0iMTU5NS41IiB5PSI3NzEuNSI+anNvbjwvdGV4dD48L2c+PHBhdGggZD0iTSA1MTYgMzM2IEwgODE2IDMzNiBMIDgxNiA0MzYgTCA1MTYgNDM2IEwgNTE2IDQxNiBMIDQ5NiA0MTYgTCA0OTYgMzk2IEwgNTE2IDM5NiBMIDUxNiAzNzYgTCA0OTYgMzc2IEwgNDk2IDM1NiBMIDUxNiAzNTYgWiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxwYXRoIGQ9Ik0gNTE2IDM1NiBMIDUzNiAzNTYgTCA1MzYgMzc2IEwgNTE2IDM3NiBNIDUxNiAzOTYgTCA1MzYgMzk2IEwgNTM2IDQxNiBMIDUxNiA0MTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48ZyBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI0cHgiPjx0ZXh0IHg9IjY3NS41IiB5PSIzNzEuNSI+dHJhbnNwb3J0X2NhdGFsb2d1ZTwvdGV4dD48L2c+PHBhdGggZD0iTSA3MTYgNzM2IEwgOTM2IDczNiBMIDkzNiA4MzYgTCA3MTYgODM2IEwgNzE2IDgxNiBMIDY5NiA4MTYgTCA2OTYgNzk2IEwgNzE2IDc5NiBMIDcxNiA3NzYgTCA2OTYgNzc2IEwgNjk2IDc1NiBMIDcxNiA3NTYgWiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxwYXRoIGQ9Ik0gNzE2IDc1NiBMIDczNiA3NTYgTCA3MzYgNzc2IEwgNzE2IDc3NiBNIDcxNiA3OTYgTCA3MzYgNzk2IEwgNzM2IDgxNiBMIDcxNiA4MTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48ZyBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI0cHgiPjx0ZXh0IHg9IjgzNS41IiB5PSI3NzEuNSI+anNvbl9yZWFkZXI8L3RleHQ+PC9nPjxwYXRoIGQ9Ik0gOTk2IDE2IEwgMTIxNiAxNiBMIDEyMTYgMTE2IEwgOTk2IDExNiBMIDk5NiA5NiBMIDk3NiA5NiBMIDk3NiA3NiBMIDk5NiA3NiBMIDk5NiA1NiBMIDk3NiA1NiBMIDk3NiAzNiBMIDk5NiAzNiBaIiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHBhdGggZD0iTSA5OTYgMzYgTCAxMDE2IDM2IEwgMTAxNiA1NiBMIDk5NiA1NiBNIDk5NiA3NiBMIDEwMTYgNzYgTCAxMDE2IDk2IEwgOTk2IDk2IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PGcgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIyNHB4Ij48dGV4dCB4PSIxMTE1LjUiIHk9IjUxLjUiPmdlbzwvdGV4dD48L2c+PHBhdGggZD0iTSA0MzYgNTc2IEwgNjc2IDU3NiBMIDY3NiA2NzYgTCA0MzYgNjc2IEwgNDM2IDY1NiBMIDQxNiA2NTYgTCA0MTYgNjM2IEwgNDM2IDYzNiBMIDQzNiA2MTYgTCA0MTYgNjE2IEwgNDE2IDU5NiBMIDQzNiA1OTYgWiIgZmlsbD0iI2ZmZmZmZiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxwYXRoIGQ9Ik0gNDM2IDU5NiBMIDQ1NiA1OTYgTCA0NTYgNjE2IEwgNDM2IDYxNiBNIDQzNiA2MzYgTCA0NTYgNjM2IEwgNDU2IDY1NiBMIDQzNiA2NTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48ZyBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI0cHgiPjx0ZXh0IHg9IjU2NS41IiB5PSI2MTEuNSI+cmVxdWVzdF9oYW5kbGVyPC90ZXh0PjwvZz48cGF0aCBkPSJNIDU5NiAxNiBMIDgxNiAxNiBMIDgxNiAxMTYgTCA1OTYgMTE2IEwgNTk2IDk2IEwgNTc2IDk2IEwgNTc2IDc2IEwgNTk2IDc2IEwgNTk2IDU2IEwgNTc2IDU2IEwgNTc2IDM2IEwgNTk2IDM2IFoiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48cGF0aCBkPSJNIDU5NiAzNiBMIDYxNiAzNiBMIDYxNiA1NiBMIDU5NiA1NiBNIDU5NiA3NiBMIDYxNiA3NiBMIDYxNiA5NiBMIDU5NiA5NiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjRweCI+PHRleHQgeD0iNzE1LjUiIHk9IjUxLjUiPmRvbWFpbjwvdGV4dD48L2c+PHBhdGggZD0iTSAzOTAgMjI0IEwgMTI5MCAyMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48cGF0aCBkPSJNIDM5MCA1MDQgTCAxMjkwIDUwNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxyZWN0IHg9IjM2IiB5PSIxNiIgd2lkdGg9IjMwMCIgaGVpZ2h0PSI4MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJub25lIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuNSAtMC41KXNjYWxlKDIpIj48c3dpdGNoPjxmb3JlaWduT2JqZWN0IHN0eWxlPSJvdmVyZmxvdzogdmlzaWJsZTsgdGV4dC1hbGlnbjogbGVmdDsiIHBvaW50ZXItZXZlbnRzPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiByZXF1aXJlZEZlYXR1cmVzPSJodHRwOi8vd3d3LnczLm9yZy9UUi9TVkcxMS9mZWF0dXJlI0V4dGVuc2liaWxpdHkiPjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIHN0eWxlPSJkaXNwbGF5OiBmbGV4OyBhbGlnbi1pdGVtczogdW5zYWZlIGNlbnRlcjsganVzdGlmeS1jb250ZW50OiB1bnNhZmUgY2VudGVyOyB3aWR0aDogMTQ4cHg7IGhlaWdodDogMXB4OyBwYWRkaW5nLXRvcDogMjhweDsgbWFyZ2luLWxlZnQ6IDE5cHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPtCh0YPRidC90L7RgdGC0Lgg0L/RgNC10LTQvNC10YLQvdC+0Lkg0L7QsdC70LDRgdGC0Lg8L2Rpdj48L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iOTMiIHk9IjMyIiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPtCh0YPRidC90L7RgdGC0Lgg0L/RgNC10LTQvNC10YLQvdC+0Lkg0L7QsdC70LDRgdGC0Lg8L3RleHQ+PC9zd2l0Y2g+PC9nPjxyZWN0IHg9IjE2IiB5PSIzMzYiIHdpZHRoPSIzMDAiIGhlaWdodD0iODAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSlzY2FsZSgyKSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6IHZpc2libGU7IHRleHQtYWxpZ246IGxlZnQ7IiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogZmxleDsgYWxpZ24taXRlbXM6IHVuc2FmZSBjZW50ZXI7IGp1c3RpZnktY29udGVudDogdW5zYWZlIGNlbnRlcjsgd2lkdGg6IDE0OHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDE4OHB4OyBtYXJnaW4tbGVmdDogOXB4OyI+PGRpdiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgZm9udC1zaXplOiAwOyB0ZXh0LWFsaWduOiBjZW50ZXI7ICI+PGRpdiBzdHlsZT0iZGlzcGxheTogaW5saW5lLWJsb2NrOyBmb250LXNpemU6IDEycHg7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGNvbG9yOiAjMDAwMDAwOyBsaW5lLWhlaWdodDogMS4yOyBwb2ludGVyLWV2ZW50czogYWxsOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXdyYXA6IG5vcm1hbDsgIj7QkdC40LfQvdC10YEt0LvQvtCz0LjQutCwPC9kaXY+PC9kaXY+PC9kaXY+PC9mb3JlaWduT2JqZWN0Pjx0ZXh0IHg9IjgzIiB5PSIxOTIiIGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIGZvbnQtc2l6ZT0iMTJweCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+0JHQuNC30L3QtdGBLdC70L7Qs9C40LrQsDwvdGV4dD48L3N3aXRjaD48L2c+PHBhdGggZD0iTSA4OTggNjA2IEwgMTc5OCA2MDYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHRyYW5zZm9ybT0icm90YXRlKDkwLDEzNDgsNjA2KSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxyZWN0IHg9IjE0MjYiIHk9IjQ5NiIgd2lkdGg9IjMwMCIgaGVpZ2h0PSI4MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJub25lIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTAuNSAtMC41KXNjYWxlKDIpIj48c3dpdGNoPjxmb3JlaWduT2JqZWN0IHN0eWxlPSJvdmVyZmxvdzogdmlzaWJsZTsgdGV4dC1hbGlnbjogbGVmdDsiIHBvaW50ZXItZXZlbnRzPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiByZXF1aXJlZEZlYXR1cmVzPSJodHRwOi8vd3d3LnczLm9yZy9UUi9TVkcxMS9mZWF0dXJlI0V4dGVuc2liaWxpdHkiPjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIHN0eWxlPSJkaXNwbGF5OiBmbGV4OyBhbGlnbi1pdGVtczogdW5zYWZlIGNlbnRlcjsganVzdGlmeS1jb250ZW50OiB1bnNhZmUgY2VudGVyOyB3aWR0aDogMTQ4cHg7IGhlaWdodDogMXB4OyBwYWRkaW5nLXRvcDogMjY4cHg7IG1hcmdpbi1sZWZ0OiA3MTRweDsiPjxkaXYgc3R5bGU9ImJveC1zaXppbmc6IGJvcmRlci1ib3g7IGZvbnQtc2l6ZTogMDsgdGV4dC1hbGlnbjogY2VudGVyOyAiPjxkaXYgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgZm9udC1zaXplOiAxMnB4OyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBjb2xvcjogIzAwMDAwMDsgbGluZS1oZWlnaHQ6IDEuMjsgcG9pbnRlci1ldmVudHM6IGFsbDsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC13cmFwOiBub3JtYWw7ICI+0JLQvdC10YjQvdC40LUg0LHQuNCx0LvQuNC+0YLQtdC60Lg8L2Rpdj48L2Rpdj48L2Rpdj48L2ZvcmVpZ25PYmplY3Q+PHRleHQgeD0iNzg4IiB5PSIyNzIiIGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJIZWx2ZXRpY2EiIGZvbnQtc2l6ZT0iMTJweCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+0JLQvdC10YjQvdC40LUg0LHQuNCx0LvQuNC+0YLQtdC60Lg8L3RleHQ+PC9zd2l0Y2g+PC9nPjxyZWN0IHg9IjM2IiB5PSI2NTYiIHdpZHRoPSIzMDAiIGhlaWdodD0iODAiIGZpbGw9Im5vbmUiIHN0cm9rZT0ibm9uZSIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjUgLTAuNSlzY2FsZSgyKSI+PHN3aXRjaD48Zm9yZWlnbk9iamVjdCBzdHlsZT0ib3ZlcmZsb3c6IHZpc2libGU7IHRleHQtYWxpZ246IGxlZnQ7IiBwb2ludGVyLWV2ZW50cz0ibm9uZSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iZGlzcGxheTogZmxleDsgYWxpZ24taXRlbXM6IHVuc2FmZSBjZW50ZXI7IGp1c3RpZnktY29udGVudDogdW5zYWZlIGNlbnRlcjsgd2lkdGg6IDE0OHB4OyBoZWlnaHQ6IDFweDsgcGFkZGluZy10b3A6IDM0OHB4OyBtYXJnaW4tbGVmdDogMTlweDsiPjxkaXYgc3R5bGU9ImJveC1zaXppbmc6IGJvcmRlci1ib3g7IGZvbnQtc2l6ZTogMDsgdGV4dC1hbGlnbjogY2VudGVyOyAiPjxkaXYgc3R5bGU9ImRpc3BsYXk6IGlubGluZS1ibG9jazsgZm9udC1zaXplOiAxMnB4OyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBjb2xvcjogIzAwMDAwMDsgbGluZS1oZWlnaHQ6IDEuMjsgcG9pbnRlci1ldmVudHM6IGFsbDsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC13cmFwOiBub3JtYWw7ICI+0JjQvdGE0YDQsNGB0YLRgNGD0LrRgtGD0YDQsDwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSI5MyIgeT0iMzUyIiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPtCY0L3RhNGA0LDRgdGC0YDRg9C60YLRg9GA0LA8L3RleHQ+PC9zd2l0Y2g+PC9nPjxwYXRoIGQ9Ik0gNzE2IDEwMzYgTCA5MzYgMTAzNiBMIDkzNiAxMTM2IEwgNzE2IDExMzYgTCA3MTYgMTExNiBMIDY5NiAxMTE2IEwgNjk2IDEwOTYgTCA3MTYgMTA5NiBMIDcxNiAxMDc2IEwgNjk2IDEwNzYgTCA2OTYgMTA1NiBMIDcxNiAxMDU2IFoiIGZpbGw9IiNmZmZmZmYiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48cGF0aCBkPSJNIDcxNiAxMDU2IEwgNzM2IDEwNTYgTCA3MzYgMTA3NiBMIDcxNiAxMDc2IE0gNzE2IDEwOTYgTCA3MzYgMTA5NiBMIDczNiAxMTE2IEwgNzE2IDExMTYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48ZyBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjI0cHgiPjx0ZXh0IHg9IjgzNS41IiB5PSIxMDcxLjUiPm1haW48L3RleHQ+PC9nPjxwYXRoIGQ9Ik0gMzkwIDkwNCBMIDEyOTAgOTA0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHBhdGggZD0iTSA2NjIuMjUgMzM2IEwgNjg5LjIgMTIwLjQ0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSI2IDYiIHBvaW50ZXItZXZlbnRzPSJzdHJva2UiLz48cGF0aCBkPSJNIDY5OS4xNSAxNDUuNjMgTCA2ODkuNDcgMTE4LjIyIEwgNjczLjM1IDE0Mi40MSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRlci1ldmVudHM9ImFsbCIvPjxwYXRoIGQ9Ik0gNTY4LjkyIDU3NiBMIDYzMS4yMiA0NDAuMDciIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IjYgNiIgcG9pbnRlci1ldmVudHM9InN0cm9rZSIvPjxwYXRoIGQ9Ik0gNjMzLjE0IDQ2Ny4wOCBMIDYzMi4xNSA0MzguMDMgTCA2MDkuNSA0NTYuMjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48cGF0aCBkPSJNIDczMS42MyA3MzYgTCA2MzQuMjIgNjc4LjI4IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2UtZGFzaGFycmF5PSI2IDYiIHBvaW50ZXItZXZlbnRzPSJzdHJva2UiLz48cGF0aCBkPSJNIDY2MS4yOSA2NzkuMjEgTCA2MzIuMyA2NzcuMTQgTCA2NDguMDQgNzAxLjU4IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHBhdGggZD0iTSA5MzYgNzg2IEwgMTQ1MS41MyA3ODYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IjYgNiIgcG9pbnRlci1ldmVudHM9InN0cm9rZSIvPjxwYXRoIGQ9Ik0gMTQyNy43NiA3OTkgTCAxNDUzLjc2IDc4NiBMIDE0MjcuNzYgNzczIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHBhdGggZD0iTSA4MTYgNjYgTCA5NzEuNTMgNjYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IjYgNiIgcG9pbnRlci1ldmVudHM9InN0cm9rZSIvPjxwYXRoIGQ9Ik0gOTQ3Ljc2IDc5IEwgOTczLjc2IDY2IEwgOTQ3Ljc2IDUzIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHBhdGggZD0iTSA4MTYgMTAzNiBMIDgxNiA4NDAuNDciIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IjYgNiIgcG9pbnRlci1ldmVudHM9InN0cm9rZSIvPjxwYXRoIGQ9Ik0gODI5IDg2NC4yNCBMIDgxNiA4MzguMjQgTCA4MDMgODY0LjI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHBhdGggZD0iTSA3ODYuNjUgMTAzNiBMIDU3Ny42MSA2NzkuODYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IjYgNiIgcG9pbnRlci1ldmVudHM9InN0cm9rZSIvPjxwYXRoIGQ9Ik0gNjAwLjg1IDY5My43NyBMIDU3Ni40OCA2NzcuOTMgTCA1NzguNDMgNzA2LjkzIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludGVyLWV2ZW50cz0iYWxsIi8+PHBhdGggZD0iTSA3OTYgNzM2IEwgNjc3LjY2IDQ0MC4xNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgc3Ryb2tlLWRhc2hhcnJheT0iNiA2IiBwb2ludGVyLWV2ZW50cz0ic3Ryb2tlIi8+PHBhdGggZD0iTSA2OTguNTYgNDU3LjM5IEwgNjc2LjgzIDQzOC4wOCBMIDY3NC40MiA0NjcuMDQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48cmVjdCB4PSIzNiIgeT0iOTc2IiB3aWR0aD0iMzAwIiBoZWlnaHQ9IjgwIiBmaWxsPSJub25lIiBzdHJva2U9Im5vbmUiIHBvaW50ZXItZXZlbnRzPSJhbGwiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMC41IC0wLjUpc2NhbGUoMikiPjxzd2l0Y2g+PGZvcmVpZ25PYmplY3Qgc3R5bGU9Im92ZXJmbG93OiB2aXNpYmxlOyB0ZXh0LWFsaWduOiBsZWZ0OyIgcG9pbnRlci1ldmVudHM9Im5vbmUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHJlcXVpcmVkRmVhdHVyZXM9Imh0dHA6Ly93d3cudzMub3JnL1RSL1NWRzExL2ZlYXR1cmUjRXh0ZW5zaWJpbGl0eSI+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGFsaWduLWl0ZW1zOiB1bnNhZmUgY2VudGVyOyBqdXN0aWZ5LWNvbnRlbnQ6IHVuc2FmZSBjZW50ZXI7IHdpZHRoOiAxNDhweDsgaGVpZ2h0OiAxcHg7IHBhZGRpbmctdG9wOiA1MDhweDsgbWFyZ2luLWxlZnQ6IDE5cHg7Ij48ZGl2IHN0eWxlPSJib3gtc2l6aW5nOiBib3JkZXItYm94OyBmb250LXNpemU6IDA7IHRleHQtYWxpZ246IGNlbnRlcjsgIj48ZGl2IHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUtYmxvY2s7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgY29sb3I6ICMwMDAwMDA7IGxpbmUtaGVpZ2h0OiAxLjI7IHBvaW50ZXItZXZlbnRzOiBhbGw7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtd3JhcDogbm9ybWFsOyAiPtCi0L7Rh9C60LAg0LLRhdC+0LTQsCDQsiDQv9GA0LjQu9C+0LbQtdC90LjQtTwvZGl2PjwvZGl2PjwvZGl2PjwvZm9yZWlnbk9iamVjdD48dGV4dCB4PSI5MyIgeT0iNTEyIiBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0iSGVsdmV0aWNhIiBmb250LXNpemU9IjEycHgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPtCi0L7Rh9C60LAg0LLRhdC+0LTQsCDQsiDQv9GA0LjQu9C+0LbQtdC90LjQtTwvdGV4dD48L3N3aXRjaD48L2c+PC9nPjxzd2l0Y2g+PGcgcmVxdWlyZWRGZWF0dXJlcz0iaHR0cDovL3d3dy53My5vcmcvVFIvU1ZHMTEvZmVhdHVyZSNFeHRlbnNpYmlsaXR5Ii8+PGEgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwtNSkiIHhsaW5rOmhyZWY9Imh0dHBzOi8vd3d3LmRpYWdyYW1zLm5ldC9kb2MvZmFxL3N2Zy1leHBvcnQtdGV4dC1wcm9ibGVtcyIgdGFyZ2V0PSJfYmxhbmsiPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTBweCIgeD0iNTAlIiB5PSIxMDAlIj5WaWV3ZXIgZG9lcyBub3Qgc3VwcG9ydCBmdWxsIFNWRyAxLjE8L3RleHQ+PC9hPjwvc3dpdGNoPjwvc3ZnPg==" alt="image" /></p>
+
+<p>Каждый модуль можно отнести к определённому слою приложения. На верхнем уровне — объекты предметной области и бизнес-логика. На нижнем — объекты инфраструктуры, которые отвечают за ввод-вывод и взаимодействие с внешними системами. Библиотека для парсинга JSON не зависит от классов приложения. Поэтому её можно использовать в различных приложениях.</p>
+
+<p>В хороших архитектурах объекты верхних уровней не зависят от объектов более нижних. Это позволяет заменять детали реализации нижних слоёв, не влияя на логику работы приложения. Например, здесь можно переписать ввод-вывод с JSON на XML, просто заменив модуль <code>json_reader</code> на <code>xml_reader</code>. На остальных модулях это не отразится. А вот изменения в <code>transport_catalogue</code> могут повлиять на <code>request_handler</code>, <code>json_reader</code> и <code>main</code>. Модуль, от которого зависят другие, должен быть стабильным. Иначе всё превратится в хаос.</p>
+
+<p>В ходе разработки между модулями иногда появляются новые зависимости. Например, у <code>json_reader</code> могут возникнуть зависимости от маршрутов и остановок из <code>domain</code>. Это нормально, так как <code>json_reader</code> — модуль нижнего уровня и может зависеть от модуля высокого уровня. А вот модули верхнего уровня не должны зависеть от модулей нижнего. Циклических зависимостей между модулями тоже следует избегать. Они усложняют поддержку кода.</p>
+
+<p>В задании не регламентируется, из каких классов и функций должна состоять ваша программа и в каких файлах они будут располагаться. Но схема выше здорово облегчит вам задачу.</p>
+
+<h3>Как будет тестироваться ваш код</h3>
+
+<p>Программа получит из stdin валидный JSON-документ с описанием маршрутов и запросов к справочнику. Данные, которые программа выведет в stdout, будут сравниваться с ожидаемым значением. Вывод вещественных чисел должен осуществляться стандартно, без модификаторов вывода.</p>
+
+<p>Вы можете рассчитывать на следующие объёмы входных данных:</p>
+
+<ul>
+<li>Количество запросов на создание маршрутов и остановок — не более 100.</li>
+<li>Количество запросов к уже созданной базе — не более 2000.</li>
+<li>Не более 100 остановок в маршруте.</li>
+</ul>
+
+<p>Время работы программы на указанном объёме данных не должно превышать одной секунды.</p>
+
+<h3>Подсказка</h3>
+
+<ul>
+<li>Не пытайтесь сразу решить задачу: слона нужно есть постепенно. Сначала адаптируйте своё старое решение под новую структуру модулей. Убедитесь, что код транспортного справочника не зависит от модулей, отвечающих за ввод-вывод данных. После этого переведите приложение на использование формата JSON.</li>
+<li>Массив <code>base_requests</code> содержит информацию об автобусных маршрутах и остановках в произвольном порядке. Обработайте его в два прохода: сначала описания остановок, а затем — описания маршрутов.</li>
+<li>Следите, чтобы размер методов и функций не был слишком большим. Если функция выполняет несколько задач, есть смысл вынести эти задачи в подфункции. Как правило, каждый цикл внутри функции выполняет определённый алгоритм и может быть вынесен в отдельный метод с понятным именем. Так вы уменьшите сложность программы и облегчите её сопровождение.</li>
+<li>Для классов и функций со сложной логикой напишите модульные тесты. Так вы вовремя обнаружите ошибки, которые могут возникнуть при изменениях.</li>
+</ul>
+
+</body>
+</html>

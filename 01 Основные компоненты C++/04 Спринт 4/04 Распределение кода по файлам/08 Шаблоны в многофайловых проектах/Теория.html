@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Шаблоны в многофайловых проектах</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Шаблоны в многофайловых проектах</h1>
+
+<p>Рабочие успешно справляются со строительством стен. Но кроме стен у дома обычно бывает пол и крыша. У них тоже есть площадь, поэтому нужно посчитать количество краски и кирпичей и для них.</p>
+
+<p>Создадим в проекте классы <code>Roof</code> и <code>Ceiling</code>. Чтобы у всех  строительных объектов — <code>Roof</code>, <code>Ceiling</code>, <code>Wall</code> — был метод с одинаковым названием и типом возвращаемого значения, добавим в класс <code>Wall</code> метод <code>GetSizes</code>.</p>
+
+<p>Кроме того, нужно уметь делать расчёты для любых объектов, имеющих метод <code>GetSizes</code>, который возвращает пару значений <code>double</code>. Сделать это можно, применив шаблоны:</p>
+
+<p>accountant.cpp</p>
+
+<pre><code class="language-cpp">#include &quot;accountant.h&quot;
+
+#include &quot;square_calculation.h&quot;
+
+using namespace std;
+
+template &lt;class BuildingObject&gt;
+double Accountant::CalcPaintNeeded(const BuildingObject&amp; building_object) const {
+    pair&lt;double, double&gt; sizes = building_object.GetSizes();
+    return CalcSquare(sizes.first, sizes.second) * 0.4;
+}
+
+template &lt;class BuildingObject&gt;
+double Accountant::CalcBricksNeeded(const BuildingObject&amp; building_object) const {
+    pair&lt;double, double&gt; sizes = building_object.GetSizes();
+    return CalcSquare(sizes.first, sizes.second) * 5;
+}
+</code></pre>
+
+<p>accountant.h</p>
+
+<pre><code class="language-cpp">#pragma once
+#include &quot;square_calculation.h&quot;
+#include &quot;wall.h&quot;
+
+#include &lt;utility&gt;
+
+class Accountant {
+public:
+    template &lt;class BuildingObject&gt;
+    double CalcPaintNeeded(const BuildingObject&amp; building_object) const;
+    template &lt;class BuildingObject&gt;
+    double CalcBricksNeeded(const BuildingObject&amp; building_object) const;
+};
+</code></pre>
+
+<p>builder.h</p>
+
+<pre><code class="language-cpp">#pragma once
+#include &quot;square_calculation.h&quot;
+
+class Builder {
+public:
+    void HoldDoor() const {
+        // Просто держит дверь 100 условных секунд
+        int i = 100;
+        while (0 != i) {
+            i--;
+        }
+    }
+};
+</code></pre>
+
+<p>carpenter.cpp</p>
+
+<pre><code class="language-cpp">#include &quot;carpenter.h&quot;
+
+#include &quot;square_calculation.h&quot;
+
+int Carpenter::CalcShelves(const Wall&amp; wall) const {
+    double height = wall.GetHeight();
+    double width = wall.GetWidth();
+    return CalcSquare(width, height) / 2;
+}
+
+void Carpenter::InstallDoor(Wall&amp; wall, const Builder&amp; builder) const {
+    // Hold the door, builder! Hold the door!
+    builder.HoldDoor();
+    wall.SetDoorInstalled();
+}
+</code></pre>
+
+<p>carpenter.h</p>
+
+<pre><code class="language-cpp">#pragma once
+#include &quot;builder.h&quot;
+#include &quot;wall.h&quot;
+
+class Carpenter {
+public:
+    int CalcShelves(const Wall&amp; wall) const;
+    void InstallDoor(Wall&amp; wall, const Builder&amp; builder) const;
+};
+</code></pre>
+
+<p>ceiling.cpp</p>
+
+<pre><code class="language-cpp">#include &quot;ceiling.h&quot;
+
+Ceiling::Ceiling(double length, double width)
+    : length_(length)
+    , width_(width) {
+}
+
+std::pair&lt;double, double&gt; Ceiling::GetSizes() const {
+    return {length_, width_};
+}
+</code></pre>
+
+<p>ceiling.h</p>
+
+<pre><code class="language-cpp">#pragma once
+#include &lt;utility&gt;
+
+class Ceiling {
+public:
+    Ceiling(double length, double width);
+    std::pair&lt;double, double&gt; GetSizes() const;
+
+private:
+    double length_;
+    double width_;
+};
+</code></pre>
+
+<p>main.cpp</p>
+
+<pre><code class="language-cpp">#include &quot;accountant.h&quot;
+#include &quot;ceiling.h&quot;
+#include &quot;roof.h&quot;
+
+#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+    Accountant ray;
+    Wall wall(3.5, 2.45);
+    Roof roof(5, 7);
+    Ceiling ceiling(5, 7);
+
+    cout &lt;&lt; &quot;Требуется кирпичей: &quot;s
+         &lt;&lt; ray.CalcBricksNeeded&lt;Wall&gt;(wall) + ray.CalcBricksNeeded&lt;Roof&gt;(roof) + ray.CalcBricksNeeded&lt;Ceiling&gt;(ceiling)
+         &lt;&lt; endl;
+
+    cout &lt;&lt; &quot;Требуется краски: &quot;s
+         &lt;&lt; ray.CalcPaintNeeded&lt;Wall&gt;(wall) + ray.CalcPaintNeeded&lt;Roof&gt;(roof) + ray.CalcPaintNeeded&lt;Ceiling&gt;(ceiling)
+         &lt;&lt; endl;
+		return 0;
+}
+</code></pre>
+
+<p>painter.h</p>
+
+<pre><code class="language-jsx">#pragma once
+#include &quot;square_calculation.h&quot;
+#include &quot;wall.h&quot;
+
+class Painter {
+public:
+    void Paint(Wall&amp; wall, Wall::Color color) const {
+        wall.SetColor(color);
+    }
+};
+</code></pre>
+
+<p>roof.cpp</p>
+
+<pre><code class="language-jsx">#include &quot;roof.h&quot;
+
+Roof::Roof(double length, double width)
+    : length_(length)
+    , width_(width) {
+}
+
+std::pair&lt;double, double&gt; Roof::GetSizes() const {
+    return {length_, width_};
+}
+</code></pre>
+
+<p>roof.h</p>
+
+<pre><code class="language-cpp">#pragma once
+#include &lt;utility&gt;
+
+class Roof {
+public:
+    Roof(double length, double width);
+    std::pair&lt;double, double&gt; GetSizes() const;
+
+private:
+    double length_;
+    double width_;
+};
+</code></pre>
+
+<p>square_calculation.cpp</p>
+
+<pre><code class="language-cpp">#include &quot;square_calculation.h&quot;
+
+double CalcSquare(double width, double height) {
+    return width * height;
+}
+</code></pre>
+
+<p>square_calculation.h</p>
+
+<pre><code class="language-cpp">#pragma once
+double CalcSquare(double width, double height);
+</code></pre>
+
+<p>wall.cpp</p>
+
+<pre><code class="language-cpp">#include &quot;wall.h&quot;
+
+Wall::Wall(double width, double height)
+    : width_(width)
+    , height_(height)
+    , color_(Color::WHITE)
+    , is_door_installed_(false) {
+}
+
+double Wall::GetHeight() const {
+    return height_;
+}
+double Wall::GetWidth() const {
+    return width_;
+}
+std::pair&lt;double, double&gt; Wall::GetSizes() const {
+    return {width_, height_};
+}
+void Wall::SetColor(Color color) {
+    color_ = color;
+}
+Color Wall::GetColor() const {
+	return color_;
+}
+bool Wall::IsDoorInstalled() const {
+    return is_door_installed_;
+}
+void Wall::SetDoorInstalled() {
+    is_door_installed_ = true;
+}
+</code></pre>
+
+<p>wall.h</p>
+
+<pre><code class="language-cpp">#pragma once
+#include &lt;utility&gt;
+
+class Wall {
+public:
+    enum class Color { BLUE, GREEN, RED, WHITE, YELLOW };
+
+    Wall(double width, double height);
+
+    double GetHeight() const;
+    double GetWidth() const;
+    std::pair&lt;double, double&gt; GetSizes() const;
+    void SetColor(Color color);
+    Color GetColor() const;
+    bool IsDoorInstalled() const;
+    void SetDoorInstalled();
+
+private:
+    double width_;
+    double height_;
+    Color color_;
+    bool is_door_installed_;
+};
+</code></pre>
+
+<p>Запускаем. Что-то пошло не так:</p>
+
+<pre><code>undefined reference to double Accountant::CalcBricksNeeded&lt;Ceiling&gt;(Ceiling const&amp;) const' 
+undefined reference to double Accountant::CalcBricksNeeded&lt;Roof&gt;(Roof const&amp;) const'
+undefined reference to double Accountant::CalcBricksNeeded&lt;Wall&gt;(Wall const&amp;) const' 
+undefined reference to double Accountant::CalcPaintNeeded&lt;Ceiling&gt;(Ceiling const&amp;) const'
+undefined reference to double Accountant::CalcPaintNeeded&lt;Roof&gt;(Roof const&amp;) const' 
+undefined reference to double Accountant::CalcPaintNeeded&lt;Wall&gt;(Wall const&amp;) const'
+</code></pre>
+
+<hr>
+
+<p>Эти ошибки возникли при работе:</p>
+
+<ul>
+<li><p>Препроцессора</p></li>
+
+<li><p>Компилятора</p></li>
+
+<li><p>КомпоновщикаКомпоновщик не смог найти в коде перечисленные функции. Подозрительно, ведь мы всё сделали правильно. Объявление оставили в заголовочном файле, а определение — в файле с реализацией. До того как добавили шаблоны, код работал. Дело в том, что шаблоны действуют не так, как обычные функции, — компилятору приходится самому разбираться, какие функции сделать из этого шаблона.</p></li>
+</ul>
+
+<p>Когда нажимаем кнопку начала компиляции, первым в городе просыпается препроцессор. Он заменяет все свои директивы и ложится спать.</p>
+
+<p>Просыпается компилятор. Когда он приходит разбираться с объектом main.cpp, видит объявление шаблона из  accountant.h, вставленное препроцессором. Компилятор, читая строчку за строчкой, доходит до использования шаблонов с типами <code>Wall</code>, <code>Roof</code> и <code>Ceiling</code>. Создаёт из шаблонов объявлений (не определений!) соответствующее объявление функции и идёт дальше. До конца файла main.cpp он доходит с надеждой, что компоновщик разберётся, где находятся функции <code>CalcBricksNeeded</code> и <code>CalcPaintNeeded</code>, имеющие пока только объявление.</p>
+
+<p>Каждый файл компилируется отдельно. Поэтому когда компилятор работает над файлом accountant.cpp, он уже не помнит, что шаблонами пытались воспользоваться. Он только видит, что в текущем файле никто эти шаблоны не применяет, и никаких функций не создаётся. Компилятор заканчивает и засыпает.</p>
+
+<p>Просыпается компоновщик. Он усердно ищет каждому импорту свой экспорт. Компоновщик ничего не знает о шаблонах. Он видит, что для main.cpp нужны функции <code>Accountant::CalcBricksNeeded&lt;Ceiling&gt;(Ceiling const&amp;)</code>, <code>Accountant::CalcBricksNeeded&lt;Roof&gt;(Roof const&amp;)</code> и <code>Accountant::CalcBricksNeeded&lt;Wall&gt;(Wall const&amp;) const'</code>. Ни у какого файла такого экспорта нет. Компоновщик выставляет ошибки и заканчивает работу. Проект не собрался. Время мирным программистам разобраться.</p>
+
+</body>
+</html>

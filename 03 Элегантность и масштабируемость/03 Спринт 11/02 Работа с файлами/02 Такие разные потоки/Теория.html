@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Такие разные потоки</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Такие разные потоки</h1>
+
+<p>Компьютеры, смартфоны и многие другие устройства, способные исполнять программы, трудно представить без важного элемента — энергонезависимого носителя, такого как жёсткий или твердотельный диск. У постоянной памяти, размещаемой на этом носителе, есть свои особенности. Главная из них — необходимость в файловой системе, которая структурирует данные на диске. В этой теме рассмотрим работу с файловой системой. Начнём с чтения и записи файлов. Но прежде вспомним, как устроены потоки ввода-вывода, через которые осуществляются основные операции с файлами.</p>
+
+<p>У потока две стороны: одна посылает данные, другая получает. Одна из этих сторон — активная, это функция или метод вашей программы. Задача другой — выдать или принять данные по запросу. Потоки ввода-вывода — замечательный пример разделения ответственности. Эти стороны могут не знать друг о друге ничего: одна посылает данные в поток, не представляя, куда они попадут, другая — обрабатывает данные, не имея понятия о том, откуда они пришли.</p>
+
+<p>Давайте проверим, что вы помните о потоках.</p>
+
+<hr>
+
+<p>Выберите верное утверждение.</p>
+
+<ul>
+<li><p>Существуют только три потока: <code>cin</code>, <code>cout</code> и <code>cerr</code>.</p></li>
+
+<li><p>Помимо <code>cin</code>, <code>cout</code> и <code>cerr</code> можно создать собственный поток, который будет читать из строки или писать в строку.</p></li>
+
+<li><p>Потоки в принципе не нужны. Их можно безболезненно заменить на <code>string</code>.</p></li>
+</ul>
+
+<p>Помимо потоков стандартного ввода и вывода вы изучали строковые потоки, которые работают с памятью: <code>istringstream</code> и <code>ostringstream</code>. Потоки <code>cin</code> и <code>cout</code> существуют в одном экземпляре. А строковый поток вы создаёте сами при необходимости.</p>
+
+<hr>
+
+<p>Поток ввода можно представить ссылкой на <code>istream&amp;</code>. Активная сторона читает данные из него. К потокам ввода относятся <code>cin</code> и <code>istringstream</code> из библиотеки <code>&lt;sstream&gt;</code>.</p>
+
+<p>Поток вывода представляется ссылкой на <code>ostream&amp;</code>. Активная сторона может записывать данные в него. Этот поток содержит кэширование, ускоряющее его работу. К потокам вывода относятся <code>cout</code> и <code>ostringstream</code> из библиотеки <code>&lt;sstream&gt;</code>.</p>
+
+<p>Помимо этих двух потоков существует также тип <code>iostream</code>. Ссылкой этого типа можно представить поток, допускающий как чтение, так и запись. Примером служит <code>stringstream</code>.</p>
+
+<hr>
+
+<p>К какому виду потоков относится <code>cerr</code>?</p>
+
+<ul>
+<li><p>К <code>istream</code>.</p></li>
+
+<li><p>К <code>ostream</code>.</p></li>
+
+<li><p>К <code>iostream</code>.</p></li>
+</ul>
+
+<p>Для работы с файлами в стандартной библиотеке есть специальные потоки, которые станут доступны при подключении файла <code>&lt;fstream&gt;</code>:</p>
+
+<ul>
+<li>поток ввода <code>ifstream</code> для чтения из файла,</li>
+<li>поток вывода <code>ofstream</code> для записи в файл,</li>
+<li>поток <code>fstream</code> для выполнения сразу обеих операций.</li>
+</ul>
+
+<p>При создании потока в конструктор нужно передать имя файла:</p>
+
+<pre><code class="language-cpp">#include &lt;fstream&gt;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main() {
+    {
+        ifstream in_file(&quot;test.txt&quot;s);
+        int x; 
+        if (in_file &gt;&gt; x) {
+            cout &lt;&lt; &quot;Из файла прочитано число &quot;s &lt;&lt; x &lt;&lt; endl;
+        }
+    }
+
+    {
+        ofstream out_file(&quot;test.txt&quot;s);
+        out_file &lt;&lt; 100 &lt;&lt; 500 &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>При первом запуске этой программы в консоль не будет выведено ничего — файла с именем test.txt нет и прочитать из него не получится. Вторая половина программы автоматически создаст этот файл и запишет в него два числа — <code>ofstream</code> автоматически создаёт файл, если его нет. Имейте в виду, что <code>ofstream</code> не создаёт папки — открытие будет успешным только в том случае, если директория файла уже существует и на создание файла в ней у программы есть права.</p>
+
+<p>Если всё прошло успешно, после второго запуска появится текст:</p>
+
+<pre><code class="language-cpp">Из файла прочитано число 100500
+</code></pre>
+
+<p>Два записанных числа склеились в одно, поскольку мы не вывели между ними никакого разделителя — пробела или перевода строки. Так произошло бы и при выводе в <code>cout</code>.</p>
+
+<p>После третьего запуска результат не изменится — <code>ofstream</code> очищает файл, если он существует, и начинает с чистого листа. Следует быть осторожными и не открывать через <code>ofstream</code> файл, содержащий нужные данные.</p>
+
+<p>Поскольку не указан путь к файлу, а только имя, он будет создан в <strong>текущей директории</strong> — папке, задаваемой окружением операционной системы. Текущая директория зависит от того, как пользователь запустил программу. Если она вызвана из проводника, текущая директория будет папкой программы. Если из консоли, то активной директорией в консоли. В C++ есть функции для изменения и получения текущей директории. Об этом — в конце темы. Директория используется для интерпретации относительных путей. Например, если программа обращается к файлу “dir/a.txt” без указания полного пути до него, будет подразумеваться, что этот файл находится в поддиректории dir текущей директории. При запуске из Eclipse или другой IDE текущая директория задаётся в настройках проекта. Часто текущая папка совпадает с папкой исполняемого файла вашей программы, но так происходит не всегда.</p>
+
+<p>Объекты классов <code>fstream</code>, <code>ifstream</code>, <code>ofstream</code> можно создавать и с пустым конструктором. Тогда для открытия файла примените метод <code>open</code>, который принимает такие же параметры, как и конструктор. Более того, можно открыть другой файл тем же потоком, вызвав <code>open</code> повторно. Перед этим нужно закрыть файл методом <code>close</code>, который не принимает параметров. Пока файл открыт каким-либо потоком, он зарезервирован за вашей программой. Операционная система может препятствовать другим программам совершать действия с этим файлом, например удалять его. Но это не значит, что нужно вызывать <code>close</code> каждый раз после открытия файла, чтобы снять резерв. В C++ это происходит в деструкторе потока автоматически. Поэтому можно не бояться, что забудете закрыть файл и допустите утечку ресурсов.</p>
+
+<p>Подведём итог этого урока таблицей, содержащей все известные на данный момент потоки:</p>
+
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th>Стандартный ввод-вывод</th>
+<th>Строковый поток</th>
+<th>Файловый поток</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="right">Заголовочный файл</td>
+<td><code>&lt;iostream&gt;</code></td>
+<td><code>&lt;sstream&gt;</code></td>
+<td><code>&lt;fstream&gt;</code></td>
+</tr>
+
+<tr>
+<td align="right">Поток ввода</td>
+<td><code>cin</code></td>
+<td><code>istringstream</code></td>
+<td><code>ifstream</code></td>
+</tr>
+
+<tr>
+<td align="right">Поток вывода</td>
+<td><code>cout</code>, <code>cerr</code></td>
+<td><code>ostringstream</code></td>
+<td><code>ofstream</code></td>
+</tr>
+
+<tr>
+<td align="right">Двунаправленный поток</td>
+<td>—</td>
+<td><code>stringstream</code></td>
+<td><code>fstream</code></td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>

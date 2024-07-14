@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Задание</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h2>Задание</h2>
+
+<p>Разработайте шаблонный класс <code>Cache&lt;Key, Value, ValueFactoryFn&gt;</code>, представляющий собой кэш объектов.</p>
+
+<p>Реализуйте также недостающий функционал класса <code>BookLoader</code>, загружающий книги из хранилища <code>unordered_map&lt;string, string&gt;</code>. Этот класс играет роль фабрики, которую кэш использует для конструирования значений, если их в кэше нет.</p>
+
+<h3>Требования к классам</h3>
+
+<p>Класс <code>Cache</code> должен иметь метод <code>GetValue</code>, который возвращает указатель <code>shared_ptr</code>, ссылающийся на значение типа <code>Value</code> с ключом типа <code>Key</code>, а в случае отсутствия ключа должен создавать новое значение и возвращать указатель на него.</p>
+
+<p>Значение должно создаваться использованием функционального объекта, имеющего шаблонный тип <code>ValueFactoryFn</code>:</p>
+
+<pre><code class="language-cpp">template &lt;typename Key, typename Value, typename ValueFactoryFn&gt;
+class Cache {
+public:
+    Cache() = default;
+    explicit Cache(ValueFactoryFn value_factory) { ... }
+
+    std::shared_ptr&lt;Value&gt; GetValue(const Key&amp; key) { ... }
+};
+</code></pre>
+
+<p>Если на объект, возвращённый из кэша, не осталось сильных ссылок, он должен быть удалён.</p>
+
+<p>Класс <code>BookLoader</code> загружает книги из хранилища и обновляет счётчик загруженных книг:</p>
+
+<pre><code class="language-cpp">struct Book { ... };
+
+class BookLoader {
+public:
+    using BookStore = std::unordered_map&lt;std::string, std::string&gt;;
+
+    explicit BookLoader(const BookStore&amp; store, size_t&amp; load_count) { ... }
+
+    std::shared_ptr&lt;Book&gt; operator()(const std::string&amp; title) const { ... }
+};
+</code></pre>
+
+<h3>Примеры использования кэша</h3>
+
+<p>Пример иллюстрирует работу кэша при доступе к объектам, которые для наглядности выводят сообщения о своём создании и разрушении:</p>
+
+<pre><code class="language-cpp">class Object {
+public:
+    explicit Object(std::string id)
+        : id_(std::move(id))  //
+    {
+        using namespace std;
+        cout &lt;&lt; &quot;Object '&quot;sv &lt;&lt; id_ &lt;&lt; &quot;' has been created&quot;sv &lt;&lt; endl;
+    }
+
+    ~Object() {
+        using namespace std;
+        cout &lt;&lt; &quot;Object '&quot;sv &lt;&lt; id_ &lt;&lt; &quot;' has been destroyed&quot;sv &lt;&lt; endl;
+    }
+
+private:
+    std::string id_;
+};
+</code></pre>
+
+<p>В качестве фабрики этих объектов будет выступать структура <code>ObjectFactory</code>:</p>
+
+<pre><code class="language-cpp">using ObjectPtr = std::shared_ptr&lt;Object&gt;;
+
+struct ObjectFactory {
+    ObjectPtr operator()(std::string id) const {
+        return std::make_shared&lt;Object&gt;(std::move(id));
+    }
+};
+</code></pre>
+
+<p>Пример использования кэша:</p>
+
+<pre><code class="language-cpp">void Test1() {
+    using namespace std;
+    ObjectPtr alice1;
+    // Кеш, объектов Object, создаваемых при помощи ObjectFactory,
+    // доступ к которым предоставляется по ключу типа string
+    Cache&lt;string, Object, ObjectFactory&gt; cache;
+
+    // Извлекаем объекты Alice и Bob
+    alice1 = cache.GetValue(&quot;Alice&quot;s);
+    auto bob = cache.GetValue(&quot;Bob&quot;s);
+    // Должны вернуться два разных объекта с правильными id
+    assert(alice1 != bob);
+    assert(alice1-&gt;GetId() == &quot;Alice&quot;s);
+    assert(bob-&gt;GetId() == &quot;Bob&quot;s);
+
+    // Повторный запрос объекта Alice должен вернуть существующий объект
+    auto alice2 = cache.GetValue(&quot;Alice&quot;s);
+    assert(alice1 == alice2);
+
+    // Указатель alice_wp следит за жизнью объекта Alice
+    weak_ptr alice_wp{alice1};
+    alice1.reset();
+    assert(!alice_wp.expired());
+    cout &lt;&lt; &quot;---&quot;sv &lt;&lt; endl;
+    alice2.reset();
+    // Объект Alice будет удалён, так как на него больше не ссылаются shared_ptr
+    assert(alice_wp.expired());
+    cout &lt;&lt; &quot;---&quot;sv &lt;&lt; endl;
+    // Объект Bob будет удалён после разрушения указателя bob
+
+    alice1 = cache.GetValue(&quot;Alice&quot;s);  // объект 'Alice' будет создан заново
+    cout &lt;&lt; &quot;---&quot;sv &lt;&lt; endl;
+}
+</code></pre>
+
+<p>При многократном запросе объекта Alice из кэша объект не должен создаваться заново. Лишь после того, как на объект Alice не останется сильных ссылок, объект должен быть разрушен и заново создан при повторном запросе:</p>
+
+<pre><code>Object 'Alice' has been created
+Object 'Bob' has been created
+---
+Object 'Alice' has been destroyed
+---
+Object 'Alice' has been created
+---
+Object 'Bob' has been destroyed
+Object 'Alice' has been destroyed
+</code></pre>
+
+<p>Пример использования <code>Cache</code> совместно с <code>BookLoader</code> аналогичен предыдущему примеру. <code>BookLoader</code> должен загружать содержимое книг из внешнего хранилища типа <code>unordered_map&lt;string, string&gt;</code>. При появлении в хранилище новой книги, она должна стать доступной для загрузки <code>BookLoader</code>:</p>
+
+<pre><code class="language-cpp">void Test2() {
+    using namespace std;
+    // Хранилище книг.
+    BookLoader::BookStore books{
+        {&quot;Sherlock Holmes&quot;s,
+         &quot;To Sherlock Holmes she is always the woman. I have seldom heard him mention her under any other name.&quot;s},
+        {&quot;Harry Potter&quot;s, &quot;Chapter 1. The boy who lived. ....&quot;s},
+    };
+    using BookCache = Cache&lt;string, Book, BookLoader&gt;;
+
+    size_t load_count = 0;
+    // Создаём кэш, который будет использовать BookLoader для загрузки книг из хранилища books
+    BookCache book_cache{BookLoader{books, load_count}};
+
+    // Загруженная книга должна содержать данные из хранилища
+    auto book1 = book_cache.GetValue(&quot;Sherlock Holmes&quot;s);
+    assert(book1);
+    assert(book1-&gt;title == &quot;Sherlock Holmes&quot;s);
+    assert(book1-&gt;content == books.at(book1-&gt;title));
+    assert(load_count == 1);
+
+    // Повторный запрос книги должен возвращать закешированное значение
+    auto book2 = book_cache.GetValue(&quot;Sherlock Holmes&quot;s);
+    assert(book2);
+    assert(book1 == book2);
+    assert(load_count == 1);
+
+    weak_ptr&lt;Book&gt; weak_book{book1};
+    assert(!weak_book.expired());
+    book1.reset();
+    book2.reset();
+    // Книга удаляется, как только на неё перестают ссылаться указатели вне кэша
+    assert(weak_book.expired());
+
+    book1 = book_cache.GetValue(&quot;Sherlock Holmes&quot;s);
+    assert(load_count == 2);
+    assert(book1);
+
+    try {
+        book_cache.GetValue(&quot;Fifty Shades of Grey&quot;s);
+        // BookLoader выбросит исключение при попытке загрузить несуществующую книгу
+        assert(false);
+    } catch (const std::out_of_range&amp;) {
+        /* Всё нормально. Такой книги нет в книгохранилище */
+    } catch (...) {
+        cout &lt;&lt; &quot;Unexpected exception&quot;sv &lt;&lt; endl;
+    }
+    // Счётчик загрузок не должен обновиться, так как книги нет в хранилище
+    assert(load_count == 2);
+
+    // Добавляем книгу в хранилище
+    books[&quot;Fifty Shades of Grey&quot;s] = &quot;I scowl with frustration at myself in the mirror...&quot;s;
+
+    try {
+        auto book = book_cache.GetValue(&quot;Fifty Shades of Grey&quot;s);
+        // Теперь книга должна быть успешно найдена
+        assert(book-&gt;content == books.at(&quot;Fifty Shades of Grey&quot;s));
+    } catch (...) {
+        assert(false);
+    }
+    // Счётчик загрузок должен обновиться, так как книга была загружена из хранилища
+    assert(load_count == 3);
+}
+</code></pre>
+
+<h3>Что отправлять на проверку</h3>
+
+<p>Внесите нужные изменения в классы Cache и BookLoader. Остальные классы оставьте без изменений. Функция <code>main</code> будет заменена на версию из тренажёра.</p>
+
+<h3>Как будет тестироваться ваш код</h3>
+
+<p>Тренажёр проверит классы <code>Cache</code> и <code>BookLoader</code> на соответствие условиям задания.</p>
+
+<h3>Подсказка</h3>
+
+<ul>
+<li>Используйте контейнер <code>map</code> или <code>unordered_map</code> для хранения содержимого кэша. В качестве значений примените <code>weak_ptr&lt;Value&gt;</code>. Тогда объекты автоматически будут удаляться из динамической памяти при отсутствии сильных ссылок на них.</li>
+<li>Если оказалось, что слабая ссылка в кэше устарела, создайте объект заново, используя фабрику.</li>
+<li>Чтобы <code>BookLoader</code> мог находить книги, которые появляются в хранилище, он должен хранить не копию хранилища книг, а константную ссылку на него.</li>
+</ul>
+
+</body>
+</html>

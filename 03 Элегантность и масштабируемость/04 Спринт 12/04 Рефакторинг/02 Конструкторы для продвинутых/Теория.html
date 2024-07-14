@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Конструкторы для продвинутых</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Конструкторы для продвинутых</h1>
+
+<p>Идея с комментариями, рассмотренная в прошлом уроке, глобально плоха одним моментом — программист всё ещё мог ошибиться в порядке передачи аргументов. В этом уроке вы научитесь рефакторить конструкторы так, чтобы перестать зависеть от этого порядка.</p>
+
+<p>Когда вызов конструктора выглядит так, появляется проблема — параметры могут быть переданы в неправильном порядке:</p>
+
+<pre><code class="language-cpp">ReadingManager manager(1000, 20000, 2);
+</code></pre>
+
+<p>Проблему можно решить созданием методов, которые определят значение конкретного параметра. Проще говоря, методов-сеттеров. Уберём параметры у конструктора и создадим такие методы:</p>
+
+<pre><code class="language-cpp">class ReadingManager {
+public:
+    ReadingManager();
+
+    void SetMaxUserCount(int max_user_count) {
+        max_user_count_ = max_user_count;
+    }
+    
+    void SetMaxPageCount(int max_page_count) {
+        max_page_count_ = max_page_count;
+    }
+    
+    void SetCheerFactor(double cheer_factor) {
+        cheer_factor_ = cheer_factor;
+    }
+    ...
+private:
+   int max_user_count_ = 0;
+   int max_page_count_ = 0;
+   double cheer_factor_ = 0;
+};
+</code></pre>
+
+<p>Теперь подготовка объекта класса <code>ReadingManager</code> будет выглядеть так:</p>
+
+<pre><code class="language-cpp">ReadingManager manager;
+manager.SetMaxUserCount(20000);
+manager.SetMaxPageCount(1000);
+manager.SetCheerFactor(2);
+</code></pre>
+
+<p>Пока всё в порядке, но вдруг кто-нибудь из пользователей решил вызвать другие методы класса <code>ReadingManager</code> до вызова сеттеров:</p>
+
+<pre><code class="language-cpp">ReadingManager manager;
+manager.Read(0, 1);
+</code></pre>
+
+<p>Пользователь прав. Ничего не мешает ему сделать именно так. Но это добавляет нам проблем.</p>
+
+<hr>
+
+<p>Каких?</p>
+
+<ul>
+<li><p>Теперь после вызова конструктора объект на самом деле не сконструирован до конца, использование его методов вызывает неопределённое поведение.</p></li>
+
+<li><p>Придётся ограничить пользователя и убрать другие методы в секцию <code>private</code>.</p></li>
+
+<li><p>Нужно переписывать другие методы класса.</p></li>
+</ul>
+
+<p>Такой способ рефакторинга может работать, но, как видите, он тоже не идеален. Продолжим улучшать код в следующем уроке.</p>
+
+<p>Сформулируем точнее проблему, которая возникла в конце прошлого урока. У объекта <code>ReadingManager</code> есть две фазы жизненного цикла: инициализация и использование. Использование невозможно до окончания инициализации. Нужно разделить эти две фазы, чтобы гарантировать их непересечение.</p>
+
+<p>Проблема сформулирована, решим её. Выделим отдельный класс для инициализации и назовём его <code>ReadingManagerBuilder</code>:</p>
+
+<pre><code class="language-cpp">class ReadingManagerBuilder {
+public:
+    void SetMaxUserCount(int max_user_count) {
+        max_user_count_ = max_user_count;
+    }
+
+    void SetMaxPageCount(int max_page_count) {
+        max_page_count_ = max_page_count;
+    }
+
+    void SetCheerFactor(double cheer_factor) {
+        cheer_factor_ = cheer_factor;
+    }
+
+    ReadingManager Build() const {
+        if (max_user_count_ &lt;= 0) {
+            // ...
+        }
+        return {max_user_count_, max_page_count_, cheer_factor_};
+    }
+
+private:
+    int max_user_count_;
+    int max_page_count_;
+    double cheer_factor_;
+};
+</code></pre>
+
+<p>Теперь можно вернуть на место конструктор <code>ReadingManager</code> с тремя параметрами. Однако сделать это нужно хитро. Программист бы не хотел, чтобы обычный пользователь вызывал этот конструктор. Но у <code>ReadingManagerBuilder</code> должно получиться.</p>
+
+<hr>
+
+<p>Магию какого ключевого слова можно применить в этом случае?</p>
+
+<ul>
+<li><p><code>switch</code></p></li>
+
+<li><p>Нужно использовать наследование без всяких волшебных слов.</p></li>
+
+<li><p><code>friend</code></p></li>
+
+<li><p><code>please</code></p></li>
+</ul>
+
+<p>Ключевое слово <code>friend</code> разрешит методам класса <code>ReadingManagerBuilder</code> доступ к секции <code>private</code>класса  <code>ReadingManager</code>.</p>
+
+<p>Выглядеть это будет так:</p>
+
+<pre><code class="language-cpp">class ReadingManager {
+public:
+    friend class ReadingManagerBuilder;
+    ...
+
+private:
+    vector&lt;int&gt; user_page_counts_;
+    vector&lt;int&gt; page_achieved_by_count_;
+    double cheer_factor_= 0;
+
+    ReadingManager(int max_user_count, int max_page_count, double cheer_factor)
+        : user_page_counts_(max_user_count + 1, -1),
+          page_achieved_by_count_(max_page_count + 1, 0),
+          cheer_factor_(cheer_factor)
+    {
+    }
+
+    ...
+};
+</code></pre>
+
+<p>Теперь пользователь надёжно защищён от недоразумений:</p>
+
+<pre><code class="language-cpp">ReadingManagerBuilder builder;
+builder.SetMaxUserCount(20000);
+builder.SetMaxPageCount(1000);
+builder.SetCheerFactor(2);
+ReadingManager manager = builder.Build();
+</code></pre>
+
+<p>Ну и вишенка на торте.</p>
+
+<hr>
+
+<p>Какой тип должны возвращать сеттеры, чтобы пользователь мог сконструировать объект <code>ReadingManager</code> так?</p>
+
+<pre><code class="language-cpp">ReadingManager manager = 
+    ReadingManagerBuilder().SetMaxUserCount(20000).SetMaxPageCount(1000).SetCheerFactor(2).Build();
+</code></pre>
+
+<ul>
+<li><p><code>ReadingManager&amp;</code></p></li>
+
+<li><p><code>ReadingManager</code></p></li>
+
+<li><p><code>ReadingManagerBuilder&amp;</code></p></li>
+
+<li><p><code>const ReadingManagerBuilder&amp;</code></p></li>
+
+<li><p><code>ReadingManagerBuilder</code></p></li>
+</ul>
+
+<p>Возвращение ссылки на текущий объект <code>ReadingManagerBuilder&amp;</code> позволит реализовать приём, называемый Fluent interface.</p>
+
+<p>Вернёмся к изначальной проблеме. Ради её решения возникла идея сеттеров. Пользователь мог перепутать параметры конструктора местами, и понимание вызова конструктора вызывало трудности. После рефакторинга, проведённого в рамках этого урока, программисту больше не надо контролировать порядок аргументов конструктора.</p>
+
+</body>
+</html>

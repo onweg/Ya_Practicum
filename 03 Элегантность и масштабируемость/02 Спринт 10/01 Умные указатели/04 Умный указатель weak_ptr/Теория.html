@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Умный указатель weak_ptr</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Умный указатель weak_ptr</h1>
+
+<p>В прошлом уроке вы познакомились с умным указателем <code>shared_ptr</code>. Благодаря ему несколько умных указателей могут владеть одним динамически выделенным ресурсом. Ресурс будет автоматически уничтожен, когда последний из ссылающихся на ресурс умных указателей разрушится или станет ссылаться на другой объект.</p>
+
+<p>У вас могло сложиться впечатление о всесильности указателя <code>shared_ptr</code>. Настало время его развеять.</p>
+
+<h3>Проблема циклических ссылок</h3>
+
+<p>Рассмотрим два класса: <code>Person</code> и <code>Apartment</code>. Человек живёт в квартире, поэтому содержит <code>shared_ptr</code>, ссылающийся на его квартиру. В квартире, в свою очередь, проживает человек, поэтому она содержит <code>shared_ptr</code>, ссылающийся на человека:</p>
+
+<pre><code class="language-cpp">struct Apartment;
+
+struct Person {
+    explicit Person(string name)
+        : name(move(name))  //
+    {
+        cout &lt;&lt; &quot;Person &quot;sv &lt;&lt; this-&gt;name &lt;&lt; &quot; has been created&quot;sv &lt;&lt; endl;
+    }
+    ~Person() {
+        cout &lt;&lt; &quot;Person &quot;sv &lt;&lt; name &lt;&lt; &quot; has died&quot;sv &lt;&lt; endl;
+    }
+
+    string name;
+    shared_ptr&lt;Apartment&gt; apartment;
+};
+
+struct Apartment {
+    Apartment() {
+        cout &lt;&lt; &quot;The apartment has been created&quot;sv &lt;&lt; endl;
+    }
+    ~Apartment() {
+        cout &lt;&lt; &quot;The apartment has been destroyed&quot;sv &lt;&lt; endl;
+    }
+
+    shared_ptr&lt;Person&gt; person;
+};
+</code></pre>
+
+<p>Создадим человека и квартиру и свяжем их друг с другом:</p>
+
+<pre><code class="language-cpp">int main() {
+    auto apartment = make_shared&lt;Apartment&gt;();
+    auto person = make_shared&lt;Person&gt;(&quot;Ivan&quot;s);
+    person-&gt;apartment = apartment;
+    apartment-&gt;person = person;
+}
+</code></pre>
+
+<p>Запустив программу, столкнёмся с утечкой памяти: ни у человека, ни у квартиры не был вызван деструктор.</p>
+
+<pre><code>The apartment has been created
+Person Ivan has been created
+</code></pre>
+
+<p>Суть проблемы в том, что между <code>person</code> и <code>apartment</code> возникла циклическая ссылка. Циклическая ссылка — ситуация, при которой в программе появляется циклическая последовательность владеющих ссылок. В данном случае:</p>
+
+<ul>
+<li>объект <code>person</code> владеет объектом <code>apartment</code>, не давая ему уничтожиться;</li>
+<li>объект <code>apartment</code> владеет объектом <code>person</code>, также не давая ему уничтожиться.</li>
+</ul>
+
+<p><img src="data:image/png;base64,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AFq66667yr333tu7bG3dunXltttuK1PFAw880Pt/AZNFAOGs++pXv1qee+65k47t27eXjRs3CiMATLrUNQkAjz/+eLn++ut7R0t5v6lU361YsaIsW7aswGQxBYspYdu2beWWW24pCxcuPDEics8995SnnnqqXHPNNWXv3r0FACZDDRxr164tK1eu7E3Fevrpp088nulZd955Z3nwwQd7QeW6667r1UsPP/zwSc9L/bVq1are45G6La/JZdx+++3l+PHj5Y033ii33npreeaZZ3rPTd2X90yjf/Xq1b378j55bUZkEgjquaLel8+wZs2aE+eP1J/18UioylFldCPvW98zn3nz5s1l/fr1vcczGlNnI+R69/PDRDECwpSRAu7FF1/sFeaPPfZYr1BNwZjKoEolkQI89w3tLUoFkaO+JpeRy7ymvm44ed1I583tWjnV92/dOwbA5Em4yLqP1EOpf1LO1zokaj2STrGEhDTY0/jPSH23Xnn00Ud7wWHDhg29I3VFnlPVYJHnpW7JORJGonv9sssu673fI4880rs/75dz5XbOV+9LyOieP3VZPmPuz/vnfJll0J1Olc+bEJIAlHPkOd0pV/Uz7Nmz58R1mGhGQJiyuqMeKfxTYKdwff3113s9Nznuu+++Ez07999/f++y9txkRCWve+ihh3oFaSqWvD7Xb7zxxhPnT8GbHquEn5wzr00vWI5IZZEjr89jeX3O030OAP0p5XrK9Dq6kEZ56oQ0+IcuRs8oQbfcTxhJHfPJT37yRN2TEYw6KpJ6IwEh508dEznvtddee2JUIe+ROiajEkPrlIywDB29SOdcHa3IOWrdmPMnoDzxxBO9zxAJUzUE5TXdejV1ZH1Ofo4Ek1qvJSjl3Oo4JosREKakBIcMDcdLL73U65lJwZ7gcNNNN/UK7xSm6dnp9lKloE2BmcdTGGcYOhVBbqewzesTMlK5RC5z5LF63rw+79cd5ch7p3LI43le3jvP6b43AP0nZXka2zVspM5IQ324xegJJ10ZZajThnOO1BF5fW6nQV+nYnXrijw+2ilNqXeq7M410n05f0Y98r6pM+s6lm49lhGVqhtq6jnVZ7RkBIQpIYVmFp9XdS1IwkCCRHpvcr1baOd2wkMK1doblIK9W7CmEkmhnEK4FvpZU1JlCDq9P905vDlveqNqeKnn6fYE1R6yfE7r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" alt="image" /></p>
+
+<p>В итоге даже при отсутствии внешних ссылок на <code>person</code> и <code>apartment</code> эти объекты удерживают друг друга от разрушения, что и приводит к утечке памяти.</p>
+
+<p>В данном случае проблема возникла из-за неправильного предположения, что квартира владеет своими жильцами и одновременно человек владеет квартирой.</p>
+
+<p>В реальных программах циклические ссылки могут принимать более сложные формы. На следующей диаграмме можно обнаружить два цикла: <code>A-B-C</code> и <code>A-B-C-E</code>.</p>
+
+<p><img src="data:image/png;base64,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tyxufOOX8/cOAJpMAAG6bufEjnz7uCf6nXlgy7b00+efTADQZAII0HWnF/ztSA/d/53E4iKoRWCL4GZUMABNJ4AAPRFP8t87MpV+9L3fpnvu+KpqyDziPdlw053p/3z7l1nwmErPqn4AMACGxsbGTiWAHont4w9u2ZbW3zSeON++A3vyalFUjQBgEAggAABAaRzBAgAASiOAAAAApRFAAACA0gggAABAaQQQAACgNAIIAABQGgEEAAAojQACAACURgABAABKI4AAAAClEUAAAIDSCCAAAEBpBBAAAKA0AggAAFAaAQQAACiNAAIAAJRGAAEAAEojgAAAAKURQAAAgNIIIAAAQGkEEAAAoDQCCAAAUBoBBAAAKI0AAgAAlEYAAQAASiOAAAAApRFAAACA0gggAABAaQQQAACgNAIIAABQGgEEAAAojQACAACURgABAABKI4AAAAClEUAAAIDSCCAAAEBpBBAAAKA0AggAAFAaAQQAACiNAAIAAJRGAAEAAEojgAAAAKURQAAAgNIIIAAAQGkEEAAAoDQCCAAAUBoBBAAAKI0AAgAAlEYAAQAASiOAAAAApRFAAACA0gggAABAaQQQAACgNAIIAABQGgEEAAAozbKhoaG/JgAAgBIsO3Xq1KsJAACg934TFZAXEwAAQI9lxY9/XnbJJZf8U/b9wQQAANA7B1NUQA4ePPjXZcuW3a8XBAAA6IXIGpE53n333YP5FKypqalXs9+8O6mEAAAA3XUwskZkjvjF8uJ3P/roo3cvv/zy/5d9+/+zH/hM9npdAgAA6NCZ01UvRc/HypUrv/HnP//5YPFn/waP95ZsoYv1BQAAAABJRU5ErkJggg==" alt="image" /></p>
+
+<p>Указатели <code>unique_ptr</code> и <code>shared_ptr</code> — владеющие. Объект, который ссылается на другой объект по <code>shared_ptr</code> или <code>unique_ptr</code>, отвечает за его удаление. Выбирайте <code>unique_ptr</code> и <code>shared_ptr</code> только тогда, когда нужно обозначить владение одного объекта другим, и удаление владеющего объекта должно повлечь за собой удаление того, которым владеют. В остальных случаях используйте обычные ссылки или невладеющие указатели.</p>
+
+<p>Циклическое владение практически всегда свидетельствует об ошибке. Решение: разорвать цикл владеющих ссылок, заменив некоторые связи между объектами на обычные указатели. Например, можно заменить связь от <code>Apartment</code> к <code>Person</code> на обычный указатель:</p>
+
+<pre><code class="language-cpp">struct Apartment {
+    Apartment() {
+        cout &lt;&lt; &quot;The apartment has been created&quot;sv &lt;&lt; endl;
+    }
+    ~Apartment() {
+        cout &lt;&lt; &quot;The apartment has been destroyed&quot;sv &lt;&lt; endl;
+    }
+
+    Person* person = nullptr;
+};
+
+int main() {
+    auto apartment = make_shared&lt;Apartment&gt;();
+    auto person = make_shared&lt;Person&gt;(&quot;Ivan&quot;s);
+    person-&gt;apartment = apartment;
+    // Теперь apartment ссылается на person по обычному указателю
+    apartment-&gt;person = person.get();
+    cout &lt;&lt; &quot;----&quot;sv &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Запустим программу и увидим, что оба объекта своевременно разрушились:</p>
+
+<pre><code>The apartment has been created
+Person Ivan has been created
+----
+Person Ivan has died
+The apartment has been destroyed
+</code></pre>
+
+<hr>
+
+<p>Немного усложним код. Изменения в коде выделены комментариями. Что выведет эта программа?</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+#include &lt;string_view&gt;
+
+using namespace std;
+
+struct Apartment;
+
+struct Person {
+    explicit Person(string name)
+        : name(move(name))  //
+    {
+        cout &lt;&lt; &quot;Person &quot;sv &lt;&lt; this-&gt;name &lt;&lt; &quot; has been created&quot;sv &lt;&lt; endl;
+    }
+    ~Person() {
+        cout &lt;&lt; &quot;Person &quot;sv &lt;&lt; name &lt;&lt; &quot; has died&quot;sv &lt;&lt; endl;
+    }
+
+    string name;
+    shared_ptr&lt;Apartment&gt; apartment;
+};
+
+struct Apartment {
+    Apartment() {
+        cout &lt;&lt; &quot;The apartment has been created&quot;sv &lt;&lt; endl;
+    }
+    ~Apartment() {
+        cout &lt;&lt; &quot;The apartment has been destroyed&quot;sv &lt;&lt; endl;
+    }
+
+    Person* person = nullptr;
+};
+
+// ----- Начало изменений ----
+void PrintApartmentInfo(const Apartment&amp; apartment) {
+    if (apartment.person) {
+        cout &lt;&lt; apartment.person-&gt;name &lt;&lt; &quot; is living in the apartment&quot; &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; &quot;The apartment is empty&quot;sv &lt;&lt; endl;
+    }
+}
+
+int main() {
+    auto apartment = make_shared&lt;Apartment&gt;();
+    {
+        auto person = make_shared&lt;Person&gt;(&quot;Ivan&quot;s);
+        person-&gt;apartment = apartment;
+        apartment-&gt;person = person.get();
+        cout &lt;&lt; &quot;----&quot;sv &lt;&lt; endl;
+    }
+    PrintApartmentInfo(*apartment);
+}
+// ----- Конец изменений ----
+</code></pre>
+
+<p>Выберите один вариант ответа.</p>
+
+<ul>
+<li>
+<pre><code>The apartment has been created
+Person Ivan has been created
+----
+Person Ivan has died
+Ivan is living in the apartment
+The apartment has been destroyed
+</code></pre></li>
+
+<li>
+<pre><code>The apartment has been created
+Person Ivan has been created
+----
+Person Ivan has died
+The apartment is empty
+The apartment has been destroyed
+</code></pre></li>
+
+<li>
+<pre><code>The apartment has been created
+Person Ivan has been created
+----
+Ivan is living in the apartment
+Person Ivan has died
+The apartment has been destroyed
+</code></pre></li>
+
+<li><p>Программа содержит неопределённое поведение.</p></li>
+
+<li><p>Будет ошибка компиляции.</p></li>
+</ul>
+
+<p>Эта проблема вызвана разыменованием «висячего» указателя. Её можно исправить, обнулив в деструкторе класса <code>Person</code> ссылку на него со стороны <code>Apartment</code>, однако есть способ лучше.</p>
+
+<h3>Встречайте, <code>weak_ptr</code>!</h3>
+
+<p><a href="https://en.cppreference.com/w/cpp/memory/weak_ptr"><code>std::weak_ptr</code></a> — умный указатель, хранящий невладеющую, или слабую, ссылку на объект, на который ссылается <code>shared_ptr</code>.</p>
+
+<p><code>weak_ptr</code> позволяет безопасно узнать, существует ли объект, на который он ссылается, и получить к нему временный доступ, если объект всё ещё жив. При этом наличие слабой ссылки не продлевает объекту жизнь. Объект будет удалён, как только на него перестанут ссылаться <code>shared_ptr</code>, — по этой причине их ещё называют сильными ссылками:</p>
+
+<pre><code class="language-cpp">#include &lt;cassert&gt;
+#include &lt;memory&gt;
+
+using namespace std;
+
+struct Object {
+    void DoSomething() {
+    }
+};
+
+int main() {
+    auto sp = make_shared&lt;Object&gt;();
+
+    weak_ptr wp{sp};  // Аналог weak_ptr&lt;Object&gt; wp{sp};
+
+    // Пока объект жив, слабые ссылки не устаревают
+    assert(!wp.expired());
+    // После обнуления shared_ptr объект удаляется
+    sp.reset();
+
+    // С этого момента все слабые ссылки становятся устаревшими
+    assert(wp.expired());
+}
+</code></pre>
+
+<p><code>weak_ptr</code> не имеет операторов <code>*</code> и <code>-&gt;</code>, ведь обращаться к объекту, который может быть в любой момент удалён, небезопасно.</p>
+
+<p>Чтобы безопасно обратиться к объекту, на который ссылается <code>weak_ptr</code>, нужно получить временный объект <code>shared_ptr</code>, используя метод <code>lock</code>. Если объект был удалён, метод <code>lock</code> вернёт нулевой указатель:</p>
+
+<pre><code class="language-cpp">int main() {
+    auto sp = make_shared&lt;Object&gt;();
+    weak_ptr wp{sp};
+
+    if (auto sp2 = wp.lock()) {
+        // В этом блоке можно безопасно обращаться к объекту, используя сильную ссылку
+        sp2-&gt;DoSomething();
+    } else {
+        // Сюда мы не попадём, так как на объект всё ещё ссылается sp
+        assert(false);
+    }
+
+    sp.reset();
+    // Объект уже разрушен, создать сильную ссылку не выйдет
+    assert(!wp.lock());
+}
+</code></pre>
+
+<p>Рассмотренная ранее проблема циклических ссылок может быть безопасно решена с использованием <code>weak_ptr</code>.  Для этого одну из ссылок, образующих цикл, нужно сделать слабой.</p>
+
+<p>Объявив внутри <code>Apartment</code> слабую ссылку на <code>Person</code>, решим как проблему с утечкой памяти, так и проблему висячих ссылок:</p>
+
+<pre><code class="language-cpp">struct Apartment {
+    Apartment() {
+        cout &lt;&lt; &quot;The apartment has been created&quot;sv &lt;&lt; endl;
+    }
+    ~Apartment() {
+        cout &lt;&lt; &quot;The apartment has been destroyed&quot;sv &lt;&lt; endl;
+    }
+
+    // Ссылка на Person автоматически обнулится, когда Person будет удалён
+    weak_ptr&lt;Person&gt; person;
+};
+
+void PrintApartmentInfo(const Apartment&amp; apartment) {
+    if (const auto person = apartment.person.lock()) {
+        cout &lt;&lt; person-&gt;name &lt;&lt; &quot; is living in the apartment&quot; &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; &quot;The apartment is empty&quot;sv &lt;&lt; endl;
+    }
+}
+
+int main() {
+    auto apartment = make_shared&lt;Apartment&gt;();
+    {
+        auto person = make_shared&lt;Person&gt;(&quot;Ivan&quot;s);
+        person-&gt;apartment = apartment;
+        apartment-&gt;person = person;
+        cout &lt;&lt; &quot;----&quot;sv &lt;&lt; endl;
+    }
+    PrintApartmentInfo(*apartment);
+}
+</code></pre>
+
+<p>Теперь программа отработает корректно без дополнительных усилий с нашей стороны:</p>
+
+<pre><code>The apartment has been created
+Person Ivan has been created
+----
+Person Ivan has died
+The apartment is empty
+The apartment has been destroyed
+</code></pre>
+
+<p>Решение проблемы висячих ссылок — не единственное применение указателя <code>weak_ptr</code>. Он умеет отслеживать, жив ли некоторый объект и получать доступ к нему. Этим способностям можно найти много разных применений. В следующем задании вам предстоит разработать простой кэш объектов, который будет возвращать существующий объект из кэша или, при его отсутствии, создавать новый.</p>
+
+</body>
+</html>

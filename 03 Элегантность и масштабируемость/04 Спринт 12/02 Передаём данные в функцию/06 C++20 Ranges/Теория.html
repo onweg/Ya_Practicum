@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>C++20 Ranges</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>C++20 Ranges</h1>
+
+<p>C++ постоянно растёт. В него добавляются новые возможности. Например, стандарт 2011 года дал нам <code>auto</code>, move-семантику, цикл <code>for</code> по диапазону, лямбда-функции. C++20 также привнёс массу возможностей. Среди них есть библиотека <code>ranges</code>, которая позволяет передавать один объект вместо пары итераторов. Но это лишь один из вариантов её использования.</p>
+
+<p>Для работы с <code>ranges</code> понадобится соответствующий компилятор. Подойдёт GCC версии не ниже 10. Скачать GCC для Windows можно с сайта <a href="http://winlibs.com/">http://winlibs.com</a>. Протестировать <code>ranges</code> вы можете и онлайн на сайте <a href="https://coliru.stacked-crooked.com/">Coliru</a>.</p>
+
+<h3>Простой пример</h3>
+
+<p>Рассмотрим программу, сортирующую и выводящую в <code>cout</code> диапазон чисел:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;ranges&gt;
+#include &lt;string_view&gt;
+
+namespace rng = std::ranges;
+using namespace std;
+
+template &lt;rng::input_range Range&gt;
+void Print(const Range&amp; range) {
+    for (const auto&amp; x : range) {
+        cout &lt;&lt; x &lt;&lt; &quot; &quot;sv;
+    }
+    cout &lt;&lt; endl;
+}
+
+int main() {
+    vector v = { 4, 1, 7, 2, 3, 8 };
+    rng::sort(v);
+    Print(v);
+
+    return 0;
+}
+</code></pre>
+
+<p>Собирать его GCC нужно с ключом <code>-std=c++20</code>. Программа выводит такой текст:</p>
+
+<pre><code class="language-cpp">1 2 3 4 7 8
+</code></pre>
+
+<p>Разберём пример подробно.</p>
+
+<p><strong>Подключение файлов и манипуляции с пространствами имён</strong></p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;ranges&gt;
+#include &lt;string_view&gt;
+
+namespace rng = std::ranges;
+using namespace std;
+</code></pre>
+
+<p>Среди включаемых файлов есть заголовок нужной библиотеки — <code>&lt;ranges&gt;</code>. Её имена находятся в пространстве <code>std::ranges</code>. Чтобы не писать эту квалификацию каждый раз, мы создали для него псевдоним <code>rng</code>.</p>
+
+<p><strong>Сортировка</strong></p>
+
+<pre><code class="language-cpp">std::vector v = {4, 1, 7, 2, 3, 8};
+rng::sort(v);
+</code></pre>
+
+<p>Функция <code>sort</code> из <code>std::ranges</code> в отличие от <code>std::sort</code> принимает не пару итераторов, а один диапазон. Любой контейнер неявно конвертируется к диапазону. Но это не единственный способ создать диапазон. О некоторых других способах — ниже.</p>
+
+<p><strong>Функция Print</strong></p>
+
+<pre><code class="language-cpp">template &lt;rng::input_range Range&gt;
+void Print(const Range&amp; range) {
+    for (const auto&amp; x : range) {
+        cout &lt;&lt; x &lt;&lt; &quot; &quot;sv;
+    }
+    cout &lt;&lt; endl;
+}
+
+// ...
+
+Print(v);
+</code></pre>
+
+<hr>
+
+<p>Какой необычный синтаксис, который не вписывается в стандарт 17 года, вы видите в этом коде?</p>
+
+<ul>
+<li><p>«Тип»‎ шаблонного параметра <code>rng::input_range</code>.</p></li>
+
+<li><p>Параметр типа <code>Range</code>.</p></li>
+
+<li><p>Итерация по <code>const auto&amp;</code>.</p></li>
+
+<li><p>Постфикс литерала <code>sv</code>.</p></li>
+</ul>
+
+<p>Шаблонный параметр имеет необычный тип — <code>rng::input_range</code>. Это не соответствует C++17, где было только два варианта:</p>
+
+<ul>
+<li>для типового параметра — слово <code>class</code> или <code>typename</code>,</li>
+<li>для нетипового параметра — целочисленный тип, enum-тип, указатель или <code>bool</code>.</li>
+</ul>
+
+<p>Теперь типовые параметры могут быть <strong>концептом</strong> — набором требований к типу. Это новая сущность кода, которая имеет имя. Она введена стандартом C++20. В данном случае мы ссылаемся на <code>std::ranges::input_range</code> — концепт, описывающий требования к диапазону.</p>
+
+<p>Этот код можно упростить и убрать слово <code>template</code> благодаря ещё одному нововведению:</p>
+
+<pre><code class="language-cpp">void Print(const rng::input_range auto&amp; range) {
+    for (const auto&amp; x : range) {
+        cout &lt;&lt; x &lt;&lt; &quot; &quot;sv;
+    }
+    cout &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Здесь в качестве типа параметра <code>range</code> указано <code>auto</code>, ограниченное концептом <code>rng::input_range</code>. Это намекает на неявную шаблонность.</p>
+
+<p>Использование концептов позволяет делать две вещи:</p>
+
+<ol>
+<li>Контролировать ошибки и получать внятные сообщения об ошибках.</li>
+<li>Контролировать перегрузку функций — можно определить несколько одноимённых функций. Будет выбрана та, параметры которой соответствуют всем ограничениям.</li>
+</ol>
+
+<p>Добавим в <code>main</code> строку <code>Print(2)</code> и получим ошибку, начинающуюся так:</p>
+
+<pre><code class="language-cpp">ranges1.cpp: In function ‘int main()’:
+ranges1.cpp:20:10: error: use of function ‘void Print(const Range&amp;) [with Range = int]’ with unsatisfied constraints
+   20 |   Print(2);
+</code></pre>
+
+<p>Формулировка понятно сообщает, что произошло: <code>use of function with unsatisfied constraints</code>. Если пройти по тексту ошибки далее, можно увидеть подробности:</p>
+
+<pre><code class="language-cpp">.../range_access.h:862:13:   required for the satisfaction of 'range&lt;_Tp&gt;' [with _Tp = int]
+.../range_access.h:909:13:   required for the satisfaction of 'input_range&lt;Range&gt;' [with Range = int]
+.../range_access.h:862:21:   in requirements with '_Tp&amp; __t' [with _Tp = int]
+.../range_access.h:864:15: note: the required expression 'std::ranges::__cust::begin(__t)' is invalid
+864 |  ranges::begin(__t);
+      |  ~~~~~~~~~~~~~^~~~~
+.../range_access.h:865:13: note: the required expression 'std::ranges::__cust::end(__t)' is invalid
+  865 |  ranges::end(__t);
+      |  ~~~~~~~~~~~^~~~~
+</code></pre>
+
+<p>Из них понятно, что препятствием стала невозможность применить <code>begin</code> и <code>end</code> к указанному типу.</p>
+
+<p>Можно сделать вызов <code>Print</code> более универсальным, если добавить вторую версию, работающую для остальных типов:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;ranges&gt;
+#include &lt;string_view&gt;
+
+namespace rng = std::ranges;
+using namespace std;
+
+template &lt;rng::input_range Range&gt;
+void Print(const Range&amp; range) {
+    for (const auto&amp; x : range) {
+        cout &lt;&lt; x &lt;&lt; &quot; &quot;sv;
+    }
+    cout &lt;&lt; endl;
+}
+
+template &lt;typename T&gt;
+void Print(const T&amp; x) {
+    cout &lt;&lt; x &lt;&lt; endl;
+}
+
+int main() {
+    vector v = { 4, 1, 7, 2, 3, 8 };
+    rng::sort(v);
+    Print(v);
+    Print(123);
+    Print(&quot;abc&quot;sv);
+
+    return 0;
+}
+</code></pre>
+
+<p>Программа выведет такой текст:</p>
+
+<pre><code class="language-cpp">1 2 3 4 7 8
+123
+a b c
+</code></pre>
+
+<hr>
+
+<p>Почему символы <code>abc</code> вывелись через пробелы?</p>
+
+<ul>
+<li><p>Это не пробелы, а непечатные символы. Ведь <code>ranges</code> — новая библиотека, работающая с Unicode, где буквы занимают по два байта. Но окно консоли Юникод пока не поддерживает.</p></li>
+
+<li><p>Оказалось, что <code>string_view</code> удовлетворяет концепту <code>input_range</code>.</p></li>
+
+<li><p>Ошибка в выводе в поток во второй функции <code>Print</code>.</p></li>
+</ul>
+
+<h3>Параметры-проекции</h3>
+
+<p>Кратко рассмотрим другие возможности <code>ranges</code>. Начнём с дополнительных параметров, имеющихся в некоторых алгоритмах <code>std::ranges</code>. Они называются <strong>параметрами-проекциями</strong> и позволяют передать функцию, которая будет применяться ко всем элементам перед основными действиями алгоритма. Особенно это полезно для алгоритмов вроде <code>std::sort</code> и <code>std::lower_bound</code>, принимающих компараторы. Если элементы нужно отсортировать, принимая во внимание не их, а значения некоторой функции, достаточно передать параметр-проекцию с этой функцией. Необходимость в громоздком компараторе отпадает.</p>
+
+<p>Рассмотрим пример использования алгоритма <code>sort</code> с параметром-проекцией:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+namespace rng = std::ranges;
+using namespace std;
+
+struct Lecture {
+    int course;
+    int local_idx;
+    int complexity;
+};
+
+vector&lt;Lecture&gt; ReadLectures();
+
+int main() {
+    vector&lt;Lecture&gt; lectures = ReadLectures();
+
+    // как раньше
+    sort(lectures.begin(), lectures.end(), [](const Lecture&amp; lhs, const Lecture&amp; rhs) {
+        return lhs.complexity &lt; rhs.complexity;
+    });
+
+    // как теперь
+    rng::sort(lectures, less&lt;&gt;{}, [](const Lecture&amp; x) {
+        return x.complexity;
+    });
+
+    return 0;
+}
+</code></pre>
+
+<p>При вызове <code>std::ranges::sort</code> мы указали три параметра: сам диапазон, компаратор <code>std::less</code> и параметр-проекцию — лямбда-функцию, которая применяется перед сравнением компаратора. Такая сортировка отсортирует <code>lectures</code> по сложности. Можно сортировать сразу по двум полям, используя <code>tuple</code>:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+namespace rng = std::ranges;
+using namespace std;
+
+struct Lecture {
+    int course;
+    int local_idx;
+    int complexity;
+};
+
+vector&lt;Lecture&gt; ReadLectures();
+
+int main() {
+    vector&lt;Lecture&gt; lectures = ReadLectures();
+
+    rng::sort(lectures, less&lt;&gt;{},
+        [](const Lecture&amp; x) { 
+            return std::tuple{x.course, x.local_idx}; 
+        });
+
+    return 0;
+}
+</code></pre>
+
+<h3>Представления и адаптеры</h3>
+
+<p>Создать диапазон из контейнера — только одна из массы возможностей. Помимо неё в библиотеке <code>ranges</code> предусмотрены <strong>представления</strong> и <strong>адаптеры</strong>, которые позволяют генерировать данные, не храня их, либо преобразовывать уже существующий диапазон. Они располагаются в пространстве имён <code>std::ranges::view</code>. Рассмотрим некоторые из них.</p>
+
+<p><strong>view::iota</strong></p>
+
+<p>Этот вид позволяет заменить старый добрый <code>for</code>, сделав его синтаксис более внятным:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;ranges&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+namespace rng = std::ranges;
+namespace view = rng::views;
+
+using namespace std;
+
+int main() {
+    const int days = 3;   // количество дней с играми
+    const int games = 2;  // количество игр с питомцем в день
+
+    // раньше:
+    for (int i = 0; i &lt; days; i++) {
+        cout &lt;&lt; &quot;День &quot;sv &lt;&lt; i &lt;&lt; endl;
+        for (int j = 0; j &lt; games; j++) {
+            cout &lt;&lt; &quot;  Игра &quot;sv &lt;&lt; j &lt;&lt; endl;
+        }
+    }
+
+    // сейчас:
+    for (int i : view::iota(0, days)) {
+        cout &lt;&lt; &quot;День &quot;sv &lt;&lt; i &lt;&lt; endl;
+        for (int j : view::iota(0, games)) {
+            cout &lt;&lt; &quot;  Игра &quot;sv &lt;&lt; j &lt;&lt; endl;
+        }
+    }
+}
+</code></pre>
+
+<p>При написании цикла в старом стиле переменную нужно повторить три раза. Тут возникает огромный простор для ошибок. Почти каждый(ая) программист(ка) на C++ наверняка писал(а) сам(а) или находил(а) в чужом коде нечто подобное:</p>
+
+<pre><code class="language-cpp">    // раньше:
+    for (int i = 0; i &lt; days; i++) {
+        cout &lt;&lt; &quot;День &quot;sv &lt;&lt; i &lt;&lt; endl;
+        for (int j = 0; j &lt; games; i++) {
+            cout &lt;&lt; &quot;  Игра &quot;sv &lt;&lt; j &lt;&lt; endl;
+        }
+    }
+</code></pre>
+
+<hr>
+
+<p>В чём ошибка?</p>
+
+<ul>
+<li><p>В инициализаторе первого цикла.</p></li>
+
+<li><p>В условии первого цикла.</p></li>
+
+<li><p>В итерационном выражении первого цикла.</p></li>
+
+<li><p>В инициализаторе второго цикла.</p></li>
+
+<li><p>В условии второго цикла.</p></li>
+
+<li><p>В итерационном выражении второго цикла.</p></li>
+
+<li><p>Нет ошибки.</p></li>
+</ul>
+
+<p>Использование <code>iota</code> страхует от подобной ошибки.</p>
+
+<p><strong>view::take</strong>
+Вид <code>take</code> — это пример адаптера: он преобразует уже существующий диапазон, оставляя из него только начало. Так можно перебрать первые пять элементов вектора:</p>
+
+<pre><code class="language-cpp">vector&lt;int&gt; numbers = ReadNumbers();
+
+for (int&amp; x : numbers | view::take(5)) {
+    ++x;
+}
+</code></pre>
+
+<p>Использование комбинатора <code>|</code> позволяет объединять несколько адаптеров, применяя их последовательно. Например, чтобы вывести элементы с 10-го по 17-й, можно комбинировать <code>take</code> с адаптером <code>drop</code>, который пропускает указанное число элементов входного диапазона:</p>
+
+<pre><code class="language-cpp">for (int x : numbers | view::drop(10) | view::take(8)) {
+    cout &lt;&lt; x &lt;&lt; ' ';
+}
+</code></pre>
+
+<p>Вот другие полезные адаптеры:</p>
+
+<ul>
+<li><code>reverse</code> — выдаёт диапазон в обратном порядке,</li>
+<li><code>transform</code> — применяет указанную функцию к каждому элементу,</li>
+<li><code>filter</code> — оставляет только элементы, удовлетворяющие предикату,</li>
+</ul>
+
+<p>Полный список всех адаптеров можно найти <a href="https://en.cppreference.com/w/cpp/header/ranges">в документации</a>.</p>
+
+<p>Это был лишь поверхностный взгляд на нововведения C++20. Ваш компилятор может не поддерживать эти возможности или поддерживать лишь ограниченно, поэтому задания в уроке не будет.</p>
+
+</body>
+</html>

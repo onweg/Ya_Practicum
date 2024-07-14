@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Оптовая передача — наборы объектов</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Оптовая передача — наборы объектов</h1>
+
+<p>Вы изучили ситуацию, при которой в функцию требуется передать один объект. Но когда нужно передать целый набор объектов одного типа при неизвестном количестве, вариантов становится больше.</p>
+
+<h3>Передаём контейнер</h3>
+
+<p>Самый простой способ передать неизвестное заранее количество объектов в функцию — принять контейнер по ссылке:</p>
+
+<pre><code class="language-cpp">void PreprocessFile(const path&amp; file_name, const std::vector&lt;path&gt;&amp; include_paths);
+</code></pre>
+
+<hr>
+
+<p>В чём недостаток передачи <code>std::vector</code> из этого примера? Считается, что функция не принимает владение вектором, ей не нужна копия. Выберите один или несколько вариантов.</p>
+
+<ul>
+<li><p>Это неэффективно.</p></li>
+
+<li><p>Нужно передавать по значению.</p></li>
+
+<li><p>Неудобно и неэффективно использовать эту функцию, если объекты хранятся в контейнере другого типа, например, <code>deque</code>.</p></li>
+
+<li><p>Неудобно и неэффективно использовать эту функцию, если требуется передать только часть объектов.</p></li>
+
+<li><p>Из сигнатуры неясно, собирается ли функция менять объекты.</p></li>
+</ul>
+
+<p>Часто использование такого способа допустимо. Например, если функция работает только с определённым контейнером и требует соблюдения его свойств. Тогда конвертации не избежать. В этом случае лучше пусть пользователь функции подстраивается под неё.</p>
+
+<p>Другой пример — когда планируется использовать функцию в строго определённом контексте. Если во всей программе include-пути хранятся в векторе, то абсолютно нормально принимать их в виде константной ссылки на вектор.</p>
+
+<hr>
+
+<p>Как обычно принимают набор объектов алгоритмы стандартной библиотеки?</p>
+
+<ul>
+<li><p>Так же, контейнером.</p></li>
+
+<li><p>Парой итераторов.</p></li>
+
+<li><p>Каждый элемент — в отдельный аргумент.</p></li>
+</ul>
+
+<h3>Передаём полуинтервал</h3>
+
+<p>Алгоритмы стандартной библиотеки не принимают контейнер в качестве аргумента. Они используют более универсальный способ и принимают диапазон в виде пары итераторов:</p>
+
+<pre><code class="language-cpp">template &lt;typename RandomIt&gt;
+void std::sort(RandomIt first, RandomIt last);
+</code></pre>
+
+<p>Вы тоже можете выбрать подобный подход передачи диапазона:</p>
+
+<pre><code class="language-cpp">template &lt;typename InputIt&gt;
+void PrintBookings(InputIt first, InputIt last);
+</code></pre>
+
+<hr>
+
+<p>В чём недостатки этого подхода? Выберите один, или несколько вариантов.</p>
+
+<ul>
+<li><p>Такая передача неэффективна.</p></li>
+
+<li><p>Из сигнатуры неясно, какие типы допустимы.</p></li>
+
+<li><p>Из сигнатуры неясно, собирается ли функция менять объекты.</p></li>
+
+<li><p>Из сигнатуры неясно, что функция принимает диапазон, а не просто два элемента.</p></li>
+</ul>
+
+<p>Отличие функции <code>sort</code> от <code>PrintBookings</code> в том, что последняя требует объекты строго определённого типа, в то время как <code>sort</code> может отсортировать практически любой диапазон. Из сигнатуры это неясно.</p>
+
+<p>Некоторые алгоритмы, содержащие в своём названии <code>_n</code>, используют другой способ: они принимают итератор и количество.</p>
+
+<pre><code class="language-cpp">template &lt;typename InputIt, typename Size, typename OutputIt&gt;
+OutputIt std::copy_n(InputIt first, Size count, OutputIt result);
+</code></pre>
+
+<h3>Передаём последовательность</h3>
+
+<p>Иногда функция работает с набором объектов, расположенных последовательно в памяти. Так делает метод <code>ostream::write</code>, о котором говорилось в предыдущем спринте:</p>
+
+<pre><code class="language-cpp">ostream::write(const char* buffer, size_t buffer_size);
+</code></pre>
+
+<p>На самом деле <code>ostream</code> — это псевдоним для шаблонного класса <code>basic_ostream</code>, позволяющего работать с символами разных типов. Но здесь код упрощён: сигнатура метода приведена так, как если бы <code>ostream</code> был классом.</p>
+
+<p>Похожим образом устроен один из конструкторов строки:</p>
+
+<pre><code class="language-cpp">string::string(const char* c, size_t count);
+</code></pre>
+
+<p>И здесь сигнатура упрощена: <code>string</code> — это не класс, а всего лишь псевдоним для <code>basic_string</code>.</p>
+
+<p>Для этих объектов указатель выполняет функцию итератора, поэтому такая передача похожа на алгоритмы с <code>_n</code>. Из сигнатуры может быть не очевидно, что указатель соотносится с числовым параметром. Например, указатель может передаваться для того, чтобы сделать аргумент необязательным, а число обозначать что-то другое.</p>
+
+<hr>
+
+<p>Данные каких контейнеров могут быть представлены так же — указателем и числом? Выберите один или несколько вариантов.</p>
+
+<ul>
+<li><p><code>std::vector</code></p></li>
+
+<li><p><code>std::map</code></p></li>
+
+<li><p><code>std::unordered_map</code></p></li>
+
+<li><p><code>std::string</code></p></li>
+
+<li><p><code>std::array</code></p></li>
+</ul>
+
+<p>В C++20 для хранения указателя и количества введён специальный тип <code>std::span</code>. Он относится к <code>vector</code> или <code>array</code> так же, как <code>string_view</code> относится к <code>string</code>: предоставляет лёгкую оболочку, которая не хранит элементы. Отличие <code>span</code> от <code>string_view</code> в том, что если в нём неконстантный тип, то его элементы допускают изменение.</p>
+
+<hr>
+
+<p>Как нужно передавать <code>span</code> в функцию?</p>
+
+<ul>
+<li><p>По значению — объект лёгкий</p></li>
+
+<li><p>По ссылке — объект тяжёлый.</p></li>
+
+<li><p>По ссылке — копирование имеет побочный эффект.</p></li>
+
+<li><p>По ссылке, если функция собирается менять элементы, на которые указывает <code>span</code>. По значению, если не собирается.</p></li>
+</ul>
+
+<p>Перепишем функции потоков с использованием <code>span</code>:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;span&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+istream&amp; Read(istream&amp; input, span&lt;char&gt; buffer) {
+    input.read(buffer.data(), buffer.size());
+    return input;
+}
+
+ostream&amp; Write(ostream&amp; out, std::span&lt;const char&gt; buffer) {
+    out.write(buffer.data(), buffer.size());
+    return out;
+}
+</code></pre>
+
+<p>Можно использовать такую функцию, передавая в неё <code>vector</code> или <code>array</code>, поскольку эти типы неявно конвертируются в <code>span</code>:</p>
+
+<pre><code class="language-cpp">vector&lt;char&gt; buffer(100);
+Read(cin, buffer);
+</code></pre>
+
+<p>Либо вы можете создать <code>span</code>, явно передав указатель и размер:</p>
+
+<pre><code class="language-cpp">if (cin.gcount() &gt;= 1) {
+    // выводим без первого символа
+    Write(cout, {buffer.data() + 1, size_t(cin.gcount() - 1)});
+}
+</code></pre>
+
+</body>
+</html>

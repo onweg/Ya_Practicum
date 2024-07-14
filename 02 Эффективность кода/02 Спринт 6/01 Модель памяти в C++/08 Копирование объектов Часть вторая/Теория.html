@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Копирование объектов. Часть вторая</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Копирование объектов. Часть вторая</h1>
+
+<p>Из предыдущего урока вы узнали о трудностях копирования объектов, содержащих указатели на динамическую память. Когда процесс не сводится к простому копированию полей объекта, программисту нужно создать копирующий конструктор для правильного выполнения этой операции.</p>
+
+<h3>Выбираем способ хранить щупальца</h3>
+
+<p>Код осьминога из предыдущего урока был искусственно усложнён тем, что щупальца хранились в динамической памяти. Так вы смогли увидеть трудности своими глазами. Если бы в <code>tentacles_</code> хранились сами щупальца, а не указатели на них, проблем при копировании осьминога не возникло бы — все его щупальца скопировались бы автоматически.</p>
+
+<p>Чтобы хранение указателей на щупальца вместо самих щупалец было более обоснованным, немного усложним задачу:</p>
+
+<ul>
+<li>щупальце может прицепляться к произвольному щупальцу любого осьминога и отцепляться от него;</li>
+<li>осьминог при создании может иметь произвольное количество щупалец. По умолчанию их восемь;</li>
+<li>разрешается добавлять осьминогу новые щупальца, используя метод <code>AddTentacle</code>.</li>
+</ul>
+
+<pre><code class="language-cpp">class Tentacle {
+public:
+    explicit Tentacle(int id) noexcept;
+    int GetId() const noexcept;
+
+    Tentacle* GetLinkedTentacle() const noexcept {
+        return linked_tentacle_;
+    }
+    void LinkTo(Tentacle&amp; tentacle) noexcept {
+        linked_tentacle_ = &amp;tentacle;
+    }
+    void Unlink() noexcept {
+        linked_tentacle_ = nullptr;
+    }
+
+private:
+    int id_ = 0;
+    Tentacle* linked_tentacle_ = nullptr;
+};
+
+class Octopus {
+public:
+    Octopus();
+    explicit Octopus(int num_tentacles);
+
+    void AddTentacle();
+    size_t GetTentacleCount() const noexcept;
+    const Tentacle&amp; GetTentacle(size_t index) const;
+    Tentacle&amp; GetTentacle(size_t index);
+
+    ~Octopus();
+
+private:
+    void Cleanup() noexcept;
+
+    vector&lt;Tentacle*&gt; tentacles_;
+};
+
+int main() {
+    Octopus octopus1;
+    Octopus octopus2;
+
+    // Два осьминога прицепляются друг к другу щупальцами
+    octopus1.GetTentacle(1).LinkTo(octopus2.GetTentacle(3));
+    octopus2.AddTentacle();
+    octopus2.GetTentacle(octopus2.GetTentacleCount() - 1).LinkTo(octopus1.GetTentacle(0));
+}
+</code></pre>
+
+<p>Из-за возможности добавлять осьминогу новые щупальца, а щупальцам — ссылаться друг на друга, хранение щупалец в векторе становится затруднительным:</p>
+
+<ul>
+<li>При добавлении нового щупальца ранее существовавшие ссылки на щупальца станут невалидны из-за особенностей реализации вектора. Почему так происходит, вы узнаете через несколько уроков.</li>
+<li>Другие контейнеры могли сохранить валидность ссылок при вставке и удалении элементов, но не справились бы с неожиданным требованием разрешить осьминогам обмениваться щупальцами.</li>
+</ul>
+
+<p>Храня щупальца в динамической памяти, делаем их более независимыми: их адрес не изменится ни при модификации контейнера, ни при передаче другому осьминогу. На практике такая задача может возникать регулярно — например, папки хранят наборы файлов, а гостиницы — наборы постояльцев.</p>
+
+<h3>Анализируем код конструктора по умолчанию</h3>
+
+<p>Прежде чем начать писать конструктор копирования класса «‎Осьминог», взгляните на конструктор по умолчанию в классе <code>Octopus</code>:</p>
+
+<pre><code class="language-cpp">class Octopus {
+public:
+    Octopus() {
+        Tentacle* t = nullptr;
+        try {
+            for (int i = 1; i &lt;= 8; ++i) {
+                t = new Tentacle(i);      // Может выбросить исключение bad_alloc
+                tentacles_.push_back(t);  // Может выбросить исключение bad_alloc
+
+                // Обнуляем указатель на щупальце, которое уже добавили в tentacles_,
+                // чтобы не удалить его в обработчике catch повторно
+                t = nullptr;
+            }
+        } catch (const bad_alloc&amp;) {
+            // Удаляем щупальца, которые успели попасть в контейнер tentacles_
+            Cleanup();
+            // Удаляем щупальце, которое создали, но не добавили в tentacles_
+            delete t;
+            // Конструктор не смог создать осьминога с восемью щупальцами,
+            // поэтому выбрасываем исключение, чтобы сообщить вызывающему коду об ошибке
+            // throw без параметров внутри catch выполняет ПЕРЕВЫБРОС пойманного исключения
+            throw;
+        }
+    }
+    ...
+};
+</code></pre>
+
+<p>Код конструктора получился довольно сложным, так как нужно обработать исключение <code>bad_alloc</code>. Оно может возникнуть при создании щупальца в динамической памяти.</p>
+
+<p>Обработчик исключения должен удалить объекты, на которые ссылаются указатели в векторе <code>tentacles_</code>. Удалить нужно и щупальце по адресу в переменной <code>t</code>. Оно ещё не успело попасть в контейнер <code>tentacles_</code>.</p>
+
+<p>Если в таком же стиле написать конструктор копирования, он будет не менее сложным. Вот был бы способ автоматически удалять объект из динамической памяти, когда указатель, хранящий его адрес, выходит из своей области видимости!</p>
+
+<p>В C++ эту задачу решают умные указатели — классы, которые благодаря перегрузке операций ведут себя как указатели. Они предоставляют операцию разыменования <code>*</code> и доступа к членам класса <code>-&gt;</code>. В отличие от обычных указателей, которые ещё называют «сырыми»‎, умные указатели реализуют семантику владения объектом, то есть автоматически удаляют объект при наступлении определённых условий. Умные указатели также определяют, что должно происходить при копировании указателя. Как правило, умные указатели делают шаблонными, чтобы использовать с объектами разных типов.</p>
+
+<p>В стандартной библиотеке есть классы умных указателей, которые упростили бы решение задачи. Вы обязательно с ними познакомитесь в следующих спринтах. В этом уроке вы создадите свой умный указатель, чтобы потом упростить класс <code>Octopus</code>.</p>
+
+<p>Умный указатель в качестве одного из своих полей хранит обычный указатель, а «‎умное поведение»‎ реализуется за счёт конструктора, деструктора и специфичных для указателя операций.</p>
+
+<p>Ваш указатель <code>ScopedPtr</code> будет владеть объектом, созданным в куче, и гарантировать, что объект автоматически удалится при выходе из области видимости указателя.</p>
+
+<p>В повседневной разработке вам вряд ли понадобится писать собственные умные указатели и вручную вызывать <code>new</code>/<code>delete</code>. Скорее всего, использовать вы будете стандартные. Но задания позволят разобраться, как удобные стандартные классы устроены на самом деле, и чего от них ожидать.</p>
+
+</body>
+</html>

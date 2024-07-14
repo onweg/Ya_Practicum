@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Совершенный способ — Forwarding reference</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Совершенный способ — Forwarding reference</h1>
+
+<p>В теме о move-семантике вы подробно изучили разные способы задать аргумент функции с передачей владения. При вызове функции важно, временный объект в неё передаётся или постоянный: можно ли переместить объект при вызове функции или функция запрещает это сделать.</p>
+
+<p>Вспомните преимущества и недостатки разных способов и пройдите небольшой тест. В вопросах подразумевается метод, который принимает владение тяжёлым объектом типа <code>HeavyObject</code>, переданным в качестве аргумента.</p>
+
+<hr>
+
+<p>В чём главный недостаток передачи по константной ссылке?</p>
+
+<pre><code class="language-cpp">void SaveObject(const HeavyObject&amp; object);
+</code></pre>
+
+<ul>
+<li><p>Для неперемещаемых объектов возникают лишние копирования.</p></li>
+
+<li><p>Для перемещаемых объектов возникают лишние копирования.</p></li>
+
+<li><p>Нельзя передать в такую функцию постоянный объект.</p></li>
+
+<li><p>Нужно дублировать код.</p></li>
+
+<li><p>Невнятная сигнатура, запутанные сообщения об ошибках.</p></li>
+
+<li><p>Нет недостатков.</p></li>
+</ul>
+
+<p>Принимая владение, такая функция обязана скопировать объект. Но если объект перемещаемый, его можно переместить вместо копии. Это лишнее копирование.</p>
+
+<hr>
+
+<p>В чём главный недостаток передачи по значению?</p>
+
+<pre><code class="language-cpp">void SaveObject(HeavyObject object);
+</code></pre>
+
+<ul>
+<li><p>Для неперемещаемых объектов возникают лишние копирования.</p></li>
+
+<li><p>Для перемещаемых объектов возникают лишние копирования.</p></li>
+
+<li><p>Нельзя передать в такую функцию постоянный объект.</p></li>
+
+<li><p>Нужно дублировать код.</p></li>
+
+<li><p>Невнятная сигнатура, запутанные сообщения об ошибках.</p></li>
+
+<li><p>Нет недостатков.</p></li>
+</ul>
+
+<p>Дополнительный недостаток — функция всегда требует два перемещения. Но часто это незначительные затраты.</p>
+
+<p>Также этот способ не годится, если функция сохраняет <code>object</code> не во всех случаях.</p>
+
+<hr>
+
+<p>В чём главный недостаток передачи по rvalue-ссылке?</p>
+
+<pre><code class="language-cpp">void SaveObject(HeavyObject&amp;&amp; object);
+</code></pre>
+
+<ul>
+<li><p>Для неперемещаемых объектов возникают лишние копирования.</p></li>
+
+<li><p>Для перемещаемых объектов возникают лишние копирования.</p></li>
+
+<li><p>Нельзя передать в такую функцию постоянный объект.</p></li>
+
+<li><p>Нужно дублировать код.</p></li>
+
+<li><p>Невнятная сигнатура, запутанные сообщения об ошибках.</p></li>
+
+<li><p>Нет недостатков.</p></li>
+</ul>
+
+<p>Передать переменную напрямую в такую функцию не получится — программа просто не скомпилируется. И правильно, ведь эта функция модифицирует переданный в неё объект, на что должно быть явное указание в месте вызова.</p>
+
+<hr>
+
+<p>В чём главный недостаток перегрузки с двумя версиями: по rvalue-ссылке и константной ссылке?</p>
+
+<pre><code class="language-cpp">void SaveObject(HeavyObject&amp;&amp; object);
+void SaveObject(const HeavyObject&amp; object);
+</code></pre>
+
+<ul>
+<li><p>Для неперемещаемых объектов возникают лишние копирования.</p></li>
+
+<li><p>Для перемещаемых объектов возникают лишние копирования.</p></li>
+
+<li><p>Нельзя передать в такую функцию постоянный объект.</p></li>
+
+<li><p>Нужно дублировать код.</p></li>
+
+<li><p>Невнятная сигнатура, запутанные сообщения об ошибках.</p></li>
+
+<li><p>Нет недостатков.</p></li>
+</ul>
+
+<hr>
+
+<p>Дублирование таит массу опасностей. Оно затрудняет чтение кода, увеличивает риск ошибок. При дублировании можно внести изменения в один вариант кода и забыть сделать это в другом — такая ошибка возникает сплошь и рядом.</p>
+
+<p>Дублирования лучше избегать. Если знаете, с каким объектом функции предстоит работать — перемещаемым или неперемещаемым — обычно можно выбрать между передачей по константной ссылке и передачей по значению.</p>
+
+<p>Но если вы разрабатываете шаблонный класс, он должен работать одинаково хорошо для любых аргументов. Поэтому разработчикам стандартной библиотеки пришлось прибегать к дублированию:</p>
+
+<pre><code class="language-cpp">template &lt;class T, class Allocator&gt;
+void std::vector&lt;T, Allocator&gt;::push_back( const T&amp; value );
+
+template &lt;class T, class Allocator&gt;
+void std::vector&lt;T, Allocator&gt;::push_back( T&amp;&amp; value );
+</code></pre>
+
+<p>Но это ещё цветочки. Если функция принимает два аргумента, такой подход вынуждает написать её не два, а целых четыре раза:</p>
+
+<pre><code class="language-cpp">void SaveObject(HeavyObject1&amp;&amp; object1, HeavyObject2&amp;&amp; object2);
+void SaveObject(HeavyObject1&amp;&amp; object1, const HeavyObject2&amp; object2);
+void SaveObject(const HeavyObject1&amp; object1, HeavyObject2&amp;&amp; object2);
+void SaveObject(const HeavyObject1&amp; object1, const HeavyObject2&amp; object2);
+</code></pre>
+
+<p>С увеличением количества аргументов количество необходимых функций растёт экспоненциально. Но есть в C++ способ исправить эту ситуацию — Forwarding reference или Forwarding-ссылка. Чтобы применить Forwarding reference, нужно написать <code>&amp;&amp;</code> после шаблонного параметра функции:</p>
+
+<pre><code class="language-cpp">template &lt;typename T&gt;
+void SaveObject(T&amp;&amp; object);
+</code></pre>
+
+<p>Важный момент — <code>T</code> должен быть шаблонным параметром именно функции или метода, а не объемлющего класса. Иначе <code>object</code> будет простой rvalue-ссылкой, но не Forwarding reference.</p>
+
+<p>При такой записи тип <code>T</code> выводится автоматически. В зависимости от контекста он может быть выведен:</p>
+
+<ul>
+<li>как <code>HeavyObject</code> — в этом случае <code>T&amp;&amp;</code> превратится в <code>HeavyObject&amp;&amp;</code>,</li>
+<li>как <code>const HeavyObject&amp;</code> — в этом случае <code>T&amp;&amp;</code> превратится в <code>const HeavyObject&amp;</code>. Так работает <strong>правило поглощения ссылок</strong>: обычная ссылка побеждает rvalue-ссылку при одновременном применении.</li>
+</ul>
+
+<p>Проверим, что такой способ действительно позволяет передавать в функцию постоянный объект. Это невозможно для rvalue-ссылки:</p>
+
+<pre><code class="language-cpp">class HeavyObject {
+};
+
+class HeavyPairSaver {
+public:
+    // метод принимает ссылки Forwarding reference
+    // реализацию напишем чуть позже
+    template &lt;typename T1, typename T2&gt;
+    void SaveObject(T1&amp;&amp; object1, T2&amp;&amp; object2);
+
+private:
+    HeavyObject object1_;
+    HeavyObject object2_;
+};
+
+int main() {
+    HeavyPairSaver saver;
+    
+    // сохраняем временные объекты
+    saver.SaveObject(HeavyObject(), HeavyObject());
+
+    // сохраняем постоянные объекты
+    // если бы объекты принимались по rvalue-ссылке, здесь возникла бы ошибка
+    HeavyObject obj1, obj2;
+    saver.SaveObject(obj1, obj2);
+}
+
+</code></pre>
+
+<p>Подобная ссылка — универсальный способ получить аргумент. Но использование объекта зависит от типа ссылки. Если ссылка константная, нужно копировать объекты:</p>
+
+<pre><code class="language-cpp">object1_ = object1;
+object2_ = object2;
+</code></pre>
+
+<p>Если это rvalue-ссылка, нужно вызвать <code>move</code>:</p>
+
+<pre><code class="language-cpp">object1_ = std::move(object1);
+object2_ = std::move(object2);
+</code></pre>
+
+<p>Для Forwarding reference требуется универсальный способ. И такой способ в стандартной библиотеке есть — функция <code>std::forward</code> из файла <code>&lt;utility&gt;</code>. В отличие от <code>move</code>, ей нужно обязательно указывать шаблонный аргумент:</p>
+
+<pre><code class="language-cpp">#include &lt;utility&gt;
+
+using namespace std;
+
+//...
+
+template &lt;typename T1, typename T2&gt;
+void SaveObject(T1&amp;&amp; object1, T2&amp;&amp; object2) {
+    object1_ = forward&lt;T1&gt;(object1);
+    object2_ = forward&lt;T2&gt;(object2);
+}
+
+// ...
+</code></pre>
+
+<p>Такая реализация одинаково хорошо работает для временных объектов, постоянных, перемещаемых и неперемещаемых. Но на примерах из стандартной библиотеки мы видели, что её разработчики в некоторых случаях предпочитают дублирование кода применению таких ссылок. Очевидно, это связано с какими-то недостатками.</p>
+
+<hr>
+
+<p>В чём главный недостаток Forwarding reference?</p>
+
+<pre><code class="language-cpp">template &lt;typename Object&gt;
+void SaveObject(Object&amp;&amp; object);
+</code></pre>
+
+<ul>
+<li><p>Для неперемещаемых объектов возникают лишние копирования.</p></li>
+
+<li><p>Для перемещаемых объектов возникают лишние копирования.</p></li>
+
+<li><p>Нельзя передать в такую функцию постоянный объект.</p></li>
+
+<li><p>Нужно дублировать код.</p></li>
+
+<li><p>Невнятная сигнатура, запутанные сообщения об ошибках.</p></li>
+
+<li><p>Нет недостатков.</p></li>
+</ul>
+
+<p>Сигнатура такой функции не содержит информации о том, аргумент какого типа она принимает. Это может вводить в заблуждение. Второй недостаток состоит в том, что функцию можно вызвать абсолютно любым аргументом — в месте вызова никакой ошибки не возникнет. Ошибка появится внутри тела функции, где этот аргумент будет фактически использоваться.</p>
+
+<hr>
+
+<p>А как же передача по значению? Ведь если <code>T</code> — лёгкий класс, его правильно передавать по значению, а в таком подходе всегда получается ссылка.</p>
+
+<ul>
+<li><p>Нужно добавить ещё одну версию — с передачей по значению.</p></li>
+
+<li><p>Ничего не поделаешь — необходимые издержки.</p></li>
+
+<li><p>Шаблонные функции — по умолчанию <code>inline</code>, оптимизатор сам для каждого аргумента разберётся, нужна передача по ссылке или нет.</p></li>
+</ul>
+
+<p>Запустив бенчмарки в одном из прошлых уроков, мы убедились, что передача по ссылке может не замедлять работу, если специально не запрещать компилятору встраивать функцию. Оптимизатор заботится о скорости.</p>
+
+<p>Использование Forwarding reference в паре с <code>forward</code> — это стандартный паттерн в случае, если функция должна передать свой аргумент дальше, не задумываясь о его типе, либо сохранить его в классе. Так выглядит правильная реализация функции, вызывающей конструктор произвольного типа:</p>
+
+<pre><code class="language-cpp">template &lt;typename T, typename S&gt;
+T Construct(S&amp;&amp; arg) {
+    return T(std::forward&lt;S&gt;(arg));
+}
+
+int main() {
+    string s = Construct&lt;string&gt;(&quot;abc&quot;);
+}
+</code></pre>
+
+<p>Чтобы проверить, как вы поняли понятие Forwarding reference, ответьте на последний вопрос.</p>
+
+<hr>
+
+<p>Напомним, теория этого урока касается только случая, когда передаётся владение объектом. Если передавать владение не требуется, то нужно выбирать между передачей по ссылке или значению, исходя из легкости копирования объекта. Для неизвестного или шаблонного типа без передачи владения следует всегда выбирать ссылку.</p>
+
+</body>
+</html>

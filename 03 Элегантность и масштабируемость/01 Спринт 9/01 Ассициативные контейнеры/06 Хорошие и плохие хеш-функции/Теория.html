@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Хорошие и плохие хеш-функции</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Хорошие и плохие хеш-функции</h1>
+
+<p>Мы рассмотрели уже две хеш-функции для автомобильных номеров. Одна — простая — учитывала только цифровую часть. Другая — её вы написали сами — учитывала весь номер, но предварительно конвертировала его в строку. В этом уроке выясним, можно ли утверждать, что одна из них лучше другой, и разберёмся, что такое хорошая хеш-функция. Вы увидите: <code>unordered_map</code> может быть эффективным, только если выбранная хеш-функция хороша.</p>
+
+<p>В этом уроке нам понадобится генератор случайных номеров:</p>
+
+<pre><code class="language-cpp">class PlateGenerator {
+    char GenerateChar() {
+        uniform_int_distribution&lt;short&gt; char_gen{0, static_cast&lt;short&gt;(possible_chars_.size() - 1)};
+        return possible_chars_[char_gen(engine_)];
+    }
+
+    int GenerateNumber() {
+        uniform_int_distribution&lt;short&gt; num_gen{0, 999};
+        return num_gen(engine_);
+    }
+
+    int GenerateRegion() {
+        uniform_int_distribution&lt;short&gt; region_gen{0, static_cast&lt;short&gt;(possible_regions_.size() - 1)};
+        return possible_regions_[region_gen(engine_)];
+    }
+
+public:
+    VehiclePlate Generate() {
+        return VehiclePlate(GenerateChar(), GenerateChar(), GenerateNumber(), GenerateChar(), GenerateRegion());
+    }
+
+private:
+    mt19937 engine_;
+
+    // допустимые значения сохраним в static переменных
+    // они объявлены inline, чтобы их определение не надо было выносить вне класса
+    inline static const array possible_regions_
+        = {1,  2,  102, 3,   4,   5,   6,   7,   8,  9,   10,  11,  12, 13,  113, 14,  15, 16,  116, 17, 18,
+           19, 20, 21,  121, 22,  23,  93,  123, 24, 84,  88,  124, 25, 125, 26,  27,  28, 29,  30,  31, 32,
+           33, 34, 35,  36,  136, 37,  38,  85,  39, 91,  40,  41,  82, 42,  142, 43,  44, 45,  46,  47, 48,
+           49, 50, 90,  150, 190, 51,  52,  152, 53, 54,  154, 55,  56, 57,  58,  59,  81, 159, 60,  61, 161,
+           62, 63, 163, 64,  164, 65,  66,  96,  67, 68,  69,  70,  71, 72,  73,  173, 74, 174, 75,  80, 76,
+           77, 97, 99,  177, 199, 197, 777, 78,  98, 178, 79,  83,  86, 87,  89,  94,  95};
+
+    // постфикс s у литерала тут недопустим, он приведёт к неопределённому поведению
+    inline static const string_view possible_chars_ = &quot;ABCEHKMNOPTXY&quot;sv;
+};
+</code></pre>
+
+<p>Протестируем генератор номеров, выведя десять случайных:</p>
+
+<pre><code class="language-cpp">...
+
+int main() {
+    static const int N = 10;
+    PlateGenerator plate_gen;
+
+    for (int i = 0; i &lt; N; ++i) {
+        cout &lt;&lt; plate_gen.Generate() &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Проверяем:</p>
+
+<pre><code class="language-cpp">BT905B173
+HO221X87
+NC278N11
+YY996Y95
+YY970P17
+ET798M13
+XB421A16
+MY878T59
+XH035T159
+KO681Y22
+</code></pre>
+
+<p>Номера выглядят как случайные. Протестируем с помощью этого генератора различные хеш-функции. Начнём с простой, учитывающей только цифровую часть:</p>
+
+<pre><code class="language-cpp">class VehiclePlate {
+private:
+    auto AsTuple() const {
+        return tie(letters_, digits_, region_);
+    }
+
+public:
+    bool operator==(const VehiclePlate&amp; other) const {
+        return AsTuple() == other.AsTuple();
+    }
+
+    bool operator&lt;(const VehiclePlate&amp; other) const {
+        return AsTuple() &lt; other.AsTuple();
+    }
+
+    VehiclePlate(char l0, char l1, int digits, char l2, int region)
+        : letters_{l0, l1, l2}
+        , digits_(digits)
+        , region_(region) {
+    }
+
+    string ToString() const {
+        ostringstream out;
+        out &lt;&lt; letters_[0] &lt;&lt; letters_[1];
+        out &lt;&lt; setfill('0') &lt;&lt; right &lt;&lt; setw(3) &lt;&lt; digits_;
+        out &lt;&lt; letters_[2] &lt;&lt; setw(2) &lt;&lt; region_;
+
+        return out.str();
+    }
+
+    const array&lt;char, 3&gt;&amp; GetLetters() const {
+        return letters_;
+    }
+
+    int GetDigits() const {
+        return digits_;
+    }
+
+    int GetRegion() const {
+        return region_;
+    }
+
+private:
+    array&lt;char, 3&gt; letters_;
+    int digits_;
+    int region_;
+};
+
+struct PlateHasherTrivial {
+    size_t operator()(const VehiclePlate&amp; plate) const {
+        return static_cast&lt;size_t&gt;(plate.GetDigits());
+    }
+};
+</code></pre>
+
+<p>Для проверки эффективности контейнера с такой хеш-функцией добавим в него 50 000 случайных номеров и столько же поищем. Будем сравнивать <code>unordered_set</code> и обычный <code>set</code>. Чтобы поставить контейнеры в равное положение, вначале сгенерируем случайные номера и сохраним их в вектор:</p>
+
+<pre><code class="language-cpp">#include &quot;log_duration.h&quot;
+
+#include &lt;algorithm&gt;
+#include &lt;iterator&gt;
+#include &lt;set&gt;
+#include &lt;unordered_set&gt;
+
+...
+
+int main() {
+    static const int N = 50'000;
+
+    PlateGenerator generator;
+    vector&lt;VehiclePlate&gt; fill_vector;
+    vector&lt;VehiclePlate&gt; find_vector;
+
+    generate_n(back_inserter(fill_vector), N, [&amp;]() {
+        return generator.Generate();
+    });
+    generate_n(back_inserter(find_vector), N, [&amp;]() {
+        return generator.Generate();
+    });
+
+    int found;
+    {
+        LOG_DURATION(&quot;unordered_set&quot;);
+        unordered_set&lt;VehiclePlate, PlateHasherTrivial&gt; container;
+        for (auto&amp; p : fill_vector) {
+            container.insert(p);
+        }
+        found = count_if(find_vector.begin(), find_vector.end(), [&amp;](const VehiclePlate&amp; plate) {
+            return container.count(plate) &gt; 0;
+        });
+    }
+    cout &lt;&lt; &quot;Найдено повторов (1): &quot;s &lt;&lt; found &lt;&lt; endl;
+
+    {
+        LOG_DURATION(&quot;set&quot;);
+        set&lt;VehiclePlate&gt; container;
+        for (auto&amp; p : fill_vector) {
+            container.insert(p);
+        }
+        found = count_if(find_vector.begin(), find_vector.end(), [&amp;](const VehiclePlate&amp; plate) {
+            return container.count(plate) &gt; 0;
+        });
+    }
+    cout &lt;&lt; &quot;Найдено повторов (2): &quot;s &lt;&lt; found &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Соберём программу с оптимизацией и проверим результат:</p>
+
+<pre><code class="language-cpp">unordered_set: 371 ms
+Найдено повторов (1): 9
+set: 52 ms
+Найдено повторов (2): 9
+</code></pre>
+
+<p>Оба алгоритма выдали одинаковый ответ, но <code>unordered_set</code>, вопреки теоретической оценке сложности, оказался вовсе не быстрее, а, наоборот, примерно в семь раз медленнее.</p>
+
+<hr>
+
+<p>Как вы думаете, почему так происходит?</p>
+
+<ul>
+<li><p>Возникает много коллизий, <code>unordered_set</code> не может работать эффективно при таких условиях.</p></li>
+
+<li><p>Хеш-функция вычисляется медленно, а в обычном <code>set</code> ничего не нужно вычислять.</p></li>
+
+<li><p>С <code>unordered_set</code> всё в порядке, просто попался хороший случай для <code>set</code> и он работает быстро.</p></li>
+
+<li><p>Всё правильно — оценка худшего случая для <code>unordered_set</code> хуже, а в предыдущих уроках говорилось, что нужно обращать внимание на худший случай.</p></li>
+</ul>
+
+<p>Мы подобрали неудачную хеш-функцию, она провоцирует коллизии. Хорошо, что это всего лишь коллизии номеров в контейнере, а не машин на дорогах! Однако результат не лучший.</p>
+
+<hr>
+
+<p>Сможете ли вы оценить примерное количество коллизий? Сколько номеров попадает в одну корзинку?</p>
+
+<ul>
+<li><p>В каждой корзинке ровно один номер.</p></li>
+
+<li><p>Не много, но и не мало — примерно 50 номеров в каждой корзинке.</p></li>
+
+<li><p>Очень много, примерно по 5 000 номеров в каждой корзинке!</p></li>
+
+<li><p>Все номера попали в одну корзинку.</p></li>
+</ul>
+
+<p>Хеш-функция может принимать всего 1000 разных значений. Это значит, что будет задействовано примерно 1000 корзин. Так как номеров 50 000, на каждую корзину приходится по 50 номеров. Это очень большое количество коллизий. Вот почему желательно, чтобы хеш-функция учитывала все данные.</p>
+
+<hr>
+
+<p>Модифицируем хеш-функцию, чтобы она учитывала не только цифровую часть, но и код региона:</p>
+
+<pre><code class="language-cpp">struct PlateHasherRegion {
+    size_t operator()(const VehiclePlate&amp; plate) const {
+        return static_cast&lt;size_t&gt;(plate.GetDigits() + plate.GetRegion() * 1000);
+    }
+};
+
+...
+
+unordered_set&lt;VehiclePlate, PlateHasherRegion&gt; container;
+</code></pre>
+
+<p>Умножая регион на 1000 и прибавляя цифровую часть, мы как бы объединяем два числа в одно, получая одно пятизначное или шестизначное число.</p>
+
+<p><img src="data:image/png;base64,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AAAAAFkI0AAAAAAAZCFAAwAAAACQhQANAAAAAEAWAjQAAAAAAFkI0AAAAAAAZCFAAwAAAACQhQANAAAAAEAWAjQAAAAAAFkI0AAAAAAAZCFAAwAAAACQhQANAAAAAEAWAjQAAAAAAFkI0AAAAAAAZCFAAwAAAACQhQANAAAAAEAWAjQAAAAAAFkI0AAAAAAAZCFAAwAAAACQhQANAAAAAEAWAjQAAAAAAFkI0AAAAAAAZCFAAwAAAACQhQANAAAAAEAWAjQAAAAAAFkI0AAAAAAAZCFAAwAAAACQhQANAAAAAEAWAjQAAAAAAFkI0AAAAAAAZCFAkwAAAAAAchCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACALARoAAAAAgCwEaAAAAAAAshCgAQAAAADIQoAGAAAAACCL/x8b9JydM4Rb9AAAAABJRU5ErkJggg==" alt="image" /></p>
+
+<p>Проверяем результат:</p>
+
+<pre><code>unordered_set: 19 ms
+Найдено повторов (1): 9
+set: 58 ms
+Найдено повторов (2): 9
+</code></pre>
+
+<p>Скорость увеличилась многократно, и теперь неупорядоченный контейнер заметно выигрывает у своего «коллеги» <code>set</code>. Но увеличим размер ещё, пускай количество номеров станет равно миллиону.</p>
+
+<hr>
+
+<p>Попробуйте предугадать, насколько эффективно <code>unordered_set</code> сможет справиться с миллионом. Помните, что количество кодов региона — 122. Как много коллизий можно ожидать?</p>
+
+<ul>
+<li><p>Коллизий не будет, каждый номер попадёт в отдельную корзинку.</p></li>
+
+<li><p>В одну корзину попадут 8–9 номеров, эффективность снизится.</p></li>
+
+<li><p>Коллизий будет около 50 в каждой корзинке, как в прошлый раз. Будем опять существенно проигрывать обычному <code>set</code>.</p></li>
+
+<li><p>Все номера попадут в одну корзинку. Скорее всего, мы не дождёмся завершения программы.</p></li>
+</ul>
+
+<p>Имеем 122 кода региона и 1000 цифровых частей. Всего получится 122 000 различных хешей, которые могут определять различные корзины. При распределении миллиона номеров получится по восемь-девять объектов в каждой корзине.</p>
+
+<hr>
+
+<p>Запустим программу и проверим эффективность контейнеров:</p>
+
+<pre><code>unordered_set: 2055 ms
+Найдено повторов (1): 3791
+set: 2455 ms
+Найдено повторов (2): 3791
+</code></pre>
+
+<p>Неупорядоченный контейнер по-прежнему выигрывает, но уже не так сильно, как хотелось бы. Теперь представьте, что контейнер обрабатывает данные с камеры, установленной в Санкт-Петербурге. Подавляющее количество автомобильных номеров будут иметь коды регионов 78, 98, 178. Количество коллизий тогда будет существенно больше, а контейнер — менее эффективным.</p>
+
+<p>Хорошо, последняя попытка. Возьмём хешер, который вы реализовали в прошлом уроке. Он использует строковое представление номера, а значит, учитывает все его данные. Ваша реализация могла выглядеть так:</p>
+
+<pre><code class="language-cpp">struct PlateHasherString {
+    size_t operator()(const VehiclePlate&amp; plate) const {
+        return hasher(plate.ToString());
+    }
+
+    hash&lt;string&gt; hasher;
+};
+
+...
+
+unordered_set&lt;VehiclePlate, PlateHasherString&gt; container;
+</code></pre>
+
+<p>На этот раз эффективность должна быть на высоте. Проверим это:</p>
+
+<pre><code>unordered_set: 2651 ms
+Найдено повторов (1): 3791
+set: 2462 ms
+Найдено повторов (2): 3791
+</code></pre>
+
+<p>Однако нет, эффективность даже ухудшилась. Теперь контейнер проигрывает и <code>set</code>.</p>
+
+<hr>
+
+<p>Как вы думаете, в чём причина?</p>
+
+<ul>
+<li><p>Возникает много коллизий, <code>unordered_set</code> не может работать эффективно при таких условиях.</p></li>
+
+<li><p>Хеш-функция вычисляется медленно, а в обычном <code>set</code> ничего не нужно вычислять.</p></li>
+
+<li><p>С <code>unordered_set</code> всё в порядке, просто попался хороший случай для <code>set</code>, и он работает очень быстро.</p></li>
+
+<li><p>Всё правильно — оценка худшего случая для <code>unordered_set</code> хуже, а в предыдущих уроках говорилось, что нужно обращать внимание на худший случай.</p></li>
+</ul>
+
+<p>Хеш-функция учитывает все данные, а значит, коллизий будет минимальное количество. На этот раз причина в другом: мы выбрали медленную хеш-функцию и теперь вынуждены использовать промежуточный поток, а также операции со <code>string</code> при каждом добавлении и поиске номера. <code>set</code> не требует вычисления строкового представления номера и работает быстрее.</p>
+
+</body>
+</html>

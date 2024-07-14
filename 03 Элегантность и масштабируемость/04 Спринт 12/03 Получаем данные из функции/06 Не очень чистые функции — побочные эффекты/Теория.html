@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Не очень чистые функции — побочные эффекты</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Не очень чистые функции — побочные эффекты</h1>
+
+<p>Назначение любой функции — вычисление или совершение действия. Причём это «‎или»‎ очень важно. Не стоит совмещать в одной функции несколько операций. Результат вычисления возвращается оператором <code>return</code>, а результат действия — некоторое изменение во внешнем для функции мире. Оно называется <strong>побочный эффект</strong>.</p>
+
+<hr>
+
+<p>Каким может быть побочный эффект функции? Выберите один или несколько вариантов.</p>
+
+<ul>
+<li><p>Изменение глобальной переменной.</p></li>
+
+<li><p>Изменение поля класса неконстантным методом.</p></li>
+
+<li><p>Изменение <code>mutable</code> поля класса константным методом.</p></li>
+
+<li><p>Прямое или косвенное изменение статического поля класса или статической переменной.</p></li>
+
+<li><p>Изменение параметра, переданного по неконстантной ссылке или указателю.</p></li>
+
+<li><p>Запись в поток ввода-вывода.</p></li>
+
+<li><p>Чтение из потока.</p></li>
+</ul>
+
+<p>Всё это — побочные эффекты. Когда они допустимы и как с ними управляться, вы узнаете из этого урока.</p>
+
+<h3>Функции с побочными эффектами и без них</h3>
+
+<p>Функция без побочных эффектов при повторных вызовах с одними и теми же аргументами будет выдавать один и тот же результат. Исключение — функция получения времени, которая зависит от внешнего состояния, не меняя его.</p>
+
+<p>Но есть и требование, из которого исключений нет: функция без побочных эффектов должна принимать все параметры по константной ссылке, константному указателю либо по значению. Если эта функция — метод класса, то он должен быть константным и не изменять <code>mutable</code> объекты этого класса.</p>
+
+<p>Наконец, побочным эффектом было бы изменение глобальных переменных. В курсе обычно об этом не говорится в надежде, что вы и так ими не пользуетесь.</p>
+
+<hr>
+
+<p>Какой <code>mutable</code> объект приходится использовать в методе без побочных эффектов при многопоточной работе?</p>
+
+<ul>
+<li><p><code>std::vector</code></p></li>
+
+<li><p><code>std::shared_ptr</code></p></li>
+
+<li><p><code>std::mutex</code></p></li>
+</ul>
+
+<p>Используйте любой объект: если возвратить его состояние в исходное, можно считать, что побочного эффекта нет. Однако при многопоточной работе даже это не спасёт: другие потоки могут получить доступ к объекту в изменённом состоянии. Но блокирование и разблокирование мьютекса можно не считать побочным эффектом — оно не влияет на результат работы функций.</p>
+
+<hr>
+
+<p>Функция с побочными эффектами в идеале вообще не имеет <code>return</code>. Пример такой функции — сеттер класса:</p>
+
+<pre><code class="language-cpp">class Person {
+public:
+    void SetCat(Cat cat) {
+        my_cat_ = std::move(cat);
+    }
+
+private:
+    Cat my_cat_;
+};
+</code></pre>
+
+<p>Но возвращение всё же допустимо. Особенно если речь идёт о возвращении отчёта о совершённом действии. Так, например, делает метод <code>std::map::insert</code>: он возвращает итератор на добавленный элемент и флаг успеха.</p>
+
+<hr>
+
+<p>Хорошая ли сигнатура у метода <code>std::map::insert</code>?</p>
+
+<pre><code class="language-cpp">std::pair&lt;iterator,bool&gt; insert(const value_type&amp; value);
+std::pair&lt;iterator,bool&gt; insert(value_type&amp;&amp; value);
+</code></pre>
+
+<ul>
+<li><p>Да, ни убавить, ни прибавить.</p></li>
+
+<li><p>Нет, нужно принимать параметр по неконстантной ссылке.</p></li>
+
+<li><p>Возвращаемый тип невнятный, лучше было оформить его структурой.</p></li>
+</ul>
+
+<p>Сигнатура никак не подскажет, что означает <code>iterator</code> и <code>bool</code>. Однако для метода из стандартной библиотеки это вполне допустимо — знание стандартной библиотеки входит в умение программировать на C++. Структуры в аналогичном случае использует <a href="https://en.cppreference.com/w/cpp/algorithm/ranges/copy">новый алгоритм</a> <code>copy</code>, реализованный в библиотеке ranges С++20.</p>
+
+<p>Ещё один пример возвращающей функции с побочным эффектом — <code>PushStudents</code> из класса <code>Cohort</code>. Эта функция возвращает список студентов, которым было отправлено уведомление:</p>
+
+<pre><code class="language-cpp">class Cohort {
+public:
+    std::vector&lt;Student&gt; PushStudents();
+
+// ...
+
+};
+</code></pre>
+
+<hr>
+
+<p>Что указывает на наличие побочного эффекта этой функции?</p>
+
+<ul>
+<li><p>Возвращается вектор по значению, а не по ссылке.</p></li>
+
+<li><p>Метод не константный.</p></li>
+
+<li><p>Ничего не указывает.</p></li>
+</ul>
+
+<hr>
+
+<p>Какие из этих функций и методов содержат побочный эффект? Выберите один или несколько вариантов.</p>
+
+<ul>
+<li><p><code>std::ofstream::open</code></p></li>
+
+<li><p><code>std::ifstream::open</code></p></li>
+
+<li><p><code>std::istream&amp; operator&gt;&gt; (const istream&amp;, int&amp;)</code></p></li>
+
+<li><p><code>std::sin</code></p></li>
+
+<li><p><code>std::chrono::system_clock::now</code></p></li>
+</ul>
+
+<h3>Возврат через параметр</h3>
+
+<p>Побочный эффект может касаться параметров, передаваемых по неконстантной ссылке или указателю. Это ещё один способ возврата из функции.</p>
+
+<p>Таким способом можно заставить функцию возвращать несколько значений, и он действительно был популярным до появления распаковки, а в некоторых случаях и после.</p>
+
+<p>Рассмотрим новый вариант функции выдачи диплома:</p>
+
+<pre><code class="language-cpp">enum class GraduateFailReason {
+    ALL_SUCCESS,
+    NOT_ALL_SPRINTS_PASSED,    // не все спринты пройдены
+    FINAL_TASK_NOT_APPROVED,   // финальное задание не прошло ревью
+    INCOMPLETE_FUNDING,        // неполная оплата
+    DIPLOMA_ALREADY_RECEIVED   // диплом уже получен
+};
+
+class Cohort {
+public:
+    GraduateFailReason Graduate(int student_id, Diploma&amp; out_diploma);
+    // ...
+};
+</code></pre>
+
+<p>Пришлось добавить новое значение в <code>enum</code> для состояния успеха — <code>ALL_SUCCESS</code>.</p>
+
+<hr>
+
+<p>Укажите недостатки такой реализации:</p>
+
+<ul>
+<li><p>Нет возможности NRVO для диплома.</p></li>
+
+<li><p>Нужно иметь уже сконструированный диплом для вызова функции.</p></li>
+
+<li><p>Из сигнатуры функции не ясно, что она возвращает данные в параметр.</p></li>
+
+<li><p>Функция обязана даже в случае ошибки создать объект <code>Diploma</code> и возвратить его.</p></li>
+
+<li><p>Из кода вызова метода не ясно, что возврат производится в параметр.</p></li>
+
+<li><p>У такого метода нет недостатков, он идеален.</p></li>
+</ul>
+
+<p>Вызывать метод будут как-нибудь так:</p>
+
+<pre><code class="language-cpp">Diploma new_diploma;
+
+auto err = cohort100.Graduate(student_to_graduate, new_diploma);
+
+if (err == ALL_SUCCESS) {
+    cout &lt;&lt; &quot;Поздравляем с успешным завершением курса! Ваш диплом:\n&quot;sv &lt;&lt; new_diploma &lt;&lt; endl;
+} else {
+    cout &lt;&lt; &quot;Ошибка, код &quot;sv &lt;&lt; static_cast&lt;int&gt;(err) &lt;&lt; endl;
+}
+</code></pre>
+
+<p>Из вызова метода совершенно не ясно, что параметр <code>new_diploma</code> выходной: <code>cohort100.graduate(student_to_graduate, new_diploma)</code>.</p>
+
+<p>Чтобы сделать код более внятным, можно заменить ссылку на указатель. Тогда вызов как бы скажет, что функция собирается изменить параметр: <code>cohort100.graduate(student_to_graduate, &amp;new_diploma)</code>. Но добавится другая проблема — указатель в сигнатуре намекает на возможность передачи <code>nullptr</code>, что в этом случае не подразумевается.</p>
+
+<p>Распаковка, <code>variant</code> и <code>optional</code> позволяют избавиться от возвращения через параметр. Это нужно делать, чтобы лучше соответствовать прямому назначению синтаксических элементов: <code>return</code> — для возврата, параметры — для передачи данных в функцию.</p>
+
+<p>В ряде случаев возврат через параметр всё же обоснован. Например, чтобы сообщить функции о ненужности какого-либо вычисления. Рассмотрим пример метода, вычисляющего сразу ряд статистик — суммы, суммы квадратов, среднего арифметического, среднего гармонического и стандартного отклонения:</p>
+
+<pre><code class="language-cpp">void ComputeStatistics(float* sum, float* sq_sum, float* arithmetic_mean, float* harmonic_mean, float* std_dev);
+</code></pre>
+
+<p>В каждый параметр может быть передано значение <code>nullptr</code>, чтобы показать, что вычисление соответствующей статистики не требуется. Лучше было бы реализовать для каждой статистики отдельную функцию, но такой подход потребует нескольких проходов для вычисления нескольких статистик, что будет менее эффективно.</p>
+
+<hr>
+
+<p>Как ещё можно улучшить эффективность этой функции, если на этапе написания кода вызова уже известно, какие статистики надо вычислить для каждого конкретного случая?</p>
+
+<ul>
+<li><p>Разбить на несколько функций для вычисления каждой статистики.</p></li>
+
+<li><p>Поменять <code>float*</code> на <code>bool</code>, означающий нужность вычисления, и возвращать <code>tuple</code> значений.</p></li>
+
+<li><p>Использовать шаблонные параметры для определения нужности вычисления.</p></li>
+</ul>
+
+<p>Шаблонные параметры позволят использовать <code>if constexpr</code> и избавиться от условных переходов при вычислении статистик.</p>
+
+<h3>Изменение состояние аргумента</h3>
+
+<p>Ещё один случай, когда побочный эффект обоснован, — это не прямой возврат через параметр, а изменение состояния параметра. Так мы часто передаём в функцию неконстантную ссылку на <code>ostream&amp;</code>:</p>
+
+<pre><code class="language-cpp">void RenderColor(std::ostream&amp; out, Rgb rgb) {
+    out &lt;&lt; &quot;rgb(&quot;sv &lt;&lt; static_cast&lt;int&gt;(rgb.red)  //
+        &lt;&lt; ',' &lt;&lt; static_cast&lt;int&gt;(rgb.green)     //
+        &lt;&lt; ',' &lt;&lt; static_cast&lt;int&gt;(rgb.blue) &lt;&lt; ')';
+}
+</code></pre>
+
+<p>Такая функция вполне допустима, потому что мы знаем, что основное назначение потока — предоставить интерфейс для вывода в него. В месте вызова это будет ясно, нет никакой причины передавать <code>cout</code> по константной ссылке.</p>
+
+<p>Рассмотрим другой пример — менеджер задач Практикума:</p>
+
+<pre><code class="language-cpp">struct TaskPassResult {
+    bool is_passed;
+    // ...
+};
+
+class Task {
+public:
+    TaskPassResult RunCode(std::string_view code) const;
+};
+
+class TaskManager {
+public:
+    void RegisterTaskResult(int student_id, int task_id, TaskPassResult result);
+    const Task&amp; GetTask(int task_id) const;
+};
+</code></pre>
+
+<p>Метод для прохождения задания и получения оценки за него можно реализовать в классе когорты так:</p>
+
+<pre><code class="language-cpp">class Cohort {
+public:
+    void PassTask(TaskManager&amp; task_manager, int student_id, int task_id, std::string_view solution_code) {
+        auto result = task_manager.GetTask(task_id).RunCode(solution_code);
+        if (result.is_passed) {
+            SetTaskPassed(student_id, task_id);
+        }
+        task_manager.RegisterTaskPass(student_id, task_id, std::move(result));
+    }
+
+    void SetTaskPassed(int student_id, int task_id);
+};
+</code></pre>
+
+<p>При вызове такого метода неясно, что он собирается изменять объект <code>TaskManager</code>:</p>
+
+<pre><code class="language-cpp">cohort100.PassTask(task_manager, stident_id, task_id, code);
+</code></pre>
+
+<p>Чтобы сделать побочный эффект более явным, применим <strong>декомпозицию</strong> — разбиение задачи на подзадачи:</p>
+
+<pre><code class="language-cpp">class Cohort {
+public:
+    // теперь TaskManager передаётся по константной ссылке
+    [[nodiscard]] TaskPassResult PassTask(const TaskManager&amp; task_manager, int student_id, int task_id, std::string_view solution_code) {
+        auto result = task_manager.GetTask(task_id).RunCode(solution_code);
+        if (result.is_passed) {
+            SetTaskPassed(student_id, task_id);
+        }
+        return result;
+    }
+
+    void SetTaskPassed(int student_id, int task_id);
+};
+
+// ...
+// метод не меняет task_manager, неявного побочного эффекта больше нет
+auto result = cohort100.PassTask(task_manager, stident_it, task_id, code);
+task_manager.RegisterTaskPass(student_id, task_id, std::move(result));
+</code></pre>
+
+<p>Декомпозиция — это прекрасно! Ведь чем меньше делает функция, тем она понятнее, тем более предсказуемо её поведение и тем лучше она соответствует своему названию. Не забывайте, функция — это именованное действие. Если действие сложное, будет замечательно разбить его на несколько и дать имя каждому.</p>
+
+<p>Порой объектам требуется более сложное взаимодействие, и так просто исключить передачу по неконстантной ссылке не получится. Но наличие сложного взаимодействия — уже признак того, что в программе что-то идёт не так и нужно задуматься, как можно улучшить архитектуру кода.</p>
+
+<h3>Подведём итог</h3>
+
+<p>Функциональные языки программирования стремятся к тому, чтобы функции вовсе не имели побочных эффектов — результат должен зависеть только от аргументов. Но даже тогда функции не могут быть полностью чистыми, ведь программа должна оставить что-нибудь после себя — хотя бы вывести данные в файл, сеть, окно консоли или отобразить интерфейс. Всё это побочные эффекты.</p>
+
+<p>В императивном языке C++ избежать побочных эффектов тем более не удастся. Но это не  что-то плохое, ведь помимо вычисления возможно ещё одно назначение функции — выполнение действия. Главное, не смешивать два назначения функции и чётко говорить о наличии побочного эффекта названием и сигнатурой. В C++ это можно делать особенно выразительно благодаря константности. Наличие <code>const</code> во всех необходимых местах показывает отсутствие побочного эффекта.</p>
+
+<p>Желательно, чтобы побочный эффект был виден в месте вызова. Иногда всё понятно по назначению объекта: например, <code>ostream</code> передаётся в функцию для создания побочного эффекта. В других случаях это менее очевидно, и тогда желательно подумать, как исключить неявный побочный эффект.</p>
+
+<hr>
+
+<p>Мы чуть не забыли важный аспект любой программы — тестирование. Подумайте, как юнит-тесты должны взаимодействовать с побочным эффектом?</p>
+
+<ul>
+<li><p>Никак, юнит-тесты и побочный эффект — это ортогональные понятия.</p></li>
+
+<li><p>Юнит-тесты проверяют вычисления, которые могут нарушиться, если побочный эффект неверный.</p></li>
+
+<li><p>Корректность побочного эффекта должна быть проверена юнит-тестами наравне с корректностью возвращаемого значения.</p></li>
+</ul>
+
+<hr>
+
+<p>Какие из этих функций и методов имеют побочный эффект? Их писал грамотный программист, и побочный эффект определяется сигнатурой функции. Глобальные переменные этот программист не использует. И вы тоже так делайте.</p>
+
+<ul>
+<li><p>Функция <code>void Swap(int&amp; l, int&amp; r);</code></p></li>
+
+<li><p>Функция <code>int SecretOperation(int l, const std::vector&lt;int&gt;&amp; r);</code></p></li>
+
+<li><p>Функция <code>char RemoveLastChar(std::string&amp; str);</code></p></li>
+
+<li><p>Метод класса</p></li>
+</ul>
+
+<pre><code class="language-cpp">class Park {
+public:
+    std::vector&lt;Tickets&gt; Enter(const std::vector&lt;Person&gt;&amp; who, 
+                               std::chrono::system_clock::time_point when);
+};
+</code></pre>
+
+<ul>
+<li>Метод класса</li>
+</ul>
+
+<pre><code class="language-cpp">class Park {
+public:
+    static bool ObserveCarousel() const;
+};
+</code></pre>
+
+<ul>
+<li>Метод класса</li>
+</ul>
+
+<pre><code class="language-cpp">class Park {
+public:
+    static std::vector&lt;Tickets&gt; PrintTickets(const std::vector&lt;Person&gt;&amp; who);
+};
+</code></pre>
+
+<p>Вы изучили разные способы передачи аргументов и возврата из функции. Вариантов много: ссылка, константная ссылка, Forwarding-ссылка, указатель, значение, пара итераторов, <code>optional</code>, <code>variant</code>, умный указатель. Но правильный способ обычно только один. Как вы узнали из этих тем, первое, что нужно понять, — требуется ли передача владения. Огромную роль играет понятность сигнатуры функции — без этого очень просто допустить ошибку. Важна также и прозрачность в месте вызова. Иногда, особенно при написании простых функций или функций, работающих с тяжёлыми объектами, нужно думать о производительности.</p>
+
+</body>
+</html>

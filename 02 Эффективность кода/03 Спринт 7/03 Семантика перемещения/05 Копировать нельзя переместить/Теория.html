@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Копировать нельзя переместить</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="utf-8">
+<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%;display:block}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
+<body>
+
+<h1>Копировать нельзя переместить</h1>
+
+<p>В предыдущих уроках мы старались всячески избежать лишних копирований. Компилятор оптимизировал, а программист вызывал функцию <code>move</code> и подсовывал вместо постоянных объектов временные. В целом, можно сформулировать правило:</p>
+
+<p>«Там, где возможно копирование, должно быть возможно и перемещение».</p>
+
+<p>Но вы уже знаете, что при копировании вызываются специальные методы — конструктор копирования или оператор присваивания. Если вместо копирования требуется осуществить перемещение, компилятору нужны другие методы. В уроке изучим это подробнее.</p>
+
+<h3>Запрет на копирование</h3>
+
+<p>Вернёмся к задаче о считалке Иосифа. В заготовке кода был класс, объекты которого нельзя скопировать, и вам пришлось решать задачу, используя перемещение. Разберёмся, как этот класс был устроен:</p>
+
+<pre><code class="language-cpp">struct NoncopyableInt {
+    int value;
+
+    NoncopyableInt(const NoncopyableInt&amp;) = delete;
+    NoncopyableInt&amp; operator=(const NoncopyableInt&amp;) = delete;
+
+    NoncopyableInt(NoncopyableInt&amp;&amp;) = default;
+    NoncopyableInt&amp; operator=(NoncopyableInt&amp;&amp;) = default;
+};
+</code></pre>
+
+<p>Вы уже знаете о конструкторе копирования и операторе присваивания. В их сигнатурах возникает специальное слово <code>delete</code>:</p>
+
+<pre><code class="language-cpp">NoncopyableInt(const NoncopyableInt&amp;) = delete;
+NoncopyableInt&amp; operator=(const NoncopyableInt&amp;) = delete;
+</code></pre>
+
+<p>Так программист может сообщить компилятору, что конструктора копирования и оператора присваивания у класса не существует. Значит, объекты класса запрещено копировать.</p>
+
+<p>Возможность запретить копирование важна, когда копирование объекта может привести к непредсказуемым или нежелательным последствиям. Примеры класса, где копирование запрещено — <code>istream</code> и <code>ostream</code>. Потоки вывода и ввода должны управляться только из одного объекта. Если несколько объектов начнут пытаться писать или читать из потока, будет похоже на то, как несколько человек одновременно печатают на одной клавиатуре или читают вслух с разной скоростью один текст. При попытке копирования компилятор сообщит об ошибке:</p>
+
+<pre><code class="language-cpp">// попробуем скопировать cout в наш объект out
+ostream out(cout);
+out &lt;&lt; &quot;Неужели скопировалось?&quot;s &lt;&lt; endl;
+</code></pre>
+
+<pre><code class="language-cpp">use of deleted function 'std::basic_ostream&lt;_CharT, _Traits&gt;::basic_ostream(const std::basic_ostream&lt;_CharT, _Traits&gt;&amp;) [with _CharT = char; _Traits = std::char_traits&lt;char&gt;]'
+     ostream out(cout);
+In file included from C:/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/iostream:39,
+                 from 1.cpp:1:
+C:/Program Files/mingw-w64/x86_64-8.1.0-posix-seh-rt_v6-rev0/mingw64/lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/ostream:391:7: note: declared here
+       basic_ostream(const basic_ostream&amp;) = delete;
+</code></pre>
+
+<p>После сигнатуры оператора копирования есть слово <code>delete</code>, и компилятор не даёт скопировать объект.</p>
+
+<h3>Стандартное перемещение</h3>
+
+<p>В примере класса из считалки Иосифа есть две сигнатуры, в которых пора разобраться:</p>
+
+<pre><code class="language-cpp">NoncopyableInt(NoncopyableInt&amp;&amp;) = default;
+NoncopyableInt&amp; operator=(NoncopyableInt&amp;&amp;) = default;
+</code></pre>
+
+<p>Перед вами конструктор перемещения и перемещающий оператор присваивания.</p>
+
+<p>Начнём с простого. Специальное слово <code>default</code> говорит, что компилятор должен сам решить, как будет происходить перемещение. Часто это удобно. Компилятор просто применит перемещение к каждому члену класса. Если для члена класса определён конструктор перемещения, компилятор будет стараться его найти. Если хотя бы один из членов класса переместить нельзя, компилятор не справится с поставленной задачей и сообщит об ошибке. Вот что случится, если удалить перемещающий конструктор и оператор присваивания:</p>
+
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+using namespace std;
+
+struct NonmovingInt {
+    int value;
+		
+    // копировать, нельзя перемещать!
+    NonmovingInt(const NonmovingInt&amp;) = default;
+    NonmovingInt&amp; operator=(const NonmovingInt&amp;) = default;
+
+    NonmovingInt(NonmovingInt&amp;&amp;) = delete;
+    NonmovingInt&amp; operator=(NonmovingInt&amp;&amp;) = delete;
+};
+
+struct NoncopyableInt {
+    // пусть членом класса станет неперемещаемый тип
+    NonmovingInt value;
+		
+    // копировать нельзя, перемещать!
+    NoncopyableInt(const NoncopyableInt&amp;) = delete;
+    NoncopyableInt&amp; operator=(const NoncopyableInt&amp;) = delete;
+
+    NoncopyableInt(NoncopyableInt&amp;&amp;) = default;
+    NoncopyableInt&amp; operator=(NoncopyableInt&amp;&amp;) = default;
+};
+
+int main() {
+    NoncopyableInt source{1};
+    NoncopyableInt target(move(source));
+    cout &lt;&lt; &quot;Неужели перенеслось?&quot;s &lt;&lt; endl;
+    return 0;
+}
+</code></pre>
+
+<pre><code class="language-cpp">example.cpp: In function 'int main()':
+example.cpp:27:39: error: use of deleted function 'NoncopyableInt::NoncopyableInt(NoncopyableInt&amp;&amp;)'
+     NoncopyableInt target(move(source));
+                                       ^
+example.cpp:21:5: note: 'NoncopyableInt::NoncopyableInt(NoncopyableInt&amp;&amp;)' is implicitly deleted because the default definition would be ill-formed:
+     NoncopyableInt(NoncopyableInt&amp;&amp;) = default;
+     ^~~~~~~~~~~~~~
+example.cpp:21:5: error: use of deleted function 'NonmovingInt::NonmovingInt(NonmovingInt&amp;&amp;)'
+example.cpp:11:5: note: declared here
+     NonmovingInt(NonmovingInt&amp;&amp;) = delete;
+</code></pre>
+
+<p>С простым разобрались, перейдём к интересному. Тип принимаемого значения в конструкторе копирования отличается от конструктора перемещения. Вместо <code>const NoncopyableInt&amp;</code> при перемещении конструктор получает <code>NoncopyableInt&amp;&amp;</code>. Это тоже ссылка на объект типа <code>NoncopyableInt</code>, но необычная. Не ссылка на ссылку, а специальная rvalue-ссылка. Она относится к объекту, к адресу которого мы не можем получить прямой доступ. Такие ссылки бывают на временные объекты. Вызывая функцию <code>move</code> для обычного объекта, просто приводим его к типу rvalue-ссылки. rvalue-cсылки позволяют компилятору разобраться, нужно ли ему вызывать конструктор копирования или конструктор перемещения. Так компилятор отличает временные объекты от постоянных.</p>
+
+<h3>Перемещение под контролем</h3>
+
+<p>Программисту бывает недостаточно стандартной реализации конструкторов и операторов присваивания — как копирующих, так и перемещающих. В таких случаях он может определить эти методы самостоятельно. Полезной функцией для конструктора перемещения и перемещающего оператора присваивания оказывается <a href="https://en.cppreference.com/w/cpp/utility/exchange"><code>exchange</code></a> из библиотеки <code>&lt;utility&gt;</code>.</p>
+
+<hr>
+
+<p>Прочитайте о функции <code>exchange</code> или попробуйте догадаться, что будет выведено в результате:</p>
+
+<pre><code class="language-cpp">int y = 1;
+int z = 2;
+int x = exchange(y, z);
+cout &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; &quot; &quot; &lt;&lt; z &lt;&lt; endl;
+</code></pre>
+
+<ul>
+<li><p>1 2 2</p></li>
+
+<li><p>1 1 2</p></li>
+
+<li><p>1 2 1</p></li>
+
+<li><p>Всё поменяется местами, но как конкретно — неизвестно.</p></li>
+</ul>
+
+<p>Часто функцией <code>exchange</code> пользуются, чтобы гарантировать определённое значение в перемещаемом объекте после собственно перемещения.</p>
+
+<p>Спрячем кролика в шляпу:</p>
+
+<pre><code class="language-cpp">class Rabbit {
+public:
+    enum class Color { WHITE, BLACK };
+
+    Rabbit(Color color)
+        : color_(color) 
+    {
+    }
+    // копирование кроликов, как и слонов, в природе не предусмотрено
+    Rabbit(const Rabbit&amp; other) = delete;
+    Rabbit&amp; operator=(const Rabbit&amp; other) = delete;
+
+    Rabbit(Rabbit&amp;&amp; other) {
+        ???
+    }
+    Rabbit&amp; operator=(Rabbit&amp;&amp; other) {
+        ???
+        return *this;
+    }
+
+    Color GetColor() const {
+        return color_;
+    }
+
+private:
+    Color color_;
+};
+
+class Hat {
+public:
+    Hat(Rabbit&amp;&amp; rabbit)
+        : rabbit_(move(rabbit)) 
+    {
+    }
+    // не стоит копировать шляпу
+    Hat(const Hat&amp; other) = delete;
+    Hat&amp; operator=(const Hat&amp; other) = delete;
+    // но вот переместить шляпу можно
+    Hat(Hat&amp;&amp; other) = default;
+    Hat&amp; operator=(Hat&amp;&amp;) = default;
+    // в любой момент можно посмотреть, есть ли кролик в шляпе
+    const Rabbit&amp; GetRabbit() const {
+        return rabbit_;
+    }
+private:
+    Rabbit rabbit_;
+};
+</code></pre>
+
+<p>Допустим, нужно переместить шляпу с белым кроликом внутри:</p>
+
+<pre><code class="language-cpp">Hat magic_hat(Rabbit(Rabbit::Color::WHITE));
+Hat other_magic_hat(move(magic_hat));
+</code></pre>
+
+<p>Продвинутый фокусник хотел бы знать, что случится с кроликом в шляпе <code>magic_hat</code>. Конкретно его интересует цвет животного. Посмотрим, что будет, если оставить перемещающие методы на усмотрение компилятору:</p>
+
+<pre><code class="language-cpp">class Rabbit {
+    ...
+    Rabbit(Rabbit&amp;&amp; other) = default;
+    Rabbit&amp; operator=(Rabbit&amp;&amp; other) = default;
+    ...
+}
+...
+int main() {
+    Hat magic_hat(Rabbit(Rabbit::Color::WHITE));
+    Hat other_magic_hat(move(magic_hat));
+    if (magic_hat.GetRabbit().GetColor() == Rabbit::Color::WHITE) {
+        cout &lt;&lt; &quot;Кролик перемещён, но его цвет белый&quot;s &lt;&lt; endl;
+    }
+    else if (magic_hat.GetRabbit().GetColor() == Rabbit::Color::BLACK) {
+        cout &lt;&lt; &quot;Кролик перемещён, но его цвет чёрный&quot;s &lt;&lt; endl;
+    }
+    else {
+        cout &lt;&lt; &quot;Кажется, мы не уверены на счёт цвета кролика&quot;s &lt;&lt; endl;
+    }
+}
+</code></pre>
+
+<p>Эта программа сообщит:</p>
+
+<pre><code class="language-cpp">Кролик перемещён, но его цвет белый
+</code></pre>
+
+<p>Кролик переместился, белый цвет остался. Для программиста ничего страшного не произошло. Объект остался в валидном состоянии. Но для фокусника этот результат выглядит странно. Хорошим тоном будет задать значение цвета, которое объект будет получать по умолчанию после перемещения. Пусть перемещённый кролик становится невидимым благодаря функции <code>exchange</code>:</p>
+
+<pre><code class="language-cpp">Rabbit(Rabbit&amp;&amp; other) {
+    color_ = exchange(other.color_, Color::INVISIBLE);
+}
+
+Rabbit&amp; operator=(Rabbit&amp;&amp; other) {
+    color_ = exchange(other.color_, Color::INVISIBLE);
+    return *this;
+}
+</code></pre>
+
+<p>Теперь точно известно, что в <code>magic_hat</code> после перемещения будет лежать невидимый кролик.</p>
+
+<p>В итоговом проекте спринта вы будете добавлять поддержку move-семантики для своего вектора и списка. Функция <code>exchange</code> будет полезна для гарантии, что указатель на данные не остался в перемещённом объекте, а был заменён на <code>nullptr</code>.</p>
+
+</body>
+</html>
