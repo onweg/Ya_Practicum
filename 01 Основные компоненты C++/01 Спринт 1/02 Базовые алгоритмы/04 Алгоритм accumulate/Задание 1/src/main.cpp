@@ -1,11 +1,18 @@
 #include <iostream>
 #include <vector>
+#include <numeric>
+#include <cstddef>
 
 using namespace std;
 
 double Average(const vector<int>& xs) {
     // посчитайте среднее арифметическое: поделите сумму на размер
     // суммирование начните с 0.0 - тогда результат выражения будет вещественным числом
+    size_t size = xs.size();
+    if (size == 0) {
+        return 0;
+    }
+    return double(accumulate(xs.begin(), xs.end(), 0)) / size;
 }
 
 int main() {
