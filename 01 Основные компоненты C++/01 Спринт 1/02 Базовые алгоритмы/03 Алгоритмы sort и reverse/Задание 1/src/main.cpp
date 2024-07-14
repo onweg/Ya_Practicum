@@ -18,6 +18,7 @@ int main() {
     vector<pair<int, string>> peoples;
     for (int i = 0; i < count; ++i) {
         string name;
+
         int age;
         cin >> name >> age;
         // сохраните в вектор пар
