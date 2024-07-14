@@ -12,7 +12,7 @@ double Average(const vector<int>& xs) {
     if (size == 0) {
         return 0;
     }
-    return double(accumulate(xs.begin(), xs.end(), 0)) / size;
+    return accumulate(xs.begin(), xs.end(), 0.0) / size;
 }
 
 int main() {
