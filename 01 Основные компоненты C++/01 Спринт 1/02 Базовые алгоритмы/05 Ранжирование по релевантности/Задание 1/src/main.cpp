@@ -7,7 +7,8 @@
 
 using namespace std;
 
-int MAX_RESULT_DOCUMENT_COUNT = 5;
+constexpr int MAX_RESULT_DOCUMENT_COUNT = 5; //constexpr  позволяет вычислить значение перемнной на этапе компиляции
+                                             //оптимицая (компилятор выполняет быстрее, так как значения уже высчитаны)
 
 string ReadLine() {
     string s;
@@ -95,14 +96,10 @@ bool comp(pair<int, int> a, pair<int, int> b) {
 }
 
 vector<pair<int, int>> FindTopDocuments(vector<pair<int, int>> all_documents) {
-    vector<pair<int, int>> top_documents;
-    int count = 0;
     sort(all_documents.begin(), all_documents.end(), comp);
-    for (pair<int, int> document_id_relevance : all_documents) {
-        if (count++ == MAX_RESULT_DOCUMENT_COUNT) break;
-        top_documents.push_back(document_id_relevance);
-    }
-    return top_documents;
+    if (all_documents.size() > MAX_RESULT_DOCUMENT_COUNT)
+        all_documents.resize(MAX_RESULT_DOCUMENT_COUNT);
+    return all_documents;
 }
 
 int main() {
