@@ -3,8 +3,11 @@
 #include <set>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
+
+int MAX_RESULT_DOCUMENT_COUNT = 5;
 
 string ReadLine() {
     string s;
@@ -63,7 +66,7 @@ void AddDocument(map<string, set<int>>& word_to_documents,
 }
 
 // For each document returns its id and relevance
-vector<pair<int, int>> FindDocuments(
+vector<pair<int, int>> FindAllDocuments(
         const map<string, set<int>>& word_to_documents,
         const set<string>& stop_words,
         const string& query) {
@@ -77,7 +80,7 @@ vector<pair<int, int>> FindDocuments(
             ++document_to_relevance[document_id];
         }
     }
-
+    
     vector<pair<int, int>> found_documents;
     for (auto [document_id, relevance] : document_to_relevance) {
         found_documents.push_back({document_id, relevance});
@@ -85,6 +88,22 @@ vector<pair<int, int>> FindDocuments(
     return found_documents;
 }
 
+bool comp(pair<int, int> a, pair<int, int> b) {
+    if (a.second == b.second)
+        return a.first < b.first;
+    return a.second > b.second;
+}
+
+vector<pair<int, int>> FindTopDocuments(vector<pair<int, int>> all_documents) {
+    vector<pair<int, int>> top_documents;
+    int count = 0;
+    sort(all_documents.begin(), all_documents.end(), comp);
+    for (pair<int, int> document_id_relevance : all_documents) {
+        if (count++ == MAX_RESULT_DOCUMENT_COUNT) break;
+        top_documents.push_back(document_id_relevance);
+    }
+    return top_documents;
+}
 
 int main() {
     const string stop_words_joined = ReadLine();
@@ -98,7 +117,7 @@ int main() {
     }
 
     const string query = ReadLine();
-    for (auto [document_id, relevance] : FindDocuments(word_to_documents, stop_words, query)) {
+    for (auto [document_id, relevance] : FindTopDocuments(FindAllDocuments(word_to_documents, stop_words, query))) {
         cout << "{ document_id = "s << document_id << ", relevance = "s << relevance << " }"s << endl;
     }
 }
