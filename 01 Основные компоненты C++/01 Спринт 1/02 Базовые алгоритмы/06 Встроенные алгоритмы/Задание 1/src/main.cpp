@@ -3,16 +3,22 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <chrono>
+#include <chrono> // для времени
 
 using namespace std;
 
 const int SAMPLE_COUNT = 5;
 
 vector<int> CountNamesLong(const set<string>& storage, const vector<string>& candidates) {
+    
     vector<int> output;
+    /*
     for (auto& name: candidates) {
         output.push_back(count(storage.begin(), storage.end(), name));
+    }
+     */
+    for (const string& name : candidates) {
+        output.push_back(storage.count(name));
     }
     return output;
 }
@@ -22,7 +28,7 @@ int main() {
     vector<string> v;
     string stra = ""s;
     string strb = ""s;
-
+    
     for (int j = 0; j < 10000; ++j) {
         s.insert(stra);
         stra += "a"s;
