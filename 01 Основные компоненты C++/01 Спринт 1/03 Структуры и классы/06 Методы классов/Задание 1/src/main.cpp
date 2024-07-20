@@ -13,7 +13,6 @@ using namespace std;
 
 const int MAX_RESULT_DOCUMENT_COUNT = 5;
 
-
 string ReadLine() {
 	string s;
 	getline(cin, s);
@@ -61,18 +60,9 @@ vector<string> SplitIntoWordsNoStop(const string& text, const set<string>& stop_
 	return words;
 }
 
-void AddDocument(map<string, set<int>>& word_to_documents,
-                 const set<string>& stop_words,
-                 int document_id,
-								 const string& document) {
-	for (const string& word : SplitIntoWordsNoStop(document, stop_words)) {
-		word_to_documents[word].insert(document_id);
-	}
-}
-
 struct Document {
-	int id;
-	int relevance;
+    int id;
+    int relevance;
 };
 
 vector<Document> FindAllDocuments(
@@ -100,6 +90,7 @@ vector<Document> FindAllDocuments(
 }
 
 bool HasDocumentGreaterRelevance(const Document& lhs, const Document& rhs) {
+    if (lhs.relevance == rhs.relevance) return lhs.id < rhs.id;
 	return lhs.relevance > rhs.relevance;
 }
 
@@ -117,20 +108,41 @@ vector<Document> FindTopDocuments(
 	return matched_documents;
 }
 
+class SearchServer{
+public:
+    SearchServer() {
+        const string stop_words_joined = ReadLine();
+        stop_words = ParseStopWords(stop_words_joined);
+    }
+    
+    void AddDocument(int document_id, const string& document) {
+        for (const string& word : SplitIntoWordsNoStop(document, stop_words)) {
+            word_to_documents[word].insert(document_id);
+        }
+    }
+    
+private:
+    set<string> stop_words;
+    map<string, set<int>> word_to_documents;
+};
 
 int main() {
-	const string stop_words_joined = ReadLine();
-	const set<string> stop_words = ParseStopWords(stop_words_joined);
+	//const string stop_words_joined = ReadLine();
+	//const set<string> stop_words = ParseStopWords(stop_words_joined);
 	
 	// Read documents
-	map<string, set<int>> word_to_documents;
+	//map<string, set<int>> word_to_documents;
+    
+    SearchServer server;
+    
 	const int document_count = ReadLineWithNumber();
 	for (int document_id = 0; document_id < document_count; ++document_id) {
-		AddDocument(word_to_documents, stop_words, document_id, ReadLine());
+		server.AddDocument(document_id, ReadLine());
 	}
-
+    /*
 	const string query = ReadLine();
-	for (auto [document_id, relevance] : FindTopDocuments(word_to_documents, stop_words, query)) {
+	for (auto [document_id, relevance] : FindTopDocuments(server.word_to_documents, server.stop_words, query)) {
 		cout << "{ document_id = " << document_id << ", relevance = " << relevance << " }" << endl;
 	}
+     */
 }
