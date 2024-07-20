@@ -44,10 +44,6 @@ struct Document {
 		int relevance;
 };
 
-bool HasDocumentGreaterRelevance(const Document& lhs, const Document& rhs) {
-		return lhs.relevance > rhs.relevance;
-}
-
 class SearchServer {
 public:
 		void SetStopWords(const string& text) {
@@ -65,7 +61,14 @@ public:
 		vector<Document> FindTopDocuments(const string& query) const {
 				auto matched_documents = FindAllDocuments(query);
 				
-				sort(matched_documents.begin(), matched_documents.end(), HasDocumentGreaterRelevance);
+				sort(
+                     matched_documents.begin(),
+                     matched_documents.end(),
+                     [](const Document& lhs, const Document& rhs) {
+                         if (lhs.relevance == rhs.relevance) return lhs.id < rhs.id;
+                         return lhs.relevance > rhs.relevance;
+                     }
+                     );
 				if (matched_documents.size() > MAX_RESULT_DOCUMENT_COUNT) {
 					matched_documents.resize(MAX_RESULT_DOCUMENT_COUNT);
 				}
