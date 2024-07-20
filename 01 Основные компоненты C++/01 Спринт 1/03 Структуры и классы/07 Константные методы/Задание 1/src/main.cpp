@@ -1,5 +1,3 @@
-// final080.cpp с Document вместо пары
-
 #include <algorithm>
 #include <iostream>
 #include <map>
