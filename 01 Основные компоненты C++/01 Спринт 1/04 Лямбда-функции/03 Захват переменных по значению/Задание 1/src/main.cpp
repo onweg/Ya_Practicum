@@ -27,8 +27,9 @@ int main() {
     }
     string buzzword = ReadLine();
 
-    cout << count_if(queries.begin(), queries.end(), [](const string& query) {
+    cout << count_if(queries.begin(), queries.end(), [buzzword](const string& query) {
         // Реализуйте эту лямбда-функцию
+        return query.find(buzzword) != string::npos;
     });
     cout << endl; 
 }
