@@ -85,7 +85,7 @@ private:
     
     Query ParseQuery(const string& query) const{
         Query result;
-        for (const string& word: SplitIntoWords(query)) {
+        for (const string& word: SplitIntoWordsNoStop(query)) {
             if (word[0] == '-') {
                 result.minus_words.push_back(word.substr(1));
             } else {
