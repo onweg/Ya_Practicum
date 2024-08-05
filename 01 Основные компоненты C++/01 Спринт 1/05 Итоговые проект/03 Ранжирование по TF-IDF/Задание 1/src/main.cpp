@@ -59,8 +59,8 @@ public:
     }
     
     void AddDocument(int document_id, const string& document) {
-        int count_words = SplitIntoWordsNoStop(document).size();
         vector<string> words = SplitIntoWordsNoStop(document);
+        int count_words = words.size();
         for (const string& word : words) {
             word_to_documents_[word].insert(document_id);
             if (word_to_documents_freqs_[word].count(document_id) == 0) {
@@ -118,13 +118,17 @@ private:
         Query parse_query = ParseQuery(query);
         map<int, double> document_to_relevance;
         for (const string& word : parse_query.plus_words) {
-            for (const auto id_documets : word_to_documents_.at(word)) {
-                document_to_relevance[id_documets] += word_to_documents_freqs_.at(word).at(id_documets) * log(double(document_count_) / word_to_documents_freqs_.at(word).size());
+            if (word_to_documents_freqs_.find(word) != word_to_documents_freqs_.end()){
+                for (const auto id_documets : word_to_documents_.at(word)) {
+                    document_to_relevance[id_documets] += word_to_documents_freqs_.at(word).at(id_documets) * log(double(document_count_) / word_to_documents_freqs_.at(word).size());
+                }
             }
         }
         for (const string& word : parse_query.minus_words) {
-            for (const auto id_documets : word_to_documents_.at(word)) {
-                document_to_relevance.erase(id_documets);
+            if (word_to_documents_freqs_.find(word) != word_to_documents_freqs_.end()){
+                for (const auto id_documets : word_to_documents_.at(word)) {
+                    document_to_relevance.erase(id_documets);
+                }
             }
         }
         vector<Document> matched_documents;
