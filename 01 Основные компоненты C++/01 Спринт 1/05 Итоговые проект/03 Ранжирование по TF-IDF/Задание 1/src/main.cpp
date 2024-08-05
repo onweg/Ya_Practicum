@@ -5,6 +5,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
@@ -41,7 +42,7 @@ vector<string> SplitIntoWords(const string& text) {
 
 struct Document {
     int id;
-    int relevance;
+    double relevance;
 };
 
 struct Query {
@@ -58,9 +59,15 @@ public:
     }
     
     void AddDocument(int document_id, const string& document) {
-        for (const string& word : SplitIntoWordsNoStop(document)) {
+        int count_words = SplitIntoWordsNoStop(document).size();
+        vector<string> words = SplitIntoWordsNoStop(document);
+        for (const string& word : words) {
             word_to_documents_[word].insert(document_id);
+            if (word_to_documents_freqs_[word].count(document_id) == 0) {
+                word_to_documents_freqs_[word][document_id] = count(words.begin(), words.end(), word) / double(count_words);
+            }
         }
+        ++document_count_;
     }
     
     vector<Document> FindTopDocuments(const string& query) const {
@@ -82,10 +89,12 @@ public:
 private:
     map<string, set<int>> word_to_documents_;
     set<string> stop_words_;
+    map<string, map<int, double> > word_to_documents_freqs_;
+    int document_count_ = 0;
     
     Query ParseQuery(const string& query) const{
         Query result;
-        for (const string& word: SplitIntoWords(query)) {
+        for (const string& word: SplitIntoWordsNoStop(query)) {
             if (word[0] == '-') {
                 result.minus_words.push_back(word.substr(1));
             } else {
@@ -107,21 +116,15 @@ private:
     
     vector<Document> FindAllDocuments(const string& query) const {
         Query parse_query = ParseQuery(query);
-        map<int, int> document_to_relevance;
+        map<int, double> document_to_relevance;
         for (const string& word : parse_query.plus_words) {
-            if (word_to_documents_.count(word) == 0) {
-                continue;
-            }
-            for (const int document_id : word_to_documents_.at(word)) {
-                ++document_to_relevance[document_id];
+            for (const auto id_documets : word_to_documents_.at(word)) {
+                document_to_relevance[id_documets] += word_to_documents_freqs_.at(word).at(id_documets) * log(double(document_count_) / word_to_documents_freqs_.at(word).size());
             }
         }
         for (const string& word : parse_query.minus_words) {
-            if (word_to_documents_.count(word) == 0) {
-                continue;
-            }
-            for (const int document_id : word_to_documents_.at(word)) {
-                document_to_relevance.erase(document_to_relevance.find(document_id));
+            for (const auto id_documets : word_to_documents_.at(word)) {
+                document_to_relevance.erase(id_documets);
             }
         }
         vector<Document> matched_documents;
@@ -154,18 +157,3 @@ int main() {
         cout << "{ document_id = " << document_id << ", relevance = " << relevance << " }" << endl;
     }
 }
-
-
-TF - как часто встречается слово в документе
-отношение количества сколько встретилось в документе на количество слов в этом документе
-IDF - как часто встречаеся в документах
-логорифм (10) отношения количество документов в котором встречается на количество всего документов
-Повторение слова в документе увеличивает TF. А сколько раз слово повторится в запросе, столько раз нужно будет перемножить TF и IDF этого слова.
-
-и в на
-3
-кот TF = 1  IDF = log10(3/2)
-пушистый кот пушистый
-ухоженный
-
-пушистый ухоженный кот
