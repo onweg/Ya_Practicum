@@ -121,7 +121,7 @@ private:
                 continue;
             }
             for (const int document_id : word_to_documents_.at(word)) {
-                document_to_relevance.erase(document_to_relevance.find(document_id));
+                document_to_relevance.erase(document_id);
             }
         }
         vector<Document> matched_documents;
