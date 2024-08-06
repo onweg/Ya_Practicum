@@ -6,6 +6,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <numeric>
 
 using namespace std;
 
@@ -23,6 +24,17 @@ int ReadLineWithNumber() {
     cin >> result;
     ReadLine();
     return result;
+}
+
+vector<int> InputRating() {
+    int count_estimations;
+    cin >> count_estimations;
+    vector<int> rating(count_estimations);
+    for(int i = 0; i < count_estimations; ++i) {
+        cin >> rating[i];
+    }
+    ReadLine();
+    return rating;
 }
 
 vector<string> SplitIntoWords(const string& text) {
@@ -67,6 +79,15 @@ public:
         }
     }
 
+    int FindRating(int id_document) const {
+        return accumulate(document_to_rating.at(id_document).begin(), document_to_rating.at(id_document).end(), 0)
+         / document_to_rating.at(id_document).size();
+    }
+
+    void AddRating(int id_document, const vector<int>& rating) {
+        document_to_rating[id_document] = rating;
+    }
+
     vector<Document> FindTopDocuments(const string& raw_query) const {            
         const Query query = ParseQuery(raw_query);
         auto matched_documents = FindAllDocuments(query);
@@ -85,6 +106,7 @@ private:
     int document_count_ = 0;
     set<string> stop_words_;
     map<string, map<int, double>> word_to_document_freqs_;
+    map<int, vector<int> > document_to_rating;
     
     bool IsStopWord(const string& word) const {
         return stop_words_.count(word) > 0;
@@ -182,6 +204,7 @@ SearchServer CreateSearchServer() {
     const int document_count = ReadLineWithNumber();
     for (int document_id = 0; document_id < document_count; ++document_id) {
         search_server.AddDocument(document_id, ReadLine());
+        search_server.AddRating(document_id, InputRating());
     }
     
     return search_server;
@@ -194,7 +217,8 @@ int main() {
     const string query = ReadLine();
     for (auto [document_id, relevance] : search_server.FindTopDocuments(query)) {
         cout << "{ document_id = "s << document_id << ", "s
-             << "relevance = "s << relevance << " }"s
+             << "relevance = "s << relevance << " , "s
+             << "rating = "s << search_server.FindRating(document_id) << " }"
              << endl;
     }
 }
