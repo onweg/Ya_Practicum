@@ -16,7 +16,7 @@ struct Document {
     double relevance;
     int rating;
 
-    tuple <Status, int, double> MakeKey() const {
+    auto MakeKey() const {
         return make_tuple(status, -1 * rating, -1 * relevance);
     }
 };
