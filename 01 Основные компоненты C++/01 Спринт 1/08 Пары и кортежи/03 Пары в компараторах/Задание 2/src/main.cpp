@@ -20,8 +20,7 @@ struct Document {
 void SortDocuments(vector<Document>& matched_documents) {            
     sort(matched_documents.begin(), matched_documents.end(),
          [](const Document& lhs, const Document& rhs) {
-             return pair(lhs.rating, lhs.relevance)
-                  > pair(rhs.rating, rhs.relevance);
+            return lhs.status < rhs.status || (lhs.status == rhs.status && make_pair(lhs.rating, lhs.relevance) > make_pair(rhs.rating, rhs.relevance));
          });
 }
 
