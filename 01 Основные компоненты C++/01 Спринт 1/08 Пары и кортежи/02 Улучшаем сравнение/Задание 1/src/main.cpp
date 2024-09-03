@@ -13,7 +13,9 @@ struct Document {
 void SortDocuments(vector<Document>& matched_documents) {            
     sort(matched_documents.begin(), matched_documents.end(),
          [](const Document& lhs, const Document& rhs) {
-             return lhs.relevance > rhs.relevance;
+            // return lhs.relevance > rhs.relevance;
+            return lhs.rating > rhs.rating ||
+             (lhs.rating == rhs.rating && lhs.relevance > rhs.relevance);
          });
 }
 
