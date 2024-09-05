@@ -3,6 +3,7 @@
 #include <tuple>
 #include <vector>
 
+
 // Перечислимый тип для статуса задачи
 enum class TaskStatus {
 	  NEW,          // новая
