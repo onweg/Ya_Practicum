@@ -49,9 +49,8 @@ public:
 				status = static_cast<TaskStatus>(static_cast<int>(status) + 1);
 			}
 			status = TaskStatus::NEW;
-			while (status != TaskStatus::DONE){
+			for (TaskStatus status = TaskStatus::NEW; status <= TaskStatus::DONE; status=static_cast<TaskStatus>(static_cast<int>(status) + 1)){
 				person_to_task_info[person][status] += updated_tasks[status];
-				status = static_cast<TaskStatus>(static_cast<int>(status) + 1);
 			}
 			return make_tuple(updated_tasks, untouched_tasks);
 		}
@@ -94,12 +93,86 @@ int main() {
 	  cout << "Untouched Ivan's tasks: "s;
 	  PrintTasksInfo(untouched_tasks);
 	  
+		cout << endl;
+	  PrintTasksInfo(tasks.GetPersonTasksInfo("Ivan"s));
+	  	cout << endl << endl;
+
 	  tie(updated_tasks, untouched_tasks) =
 			      tasks.PerformPersonTasks("Ivan"s, 2);
 	  cout << "Updated Ivan's tasks: "s;
 	  PrintTasksInfo(updated_tasks);
 	  cout << "Untouched Ivan's tasks: "s;
 	  PrintTasksInfo(untouched_tasks);
+
+	  	cout << endl;
+	  PrintTasksInfo(tasks.GetPersonTasksInfo("Ivan"s));
+	  	cout << endl << endl;
+
+			  tie(updated_tasks, untouched_tasks) =
+			      tasks.PerformPersonTasks("Ivan"s, 2);
+	  cout << "Updated Ivan's tasks: "s;
+	  PrintTasksInfo(updated_tasks);
+	  cout << "Untouched Ivan's tasks: "s;
+	  PrintTasksInfo(untouched_tasks);
+	  
+		cout << endl;
+	  PrintTasksInfo(tasks.GetPersonTasksInfo("Ivan"s));
+	  	cout << endl << endl;
+
+	  tie(updated_tasks, untouched_tasks) =
+			      tasks.PerformPersonTasks("Ivan"s, 2);
+	  cout << "Updated Ivan's tasks: "s;
+	  PrintTasksInfo(updated_tasks);
+	  cout << "Untouched Ivan's tasks: "s;
+	  PrintTasksInfo(untouched_tasks);
+
+	  	cout << endl;
+	  PrintTasksInfo(tasks.GetPersonTasksInfo("Ivan"s));
+	  	cout << endl << endl;
+
+			  tie(updated_tasks, untouched_tasks) =
+			      tasks.PerformPersonTasks("Ivan"s, 2);
+	  cout << "Updated Ivan's tasks: "s;
+	  PrintTasksInfo(updated_tasks);
+	  cout << "Untouched Ivan's tasks: "s;
+	  PrintTasksInfo(untouched_tasks);
+	  
+		cout << endl;
+	  PrintTasksInfo(tasks.GetPersonTasksInfo("Ivan"s));
+	  	cout << endl << endl;
+
+	  tie(updated_tasks, untouched_tasks) =
+			      tasks.PerformPersonTasks("Ivan"s, 2);
+	  cout << "Updated Ivan's tasks: "s;
+	  PrintTasksInfo(updated_tasks);
+	  cout << "Untouched Ivan's tasks: "s;
+	  PrintTasksInfo(untouched_tasks);
+
+	  	cout << endl;
+	  PrintTasksInfo(tasks.GetPersonTasksInfo("Ivan"s));
+	  	cout << endl << endl;
+
+			  tie(updated_tasks, untouched_tasks) =
+			      tasks.PerformPersonTasks("Ivan"s, 2);
+	  cout << "Updated Ivan's tasks: "s;
+	  PrintTasksInfo(updated_tasks);
+	  cout << "Untouched Ivan's tasks: "s;
+	  PrintTasksInfo(untouched_tasks);
+	  
+		cout << endl;
+	  PrintTasksInfo(tasks.GetPersonTasksInfo("Ivan"s));
+	  	cout << endl << endl;
+
+	  tie(updated_tasks, untouched_tasks) =
+			      tasks.PerformPersonTasks("Ivan"s, 2);
+	  cout << "Updated Ivan's tasks: "s;
+	  PrintTasksInfo(updated_tasks);
+	  cout << "Untouched Ivan's tasks: "s;
+	  PrintTasksInfo(untouched_tasks);
+
+	  	cout << endl;
+	  PrintTasksInfo(tasks.GetPersonTasksInfo("Ivan"s));
+	  	cout << endl << endl;
 }
 
 	
