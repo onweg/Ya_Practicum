@@ -1,8 +1,10 @@
+#include <iostream>
 #include <map>
 #include <string>
 #include <tuple>
 #include <vector>
 
+using namespace std;
 
 // Перечислимый тип для статуса задачи
 enum class TaskStatus {
@@ -19,15 +21,47 @@ using TasksInfo = map<TaskStatus, int>;
 class TeamTasks {
 public:
 	  // Получить статистику по статусам задач конкретного разработчика
-	  const TasksInfo& GetPersonTasksInfo(const string& person) const;
+	  const TasksInfo& GetPersonTasksInfo(const string& person) const {
+		return person_to_task_info.at(person);
+	  }
 	  
 	  // Добавить новую задачу (в статусе NEW) для конкретного разработчитка
-	  void AddNewTask(const string& person);
+	  void AddNewTask(const string& person) {
+		person_to_task_info[person][TaskStatus::NEW]++;
+	  }
 	  
 	  // Обновить статусы по данному количеству задач конкретного разработчика,
 	  // подробности см. ниже
 	  tuple<TasksInfo, TasksInfo> PerformPersonTasks(
-						const string& person, int task_count);
+						const string& person, int task_count){
+			TasksInfo updated_tasks, untouched_tasks;
+			TaskStatus status = TaskStatus::NEW;
+			while (status != TaskStatus::DONE){
+				if (task_count) {
+					int d = min(task_count, person_to_task_info.at(person).at(status));
+					task_count -= d;
+					updated_tasks[static_cast<TaskStatus>(static_cast<int>(status) + 1)] = d;
+					person_to_task_info[person][status] -= d;
+				}
+				if (!task_count) {
+					untouched_tasks[status] = person_to_task_info[person][status];
+				}
+				status = static_cast<TaskStatus>(static_cast<int>(status) + 1);
+			}
+			status = TaskStatus::NEW;
+			while (status != TaskStatus::DONE){
+				person_to_task_info[person][status] += updated_tasks[status];
+				status = static_cast<TaskStatus>(static_cast<int>(status) + 1);
+			}
+			return make_tuple(updated_tasks, untouched_tasks);
+		}
+
+private:
+	// я должен хранить map по имени и количеством задач со статусами
+	// так я смогу легко добавлять новую задачу
+	// по имени смогу получить статистику задач
+	// обновить статусы по имени персоны 
+	map<string, TasksInfo> person_to_task_info;
 };
 
 // Принимаем словарь по значению, чтобы иметь возможность
@@ -67,3 +101,5 @@ int main() {
 	  cout << "Untouched Ivan's tasks: "s;
 	  PrintTasksInfo(untouched_tasks);
 }
+
+	
