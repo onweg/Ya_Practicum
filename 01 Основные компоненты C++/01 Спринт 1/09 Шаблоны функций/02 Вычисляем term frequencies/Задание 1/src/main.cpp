@@ -7,6 +7,11 @@ using namespace std;
 
 map<string, int> ComputeTermFreqs(const vector<string>& terms) {
     // реализуйте функцию
+    map<string, int> result;
+    for (const auto& word : terms) {
+        result[word]++;
+    }
+    return result;
 }
 
 int main() {
