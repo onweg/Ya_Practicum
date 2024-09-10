@@ -4,8 +4,8 @@
 
 using namespace std;
 
-template<typename T>
-ostream& operator<<(ostream& out, const set<T>& container) {
+template<typename Container>
+void Print(ostream& out, Container container) {
     int i = 0, size = static_cast<int>(container.size());
     for (const auto& element : container) {
         out << element;
@@ -14,19 +14,17 @@ ostream& operator<<(ostream& out, const set<T>& container) {
         }
         ++i;
     }
+}
+
+template<typename T>
+ostream& operator<<(ostream& out, const set<T>& container) {
+    Print(out, container);
     return out;
 }
 
 template<typename T>
 ostream& operator<<(ostream& out, const vector<T>& container) {
-    int i = 0, size =  static_cast<int>(container.size());
-    for (const auto& element : container) {
-        out << element;
-        if (i + 1 < size) {
-            out << ", "s;
-        }
-        ++i;
-    }
+    Print(out, container);
     return out;
 }
 
