@@ -4,28 +4,25 @@
 
 using namespace std;
 
-template<typename T>
-ostream& operator<<(ostream& out, const set<T>& container) {
+template<typename Container>
+void Print(ostream& out, const Container& container) {
     int i = 0, size = static_cast<int>(container.size());
     for (const auto& element : container) {
         out << element;
-        if (i + 1 < size) {
-            out << ", ";
-        }
-        ++i;
+        if (i + 1 < size)
+            out << ", "s;
     }
+}
+
+template<typename T>
+ostream& operator<<(ostream& out, const set<T>& container) {
+    Print(out, container);
     return out;
 }
 
 template<typename T>
 ostream& operator<<(ostream& out, const vector<T>& container) {
-    int size =  static_cast<int>(container.size());
-    for (int i = 0; i <size; ++i) {
-        out << container[i];
-        if (i + 1 < size) {
-            out << ", "s;
-        }
-    }
+    Print(out, container);
     return out;
 }
 
