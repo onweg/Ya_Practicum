@@ -6,17 +6,17 @@
 using namespace std;
 
 template<typename T>
-void Out_element(ostream& out, T element) {
+void Out_element(ostream& out, const T& element) {
     out << element;
 }
 
 template<typename Key, typename Val>
-void Out_element(ostream& out, pair<Key, Val> element) {
+void Out_element(ostream& out, const pair<Key, Val>& element) {
     out << "("s << element.first << ", "s << element.second << ")"s;
 }
 
 template<typename Container>
-void Print(ostream& out, Container container) {
+void Print(ostream& out, const Container& container) {
     size_t i = 0, size = container.size();
     for (const auto& element : container) {
         Out_element(out, element);
@@ -44,7 +44,7 @@ ostream& operator<<(ostream& out, const vector<T>& container) {
 }
 
 template <typename Key, typename Val>
-ostream& operator<<(ostream& out, const map<Key, Val> container) {
+ostream& operator<<(ostream& out, const map<Key, Val>& container) {
     out << "<"s;
     Print(out, container);
     out << ">"s;
