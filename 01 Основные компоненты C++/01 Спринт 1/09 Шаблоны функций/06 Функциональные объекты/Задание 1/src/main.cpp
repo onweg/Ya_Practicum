@@ -12,8 +12,7 @@ struct Animal {
 
 template <typename Container, typename KeyMapper>
 void SortBy(Container& container, KeyMapper key_mapper) {
-    // теперь можно сортировать контейнер
-		// с компаратором key_mapper(lhs) < key_mapper(rhs)
+    sort(container.begin(), container.end(), [key_mapper](const auto& lhs, const auto& rhs){return key_mapper(lhs) < key_mapper(rhs);});
 }
 
 void PrintNames(const vector<Animal>& animals) {
