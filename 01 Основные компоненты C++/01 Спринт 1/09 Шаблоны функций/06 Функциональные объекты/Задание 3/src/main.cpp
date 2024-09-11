@@ -79,13 +79,13 @@ public:
                 status
             });
     }
-    // поменять второй аргумент и сделать его функцией
-    // функция одлжна принимать id  status rating и возвращать условие фильтрации
-    // сначала надо отфилььровать потом отсеч 5 штук
 
-    //Filter это функция которая принимает 3 параметра 
+    vector<Document> FindTopDocuments(const string& raw_query) {
+        return FindTopDocuments(raw_query, [](int document_id, DocumentStatus status, int rating){return status == DocumentStatus::ACTUAL;});
+    }
+
     template<typename Filter>
-    vector<Document> FindTopDocuments(const string& raw_query, Filter filter = [](int document_id, DocumentStatus status, int rating){return document_id && DocumentStatus::ACTUAL == status && rating;}) const {            
+    vector<Document> FindTopDocuments(const string& raw_query, Filter filter) const {            
         const Query query = ParseQuery(raw_query);
         auto matched_documents = FindAllDocuments(query);
         
@@ -97,10 +97,9 @@ public:
                     return lhs.relevance > rhs.relevance;
                 }
              });
-        //нужно пройтись по всем документам из вектора документов matched_documents
-        // удалить те которые не соответствуют фильтру
+
         for (int i = 0; i < static_cast<int>(matched_documents.size()); ++i) {
-            if (!filter(matched_documents[i])) {
+            if (!filter(matched_documents.at(i).id, documents_.at(matched_documents.at(i).id).status, documents_.at(matched_documents.at(i).id).rating)) {
                 matched_documents.erase(matched_documents.begin() + i);
                 i--;
             }
@@ -278,12 +277,12 @@ int main() {
     }
 
     cout << "ACTUAL:"s << endl;
-    for (const Document& document : search_server.FindTopDocuments("пушистый ухоженный кот"s, [](int document_id, DocumentStatus status, int rating) { return document_id && status == DocumentStatus::ACTUAL && rating; })) {
+    for (const Document& document : search_server.FindTopDocuments("пушистый ухоженный кот"s, [](int document_id, DocumentStatus status, int rating) { return status == DocumentStatus::ACTUAL; })) {
         PrintDocument(document);
     }
 
     cout << "Even ids:"s << endl;
-    for (const Document& document : search_server.FindTopDocuments("пушистый ухоженный кот"s, [](int document_id, DocumentStatus status, int rating) { return document_id % 2 == 0 && status && rating; })) {
+    for (const Document& document : search_server.FindTopDocuments("пушистый ухоженный кот"s, [](int document_id, DocumentStatus status, int rating) { return document_id % 2 == 0; })) {
         PrintDocument(document);
     }
 
