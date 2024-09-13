@@ -8,7 +8,22 @@ using namespace std;
 // Пустые строки и строки, состоящие только из пробелов, — это не палиндромы
 bool IsPalindrome(const string& text) {
     // Напишите недостающий код
-    return false;
+    int lhs = 0, size = text.size(), rhs = size - 1;
+    if (!size) return false;
+    bool only_space = true;
+    while (lhs <= rhs) {
+        while (lhs < size && text[lhs] == ' ') lhs++;
+        if (lhs == size) break;
+        only_space = false;
+        while (rhs >= 0 && text[rhs] == ' ') rhs --;
+        if (rhs < lhs) break;
+        if (text[lhs] != text[rhs]) return false;
+        lhs++;
+        rhs--;
+    }
+    if (only_space) return false;
+    return true;
+
 }
 
 int main() {
