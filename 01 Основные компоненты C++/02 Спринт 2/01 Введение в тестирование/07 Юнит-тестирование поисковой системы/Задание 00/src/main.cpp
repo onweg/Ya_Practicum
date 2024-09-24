@@ -81,17 +81,11 @@ public:
                 status
             });
     }
-    
-    // я должен сделать универсальную функцию FindTopDocuments чтоб она могла фильровать по 
-    // лябде функции и по статусу    
+      
     vector<Document> FindTopDocuments(const string& raw_query, DocumentStatus filter_status = DocumentStatus::ACTUAL) const {
         return FindTopDocuments(raw_query, [filter_status](int document_id, DocumentStatus status, int rating){return status == filter_status;});
     }
-    /*
-    vector<Document> FindTopDocuments(const string& raw_query, DocumentStatus filter_status) const {
-        return FindTopDocuments(raw_query, [filter_status](int document_id, DocumentStatus status, int rating){return status == filter_status;});
-    }
-    */
+
     template<typename Filter>
     vector<Document> FindTopDocuments(const string& raw_query, Filter filter) const {            
         const Query query = ParseQuery(raw_query);
@@ -123,8 +117,11 @@ public:
     }
     
     tuple<vector<string>, DocumentStatus> MatchDocument(const string& raw_query, int document_id) const {
-        const Query query = ParseQuery(raw_query);
         vector<string> matched_words;
+        if (!documents_.count(document_id)) {
+            return make_tuple(matched_words, DocumentStatus::REMOVED);
+        }
+        const Query query = ParseQuery(raw_query);
         for (const string& word : query.plus_words) {
             if (word_to_document_freqs_.count(word) == 0) {
                 continue;
@@ -310,6 +307,7 @@ void TestMinusWords() {
         SearchServer server;
         server.AddDocument(doc_id, content, DocumentStatus::ACTUAL, ratings);
         assert(server.FindTopDocuments("doc -cat"s).empty());
+        assert(!server.FindTopDocuments("cat -cit"s).empty());
     }
 
     {
@@ -318,6 +316,7 @@ void TestMinusWords() {
         server.AddDocument(doc_id, content, DocumentStatus::ACTUAL, ratings);
         assert(server.FindTopDocuments("doc -in"s).empty());
     }
+
     cout << "TestMinusWords SUCCESFUL"s << endl;
 }
 
@@ -330,38 +329,146 @@ void TestMatchWords() {
     {   // найти слова в пустом сервере
         SearchServer server;
         const auto [found_words, status] = server.MatchDocument("in the", 100);
-        assert(found_words.size() == 0);
+        assert(found_words.size() == 0 && status == DocumentStatus::REMOVED);
     }
     {   // найти слова с несуществующем id
         SearchServer server;
         server.AddDocument(doc_id, content, DocumentStatus::ACTUAL, ratings);
-        const auto found_words = server.MatchDocument("in the", 100);
+        const auto [found_words, status] = server.MatchDocument("in the", 100);
+        assert(found_words.size() == 0 && status == DocumentStatus::REMOVED);
     }
     
     {   // найти слова в существующем id
-
+        SearchServer server;
+        server.AddDocument(doc_id, content, DocumentStatus::ACTUAL, ratings);
+        const auto [found_words, status] = server.MatchDocument("in the", 42);
+        assert(found_words.size() == 2 && found_words[0] == "in"s && found_words[1] == "the" && status == DocumentStatus::ACTUAL);
     }
 
     {   // найти слова с запросом с минус словами 
-
+        SearchServer server;
+        server.AddDocument(doc_id, content, DocumentStatus::ACTUAL, ratings);
+        const auto [found_words, status] = server.MatchDocument("dog in the city -cat", 42);
+        assert(found_words.size() == 0 && status == DocumentStatus::ACTUAL);
     }
 
-    {       // найти слова с запросом с стоп словами
-
+    {   // найти слова с запросом с стоп словами
+        SearchServer server;
+        server.SetStopWords("in the"s);
+        server.AddDocument(doc_id, content, DocumentStatus::ACTUAL, ratings);
+        const auto [found_words, status] = server.MatchDocument("white cat in the city"s, 42);
+        assert(found_words.size() == 2 && found_words[0] == "cat"s && found_words[1] == "city"s && status == DocumentStatus::ACTUAL);
     }
 
-    cout << "TestMatchWords"s << endl;
+    cout << "TestMatchWords SUCCESSFUL"s << endl;
 }
+
 //Сортировка найденных документов по релевантности. Возвращаемые при поиске документов результаты должны быть отсортированы в порядке убывания релевантности.
+void TestSortDocuments() {    
+    {   // проверить норм ли сортирует сначала отсортированы по релевантности,
+        // потом по рейтенгу, только определенного статуса
+        SearchServer server;
+        server.SetStopWords("in the and is"s);
+        server.AddDocument(1, "cat in the city"s, DocumentStatus::ACTUAL, {1, 2, 3});
+        server.AddDocument(2, "my city my love"s, DocumentStatus::ACTUAL, {2, 2, 3});
+        server.AddDocument(3, "my cat is brown"s, DocumentStatus::ACTUAL, {5, 5, 5});
+        server.AddDocument(4, "cat and dog friend forever"s, DocumentStatus::REMOVED, {1, 2, 3, 3});
+        server.AddDocument(5, "cat cat cat"s, DocumentStatus::ACTUAL, {3, 4, 3});
+        server.AddDocument(6, "our city our love"s, DocumentStatus::ACTUAL, {5, 5, 5});
+        const auto found_docs = server.FindTopDocuments("cat in the city"s);
+        assert(found_docs.size() == 5);
+        assert(found_docs[0].relevance >= found_docs[1].relevance && found_docs[1].relevance >= found_docs[2].relevance && found_docs[2].relevance >= found_docs[3].relevance && found_docs[3].relevance >= found_docs[4].relevance);
+        assert(make_tuple(found_docs[0].id, found_docs[1].id, found_docs[2].id, found_docs[3].id, found_docs[4].id) == make_tuple(1, 5, 6, 2, 3));
+    }
+    cout << "TestSortDocuments SUCCESSFUL"s << endl;
+}
 
 //Вычисление рейтинга документов. Рейтинг добавленного документа равен среднему арифметическому оценок документа.
+void TestRating() {
+    {
+        SearchServer server;
+        server.AddDocument(1, "cat in the city"s, DocumentStatus::ACTUAL, {1, 2, 3});
+        server.AddDocument(2, "my city my love"s, DocumentStatus::ACTUAL, {-2, 2});
+        server.AddDocument(3, "my cat in brown"s, DocumentStatus::ACTUAL, {5, 5, 6});
+        const auto found_docs = server.FindTopDocuments("cat in the city");
+        assert(found_docs.size() == 3 && found_docs[0].rating == 2 && found_docs[1].rating == 5 && found_docs[2].rating == 0);
+
+    }
+    {
+        SearchServer server;
+        server.AddDocument(1, "cat in the city"s, DocumentStatus::ACTUAL, {0, 0, 0});
+        const auto found_docs = server.FindTopDocuments("cat in the city");
+        assert(found_docs.size() == 1 && found_docs[0].rating == 0);
+    }
+    cout << "TestRating SUCCESSFUL" << endl;
+}
 
 //Фильтрация результатов поиска с использованием предиката, задаваемого пользователем.
-
 //Поиск документов, имеющих заданный статус.
+void TestSortDocumentsWithPredicate() {
+    {
+         SearchServer server;
+        server.SetStopWords("in the and is"s);
+        server.AddDocument(1, "cat in the city"s, DocumentStatus::ACTUAL, {1, 2, 3});
+        server.AddDocument(2, "my city my love"s, DocumentStatus::ACTUAL, {2, 2, 3});
+        server.AddDocument(3, "my cat is brown"s, DocumentStatus::ACTUAL, {5, 5, 5});
+        server.AddDocument(4, "cat and dog friend forever"s, DocumentStatus::REMOVED, {1, 2, 3, 3});
+        server.AddDocument(5, "cat cat cat"s, DocumentStatus::ACTUAL, {3, 4, 3});
+        server.AddDocument(6, "our city our love"s, DocumentStatus::ACTUAL, {5, 5, 5});
+        {
+            const auto found_docs = server.FindTopDocuments("cat in the city", [](int id, DocumentStatus status, int rating){return id % 2 == 0;});
+            assert(found_docs.size() == 3 && make_tuple(found_docs[0].id, found_docs[1].id) == make_tuple(6, 2));
+        }
+        {
+            const auto found_docs = server.FindTopDocuments("cat in the city", DocumentStatus::REMOVED);
+            assert(found_docs.size() == 1 && found_docs[0].id == 4);
+        }
+        {
+            const auto found_docs = server.FindTopDocuments("cat brown city", [](int id, DocumentStatus status, int rating){return status == DocumentStatus::ACTUAL && rating > 4;});
+            assert(found_docs.size() == 2 && make_tuple(found_docs[0].id, found_docs[1].id) == make_tuple(3, 6));
+        }
+        cout << "TestSortDocumentsWithPredicate SUCCESSFUL" << endl;
+    }
+}
 
 //Корректное вычисление релевантности найденных документов.
+void TestRelevanceCorrect() {
 
+    auto comparison = [](double a, double b){return abs(a - b) < 1e-6;};
+
+    {
+        SearchServer server;
+        server.SetStopWords("in the and is"s);
+        server.AddDocument(1, "my cat is brown"s, DocumentStatus::ACTUAL, {1, 2, 3});
+        server.AddDocument(2, "cat and dog friend"s, DocumentStatus::ACTUAL, {2, 2, 3});
+        server.AddDocument(3, "Moscow white city"s, DocumentStatus::ACTUAL, {5, 5, 5});
+        server.AddDocument(4, "one cat and two cat"s, DocumentStatus::ACTUAL, {1, 2, 3, 3});
+        server.AddDocument(5, "cat city"s, DocumentStatus::ACTUAL, {3, 4, 3});
+        const auto found_docs = server.FindTopDocuments("white cat in the city"s);
+        assert(found_docs.size() == 5);
+        assert(comparison(found_docs[0].relevance, 0.84191));
+        assert(comparison(found_docs[1].relevance, 0.569717));
+        assert(comparison(found_docs[2].relevance, 0.111572));
+        assert(comparison(found_docs[3].relevance, 0.074381));
+        assert(comparison(found_docs[4].relevance, 0.074381));
+    }
+    cout << "TestRelevanceCorrect SUCCESSFUL" << endl;
+}
+
+void TestEmptyQuery() {
+    
+    {
+        SearchServer server;
+        server.AddDocument(1, "cat in the city"s, DocumentStatus::ACTUAL, {1, 2, 3});
+        assert(server.FindTopDocuments(""s).empty());  // Пустой запрос должен возвращать пустой результат
+    }
+    {
+        SearchServer server;
+        server.AddDocument(1, "     "s, DocumentStatus::ACTUAL, {1, 2, 3});
+        assert(server.FindTopDocuments("cat"s).empty());
+    }
+    cout << "TestEmptyQuery SUCCESSFUL"s << endl;
+}
 
 // Функция TestSearchServer является точкой входа для запуска тестов
 void TestSearchServer() {
@@ -369,6 +476,11 @@ void TestSearchServer() {
     // Не забудьте вызывать остальные тесты здесь
     TestMinusWords();
     TestMatchWords();
+    TestSortDocuments();
+    TestRating();
+    TestSortDocumentsWithPredicate();
+    TestRelevanceCorrect();
+    TestEmptyQuery();
 }
 
 // --------- Окончание модульных тестов поисковой системы -----------
