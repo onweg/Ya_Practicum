@@ -7,6 +7,39 @@
 
 using namespace std;
 
+template<typename T, typename U>
+void AssertEqualImpl(const T& a, const U&b, const string& a_str, const string& b_str, const string& file, const int line, const string& function, const string& hint) {
+    if (a != b) {
+        cout << boolalpha;
+        cout << file << "("s << line << "): "s << function;
+        cout << "ASSERT_EQUAL("s << a_str << ", "s << b_str << ") failed: "s;
+        cout << a << " != "s << b << "."s;
+        if (!hint.empty()) {
+            cout << "Hint: "s << hint;
+        }
+        cout << endl;
+        abort();
+    }
+}
+
+#define ASSERT_EQUAL(a, b) AssertEqualImpl(a, b, #a, #b, __FILE__, __LINE__, __FUNCTION__, ""s);
+#define ASSERT_EQUAL_HINT(a, b, hint) AssertEqualImpl(a, b, #a, #b, __FILE__, __LINE__, __FUNCTION__, hint);
+
+void AssertImpl(bool value, const string& str, const string& file, const int line, const string& function, const string& hint){
+    if (!value){
+        cout << file << "("s << line << "): "s << function << ": ASSERT("s << str << ") failed."s;
+        if (!hint.empty()) {
+            cout << " Hint: "s << hint;
+        }
+        cout << endl;
+        abort();
+    }
+}
+
+#define ASSERT(expr) AssertImpl((expr), #expr, __FILE__, __LINE__, __FUNCTION__, ""s);
+#define ASSERT_HINT(expr, hint) AssertImpl((expr), #expr, __FILE__, __LINE__, __FUNCTION__, hint);
+
+
 class Synonyms {
 public:
     void Add(const string& first_word, const string& second_word) {
@@ -34,17 +67,17 @@ private:
 
 void TestAddingSynonymsIncreasesTheirCount() {
     Synonyms synonyms;
-    assert(synonyms.GetSynonymCount("music"s) == 0);
-    assert(synonyms.GetSynonymCount("melody"s) == 0);
+    ASSERT(synonyms.GetSynonymCount("music"s) == 0);
+    ASSERT(synonyms.GetSynonymCount("melody"s) == 0);
 
     synonyms.Add("music"s, "melody"s);
-    assert(synonyms.GetSynonymCount("music"s) == 1);
-    assert(synonyms.GetSynonymCount("melody"s) == 1);
+    ASSERT(synonyms.GetSynonymCount("music"s) == 1);
+    ASSERT(synonyms.GetSynonymCount("melody"s) == 1);
 
     synonyms.Add("music"s, "tune"s);
-    assert(synonyms.GetSynonymCount("music"s) == 2);
-    assert(synonyms.GetSynonymCount("tune"s) == 1);
-    assert(synonyms.GetSynonymCount("melody"s) == 1);
+    ASSERT(synonyms.GetSynonymCount("music"s) == 2);
+    ASSERT(synonyms.GetSynonymCount("tune"s) == 1);
+    ASSERT(synonyms.GetSynonymCount("melody"s) == 1);
 }
 
 void TestAreSynonyms() {
@@ -52,16 +85,17 @@ void TestAreSynonyms() {
     synonyms.Add("winner"s, "champion"s);
     synonyms.Add("good"s, "nice"s);
 
-    assert(synonyms.AreSynonyms("winner"s, "champion"s));
-    assert(synonyms.AreSynonyms("champion"s, "winner"s));
+    ASSERT(synonyms.AreSynonyms("winner"s, "champion"s));
+    ASSERT(synonyms.AreSynonyms("champion"s, "winner"s));
 
-    assert(!synonyms.AreSynonyms("good"s, "champion"s));
-    assert(synonyms.AreSynonyms("good"s, "nice"s));
+    ASSERT(!synonyms.AreSynonyms("good"s, "champion"s));
+    ASSERT(synonyms.AreSynonyms("good"s, "nice"s));
 }
 
 void TestSynonyms() {
     TestAddingSynonymsIncreasesTheirCount();
     TestAreSynonyms();
+    cout << "TEST SUCCESSFUL" << endl;
 }
 
 int main() {
