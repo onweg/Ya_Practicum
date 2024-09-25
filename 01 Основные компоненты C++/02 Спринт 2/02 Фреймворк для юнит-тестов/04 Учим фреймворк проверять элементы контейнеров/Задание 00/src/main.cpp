@@ -8,6 +8,81 @@
 
 using namespace std;
 
+template<typename T>
+void PrintContainer(ostream& out, T container) {
+    size_t i = 0, size = container.size();
+    for (const auto& item : container) {
+        out << item;
+        if (i + 1 < size) out << ", "s;
+        i++;
+    }
+}
+
+template<typename T>
+ostream& operator<< (ostream& out, const vector<T>& container) {
+    out << "["s;
+    PrintContainer(out, container);
+    out << "]"s;
+    return out;
+}
+
+template<typename T>
+ostream& operator<< (ostream& out, const set<T>& container) {
+    out << "{"s;
+    PrintContainer(out, container);
+    out << "}"s;
+    return out;
+}
+
+template<typename T, typename U>
+ostream& operator<< (ostream& out, const map<T, U>& container) {
+    size_t i = 0, size = container.size();
+    out << "{"s;
+    for (const auto& [key, value] : container) {
+        out << key << ": "s << value;
+        if (i + 1 < size) out << ", "s;
+        i++;
+    }
+    out << "}"s << endl;
+    return out;
+}
+
+template<typename T>
+bool operator==(const vector<T>& lhs, const vector<T>& rhs) {
+    if (lhs.size() != rhs.size()) return false;
+    size_t size = lhs.size();
+    for (size_t i = 0; i < size; ++i) {
+        if (lhs[i] != rhs[i]) return false;
+    }
+    return true;
+}
+
+template<typename T>
+bool operator!=(const vector<T>& lhs, const vector<T>& rhs) {
+    return !(lhs == rhs);
+}
+
+template<typename T>
+bool operator==(const set<T>& lhs, const set<T>& rhs){
+    if (lhs.size() != rhs.size()) return false;
+    return equal(lhs.begin(), lhs.end(), rhs.begin());
+}
+
+template<typename T>
+bool operator!=(const set<T>& lhs, const set<T>& rhs) {
+    return !(lhs == rhs);
+}
+
+template<typename T, typename U>
+bool operator==(const map<T, U>& lhs, const map<T, U>& rhs) {
+    if (lhs.size() != rhs.size()) return false;
+    return equal(lhs.begin(), lhs.end(), rhs.begin());
+}
+
+template<typename T, typename U>
+bool operator!=(const map<T, U>& lhs, const map<T, U>& rhs) {
+    return !(lhs == rhs);
+}
 template <typename T, typename U>
 void AssertEqualImpl(const T& t, const U& u, const string& t_str, const string& u_str, const string& file,
                      const string& func, unsigned line, const string& hint) {
