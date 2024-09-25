@@ -5,9 +5,17 @@
 
 using namespace std;
 
-#define ASSERT(expr) /* реализовать самостоятельно */
+void AssertImpl(const string& str, const string& file, const int& line, const string& function, const string& hint = ""s) {
+    cout << file << " ("s << line << "): "s << function << ": ASSERT("s << str << ") failed."s;
+    if (!hint.empty()) {
+        cout << " Hint: "s << hint;
+    }
+    cout << endl;
+}
 
-#define ASSERT_HINT(expr, hint) /* реализовать самостоятельно */
+#define ASSERT(expr) AssertImpl(#expr, __FILE__, __LINE__, __FUNCTION__, ""s);
+
+#define ASSERT_HINT(expr, hint) AssertImpl(#expr, __FILE__, __LINE__, __FUNCTION__, hint);
 
 int main() {
     string hello = "hello"s;
