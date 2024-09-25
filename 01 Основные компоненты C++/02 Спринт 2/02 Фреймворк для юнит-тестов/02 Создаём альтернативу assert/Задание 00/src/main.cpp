@@ -6,6 +6,14 @@ using namespace std;
 
 void Assert(bool value, const string& hint) {
     // Реализуйте тело функции Assert
+    if (!value) {
+        cout << "Assertion failed.";
+        if (!hint.empty()) {
+            cout << " Hint: " << hint;
+        }
+        cout << endl;
+        abort();
+    }
 }
 
 int main() {
