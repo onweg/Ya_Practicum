@@ -23,6 +23,8 @@ public:
 
     bool AreSynonyms(const string& first_word, const string& second_word) const {
         // Напишите недостающий код
+        // проверить сущствует ли первое и второе слово
+        // проверить существует ли второе сово во множетсве первого (этого будет достаточно)
         return false;
     }
 
@@ -47,6 +49,18 @@ void TestAddingSynonymsIncreasesTheirCount() {
 
 void TestAreSynonyms() {
     // Напишите недостающий код
+    Synonyms synonyms;
+    synonyms.Add("music"s, "melody"s);
+    synonyms.Add("music"s, "tune"s);
+    assert(synonyms.AreSynonyms("music"s, "melody"s) == true);
+    assert(synonyms.AreSynonyms("melody"s, "music"s) == true);
+    assert(synonyms.AreSynonyms("music"s, "tune"s) == true);
+    assert(synonyms.AreSynonyms("tune"s, "music"s) == true);
+    assert(synonyms.AreSynonyms("melody"s, "tune"s) == false);
+    assert(synonyms.AreSynonyms("tune"s, "melody"s) == false);
+    assert(synonyms.AreSynonyms("song"s, "tune"s) == false);
+    assert(synonyms.AreSynonyms("song"s, "a"s) == false);
+
 }
 
 void TestSynonyms() {

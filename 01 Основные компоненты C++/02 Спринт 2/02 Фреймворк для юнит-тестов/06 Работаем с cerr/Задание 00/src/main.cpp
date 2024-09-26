@@ -3,12 +3,13 @@
 
 using namespace std;
 
-template </*напишите недостающий код*/>
-void RunTestImpl(/*Напишите недостающий код*/) {
-    /* Напишите недостающий код */
+template <typename function>
+void RunTestImpl(function func, const string& func_str) {
+    func();
+    cerr << func_str << " OK"s << endl;
 }
 
-#define RUN_TEST(func)  // напишите недостающий код
+#define RUN_TEST(func) RunTestImpl(func, #func)
 
 void Test1() {
 }
