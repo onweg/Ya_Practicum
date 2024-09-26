@@ -89,6 +89,7 @@ public:
 
     template<typename Filter>
     vector<Document> FindTopDocuments(const string& raw_query, Filter filter) const {
+        if (raw_query.empty()) return {};
         const Query query = ParseQuery(raw_query);
         auto matched_documents = FindAllDocuments(query);
         
@@ -414,10 +415,16 @@ void TestSortDocuments() {
         server.AddDocument(4, "cat and dog friend forever"s, DocumentStatus::REMOVED, {1, 2, 3, 3});
         server.AddDocument(5, "cat cat cat"s, DocumentStatus::ACTUAL, {3, 4, 3});
         server.AddDocument(6, "our city our love"s, DocumentStatus::ACTUAL, {5, 5, 5});
+        {
+        const auto found_docs = server.FindTopDocuments(""s);
+        ASSERT(found_docs.size() == 0);
+        }
+        {
         const auto found_docs = server.FindTopDocuments("cat in the city"s);
         ASSERT(found_docs.size() == 5);
         ASSERT(found_docs[0].relevance >= found_docs[1].relevance && found_docs[1].relevance >= found_docs[2].relevance && found_docs[2].relevance >= found_docs[3].relevance && found_docs[3].relevance >= found_docs[4].relevance);
         ASSERT(make_tuple(found_docs[0].id, found_docs[1].id, found_docs[2].id, found_docs[3].id, found_docs[4].id) == make_tuple(1, 5, 6, 2, 3));
+        }
     }
 }
 
