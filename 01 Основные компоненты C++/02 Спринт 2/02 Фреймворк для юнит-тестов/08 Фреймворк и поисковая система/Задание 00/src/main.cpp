@@ -15,6 +15,7 @@ using namespace std;
 /* Подставьте вашу реализацию класса SearchServer сюда */
 const int MAX_RESULT_DOCUMENT_COUNT = 5;
 
+
 string ReadLine() {
     string s;
     getline(cin, s);
@@ -67,7 +68,7 @@ public:
         for (const string& word : SplitIntoWords(text)) {
             stop_words_.insert(word);
         }
-    }    
+    }
     
     void AddDocument(int document_id, const string& document, DocumentStatus status, const vector<int>& ratings) {
         const vector<string> words = SplitIntoWordsNoStop(document);
@@ -75,19 +76,19 @@ public:
         for (const string& word : words) {
             word_to_document_freqs_[word][document_id] += inv_word_count;
         }
-        documents_.emplace(document_id, 
+        documents_.emplace(document_id,
             DocumentData{
-                ComputeAverageRating(ratings), 
+                ComputeAverageRating(ratings),
                 status
             });
     }
-    
+      
     vector<Document> FindTopDocuments(const string& raw_query, DocumentStatus filter_status = DocumentStatus::ACTUAL) const {
         return FindTopDocuments(raw_query, [filter_status](int document_id, DocumentStatus status, int rating){return status == filter_status;});
     }
 
     template<typename Filter>
-    vector<Document> FindTopDocuments(const string& raw_query, Filter filter) const {            
+    vector<Document> FindTopDocuments(const string& raw_query, Filter filter) const {
         const Query query = ParseQuery(raw_query);
         auto matched_documents = FindAllDocuments(query);
         
@@ -117,8 +118,11 @@ public:
     }
     
     tuple<vector<string>, DocumentStatus> MatchDocument(const string& raw_query, int document_id) const {
-        const Query query = ParseQuery(raw_query);
         vector<string> matched_words;
+        if (!documents_.count(document_id)) {
+            return make_tuple(matched_words, DocumentStatus::REMOVED);
+        }
+        const Query query = ParseQuery(raw_query);
         for (const string& word : query.plus_words) {
             if (word_to_document_freqs_.count(word) == 0) {
                 continue;
@@ -478,11 +482,11 @@ void TestRelevanceCorrect() {
         server.AddDocument(5, "cat city"s, DocumentStatus::ACTUAL, {3, 4, 3});
         const auto found_docs = server.FindTopDocuments("white cat in the city"s);
         ASSERT(found_docs.size() == 5);
-        ASSERT_EQUAL(comparison(found_docs[0].relevance, 0.84191));
-        ASSERT_EQUAL(comparison(found_docs[1].relevance, 0.569717));
-        ASSERT_EQUAL(comparison(found_docs[2].relevance, 0.111572));
-        ASSERT_EQUAL(comparison(found_docs[3].relevance, 0.074381));
-        ASSERT_EQUAL(comparison(found_docs[4].relevance, 0.074381));
+        ASSERT(comparison(found_docs[0].relevance, 0.84191));
+        ASSERT(comparison(found_docs[1].relevance, 0.569717));
+        ASSERT(comparison(found_docs[2].relevance, 0.111572));
+        ASSERT(comparison(found_docs[3].relevance, 0.074381));
+        ASSERT(comparison(found_docs[4].relevance, 0.074381));
     }
 }
 
