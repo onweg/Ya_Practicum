@@ -1,7 +1,15 @@
+#include <iostream>
+
 using namespace std;
 
 class Rational {
 public:
+
+    Rational() {
+        numerator_ = 0;
+        denominator_ = 1;
+    }
+
     int Numerator() const {
         return numerator_;
     }
@@ -24,3 +32,8 @@ private:
     int numerator_;
     int denominator_;
 };
+
+int main() {
+    Rational r;
+    cout << r.Numerator() << "/"s << r.Denominator() << endl;
+}
