@@ -1,5 +1,6 @@
 #include <iostream>
 #include <numeric>
+#include <vector> 
 
 using namespace std;
 
@@ -43,6 +44,12 @@ private:
     int numerator_;
     int denominator_;
 };
+
+Rational Add(Rational a, Rational b) {
+    int lcm = a.Denominator() * b.Denominator() / gcd(a.Denominator(), b.Denominator());
+    Rational result(a.Numerator() * (lcm / a.Denominator()) + b.Numerator() * (lcm / b.Denominator()), lcm);
+    return result;
+}
 
 int main() {
     Rational zero;     // Дробь 0/1 = 0
