@@ -46,9 +46,8 @@ private:
 };
 
 Rational Add(Rational a, Rational b) {
-    int lcm = a.Denominator() * b.Denominator() / gcd(a.Denominator(), b.Denominator());
-    Rational result(a.Numerator() * (lcm / a.Denominator()) + b.Numerator() * (lcm / b.Denominator()), lcm);
-    return result;
+    int lcm = a.Denominator() / gcd(a.Denominator(), b.Denominator()) * b.Denominator();
+    return Rational(a.Numerator() * (lcm / a.Denominator()) + b.Numerator() * (lcm / b.Denominator()), lcm);
 }
 
 int main() {
