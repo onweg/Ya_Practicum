@@ -21,6 +21,34 @@ public:
         Normalize();
     }
 
+    Rational& operator+=(Rational rational) {
+        numerator_ = numerator_ * rational.Denominator() + denominator_ * rational.Numerator();
+        denominator_ *= rational.Denominator();
+        Normalize();
+        return *this;
+    }
+
+    Rational& operator-=(Rational rational) {
+        numerator_ = numerator_ * rational.Denominator() - denominator_ * rational.Numerator();
+        denominator_ *= rational.Denominator();
+        Normalize();
+        return *this;
+    }
+
+    Rational& operator*=(Rational rational) {
+        numerator_ *= rational.Numerator();
+        denominator_ *= rational.Denominator();
+        Normalize();
+        return *this;
+    }
+
+    Rational& operator/=(Rational rational) {
+        numerator_ *= rational.Denominator();
+        denominator_ *= rational.Numerator();
+        Normalize();
+        return *this;
+    }
+
     int Numerator() const {
         return numerator_;
     }
@@ -78,4 +106,12 @@ Rational operator+(Rational value) {
 
 Rational operator-(Rational value) {
     return {-value.Numerator(), value.Denominator()};
+}
+
+int main() {
+    Rational a;
+    cin >> a;
+    a += 1;
+    cout << a << endl;
+    return 0;
 }
