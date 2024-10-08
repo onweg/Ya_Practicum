@@ -107,3 +107,7 @@ Rational operator*(Rational left, Rational right) {
 Rational operator/(Rational left, Rational right) {
     return left /= right;
 }
+
+int main() {
+    
+}
