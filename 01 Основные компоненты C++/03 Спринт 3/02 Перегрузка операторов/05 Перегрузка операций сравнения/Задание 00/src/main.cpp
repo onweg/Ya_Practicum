@@ -108,6 +108,40 @@ Rational operator/(Rational left, Rational right) {
     return left /= right;
 }
 
+bool operator==(Rational left, Rational right) {
+    return left.Numerator() == right.Numerator() && left.Denominator() == right.Denominator();
+}
+
+bool operator!=(Rational left, Rational right) {
+    return !(left == right);
+}
+
+bool operator>(Rational left, Rational right) {
+    if (left.Denominator() == right.Denominator()) return left.Numerator() > right.Numerator();
+    return left.Numerator() * right.Denominator() > right.Numerator() * left.Denominator();
+}
+
+bool operator>=(Rational left, Rational right) {
+    return left == right or left > right;
+}
+
+bool operator<(Rational left, Rational right) {
+    return !(left >= right);
+}
+
+bool operator<=(Rational left, Rational right) {
+    return !(left > right);
+}
+
+
 int main() {
-    
+    Rational a, b;
+    cin >> a >> b;
+    cout << boolalpha << (a == b) << endl;
+    cout << boolalpha << (a != b) << endl;
+    cout << boolalpha << (a >= b) << endl;
+    cout << boolalpha << (a <= b) << endl;
+    cout << boolalpha << (a > b) << endl;
+    cout << boolalpha << (a < b) << endl;
+    return 0;
 }
