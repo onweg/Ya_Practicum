@@ -19,6 +19,9 @@ public:
     Rational(int numerator, int denominator)
         : numerator_(numerator)
         , denominator_(denominator) {
+        if (denominator_ == 0) {
+            throw domain_error("Знаменатель равен нулю!"s);
+        }
         Normalize();
     }
 
@@ -142,19 +145,31 @@ bool operator<=(Rational left, Rational right) {
 
 int main() {
     try {
-        const Rational three_fifth{3, 5};
-        const Rational zero;
-        cout << three_fifth << " / " << zero << " = " << (three_fifth / zero) << endl;
-    } catch (const invalid_argument& e) {
+        Rational rational(1, 0);
+        cout << rational << endl;
+    } catch(const domain_error& e) {
         cout << "Ошибка: "s << e.what() << endl;
     }
 
     try {
-        Rational value{3, 5};
-        value /= Rational();
-        // Следующая строка не должна выполниться
-        cout << value << endl;
-    } catch (const invalid_argument& e) {
+        Rational a(1, 4), b;
+        Rational c = a / b;
+        cout << c << endl;
+    } catch(const invalid_argument& e) {
         cout << "Ошибка: "s << e.what() << endl;
     }
+
+    try {
+        Rational a(2), b(1, 3);
+        Rational c = a / b;
+        Rational d = a * b;
+        cout << c << " "s << d << endl;
+    } catch(const domain_error& e) {
+        cout << "Ошибка: "s << e.what() << endl;
+    } catch (const invalid_argument& e) {
+        cout << "Ошибка: "s << e.what() << endl;
+    } catch (...) {
+        cout << "Ошибка : Неизвестная!"s << endl;
+    }
+    return 0;
 }
