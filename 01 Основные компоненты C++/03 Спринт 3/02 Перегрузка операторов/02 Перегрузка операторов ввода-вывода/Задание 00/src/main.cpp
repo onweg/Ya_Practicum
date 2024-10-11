@@ -1,3 +1,4 @@
+#include <iostream>
 #include <numeric>
 
 using namespace std;
@@ -11,7 +12,7 @@ public:
         , denominator_(1) {
     }
 
-    Rational(int numerator, int denominator)
+    explicit Rational(int numerator, int denominator)
         : numerator_(numerator)
         , denominator_(denominator) {
         Normalize();
@@ -39,3 +40,23 @@ private:
     int numerator_ = 0;
     int denominator_ = 1;
 };
+
+ostream& operator<<(ostream& output, Rational rational) {
+    output << rational.Numerator() << "/"s << rational.Denominator();
+    return output;
+}
+
+istream& operator>>(istream& input, Rational& rational) {
+    int numerator, denominator;
+    char slash;
+    input >> numerator >> slash >> denominator;
+    rational = Rational(numerator, denominator);
+    return input;
+}
+
+int main() {
+    Rational rational;
+    cin >> rational;
+    cout << endl;
+    cout << rational;
+}

@@ -87,17 +87,11 @@ istream& operator>>(istream& input, Rational& rational) {
 }
 
 Rational operator+(Rational left, Rational right) {
-    const int numerator = left.Numerator() * right.Denominator() + right.Numerator() * left.Denominator();
-    const int denominator = left.Denominator() * right.Denominator();
-
-    return {numerator, denominator};
+    return left += right;
 }
 
 Rational operator-(Rational left, Rational right) {
-    const int numerator = left.Numerator() * right.Denominator() - right.Numerator() * left.Denominator();
-    const int denominator = left.Denominator() * right.Denominator();
-
-    return {numerator, denominator};
+    return left -= right;
 }
 
 Rational operator+(Rational value) {
@@ -110,8 +104,11 @@ Rational operator-(Rational value) {
 
 int main() {
     Rational a;
+    Rational b, c;
     cin >> a;
     a += 1;
-    cout << a << endl;
+    cin >> b;
+    c = a + (b += 1);
+    cout << a << " " << b << " " << c << endl;
     return 0;
 }
