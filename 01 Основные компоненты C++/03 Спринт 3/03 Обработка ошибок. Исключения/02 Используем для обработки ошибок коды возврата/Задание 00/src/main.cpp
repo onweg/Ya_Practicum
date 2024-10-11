@@ -13,6 +13,13 @@ using namespace std;
 
 const int MAX_RESULT_DOCUMENT_COUNT = 5;
 
+void PrintDocument(const Document& document) {
+    cout << "{ "s
+         << "document_id = "s << document.id << ", "s
+         << "relevance = "s << document.relevance << ", "s
+         << "rating = "s << document.rating << " }"s << endl;
+}
+
 string ReadLine() {
     string s;
     getline(cin, s);
@@ -90,17 +97,20 @@ public:
     {
     }
 
-    void AddDocument(int document_id, const string& document, DocumentStatus status, const vector<int>& ratings) {
+    [[nodiscard]] bool AddDocument(int document_id, const string& document, DocumentStatus status, const vector<int>& ratings) {
+        if (document_id < 0 || !documents_.count(document_id) || !DocumentTextIsCorrect(document)) return false; 
         const vector<string> words = SplitIntoWordsNoStop(document);
         const double inv_word_count = 1.0 / words.size();
         for (const string& word : words) {
             word_to_document_freqs_[word][document_id] += inv_word_count;
         }
         documents_.emplace(document_id, DocumentData{ComputeAverageRating(ratings), status});
+        return true;
     }
 
     template <typename DocumentPredicate>
-    vector<Document> FindTopDocuments(const string& raw_query, DocumentPredicate document_predicate) const {
+    [[nodiscard]] bool FindTopDocuments(const string& raw_query, DocumentPredicate document_predicate) const {
+        if (!QueryIsCorrect(raw_query)) return false;
         const Query query = ParseQuery(raw_query);
         auto matched_documents = FindAllDocuments(query, document_predicate);
 
@@ -114,16 +124,18 @@ public:
         if (matched_documents.size() > MAX_RESULT_DOCUMENT_COUNT) {
             matched_documents.resize(MAX_RESULT_DOCUMENT_COUNT);
         }
-        return matched_documents;
+
+        for (const auto& document : matched_documents) {
+            PrintDocument(document);
+        }
+        return true;
     }
 
-    vector<Document> FindTopDocuments(const string& raw_query, DocumentStatus status) const {
-        return FindTopDocuments(raw_query, [status](int document_id, DocumentStatus document_status, int rating) {
-            return document_status == status;
-        });
+    [[nodiscard]] bool FindTopDocuments(const string& raw_query, DocumentStatus status) const {
+        return FindTopDocuments(raw_query, [status](int document_id, DocumentStatus document_status, int rating) { return document_status == status; });
     }
 
-    vector<Document> FindTopDocuments(const string& raw_query) const {
+    [[nodiscard]] bool FindTopDocuments(const string& raw_query) const {
         return FindTopDocuments(raw_query, DocumentStatus::ACTUAL);
     }
 
@@ -131,7 +143,8 @@ public:
         return documents_.size();
     }
 
-    tuple<vector<string>, DocumentStatus> MatchDocument(const string& raw_query, int document_id) const {
+    [[nodiscard]] bool MatchDocument(const string& raw_query, int document_id) const {
+        if (!documents_.count(document_id) || !QueryIsCorrect(raw_query)) return false;
         const Query query = ParseQuery(raw_query);
         vector<string> matched_words;
         for (const string& word : query.plus_words) {
@@ -151,7 +164,18 @@ public:
                 break;
             }
         }
-        return {matched_words, documents_.at(document_id).status};
+        size_t i = 0, size = matched_words.size();
+        //функция должна вернуть все плюс слова из данного запроса которые сожержатся в данном документе (или ничего не вывести если в документе есть минус слова) и также вернуть статус документа
+        for (const string word& : matched_documents) {
+            cout << word;
+            if (i++ + 1 < size) cout << ", "s;
+        }
+        cout << endl;
+        return true;
+    }
+
+    int GetDocumentId(int index) const {
+        
     }
 
 private:
@@ -260,16 +284,30 @@ private:
         }
         return matched_documents;
     }
+
+    bool SymbolIsLetter(const char& symbol) const {
+        return symbol >= 'a' && symbol <= 'z' || symbol >= 'A' && symbol <= 'Z' || symbol >= 'а' && symbol <= 'я' || symbol >= 'А' && symbol <= 'Я';
+    }
+
+    bool DocumentTextIsCorrect(const string& document) const {
+        size_t i = 0, size = query.size();
+        for (; i < size; i++) {
+            if (static_cast<unsigned int>(query[i]) <= 31 || (query[i] == '-' && i != 0 && i + 1 < size && (!SymbolIsLetter(query[i - 1]) || !SymbolIsLetter(query[i + 1]))))  return false;
+        }
+        return true;
+    }
+
+    bool QueryIsCorrect(const string& query) const {
+        size_t i = 0, size = query.size();
+        for (; i < size; i++) {
+            if (static_cast<unsigned int>(query[i]) <= 31 || (query[i] == '-' && (i + 1 == size || (i + 1 < size && !SymbolIsLetter(query[i + 1])))))  return false;
+        }
+        return true;
+    }
+
 };
 
 // ==================== для примера =========================
-
-void PrintDocument(const Document& document) {
-    cout << "{ "s
-         << "document_id = "s << document.id << ", "s
-         << "relevance = "s << document.relevance << ", "s
-         << "rating = "s << document.rating << " }"s << endl;
-}
 
 int main() {
     SearchServer search_server("и в на"s);
