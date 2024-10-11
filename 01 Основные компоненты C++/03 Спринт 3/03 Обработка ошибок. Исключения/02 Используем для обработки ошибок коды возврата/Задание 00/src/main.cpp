@@ -13,6 +13,7 @@ using namespace std;
 
 const int MAX_RESULT_DOCUMENT_COUNT = 5;
 
+
 string ReadLine() {
     string s;
     getline(cin, s);
@@ -87,6 +88,9 @@ enum class DocumentStatus {
 
 class SearchServer {
 public:
+
+    inline static constexpr int INVALID_DOCUMENT_ID = -1;
+
     template <typename StringContainer>
     explicit SearchServer(const StringContainer& stop_words)
         : stop_words_(MakeUniqueNonEmptyStrings(stop_words)) {
@@ -98,13 +102,14 @@ public:
     }
 
     [[nodiscard]] bool AddDocument(int document_id, const string& document, DocumentStatus status, const vector<int>& ratings) {
-        if (document_id < 0 || !documents_.count(document_id) || !DocumentTextIsCorrect(document)) return false; 
+        if (document_id < 0 || documents_.count(document_id) > 0 || !DocumentTextIsCorrect(document)) return false; 
         const vector<string> words = SplitIntoWordsNoStop(document);
         const double inv_word_count = 1.0 / words.size();
         for (const string& word : words) {
             word_to_document_freqs_[word][document_id] += inv_word_count;
         }
         documents_.emplace(document_id, DocumentData{ComputeAverageRating(ratings), status});
+        vector_ids.push_back(document_id);
         return true;
     }
 
@@ -169,7 +174,10 @@ public:
     }
 
     int GetDocumentId(int index) const {
-        return 0;
+        if (index > 0 && index <= static_cast<int>(vector_ids.size())) {
+            return vector_ids[index];
+        }
+        return INVALID_DOCUMENT_ID;
     }
 
 private:
@@ -180,6 +188,7 @@ private:
     const set<string> stop_words_;
     map<string, map<int, double>> word_to_document_freqs_;
     map<int, DocumentData> documents_;
+    vector<int> vector_ids;
 
     bool IsStopWord(const string& word) const {
         return stop_words_.count(word) > 0;
