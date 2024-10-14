@@ -380,7 +380,7 @@ void PrintMatchDocumentResult(int document_id, const vector<string>& words, Docu
     cout << "}"s << endl;
 }
 
-/*
+
 void AddDocument(SearchServer& search_server, int document_id, const string& document, DocumentStatus status,
                  const vector<int>& ratings) {
     try {
@@ -414,8 +414,6 @@ void MatchDocuments(const SearchServer& search_server, const string& query) {
         cout << "Ошибка матчинга документов на запрос "s << query << ": "s << e.what() << endl;
     }
 }
-
-*/
 
 void TestInitSearchServer() {
     try {
@@ -625,17 +623,39 @@ void TestSearchServerMatchDocument() {
 }
 
 void TestSearchServerGetDocumentId() {
-    
+    try {
+        SearchServer search_server("и в на"s);
+        cout << search_server.GetDocumentId(0) << endl;
+    } catch(const out_of_range& e) {
+        cout << "Ошибка: "s << e.what() << endl;
+    }
+
+    try {
+        SearchServer search_server("и в на"s);
+        search_server.AddDocument(0, "a b"s, DocumentStatus::ACTUAL, {1, 3});
+        cout << search_server.GetDocumentId(-1) << endl;
+    } catch(const out_of_range& e) {
+        cout << "Ошибка: "s << e.what() << endl;
+    }
+
+    try {
+        SearchServer search_server("и в на"s);
+        search_server.AddDocument(0, "a b"s, DocumentStatus::ACTUAL, {1, 3});
+        cout << search_server.GetDocumentId(1) << endl;
+    } catch(const out_of_range& e) {
+        cout << "Ошибка: "s << e.what() << endl;
+    }
+
+    try {
+        SearchServer search_server("и в на"s);
+        search_server.AddDocument(0, "a b"s, DocumentStatus::ACTUAL, {1, 3});
+        cout << search_server.GetDocumentId(0) << endl;
+    } catch(const out_of_range& e) {
+        cout << "Ошибка: "s << e.what() << endl;
+    }
 }
 
-void TestSearchServer() {
-    TestSearchServerMatchDocument();
-}
-
-int main() {
-    TestSearchServer();
-
-    /*
+int main() {    
     SearchServer search_server("и в на"s);
     AddDocument(search_server, 1, "пушистый кот пушистый хвост"s, DocumentStatus::ACTUAL, {7, 2, 7});
     AddDocument(search_server, 1, "пушистый пёс и модный ошейник"s, DocumentStatus::ACTUAL, {1, 2});
@@ -651,11 +671,6 @@ int main() {
     MatchDocuments(search_server, "модный -кот"s);
     MatchDocuments(search_server, "модный --пёс"s);
     MatchDocuments(search_server, "пушистый - хвост"s);
-    */
+    
     return 0;
 }
-
-
-// найти актуальную версию search server
-// протестировать findtopdocuments 
-// протестировать матчинг дкументов
