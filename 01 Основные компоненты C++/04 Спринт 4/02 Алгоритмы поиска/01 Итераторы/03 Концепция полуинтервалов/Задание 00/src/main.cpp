@@ -3,7 +3,8 @@
 #include <set>
 using namespace std;
 
-void PrintRange(auto it_begin, auto it_end) {
+template <typename iterator>
+void PrintRange(iterator it_begin, iterator it_end) {
     while (it_begin != it_end) {
         cout << *it_begin;
         it_begin++;
