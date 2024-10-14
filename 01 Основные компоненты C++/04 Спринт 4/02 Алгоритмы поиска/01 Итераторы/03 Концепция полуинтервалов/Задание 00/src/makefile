@@ -1,5 +1,5 @@
 CC = g++
-FLAGS = -std=c++14 -Wall -Wextra -Werror
+FLAGS = -std=c++20 -Wall -Wextra -Werror
 
 all: static_analysis
 	$(CC) $(FLAGS) main.cpp
