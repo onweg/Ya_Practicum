@@ -14,9 +14,9 @@ void PrintRange(It range_begin, It range_end) {
 
 template <typename Container>
 void EraseAndPrint(Container& container, int n) {
-    PrintRange(container.begin(), container.begin() + n);
-    PrintRange(container.begin() + 1 + n, container.end());
     container.erase(container.begin() + n);
+    PrintRange(container.begin(), container.begin() + n);
+    PrintRange(container.begin() + n, container.end());
 }
 
 int main() {
