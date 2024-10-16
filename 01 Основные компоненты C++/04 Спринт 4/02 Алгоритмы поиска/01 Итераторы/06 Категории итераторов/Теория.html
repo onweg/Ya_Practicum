@@ -1,200 +1,743 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Категории итераторов</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta charset="utf-8">
-<style>body{font-family:Helvetica,arial,sans-serif;font-size:14px;line-height:1.6;background-color:#fff;padding:30px;color:#333;max-width:1140px;margin:0 auto}body > :first-child{margin-top:0!important}body > :last-child{margin-bottom:0!important}a{color:#4183C4;text-decoration:none}a.absent{color:#c00}a.anchor{display:block;padding-left:30px;margin-left:-30px;cursor:pointer;position:absolute;top:0;left:0;bottom:0}h1,h2,h3,h4,h5,h6{margin:20px 0 10px;padding:0;font-weight:700;-webkit-font-smoothing:antialiased;cursor:text;position:relative}h2:first-child,h1:first-child,h1:first-child + h2,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:0;padding-top:0}h1:hover a.anchor,h2:hover a.anchor,h3:hover a.anchor,h4:hover a.anchor,h5:hover a.anchor,h6:hover a.anchor{text-decoration:none}h1 tt,h1 code{font-size:inherit}h2 tt,h2 code{font-size:inherit}h3 tt,h3 code{font-size:inherit}h4 tt,h4 code{font-size:inherit}h5 tt,h5 code{font-size:inherit}h6 tt,h6 code{font-size:inherit}h1{font-size:28px;color:#000}h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}h3{font-size:18px}h4{font-size:16px}h5{font-size:14px}h6{color:#777;font-size:14px}p,blockquote,ul,ol,dl,li,table,pre{margin:15px 0}hr {padding:0;margin-bottom:-8px;height:1px;border:none;background:black}body > h2:first-child{margin-top:0;padding-top:0}body > h1:first-child{margin-top:0;padding-top:0}body > h1:first-child + h2{margin-top:0;padding-top:0}body > h3:first-child,body > h4:first-child,body > h5:first-child,body > h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1 p,h2 p,h3 p,h4 p,h5 p,h6 p{margin-top:0}li p.first{display:inline-block}ul,ol{padding-left:30px}ul :first-child,ol :first-child{margin-top:0}ul :last-child,ol :last-child{margin-bottom:0}dl{padding:0}dl dt{font-size:14px;font-weight:700;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt > :first-child{margin-top:0}dl dt > :last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd > :first-child{margin-top:0}dl dd > :last-child{margin-bottom:0}blockquote{border-left:4px solid #ddd;padding:0 15px;color:#777}blockquote > :first-child{margin-top:0}blockquote > :last-child{margin-bottom:0}table{padding:0}table tr{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0}table tr:nth-child(2n){background-color:#f8f8f8}table tr th{font-weight:700;border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr td{border:1px solid #ccc;text-align:left;margin:0;padding:6px 13px}table tr th :first-child,table tr td :first-child{margin-top:0}table tr th :last-child,table tr td :last-child{margin-bottom:0}img{max-width:100%}span.frame{display:block;overflow:hidden}span.frame > span{border:1px solid #ddd;display:block;float:left;overflow:hidden;margin:13px 0 0;padding:7px;width:auto}span.frame span img{display:block;float:left}span.frame span span{clear:both;color:#333;display:block;padding:5px 0 0}span.align-center{display:block;overflow:hidden;clear:both}span.align-center > span{display:block;overflow:hidden;margin:13px auto 0;text-align:center}span.align-center span img{margin:0 auto;text-align:center}span.align-right{display:block;overflow:hidden;clear:both}span.align-right > span{display:block;overflow:hidden;margin:13px 0 0;text-align:right}span.align-right span img{margin:0;text-align:right}span.float-left{display:block;margin-right:13px;overflow:hidden;float:left}span.float-left span{margin:13px 0 0}span.float-right{display:block;margin-left:13px;overflow:hidden;float:right}span.float-right > span{display:block;overflow:hidden;margin:13px auto 0;text-align:right}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre code,pre tt{background-color:transparent;border:none}.slasher{color:#000000}</style></head>
-<body>
+  <head>
+    <title>Категории итераторов</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta charset="utf-8" />
+    <style>
+      body {
+        font-family: Helvetica, arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        background-color: #fff;
+        padding: 30px;
+        color: #333;
+        max-width: 1140px;
+        margin: 0 auto;
+      }
+      body > :first-child {
+        margin-top: 0 !important;
+      }
+      body > :last-child {
+        margin-bottom: 0 !important;
+      }
+      a {
+        color: #4183c4;
+        text-decoration: none;
+      }
+      a.absent {
+        color: #c00;
+      }
+      a.anchor {
+        display: block;
+        padding-left: 30px;
+        margin-left: -30px;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 20px 0 10px;
+        padding: 0;
+        font-weight: 700;
+        -webkit-font-smoothing: antialiased;
+        cursor: text;
+        position: relative;
+      }
+      h2:first-child,
+      h1:first-child,
+      h1:first-child + h2,
+      h3:first-child,
+      h4:first-child,
+      h5:first-child,
+      h6:first-child {
+        margin-top: 0;
+        padding-top: 0;
+      }
+      h1:hover a.anchor,
+      h2:hover a.anchor,
+      h3:hover a.anchor,
+      h4:hover a.anchor,
+      h5:hover a.anchor,
+      h6:hover a.anchor {
+        text-decoration: none;
+      }
+      h1 tt,
+      h1 code {
+        font-size: inherit;
+      }
+      h2 tt,
+      h2 code {
+        font-size: inherit;
+      }
+      h3 tt,
+      h3 code {
+        font-size: inherit;
+      }
+      h4 tt,
+      h4 code {
+        font-size: inherit;
+      }
+      h5 tt,
+      h5 code {
+        font-size: inherit;
+      }
+      h6 tt,
+      h6 code {
+        font-size: inherit;
+      }
+      h1 {
+        font-size: 28px;
+        color: #000;
+      }
+      h2 {
+        font-size: 24px;
+        border-bottom: 1px solid #ccc;
+        color: #000;
+      }
+      h3 {
+        font-size: 18px;
+      }
+      h4 {
+        font-size: 16px;
+      }
+      h5 {
+        font-size: 14px;
+      }
+      h6 {
+        color: #777;
+        font-size: 14px;
+      }
+      p,
+      blockquote,
+      ul,
+      ol,
+      dl,
+      li,
+      table,
+      pre {
+        margin: 15px 0;
+      }
+      hr {
+        padding: 0;
+        margin-bottom: -8px;
+        height: 1px;
+        border: none;
+        background: black;
+      }
+      body > h2:first-child {
+        margin-top: 0;
+        padding-top: 0;
+      }
+      body > h1:first-child {
+        margin-top: 0;
+        padding-top: 0;
+      }
+      body > h1:first-child + h2 {
+        margin-top: 0;
+        padding-top: 0;
+      }
+      body > h3:first-child,
+      body > h4:first-child,
+      body > h5:first-child,
+      body > h6:first-child {
+        margin-top: 0;
+        padding-top: 0;
+      }
+      a:first-child h1,
+      a:first-child h2,
+      a:first-child h3,
+      a:first-child h4,
+      a:first-child h5,
+      a:first-child h6 {
+        margin-top: 0;
+        padding-top: 0;
+      }
+      h1 p,
+      h2 p,
+      h3 p,
+      h4 p,
+      h5 p,
+      h6 p {
+        margin-top: 0;
+      }
+      li p.first {
+        display: inline-block;
+      }
+      ul,
+      ol {
+        padding-left: 30px;
+      }
+      ul :first-child,
+      ol :first-child {
+        margin-top: 0;
+      }
+      ul :last-child,
+      ol :last-child {
+        margin-bottom: 0;
+      }
+      dl {
+        padding: 0;
+      }
+      dl dt {
+        font-size: 14px;
+        font-weight: 700;
+        font-style: italic;
+        padding: 0;
+        margin: 15px 0 5px;
+      }
+      dl dt:first-child {
+        padding: 0;
+      }
+      dl dt > :first-child {
+        margin-top: 0;
+      }
+      dl dt > :last-child {
+        margin-bottom: 0;
+      }
+      dl dd {
+        margin: 0 0 15px;
+        padding: 0 15px;
+      }
+      dl dd > :first-child {
+        margin-top: 0;
+      }
+      dl dd > :last-child {
+        margin-bottom: 0;
+      }
+      blockquote {
+        border-left: 4px solid #ddd;
+        padding: 0 15px;
+        color: #777;
+      }
+      blockquote > :first-child {
+        margin-top: 0;
+      }
+      blockquote > :last-child {
+        margin-bottom: 0;
+      }
+      table {
+        padding: 0;
+      }
+      table tr {
+        border-top: 1px solid #ccc;
+        background-color: #fff;
+        margin: 0;
+        padding: 0;
+      }
+      table tr:nth-child(2n) {
+        background-color: #f8f8f8;
+      }
+      table tr th {
+        font-weight: 700;
+        border: 1px solid #ccc;
+        text-align: left;
+        margin: 0;
+        padding: 6px 13px;
+      }
+      table tr td {
+        border: 1px solid #ccc;
+        text-align: left;
+        margin: 0;
+        padding: 6px 13px;
+      }
+      table tr th :first-child,
+      table tr td :first-child {
+        margin-top: 0;
+      }
+      table tr th :last-child,
+      table tr td :last-child {
+        margin-bottom: 0;
+      }
+      img {
+        max-width: 100%;
+      }
+      span.frame {
+        display: block;
+        overflow: hidden;
+      }
+      span.frame > span {
+        border: 1px solid #ddd;
+        display: block;
+        float: left;
+        overflow: hidden;
+        margin: 13px 0 0;
+        padding: 7px;
+        width: auto;
+      }
+      span.frame span img {
+        display: block;
+        float: left;
+      }
+      span.frame span span {
+        clear: both;
+        color: #333;
+        display: block;
+        padding: 5px 0 0;
+      }
+      span.align-center {
+        display: block;
+        overflow: hidden;
+        clear: both;
+      }
+      span.align-center > span {
+        display: block;
+        overflow: hidden;
+        margin: 13px auto 0;
+        text-align: center;
+      }
+      span.align-center span img {
+        margin: 0 auto;
+        text-align: center;
+      }
+      span.align-right {
+        display: block;
+        overflow: hidden;
+        clear: both;
+      }
+      span.align-right > span {
+        display: block;
+        overflow: hidden;
+        margin: 13px 0 0;
+        text-align: right;
+      }
+      span.align-right span img {
+        margin: 0;
+        text-align: right;
+      }
+      span.float-left {
+        display: block;
+        margin-right: 13px;
+        overflow: hidden;
+        float: left;
+      }
+      span.float-left span {
+        margin: 13px 0 0;
+      }
+      span.float-right {
+        display: block;
+        margin-left: 13px;
+        overflow: hidden;
+        float: right;
+      }
+      span.float-right > span {
+        display: block;
+        overflow: hidden;
+        margin: 13px auto 0;
+        text-align: right;
+      }
+      code,
+      tt {
+        margin: 0 2px;
+        padding: 0 5px;
+        white-space: nowrap;
+        border: 1px solid #eaeaea;
+        background-color: #f8f8f8;
+        border-radius: 3px;
+      }
+      pre code {
+        margin: 0;
+        padding: 0;
+        white-space: pre;
+        border: none;
+        background: transparent;
+      }
+      .highlight pre {
+        background-color: #f8f8f8;
+        border: 1px solid #ccc;
+        font-size: 13px;
+        line-height: 19px;
+        overflow: auto;
+        padding: 6px 10px;
+        border-radius: 3px;
+      }
+      pre {
+        background-color: #f8f8f8;
+        border: 1px solid #ccc;
+        font-size: 13px;
+        line-height: 19px;
+        overflow: auto;
+        padding: 6px 10px;
+        border-radius: 3px;
+      }
+      pre code,
+      pre tt {
+        background-color: transparent;
+        border: none;
+      }
+      .slasher {
+        color: #000000;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Категории итераторов</h1>
 
-<h1>Категории итераторов</h1>
+    <p>
+      В прошлых уроках мы обращались со всеми итераторами одинаково. Но на самом
+      деле они отличаются друг от друга. В этом спринте вы изучите алгоритмы,
+      которые упрощают жизнь программиста. Но для этого сначала разберёмся,
+      какие категории итераторов существуют и чем они отличаются.
+    </p>
 
-<p>В прошлых уроках мы обращались со всеми итераторами одинаково. Но на самом деле они отличаются друг от друга. В этом спринте вы изучите алгоритмы, которые упрощают жизнь программиста. Но для этого сначала разберёмся, какие категории итераторов существуют и чем они отличаются.</p>
+    <p>
+      Вспомним, что итератор — это не тип данных, а набор действий, которые с
+      ними можно совершить. Соответственно, типы итераторов отличаются по набору
+      поддерживаемых действий. Видя тот или иной тип итератора в качестве
+      аргумента для функции, можно понять, какие действия этот итератор должен
+      поддерживать.
+    </p>
 
-<p>Вспомним, что итератор — это не тип данных, а набор действий, которые с ними можно совершить. Соответственно, типы итераторов отличаются по набору поддерживаемых действий. Видя тот или иной тип итератора в качестве аргумента для функции, можно понять, какие действия этот итератор должен поддерживать.</p>
+    <h3>Итератор чтения (Input iterator)</h3>
 
-<h3>Итератор чтения (Input iterator)</h3>
+    <p>Поддерживаемые операции:</p>
 
-<p>Поддерживаемые операции:</p>
+    <ul>
+      <li>
+        Чтение значения элемента. Это значит, что внутри метода или функции,
+        принимающей такой итератор, нужно будет прочитать элемент по итератору.
+        Вот так: <code>*it</code>;
+      </li>
+      <li>
+        Операторы сравнения <code>==</code> и <code>!=</code>. Это мы
+        использовали, когда в цикле <code>for</code> сравнивали итератор с
+        <code>end</code>;
+      </li>
+      <li>
+        Оператор <code>++</code> (как префиксный, так и постфиксный) для
+        перемещения на следующий элемент.
+      </li>
+    </ul>
 
-<ul>
-<li>Чтение значения элемента. Это значит, что внутри метода или функции, принимающей такой итератор, нужно будет прочитать элемент по итератору. Вот так: <code>*it</code>;</li>
-<li>Операторы сравнения <code>==</code> и <code>!=</code>. Это мы использовали, когда в цикле <code>for</code> сравнивали итератор с <code>end</code>;</li>
-<li>Оператор <code>++</code> (как префиксный, так и постфиксный) для перемещения на следующий элемент.</li>
-</ul>
+    <p>
+      Такие итераторы гарантируют возможность чтения элемента, но не гарантируют
+      запись. Они должны поддерживать минимальный набор действий над собой.
+    </p>
 
-<p>Такие итераторы гарантируют возможность чтения элемента, но не гарантируют запись. Они должны поддерживать минимальный набор действий над собой.</p>
+    <p>
+      Посмотрим на заголовок алгоритма
+      <a href="https://ru.cppreference.com/w/cpp/algorithm/find">find</a>.
+      Обратите внимание на <code>InputIt</code>. Это значит, что алгоритм будет
+      обращаться к элементам контейнера, чтобы их прочитать. Итераторы всех
+      изученных контейнеров — это итераторы чтения. Так что в
+      <code>find_if</code> их передать можно:
+    </p>
 
-<p>Посмотрим на заголовок алгоритма <a href="https://ru.cppreference.com/w/cpp/algorithm/find">find</a>. Обратите внимание на <code>InputIt</code>. Это значит, что алгоритм будет обращаться к элементам контейнера, чтобы их прочитать. Итераторы всех изученных контейнеров — это итераторы чтения. Так что в <code>find_if</code> их передать можно:</p>
-
-<pre><code class="language-cpp">template&lt; class InputIt, class T &gt;
+    <pre><code class="language-cpp">template&lt; class InputIt, class T &gt;
 InputIt find( InputIt first, InputIt last, const T&amp; value );
 </code></pre>
 
-<h3>Итератор записи (Output iterator)</h3>
+    <h3>Итератор записи (Output iterator)</h3>
 
-<p>Поддерживаемые операции:</p>
+    <p>Поддерживаемые операции:</p>
 
-<ul>
-<li>Запись значения в элемент. Это значит, что метод или функция через итератор будут пытаться обратиться к элементу и записать в него какое-нибудь значение. Вот так: <code>*it = new_value</code>;</li>
-<li>Операторы сравнения <code>==</code> и <code>!=</code>;</li>
-<li>Оператор <code>++</code> (как префиксный, так и постфиксный).</li>
-</ul>
+    <ul>
+      <li>
+        Запись значения в элемент. Это значит, что метод или функция через
+        итератор будут пытаться обратиться к элементу и записать в него
+        какое-нибудь значение. Вот так: <code>*it = new_value</code>;
+      </li>
+      <li>Операторы сравнения <code>==</code> и <code>!=</code>;</li>
+      <li>Оператор <code>++</code> (как префиксный, так и постфиксный).</li>
+    </ul>
 
-<p>Итераторы не обязаны гарантировать возможность чтения.</p>
+    <p>Итераторы не обязаны гарантировать возможность чтения.</p>
 
-<p>Пример алгоритма, использующего такой итератор, — <a href="https://ru.cppreference.com/w/cpp/algorithm/copy"><code>copy</code></a>. Он копирует диапазон от <code>first</code> до <code>last</code> в диапазон, начинающийся с <code>d_first</code>. При этом <code>first</code> и <code>last</code> будут использованы только для чтения, а <code>d_first</code> — только для записи. Итераторами записи также будут, например, неконстантные итераторы вектора или строки. Если имеете дело со множеством или с константным контейнером, изменить значение по итератору ожидаемо не выйдет:</p>
+    <p>
+      Пример алгоритма, использующего такой итератор, —
+      <a href="https://ru.cppreference.com/w/cpp/algorithm/copy"
+        ><code>copy</code></a
+      >. Он копирует диапазон от <code>first</code> до <code>last</code> в
+      диапазон, начинающийся с <code>d_first</code>. При этом
+      <code>first</code> и <code>last</code> будут использованы только для
+      чтения, а <code>d_first</code> — только для записи. Итераторами записи
+      также будут, например, неконстантные итераторы вектора или строки. Если
+      имеете дело со множеством или с константным контейнером, изменить значение
+      по итератору ожидаемо не выйдет:
+    </p>
 
-<pre><code class="language-cpp">template&lt; class InputIt, class OutputIt &gt;
+    <pre><code class="language-cpp">template&lt; class InputIt, class OutputIt &gt;
 OutputIt copy( InputIt first, InputIt last, OutputIt d_first );
 </code></pre>
 
-<h3>Однонаправленный итератор (Forward iterator)</h3>
+    <h3>Однонаправленный итератор (Forward iterator)</h3>
 
-<p>Однонаправленный итератор — итератор чтения с возможностью обойти элементы контейнера, но только в одном направлении. Обход контейнера может быть сделан несколько раз. Только вперёд и ни шагу назад. Иначе говоря, оператор декремента <code>--</code> у них может быть не определён. Пример алгоритма, использующего такой итератор — <a href="https://ru.cppreference.com/w/cpp/algorithm/replace"><code>replace</code></a>.</p>
+    <p>
+      Однонаправленный итератор — итератор чтения с возможностью обойти элементы
+      контейнера, но только в одном направлении. Обход контейнера может быть
+      сделан несколько раз. Только вперёд и ни шагу назад. Иначе говоря,
+      оператор декремента <code>--</code> у них может быть не определён. Пример
+      алгоритма, использующего такой итератор —
+      <a href="https://ru.cppreference.com/w/cpp/algorithm/replace"
+        ><code>replace</code></a
+      >.
+    </p>
 
-<h3>Двунаправленный итератор (Bidirectional iterator)</h3>
+    <h3>Двунаправленный итератор (Bidirectional iterator)</h3>
 
-<p>Двунаправленный итератор — это однонаправленный итератор, которого научили ходить назад. Для двунаправленного итератора должен быть определён оператор декремента. Пример алгоритма, использующего такой итератор, — <a href="https://ru.cppreference.com/w/cpp/algorithm/reverse"><code>reverse</code></a>.</p>
+    <p>
+      Двунаправленный итератор — это однонаправленный итератор, которого научили
+      ходить назад. Для двунаправленного итератора должен быть определён
+      оператор декремента. Пример алгоритма, использующего такой итератор, —
+      <a href="https://ru.cppreference.com/w/cpp/algorithm/reverse"
+        ><code>reverse</code></a
+      >.
+    </p>
 
-<h3>Итератор произвольного доступа (Random access iterator)</h3>
+    <h3>Итератор произвольного доступа (Random access iterator)</h3>
 
-<p>Самые строгие требования предъявляются к итератору произвольного доступа. Кроме всех операций, поддерживаемых двунаправленным итератором, в его наборе должны быть:</p>
+    <p>
+      Самые строгие требования предъявляются к итератору произвольного доступа.
+      Кроме всех операций, поддерживаемых двунаправленным итератором, в его
+      наборе должны быть:
+    </p>
 
-<ul>
-<li>Операции сложения и вычитания с числами для перемещения сразу на определённое расстояние от текущей позиции;</li>
-<li>Возможность вычитать итераторы друг из друга;</li>
-<li>Операторы сравнения <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>;</li>
-<li>Оператор <code>[ ]</code>. Выражение <code>it[n]</code> равносильно выражению <code>*(it + n)</code>, то есть оно позволяет получить доступ к элементу, отстоящему от итератора it на n позиций</li>
-</ul>
+    <ul>
+      <li>
+        Операции сложения и вычитания с числами для перемещения сразу на
+        определённое расстояние от текущей позиции;
+      </li>
+      <li>Возможность вычитать итераторы друг из друга;</li>
+      <li>
+        Операторы сравнения <code>&gt;</code>, <code>&lt;</code>,
+        <code>&gt;=</code>, <code>&lt;=</code>;
+      </li>
+      <li>
+        Оператор <code>[ ]</code>. Выражение <code>it[n]</code> равносильно
+        выражению <code>*(it + n)</code>, то есть оно позволяет получить доступ
+        к элементу, отстоящему от итератора it на n позиций
+      </li>
+    </ul>
 
-<p>Пример алгоритма, для которого нужны итераторы произвольного доступа, — <a href="https://ru.cppreference.com/w/cpp/algorithm/random_shuffle"><code>random_shuffle</code></a>.</p>
+    <p>
+      Пример алгоритма, для которого нужны итераторы произвольного доступа, —
+      <a href="https://ru.cppreference.com/w/cpp/algorithm/random_shuffle"
+        ><code>random_shuffle</code></a
+      >.
+    </p>
 
-<p>Если краем глаза заглянем в документацию, увидим, что на самом деле все категории итераторов — пустые классы. Они нужны только для того, чтобы пользователь по списку аргументов функции мог понять, какие операции внутри функции будут применяться и что передаваемый итератор должен поддерживать. Вся ответственность за передачу итератора нужной категории лежит на пользователе.</p>
+    <p>
+      Если краем глаза заглянем в документацию, увидим, что на самом деле все
+      категории итераторов — пустые классы. Они нужны только для того, чтобы
+      пользователь по списку аргументов функции мог понять, какие операции
+      внутри функции будут применяться и что передаваемый итератор должен
+      поддерживать. Вся ответственность за передачу итератора нужной категории
+      лежит на пользователе.
+    </p>
 
-<h3>Advance, distance и next</h3>
+    <h3>Advance, distance и next</h3>
 
-<p>Бывает, что внутри кода нужно сдвинуть итератор на несколько шагов или узнать расстояние между двумя итераторами. При этом итераторов произвольного доступа среди имеющихся нет. В таких случаях применяют функции <a href="https://ru.cppreference.com/w/cpp/iterator/advance">advance</a>, <a href="https://ru.cppreference.com/w/cpp/iterator/distance">distance</a> и <a href="https://ru.cppreference.com/w/cpp/iterator/next">next</a>.</p>
+    <p>
+      Бывает, что внутри кода нужно сдвинуть итератор на несколько шагов или
+      узнать расстояние между двумя итераторами. При этом итераторов
+      произвольного доступа среди имеющихся нет. В таких случаях применяют
+      функции
+      <a href="https://ru.cppreference.com/w/cpp/iterator/advance">advance</a>,
+      <a href="https://ru.cppreference.com/w/cpp/iterator/distance">distance</a>
+      и <a href="https://ru.cppreference.com/w/cpp/iterator/next">next</a>.
+    </p>
 
-<p><code>Advance</code> шаг за шагом сместит итератор <code>it</code> на нужное количество элементов. <code>n</code> может быть и отрицательным. Тогда итератор должен поддерживать требования к категории двунаправленных итераторов, а не просто итераторов чтения. Иначе поведение функции не определено. Пример:</p>
+    <p>
+      <code>Advance</code> шаг за шагом сместит итератор <code>it</code> на
+      нужное количество элементов. <code>n</code> может быть и отрицательным.
+      Тогда итератор должен поддерживать требования к категории двунаправленных
+      итераторов, а не просто итераторов чтения. Иначе поведение функции не
+      определено. Пример:
+    </p>
 
-<pre><code class="language-cpp">template&lt; class InputIt, class Distance &gt;
+    <pre><code class="language-cpp">template&lt; class InputIt, class Distance &gt;
 void advance( InputIt&amp; it, Distance n );
 </code></pre>
 
-<p><code>Distance</code> просто считает, сколько надо сделать шагов от <code>first</code> до <code>last</code>. Если дойти от <code>first</code> до <code>last</code> или от <code>last</code> до <code>first</code> невозможно, поведение функции не определено, и полагаться на результат не стоит. Пример:</p>
+    <p>
+      <code>Distance</code> просто считает, сколько надо сделать шагов от
+      <code>first</code> до <code>last</code>. Если дойти от
+      <code>first</code> до <code>last</code> или от <code>last</code> до
+      <code>first</code> невозможно, поведение функции не определено, и
+      полагаться на результат не стоит. Пример:
+    </p>
 
-<pre><code class="language-cpp">template&lt; class InputIt &gt;
+    <pre><code class="language-cpp">template&lt; class InputIt &gt;
 typename [std::iterator_traits](http://ru.cppreference.com/w/cpp/iterator/iterator_traits)&lt;InputIt&gt;::difference_type
 distance( InputIt first, InputIt last );
 </code></pre>
 
-<p><code>Next</code> похожа на <code>advance</code>, но не меняет сам итератор — он остаётся на месте. Next возвращает итератор на новую позицию, а <code>advance</code> сдвигает итератор, переданный в качестве параметра. Кроме этого, если не передадим в <code>next</code> параметр количества позиций, по умолчанию нам вернётся итератор на следующую позицию. Пример:</p>
+    <p>
+      <code>Next</code> похожа на <code>advance</code>, но не меняет сам
+      итератор — он остаётся на месте. Next возвращает итератор на новую
+      позицию, а <code>advance</code> сдвигает итератор, переданный в качестве
+      параметра. Кроме этого, если не передадим в <code>next</code> параметр
+      количества позиций, по умолчанию нам вернётся итератор на следующую
+      позицию. Пример:
+    </p>
 
-<pre><code class="language-cpp">template&lt; class ForwardIt &gt;
+    <pre><code class="language-cpp">template&lt; class ForwardIt &gt;
 ForwardIt next( ForwardIt it,
                 typename std::iterator_traits&lt;ForwardIt&gt;::difference_type n = 1 );
 </code></pre>
 
-<p>Для итераторов произвольного доступа эффективнее использовать оператор вычитания и сложения. Например, если вы уже внутри метода или функции, которая работает только с итераторами произвольного доступа, выберите арифметические операции. Функции <code>advance</code>, <code>distance</code> и <code>next</code> сначала должны определить, какой итератор перед ними. У арифметических операций дополнительной проверки на то, какая категория итератора применяется, нет. Но в случаях, когда хотите поддержать и другие категории итераторов, используйте <code>distance</code> и <code>advance</code>. Так вы избежите ошибок компиляции. О них — далее.</p>
+    <p>
+      Для итераторов произвольного доступа эффективнее использовать оператор
+      вычитания и сложения. Например, если вы уже внутри метода или функции,
+      которая работает только с итераторами произвольного доступа, выберите
+      арифметические операции. Функции <code>advance</code>,
+      <code>distance</code> и <code>next</code> сначала должны определить, какой
+      итератор перед ними. У арифметических операций дополнительной проверки на
+      то, какая категория итератора применяется, нет. Но в случаях, когда хотите
+      поддержать и другие категории итераторов, используйте
+      <code>distance</code> и <code>advance</code>. Так вы избежите ошибок
+      компиляции. О них — далее.
+    </p>
 
-<h3>Что будет, если сделать, как не надо</h3>
+    <h3>Что будет, если сделать, как не надо</h3>
 
-<p>Отправим в алгоритм итератор неподходящей категории. Воспользуемся тем, что</p>
+    <p>
+      Отправим в алгоритм итератор неподходящей категории. Воспользуемся тем,
+      что
+    </p>
 
-<ul>
-<li>итератор контейнера <code>set</code> — двунаправленный, как сообщает <a href="https://ru.cppreference.com/w/cpp/container/set">документация</a>;</li>
-<li>алгоритм <code>random_shuffle</code> требует итераторы категории произвольного доступа.</li>
-</ul>
+    <ul>
+      <li>
+        итератор контейнера <code>set</code> — двунаправленный, как сообщает
+        <a href="https://ru.cppreference.com/w/cpp/container/set"
+          >документация</a
+        >;
+      </li>
+      <li>
+        алгоритм <code>random_shuffle</code> требует итераторы категории
+        произвольного доступа.
+      </li>
+    </ul>
 
-<p>Логики в том, чтобы вызывать <code>random_shuffle</code> для контейнера <code>set</code>, нет никакой, но нам интересно посмотреть поведение компилятора:</p>
+    <p>
+      Логики в том, чтобы вызывать <code>random_shuffle</code> для контейнера
+      <code>set</code>, нет никакой, но нам интересно посмотреть поведение
+      компилятора:
+    </p>
 
-<pre><code class="language-cpp">set&lt;string&gt; unique_langs = {&quot;Python&quot;s, &quot;Java&quot;s, &quot;C#&quot;s, &quot;Ruby&quot;s, &quot;C++&quot;s};
+    <pre><code class="language-cpp">set&lt;string&gt; unique_langs = {&quot;Python&quot;s, &quot;Java&quot;s, &quot;C#&quot;s, &quot;Ruby&quot;s, &quot;C++&quot;s};
 random_shuffle(unique_langs.begin(), unique_langs.end());
 </code></pre>
 
-<p>Запустив компиляцию, увидим ошибки. Например, такую:</p>
+    <p>Запустив компиляцию, увидим ошибки. Например, такую:</p>
 
-<pre><code>error: no match for 'operator+' (operand types are 'std::_Rb_tree_const_iterator&lt;std::__cxx11::basic_string&lt;char&gt; &gt;' and 'int')
+    <pre><code>error: no match for 'operator+' (operand types are 'std::_Rb_tree_const_iterator&lt;std::__cxx11::basic_string&lt;char&gt; &gt;' and 'int')
 for (_RandomAccessIterator __i = __first + 1; __i != __last; ++__i)
 </code></pre>
 
-<p>Компилятор пытается найти оператор сложения для итератора и для числа. Но оператора у него нет, так как двунаправленные итераторы не умеют складываться с числами. А без этого не работает алгоритм. Компилятор не находит подходящий метод и сообщает об ошибке.</p>
+    <p>
+      Компилятор пытается найти оператор сложения для итератора и для числа. Но
+      оператора у него нет, так как двунаправленные итераторы не умеют
+      складываться с числами. А без этого не работает алгоритм. Компилятор не
+      находит подходящий метод и сообщает об ошибке.
+    </p>
 
-<p>При этом компилятор не говорит, что мы передали итератор не той категории. С этой точки зрения всё в порядке: в качестве итераторов можно передавать любые типы. Главное, чтобы компилятор смог найти все нужные для работы алгоритма методы.</p>
+    <p>
+      При этом компилятор не говорит, что мы передали итератор не той категории.
+      С этой точки зрения всё в порядке: в качестве итераторов можно передавать
+      любые типы. Главное, чтобы компилятор смог найти все нужные для работы
+      алгоритма методы.
+    </p>
 
-<hr>
+    <hr />
 
-<p>Какие операции должны поддерживать итераторы <code>first</code> и <code>last</code>, передаваемые в эту функцию? Возможны несколько верных ответов.</p>
+    <p>
+      Какие операции должны поддерживать итераторы <code>first</code> и
+      <code>last</code>, передаваемые в эту функцию? Возможны несколько верных
+      ответов.
+    </p>
 
-<pre><code class="language-cpp">template &lt;class InputIterator, class UnaryPredicate&gt;
+    <pre><code class="language-cpp">template &lt;class InputIterator, class UnaryPredicate&gt;
    InputIterator find_if (InputIterator first, InputIterator last, UnaryPredicate pred);
 </code></pre>
 
-<ul>
-<li><p>Инкремент</p></li>
+    <ul>
+      <li><p>Инкремент</p></li>
 
-<li><p>Декремент</p></li>
+      <li><p>Декремент</p></li>
 
-<li><p>Чтение</p></li>
+      <li><p>Чтение</p></li>
 
-<li><p>Запись</p></li>
-</ul>
+      <li><p>Запись</p></li>
+    </ul>
 
-<hr>
+    <hr />
 
-<p>Какие операции должны поддерживать итераторы <code>first</code> и <code>last</code>, передаваемые в эту функцию? Возможны несколько верных ответов.</p>
+    <p>
+      Какие операции должны поддерживать итераторы <code>first</code> и
+      <code>last</code>, передаваемые в эту функцию? Возможны несколько верных
+      ответов.
+    </p>
 
-<pre><code class="language-cpp">template &lt;class BidirectionalIterator, class UnaryPredicate&gt;
+    <pre><code class="language-cpp">template &lt;class BidirectionalIterator, class UnaryPredicate&gt;
   BidirectionalIterator partition (BidirectionalIterator first,
                                    BidirectionalIterator last, UnaryPredicate pred);
 </code></pre>
 
-<ul>
-<li><p>Инкремент</p></li>
+    <ul>
+      <li><p>Инкремент</p></li>
 
-<li><p>Декремент</p></li>
+      <li><p>Декремент</p></li>
 
-<li><p>Чтение</p></li>
+      <li><p>Чтение</p></li>
 
-<li><p>Запись</p></li>
-</ul>
+      <li><p>Запись</p></li>
+    </ul>
 
-<hr>
+    <hr />
 
-<p>К какой категории относится стандартный библиотечный итератор контейнера <code>vector</code>? Чтобы ответить, используйте документацию C++ по <a href="https://ru.cppreference.com/">ссылке</a> или любой другой удобный вам ресурс. Верный ответ только один, не нужно отмечать все подкатегории.</p>
+    <p>
+      К какой категории относится стандартный библиотечный итератор контейнера
+      <code>vector</code>? Чтобы ответить, используйте документацию C++ по
+      <a href="https://ru.cppreference.com/">ссылке</a> или любой другой удобный
+      вам ресурс. Верный ответ только один, не нужно отмечать все подкатегории.
+    </p>
 
-<ul>
-<li><p>Итератор чтения</p></li>
+    <ul>
+      <li><p>Итератор чтения</p></li>
 
-<li><p>Однонаправленный итератор</p></li>
+      <li><p>Однонаправленный итератор</p></li>
 
-<li><p>Двунаправленный итератор</p></li>
+      <li><p>Двунаправленный итератор</p></li>
 
-<li><p>Итератор произвольного доступа</p></li>
+      <li><p>Итератор произвольного доступа</p></li>
 
-<li><p>Итератор записи</p></li>
+      <li><p>Итератор записи</p></li>
 
-<li><p>Категория не определена</p></li>
-</ul>
+      <li><p>Категория не определена</p></li>
+    </ul>
 
-<hr>
+    <hr />
 
-<p>К какой категории относится стандартный библиотечный итератор контейнера <code>map</code>? Чтобы ответить, используйте документацию C++ по <a href="https://ru.cppreference.com/">ссылке</a> или любой другой удобный вам ресурс. Верный ответ только один, не нужно отмечать все подкатегории..</p>
+    <p>
+      К какой категории относится стандартный библиотечный итератор контейнера
+      <code>map</code>? Чтобы ответить, используйте документацию C++ по
+      <a href="https://ru.cppreference.com/">ссылке</a> или любой другой удобный
+      вам ресурс. Верный ответ только один, не нужно отмечать все подкатегории..
+    </p>
 
-<ul>
-<li><p>Итератор чтения</p></li>
+    <ul>
+      <li><p>Итератор чтения</p></li>
 
-<li><p>Однонаправленный итератор</p></li>
+      <li><p>Однонаправленный итератор</p></li>
 
-<li><p>Двунаправленный итератор</p></li>
+      <li><p>Двунаправленный итератор</p></li>
 
-<li><p>Итератор произвольного доступа</p></li>
+      <li><p>Итератор произвольного доступа</p></li>
 
-<li><p>Итератор записи</p></li>
+      <li><p>Итератор записи</p></li>
 
-<li><p>Категория не определена</p></li>
-</ul>
-
-</body>
+      <li><p>Категория не определена</p></li>
+    </ul>
+  </body>
 </html>
