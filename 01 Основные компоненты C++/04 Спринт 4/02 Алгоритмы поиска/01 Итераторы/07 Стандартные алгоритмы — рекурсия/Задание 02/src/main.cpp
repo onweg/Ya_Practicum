@@ -89,6 +89,7 @@ void MoveHanoi(vector<Tower>& towers, Tower& sender_tower, int count_disk, Tower
         else recip_id = 3;
 
         cout << send_id << " -> "s << recip_id << endl;
+        
         return ;
     }
     MoveHanoi(towers, sender_tower, count_disk - 1, buffer_tower, recipient_tower);
