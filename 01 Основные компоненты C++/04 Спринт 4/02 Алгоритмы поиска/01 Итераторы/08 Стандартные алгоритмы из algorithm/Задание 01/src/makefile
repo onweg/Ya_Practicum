@@ -1,10 +1,11 @@
 CC = g++
 FLAGS = -std=c++14 -Wall -Wextra -Werror
+NAME = main
 
 all: static_analysis
-	$(CC) $(FLAGS) main.cpp
+	$(CC) $(FLAGS) $(NAME).cpp
 
 static_analysis:
-	cppcheck --enable=all --suppress=missingIncludeSystem *.cpp
-	cppcheck -v *.cpp
+	cppcheck --enable=all --suppress=missingIncludeSystem $(NAME).cpp
+	cppcheck -v $(NAME).cpp
 
