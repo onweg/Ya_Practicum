@@ -13,7 +13,14 @@ void PrintRange(iterator it_begin, iterator it_end) {
     cout << endl;
 } 
 
+template <typename Iterator, typename Element>
+void FindAndPrint(Iterator it_begin, Iterator it_end, Element element) {
+    auto it_element = find_if(it_begin, it_end, [element](Element find_elemnt){return find_elemnt == element;});
+    PrintRange(it_begin, it_element);
+    PrintRange(it_element, it_end);
+}
+
 int main() {
     set<int> test = {1, 1, 1, 2, 3, 4, 5, 5};
-    PrintRange(test.begin(), test.end());
+    FindAndPrint(test.begin(), test.end(), 3);
 }

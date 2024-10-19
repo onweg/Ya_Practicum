@@ -18,3 +18,25 @@ string PrintRangeToString(It range_begin, It range_end) {
 	  // получаем доступ к строке с помощью метода str для ostringstream
     return out.str();
 }
+
+template <typename It>
+string GetPermutations(It range_begin, It range_end) {
+    string result;
+    do {
+        result += PrintRangeToString(range_begin, range_end);
+    } while(next_permutation(range_begin, range_end)) ;
+    return result;
+}
+
+int main() {
+    vector<int> permutation(3);
+    // iota             -> http://ru.cppreference.com/w/cpp/algorithm/iota
+    // Заполняет диапазон последовательно возрастающими значениями
+    iota(permutation.begin(), permutation.end(), 1);
+
+    auto result = GetPermutations(permutation.begin(), permutation.end());
+    for (const auto& s : result) {
+        cout << s;
+    }
+    return 0;
+}
