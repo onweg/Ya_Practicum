@@ -41,10 +41,7 @@ public:
     }
     void Print() const {
         // напишите реализацию
-        for (const auto element : elements_) {
-            cout << element << " "s;
-        }
-        cout << endl;
+        PrintRange(elements_.begin(), elements_.end());
     }
     uint64_t Size() const {
         // напишите реализацию
@@ -65,7 +62,8 @@ int main() {
         stack.Push(i);
         stack.Print();
     }
-    const int& top = stack.Peek();
+    int& top = stack.Peek();
+    top++;
     stack.Print();
     while (!stack.IsEmpty()) {
         stack.Pop();
