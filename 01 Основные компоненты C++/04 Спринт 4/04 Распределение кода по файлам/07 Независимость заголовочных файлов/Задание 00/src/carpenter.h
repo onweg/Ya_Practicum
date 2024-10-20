@@ -1,5 +1,6 @@
 #pragma once
 #include "builder.h"
+#include "wall.h"
 
 class Carpenter {
 public:
