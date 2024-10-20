@@ -1,3 +1,5 @@
+#pragma once
+
 class Wall {
 public:
     enum class Color {
