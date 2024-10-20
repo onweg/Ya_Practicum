@@ -2,6 +2,14 @@
 
 using namespace std;
 
+void Hen();
+
+void Egg(int x);
+
+int main() {
+    Egg(1);
+}
+
 void Hen() {
     cout << "Курица вызывает яйцо"s << endl;
     Egg(0);
@@ -14,8 +22,4 @@ void Egg(int x) {
     } else {
         cout << "А вот и цыплёнок!"s << endl;
     }
-}
-
-int main() {
-    Egg(1);
 }
