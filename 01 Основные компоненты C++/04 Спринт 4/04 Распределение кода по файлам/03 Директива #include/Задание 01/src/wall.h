@@ -2,7 +2,7 @@ class Wall {
 public:
     enum class Color { BLUE, GREEN, RED, WHITE, YELLOW };
 
-    Wall::Wall(double width, double height)
+    Wall(double width, double height)
         : width_(width)
         , height_(height)
         , color_(Color::WHITE) {
