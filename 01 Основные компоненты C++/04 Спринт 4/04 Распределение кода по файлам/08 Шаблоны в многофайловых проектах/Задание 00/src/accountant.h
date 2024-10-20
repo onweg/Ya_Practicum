@@ -1,6 +1,5 @@
 #pragma once
 #include "square_calculation.h"
-#include "wall.h"
 
 #include <utility>
 

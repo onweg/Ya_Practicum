@@ -1,6 +1,7 @@
 #include "accountant.h"
 #include "ceiling.h"
 #include "roof.h"
+#include "wall.h"
 
 #include <iostream>
 
