@@ -27,7 +27,6 @@ public:
     }
     const Type& Peek() const {
         // напишите реализацию
-        cout << "const Type&\n";
         if (elements_.empty()) {
             throw out_of_range("Невозможно взять элемент в пустом стеке"s);
         }
@@ -35,7 +34,6 @@ public:
     }
     Type& Peek() {
         // напишите реализацию
-        cout << "Type&\n";
         if (elements_.empty()) {
             throw out_of_range("Невозможно взять элемент в пустом стеке"s);
         }
