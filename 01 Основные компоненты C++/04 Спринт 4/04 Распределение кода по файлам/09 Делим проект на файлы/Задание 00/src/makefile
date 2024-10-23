@@ -1,8 +1,8 @@
 CC = g++
-FLAGS = -std=c++14 -Wall -Wextra -Werror
+FLAGS = -std=c++17 -Wall -Wextra #-Werror
 
 all: static_analysis
-	$(CC) $(FLAGS) main.cpp
+	$(CC) $(FLAGS) *.cpp
 
 static_analysis:
 	cppcheck --enable=all --suppress=missingIncludeSystem *.cpp

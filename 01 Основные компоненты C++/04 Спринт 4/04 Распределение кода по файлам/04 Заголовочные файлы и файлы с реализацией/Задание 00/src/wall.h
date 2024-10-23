@@ -13,7 +13,7 @@ public:
     double GetHeight() const;
     double GetWidth() const;
     void SetColor(Color color);
-		Color GetColor() const;
+	Color GetColor() const;
 
 private:
     double width_;

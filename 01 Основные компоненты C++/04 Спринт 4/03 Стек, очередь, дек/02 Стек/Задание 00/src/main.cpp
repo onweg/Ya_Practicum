@@ -16,26 +16,59 @@ class Stack {
 public:
     void Push(const Type& element) {
         // напишите реализацию
+        elements_.push_back(element);
     }
     void Pop() {
         // напишите реализацию
+        if (elements_.empty()) {
+            throw out_of_range("Невозможно удалить элемент в пустом стеке"s);
+        }
+        elements_.pop_back();
     }
     const Type& Peek() const {
         // напишите реализацию
+        if (elements_.empty()) {
+            throw out_of_range("Невозможно взять элемент в пустом стеке"s);
+        }
+        return elements_[elements_.size() - 1];
     }
     Type& Peek() {
         // напишите реализацию
+        if (elements_.empty()) {
+            throw out_of_range("Невозможно взять элемент в пустом стеке"s);
+        }
+        return elements_[elements_.size() - 1];
     }
     void Print() const {
         // напишите реализацию
+        PrintRange(elements_.begin(), elements_.end());
     }
     uint64_t Size() const {
         // напишите реализацию
+        return elements_.size();
     }
     bool IsEmpty() const {
         // напишите реализацию
+        return elements_.empty();
     }
 
 private:
     vector<Type> elements_;
 };
+
+int main() {
+    Stack<int> stack;
+    for (uint32_t i = 0; i < 10; ++i) {
+        stack.Push(i);
+        stack.Print();
+    }
+    int& top = stack.Peek();
+    top++;
+    stack.Print();
+    while (!stack.IsEmpty()) {
+        stack.Pop();
+        stack.Print();
+    }
+
+    return 0;
+}

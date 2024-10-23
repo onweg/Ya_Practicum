@@ -9,7 +9,7 @@ using namespace std;
 
 int main() {
     Builder tom;
-    Painter bill;
+    //Painter bill;
     Carpenter jack;
     Accountant ray;
     Wall wall(3.5, 2.45);
