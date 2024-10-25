@@ -39,6 +39,10 @@ vector<int> ReverseVector4(const vector<int>& source_vector) {
 
     // реализация вашего собственного реверсирования
 
+    size_t i = 0, size = source_vector.size();
+    for (; i < size; ++i) {
+        res[size - 1 - 0] = source_vector[i];
+    }
     return res;
 }
 
@@ -54,6 +58,30 @@ void Operate() {
     }
 
     // код измерения тут
+
+    if (n <= 100000) {
+        {
+            LOG_DURATION("Naive"s);
+            auto res = ReverseVector(rand_vector);
+        } 
+        {
+            LOG_DURATION("Good"s);
+            auto res = ReverseVector2(rand_vector);
+        }
+    } else {
+        {
+            LOG_DURATION("Good"s);
+            auto res = ReverseVector2(rand_vector);
+        }
+        {
+            LOG_DURATION("Best"s);
+            auto res = ReverseVector3(rand_vector);
+        }
+        {
+            LOG_DURATION("Your"s);
+            auto res = ReverseVector4(rand_vector);
+        }
+    }
 }
 
 int main() {
