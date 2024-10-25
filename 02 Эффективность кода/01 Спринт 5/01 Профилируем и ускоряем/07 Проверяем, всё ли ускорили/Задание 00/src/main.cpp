@@ -2,19 +2,14 @@
 #include <cstdlib>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 #include "log_duration.h"
 
 using namespace std;
 
 vector<int> ReverseVector(const vector<int>& source_vector) {
-    vector<int> res;
-    
-    for (int i : source_vector) {
-        res.insert(res.begin(), i);
-    }
-
-    return res;
+    return {source_vector.rbegin(), source_vector.rend()};
 }
 
 int CountPops(const vector<int>& source_vector, int begin, int end) {
@@ -30,11 +25,16 @@ int CountPops(const vector<int>& source_vector, int begin, int end) {
 }
 
 void FillRandom(vector<int>& v, int n) {
-    for (int i = 0; i < n; ++i) {
+    v.reserve(n);
+    for (int i = 0; i < n; i += 15) {
         // получаем случайное число с помощью функции rand.
         // в C++ имеются более современные генераторы случайных чисел,
         // но в данном уроке не будем их касаться
-        v.push_back(rand() % 2);
+        auto val_rand = rand();
+        int count = min(15, n - i);
+        for (int j = 0; j < count; j++) {
+            v.push_back((val_rand >> j) % 2);
+        }
     }
 }
 
