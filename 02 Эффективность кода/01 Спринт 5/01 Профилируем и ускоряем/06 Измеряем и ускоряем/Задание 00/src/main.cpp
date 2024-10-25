@@ -41,7 +41,7 @@ vector<int> ReverseVector4(const vector<int>& source_vector) {
 
     size_t i = 0, size = source_vector.size();
     for (; i < size; ++i) {
-        res[size - 1 - 0] = source_vector[i];
+        res[size - 1 - i] = source_vector[i];
     }
     return res;
 }
