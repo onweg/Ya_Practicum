@@ -16,27 +16,28 @@ vector<float> ComputeAvgTemp(const vector<vector<float>>& measures) {
 	}
 	return result;
 }
-/*
+
 // много делений
 vector<float> ComputeAvgTemp1(const vector<vector<float>>& measures) {
 	size_t days = measures.size(), measuremets = measures[0].size();
-	vector<double> result(measures.size());
+	vector<float> result(measures.size());
 	for (size_t day = 0; day < days; day++) {
-		for (size ms = 0; ms < measuremets; ms++) {
+		for (size_t ms = 0; ms < measuremets; ms++) {
 			result[ms] += measures[day][ms] > 0 ? measures[day][ms] / days : 0;
 		}
 	}
 	return result;
 }
+
 // плохой проход циклами
 // if
 // много делений
-// незарезервировал память
+// не зарезервировал память
 vector<float> ComputeAvgTemp2(const vector<vector<float>>& measures) {
 	size_t days = measures.size(), measuremets = measures[0].size();
-	vector<double> result;
+	vector<float> result;
 	for (size_t ms = 0; ms < measuremets; ms++) {
-		int mid = 0;
+		float mid = 0;
 		for (size_t day = 0; day < days; day++) {
 			if (measures[day][ms] > 0){
 				mid += 1.0 * measures[day][ms] / days;
@@ -46,4 +47,3 @@ vector<float> ComputeAvgTemp2(const vector<vector<float>>& measures) {
 	}
 	return result;
 }
-*/

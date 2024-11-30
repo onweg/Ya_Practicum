@@ -7,7 +7,7 @@
 using namespace std;
 
 vector<float> GetRandomVector(int size) {
-    static mt19937 engine;
+    mt19937 engine(static_cast<unsigned int>(time(0)));
     uniform_real_distribution<float> d(-100, 100);
 
     vector<float> res(size);
@@ -25,41 +25,36 @@ int main() {
     for (int i = 0; i < 5000; ++i) {
         data.push_back(GetRandomVector(5000));
     }
-    for (int i = 0; i < 20; i++) {
-        cout << data[0][i] << " ";
+
+    {
+        vector<float> avg;
+        {
+            LOG_DURATION("ComputeAvgTemp"s);
+            avg = ComputeAvgTemp(data);
+        }
+
+        cout << "Total mean: "s << accumulate(avg.begin(), avg.end(), 0.f) / avg.size() << endl;
     }
-    cout << endl;
-    auto avg = ComputeAvgTemp(data);
-    cout << "Total mean: "s << accumulate(avg.begin(), avg.end(), 0.f) / avg.size() << endl;
+    
+    {
+        vector<float> avg;
+        {
+            LOG_DURATION("ComputeAvgTemp1"s);
+            avg = ComputeAvgTemp1(data);
+        }
 
-    // {
-    //     vector<float> avg;
-    //     {
-    //         LOG_DURATION("ComputeAvgTemp_1"s);
-    //         avg = ComputeAvgTemp_1(data);
-    //     }
+        cout << "Total mean: "s << accumulate(avg.begin(), avg.end(), 0.f) / avg.size() << endl;
+    }
+    {
+        vector<float> avg;
+        {
+            LOG_DURATION("ComputeAvgTemp2"s);
+            avg = ComputeAvgTemp2(data);
+        }
 
-    //     cout << "Total mean: "s << accumulate(avg.begin(), avg.end(), 0.f) / avg.size() << endl;
-    // }
+        cout << "Total mean: "s << accumulate(avg.begin(), avg.end(), 0.f) / avg.size() << endl;
+    }
     /*
-    {
-        vector<float> avg;
-        {
-            LOG_DURATION("ComputeAvgTemp_2"s);
-            avg = ComputeAvgTemp_2(data);
-        }
-
-        cout << "Total mean: "s << accumulate(avg.begin(), avg.end(), 0.f) / avg.size() << endl;
-    }
-    {
-        vector<float> avg;
-        {
-            LOG_DURATION("ComputeAvgTemp_3"s);
-            avg = ComputeAvgTemp_3(data);
-        }
-
-        cout << "Total mean: "s << accumulate(avg.begin(), avg.end(), 0.f) / avg.size() << endl;
-    }
     {
         vector<float> avg;
         {
