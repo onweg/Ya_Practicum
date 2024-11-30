@@ -16,7 +16,7 @@ vector<float> ComputeAvgTemp(const vector<vector<float>>& measures) {
 	}
 	return result;
 }
-
+crgzs 
 // много делений
 vector<float> ComputeAvgTemp1(const vector<vector<float>>& measures) {
 	size_t days = measures.size(), measuremets = measures[0].size();
