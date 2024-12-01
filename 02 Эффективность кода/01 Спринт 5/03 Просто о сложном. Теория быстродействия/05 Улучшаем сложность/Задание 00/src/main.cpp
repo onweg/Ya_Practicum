@@ -12,11 +12,14 @@ bool TestPermut(const vector<int>& v1, const vector<int>& v2) {
     if (v1.size() != v2.size()) {
         return false;
     }
-
-    for (int i : v1) {
+    auto v1_copy = v1;
+    auto v2_copy = v2;
+    sort(v1_copy.begin(), v1_copy.end());
+    sort(v2_copy.begin(), v2_copy.end());
+    for (size_t i = 0; i < v1_copy.size(); i++) {
         // проверяем, что каждый элемент первого вектора
         // содержится одинаковое количество раз в обоих векторах
-        if (count(v1.begin(), v1.end(), i) != count(v2.begin(), v2.end(), i)) {
+        if (v1_copy[i] != v2_copy[i]){
             return false;
         }
     }
