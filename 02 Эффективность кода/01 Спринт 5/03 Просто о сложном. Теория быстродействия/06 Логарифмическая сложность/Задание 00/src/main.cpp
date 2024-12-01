@@ -6,13 +6,16 @@ template <typename F>
 int FindFloor(int n, F drop) {
     // Переделайте этот алгоритм, имеющий линейную сложность.
     // В итоге должен получится логарифмический алгоритм.
-    for (int i = 1; i < n; ++i) {
-        if (drop(i)) {
-            return i;
+    int left = 1, right = n;
+    while (left != right) {
+        int mid = (right+ left) / 2;
+        if (drop(mid)) {
+            right = mid;
+        } else {
+            left = mid + 1;
         }
     }
-
-    return n;
+    return left;
 }
 
 int main() {
