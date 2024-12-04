@@ -265,6 +265,7 @@ void RemoveDuplicates(SearchServer& search_server) {
         }
     }
     for (auto document_id: erase_index) {
+        cout << "Found duplicate document id " << document_id << endl;
         search_server.RemoveDocument(document_id);
     }
 }
