@@ -74,8 +74,9 @@ auto SearchServer::end() const {
 }
 
 const map<string, double>& SearchServer::GetWordFrequencies(int document_id) const {
-    if (id_to_word_frequencies_.count(document_id)) {
-        return id_to_word_frequencies_.at(document_id);
+    auto it = id_to_word_frequencies_.find(document_id);
+    if (it != id_to_word_frequencies_.end()) {
+        return it -> second;
     }
     static const map<string, double> empty_map;
     return empty_map;
