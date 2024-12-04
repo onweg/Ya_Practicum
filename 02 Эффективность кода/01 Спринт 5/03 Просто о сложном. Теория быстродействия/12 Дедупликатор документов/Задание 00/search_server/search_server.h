@@ -48,7 +48,6 @@ public:
                 throw invalid_argument("Некорректные данные для стоп слов!"s);
             }
         }
-        id_to_word_frequencies_[-1]; // создаем пустую map по id -1 (нужно для фуекции GetWordFrequencies, чтоб возвращать ссылку на пустой map)
     }
 
     explicit SearchServer(const string& stop_words_text)

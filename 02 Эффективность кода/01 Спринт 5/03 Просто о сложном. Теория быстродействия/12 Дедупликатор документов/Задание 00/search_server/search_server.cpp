@@ -77,7 +77,8 @@ const map<string, double>& SearchServer::GetWordFrequencies(int document_id) con
     if (id_to_word_frequencies_.count(document_id)) {
         return id_to_word_frequencies_.at(document_id);
     }
-    return id_to_word_frequencies_.at(-1);
+    static const map<string, double> empty_map;
+    return empty_map;
 }
 
 void SearchServer::RemoveDocument(int document_id) {
