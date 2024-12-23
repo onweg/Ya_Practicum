@@ -70,7 +70,7 @@ ostream& operator<<(ostream& out, const Cat& cat) {
 template <typename Comparator>
 vector<const Cat*> GetSortedCats(const vector<Cat>& cats, const Comparator& comp) {
     vector<const Cat*> sorted_cat_pointers;
-    for (auto cat : cats) {
+    for (const auto& cat : cats) {
         sorted_cat_pointers.push_back(&cat);
     }
 
@@ -87,7 +87,7 @@ vector<const Cat*> GetSortedCats(const vector<Cat>& cats, const Comparator& comp
 void PrintCatPointerValues(const vector<const Cat*>& cat_pointers, ostream& out) {
     // Напишите функцию самостоятельно
     for (auto cat_ptr : cat_pointers) {
-        out << *cat_ptr;
+        out << *cat_ptr << " "s;
     }
 }
 
