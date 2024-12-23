@@ -6,6 +6,9 @@
 template <typename T>
 void Swap(T* value1, T* value2) {
     // Реализуйте тело функции самостоятельно
+    T tmp = *value1;
+    *value1 = *value2;
+    *value2 = tmp;
 }
 
 int main() {
