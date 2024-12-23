@@ -1,9 +1,9 @@
 #include <cassert>
 #include <string>
 
-template </* Напишите недостающий код самостоятельно */>
-bool IsSameObject(/*Напишите недостающий код самостоятельно*/) {
-    /*Напишите тело функции самостоятельно */
+template <typename T1, typename T2>
+bool IsSameObject(const T1& a, const T2& b) {
+    return &a == &b;
 }
 
 int main() {
